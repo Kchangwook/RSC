@@ -13,7 +13,7 @@
 			<div
 				class="sidenav-header d-flex align-items-center justify-content-center">
 				<div class="sidenav-header-inner text-center">
-					<img src="img/logo.png">
+					<img src="${pageContext.request.contextPath}/resources/img/logo.png">
 					<h2 class="h5 text-uppercase">Relation Social Community</h2>
 				</div>
 			</div>

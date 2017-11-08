@@ -38,3 +38,20 @@ div.main-page .card{
 div.footer .time-tag{
 	color: #aeaeae;
 }
+
+header.header nav.navbar input{
+	width:550px;
+}
+
+@media screen and (max-width:800px) {
+	header.header nav.navbar input{
+		width:300px;
+	}
+}
+
+@media screen and (max-width:600px) {
+	header.header nav.navbar input{
+		width:200px;
+	}
+}
+
