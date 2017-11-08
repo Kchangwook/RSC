@@ -26,11 +26,8 @@
 						<input class="w3-input w3-round-large" type="text" placeholder="회원 또는 그룹 검색">
 					</div>
 					
-
-					
 					<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-						<!-- 세션이 있는경우 -->
-						<!-- 알림 아이콘 및 링크 -->
+						<!-- 로그인 성공시 (세션이 있는 경우) -->
 						<c:choose>
 							<c:when test="${sessionScope.id ne null}">
 								<!-- 알림 아이콘 및 링크 -->
@@ -59,19 +56,7 @@
 										
 									</ul>
 								</li>
-						
-								<!-- 회원가입  -->
-								<li id="viewSignUp" class="nav-item">
-									<a href="#" class="nav-link"  data-toggle="modal" data-target="#signUpModal">회원가입</a>
-								</li>
-						
-								<!-- 로그인 -->
-								<li id="viewSignIn" class="nav-item">
-									<a href="#" class="nav-link"  data-toggle="modal" data-target="#signInModal">로그인</a>
-								</li>
-							</c:when>
-						
-							<c:otherwise> <!-- 로그인 완료시(세션 유지) -->
+								
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
 									<a href="#로그인후 메인페이지" class="nav-link">
@@ -84,6 +69,22 @@
 								<li id="viewSignOut" class="nav-item">
 									<a href="#로그아웃 링크" class="nav-link">로그아웃</a>
 								</li>
+						
+
+							</c:when>
+						
+							<c:otherwise> <!-- 비로그인 상태 -->
+							
+								<!-- 회원가입  -->
+								<li id="viewSignUp" class="nav-item">
+									<a href="#" class="nav-link"  data-toggle="modal" data-target="#signUpModal">회원가입</a>
+								</li>
+						
+								<!-- 로그인 -->
+								<li id="viewSignIn" class="nav-item">
+									<a href="#" class="nav-link"  data-toggle="modal" data-target="#signInModal">로그인</a>
+								</li>
+
 							</c:otherwise>
 						</c:choose>
 					</ul>
