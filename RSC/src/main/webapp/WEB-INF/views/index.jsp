@@ -10,24 +10,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
 <!-- Bootstrap CSS-->
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 <!-- Font Awesome CSS-->
-<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
 <!-- Custom icon font-->
-<link rel="stylesheet" href="css/fontastic.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 <!-- Google fonts - Roboto -->
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <!-- jQuery Circle-->
-<link rel="stylesheet" href="css/grasp_mobile_progress_circle-1.0.0.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.css">
 <!-- Custom Scrollbar-->
 <link rel="stylesheet"
-	href="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
 <!-- theme stylesheet-->
-<link rel="stylesheet" href="css/style.default.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css"
 	id="theme-stylesheet">
 <!-- Custom stylesheet - for your changes-->
-<link rel="stylesheet" href="css/custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="favicon.png">
 <!-- Tweaks for older IEs-->
@@ -310,13 +310,13 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
-	<script src="vendor/bootstrap/js/bootstrap.js"></script>
-	<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-	<script src="js/grasp_mobile_progress_circle-1.0.0.js"></script>
-	<script src="vendor/jquery-validation/jquery.validate.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
+	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
 	<script
-		src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.js"></script>
-	<script src="js/front.js"></script>
+		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 
 </body>
 </html>
