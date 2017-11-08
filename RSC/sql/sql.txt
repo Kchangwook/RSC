@@ -1,0 +1,538 @@
+-- DROP TABLE SQL
+
+DROP TABLE member CASCADE CONSTRAINTS;
+DROP TABLE groups CASCADE CONSTRAINTS;
+DROP TABLE board CASCADE CONSTRAINTS;
+DROP TABLE reply CASCADE CONSTRAINTS;
+DROP TABLE chat CASCADE CONSTRAINTS;
+DROP TABLE admin CASCADE CONSTRAINTS;
+DROP TABLE master CASCADE CONSTRAINTS;
+DROP TABLE friend CASCADE CONSTRAINTS;
+DROP TABLE message CASCADE CONSTRAINTS;
+DROP TABLE notice CASCADE CONSTRAINTS;
+DROP TABLE group_member CASCADE CONSTRAINTS;
+DROP TABLE group_singo CASCADE CONSTRAINTS;
+DROP TABLE board_singo CASCADE CONSTRAINTS;
+DROP TABLE reply_singo CASCADE CONSTRAINTS;
+DROP TABLE friend_request CASCADE CONSTRAINTS;
+DROP TABLE one_random_chat CASCADE CONSTRAINTS;
+DROP TABLE group_random_chat CASCADE CONSTRAINTS;
+DROP TABLE group_join CASCADE CONSTRAINTS;
+DROP TABLE group_admin CASCADE CONSTRAINTS;
+
+
+-- DROP SEQUENCE SQL
+
+DROP SEQUENCE groups_SEQ;
+DROP SEQUENCE board_SEQ;
+DROP SEQUENCE reply_SEQ;
+DROP SEQUENCE chat_SEQ;
+DROP SEQUENCE message_SEQ;
+DROP SEQUENCE notice_SEQ;
+DROP SEQUENCE group_singo_SEQ;
+DROP SEQUENCE board_singo_SEQ;
+DROP SEQUENCE reply_singo_SEQ;
+DROP SEQUENCE friend_request_SEQ;
+DROP SEQUENCE one_random_chat_SEQ;
+DROP SEQUENCE group_random_chat_SEQ;
+
+
+--------------------------------------------------------------------------------
+
+-- CREATE TABLE & SEQUENCE
+
+-- member TABLE CREATE SQL
+
+CREATE TABLE member
+(
+    member_id               VARCHAR2(50)     NOT NULL, 
+    member_pw               VARCHAR2(50)     NOT NULL, 
+    member_nick             VARCHAR2(50)     NOT NULL, 
+    member_img              VARCHAR2(200)    NULL, 
+    member_interest         VARCHAR2(255)    NULL, 
+    member_info_open        NUMBER           NOT NULL, 
+    member_login_time       TIMESTAMP        NULL, 
+    member_logout_time      TIMESTAMP        NULL, 
+    member_present_login    NUMBER           NOT NULL, 
+    CONSTRAINT MEMBER_PK PRIMARY KEY (member_id)
+);
+
+
+-- groups TABLE CREATE SQL
+
+CREATE TABLE groups
+(
+    group_num          NUMBER            NOT NULL, 
+    group_name         VARCHAR2(50)      NOT NULL, 
+    group_img          VARCHAR2(200)     NULL, 
+    group_info         VARCHAR2(1000)    NULL, 
+    group_info_open    NUMBER            NOT NULL, 
+    group_interest     VARCHAR2(255)     NULL, 
+    group_singo_cnt    NUMBER            NOT NULL, 
+    CONSTRAINT GROUPS_PK PRIMARY KEY (group_num)
+);
+
+
+CREATE SEQUENCE groups_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+-- board TABLE CREATE SQL
+
+CREATE TABLE board
+(
+    group_num           INT               NOT NULL, 
+    board_num           INT               NOT NULL, 
+    member_id           VARCHAR2(50)      NOT NULL, 
+    board_content       VARCHAR2(4000)    NOT NULL, 
+    board_file          VARCHAR2(200)     NULL, 
+    board_time          TIMESTAMP         NOT NULL, 
+    board_singo_flag    NUMBER            NOT NULL, 
+    board_like          NUMBER            NOT NULL, 
+    board_cnt           INT               NOT NULL, 
+    CONSTRAINT BOARD_PK PRIMARY KEY (board_num)
+);
+
+
+CREATE SEQUENCE board_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE board
+    ADD CONSTRAINT board_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+ALTER TABLE board
+    ADD CONSTRAINT board_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- reply TABLE CREATE SQL
+
+CREATE TABLE reply
+(
+    reply_num           INT               NOT NULL, 
+    board_num           INT               NOT NULL, 
+    member_id           VARCHAR2(50)      NOT NULL, 
+    reply_content       VARCHAR2(1000)    NOT NULL, 
+    reply_time          TIMESTAMP         NOT NULL, 
+    reply_singo_flag    NUMBER            NOT NULL, 
+    CONSTRAINT REPLY_PK PRIMARY KEY (reply_num)
+);
+
+
+CREATE SEQUENCE reply_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE reply
+    ADD CONSTRAINT reply_fk FOREIGN KEY (board_num) REFERENCES board (board_num);
+
+
+ALTER TABLE reply
+    ADD CONSTRAINT reply_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+
+-- chat TABLE CREATE SQL
+CREATE TABLE chat
+(
+    chat_num     INT              NOT NULL, 
+    member_id    VARCHAR2(255)    NOT NULL, 
+    CONSTRAINT CHAT_PK PRIMARY KEY (chat_num, member_id)
+);
+
+
+CREATE SEQUENCE chat_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE chat
+    ADD CONSTRAINT chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- admin TABLE CREATE SQL
+
+CREATE TABLE admin
+(
+    admin_id    VARCHAR2(50)    NOT NULL, 
+    admin_pw    VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT ADMIN_PK PRIMARY KEY (admin_id)
+);
+
+
+-- master TABLE CREATE SQL
+
+CREATE TABLE master
+(
+    master_id    VARCHAR2(50)    NOT NULL, 
+    master_pw    VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT MASTER_PK PRIMARY KEY (master_id)
+);
+
+
+-- group_admin TABLE CREATE SQL
+
+CREATE TABLE group_admin
+(
+    member_id    VARCHAR2(50)    NOT NULL, 
+    group_num    INT             NOT NULL, 
+    CONSTRAINT GROUP_ADMIN_PK PRIMARY KEY (member_id, group_num)
+);
+
+
+ALTER TABLE group_admin
+    ADD CONSTRAINT group_admin_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+ALTER TABLE group_admin
+    ADD CONSTRAINT group_admin_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- friend TABLE CREATE SQL
+
+CREATE TABLE friend
+(
+    member_id    VARCHAR2(50)    NOT NULL, 
+    friend_id    VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT FRIEND_PK PRIMARY KEY (member_id, friend_id)
+);
+
+
+ALTER TABLE friend
+    ADD CONSTRAINT friend_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+ALTER TABLE friend
+    ADD CONSTRAINT friend_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id);
+
+
+-- message TABLE CREATE SQL
+
+CREATE TABLE message
+(
+    chat_num                INT               NOT NULL, 
+    message_num             INT               NOT NULL, 
+    member_id               VARCHAR2(50)      NOT NULL, 
+    message_sending_time    TIMESTAMP         NOT NULL, 
+    message_content         VARCHAR2(1000)    NOT NULL, 
+    message_file            VARCHAR2(200)     NULL, 
+    CONSTRAINT MESSAGE_PK PRIMARY KEY (chat_num, message_num)
+);
+
+
+CREATE SEQUENCE message_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE message
+    ADD CONSTRAINT message_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- notice TABLE CREATE SQL
+
+CREATE TABLE notice
+(
+    notice_num        INT               NOT NULL, 
+    member_id         VARCHAR2(50)      NOT NULL, 
+    notice_content    VARCHAR2(1000)    NOT NULL, 
+    CONSTRAINT NOTICE_PK PRIMARY KEY (notice_num)
+);
+
+
+CREATE SEQUENCE notice_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE notice
+    ADD CONSTRAINT notice_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- group member TABLE CREATE SQL
+
+CREATE TABLE group_member
+(
+    group_num    NUMBER          NOT NULL, 
+    member_id    VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT GROUPS_MEMBER_PK PRIMARY KEY (group_num, member_id)
+);
+
+
+ALTER TABLE group_member
+    ADD CONSTRAINT group_member_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+ALTER TABLE group_member
+    ADD CONSTRAINT group_member_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+-- group_singo TABLE CREATE SQL
+
+CREATE TABLE group_singo
+(
+    group_singo_num       INT               NOT NULL, 
+    group_num             INT               NOT NULL, 
+    group_singo_reason    VARCHAR2(1000)    NOT NULL, 
+    CONSTRAINT GROUP_SINGO_PK PRIMARY KEY (group_singo_num)
+);
+
+
+CREATE SEQUENCE group_singo_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE group_singo
+    ADD CONSTRAINT group_singo_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+-- board_singo TABLE CREATE SQL
+
+CREATE TABLE board_singo
+(
+    board_singo_num       INT               NOT NULL, 
+    board_num             INT               NOT NULL, 
+    board_singo_reason    VARCHAR2(1000)    NOT NULL, 
+    CONSTRAINT BOARD_SINGO_PK PRIMARY KEY (board_singo_num)
+);
+
+
+CREATE SEQUENCE board_singo_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE board_singo
+    ADD CONSTRAINT board_singo_fk FOREIGN KEY (board_num) REFERENCES board (board_num);
+
+
+-- reply_singo TABLE CREATE SQL
+
+CREATE TABLE reply_singo
+(
+    reply_singo_num       INT               NOT NULL, 
+    reply_num             INT               NOT NULL, 
+    reply_singo_reason    VARCHAR2(1000)    NOT NULL, 
+    CONSTRAINT REPLY_SINGO_PK PRIMARY KEY (reply_singo_num)
+);
+
+
+CREATE SEQUENCE reply_singo_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE reply_singo
+    ADD CONSTRAINT reply_singo_fk FOREIGN KEY (reply_num) REFERENCES reply (reply_num);
+
+
+-- friend_request TABLE CREATE SQL
+
+CREATE TABLE friend_request
+(
+    friend_request_num       INT             NOT NULL, 
+    member_id                VARCHAR2(50)    NOT NULL, 
+    friend_id                VARCHAR2(50)    NOT NULL, 
+    friend_request_accept    number          NULL, 
+    CONSTRAINT FRIEND_REQUEST_PK PRIMARY KEY (friend_request_num)
+);
+
+
+CREATE SEQUENCE friend_request_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE friend_request
+    ADD CONSTRAINT friend_request_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+ALTER TABLE friend_request
+    ADD CONSTRAINT friend_request_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id);
+
+
+-- one_random_chat TABLE CREATE SQL
+
+CREATE TABLE one_random_chat
+(
+    one_random_num    INT             NOT NULL, 
+    member_id         VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT ONE_RANDOM_CHAT_PK PRIMARY KEY (one_random_num)
+);
+
+
+CREATE SEQUENCE one_random_chat_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE one_random_chat
+    ADD CONSTRAINT one_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- group_random_chat TABLE CREATE SQL
+
+CREATE TABLE group_random_chat
+(
+    group_random_num    INT             NOT NULL, 
+    member_id           VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT GROUP_RANDOM_CHAT_PK PRIMARY KEY (group_random_num)
+);
+
+
+CREATE SEQUENCE group_random_chat_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+
+ALTER TABLE group_random_chat
+    ADD CONSTRAINT group_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+-- group_join TABLE CREATE SQL
+
+CREATE TABLE group_join
+(
+    group_num    INT             NOT NULL, 
+    member_id    VARCHAR2(50)    NOT NULL, 
+    CONSTRAINT GROUP_JOIN_PK PRIMARY KEY (group_num, member_id)
+);
+
+
+ALTER TABLE group_join
+    ADD CONSTRAINT group_join_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+
+
+ALTER TABLE group_join
+    ADD CONSTRAINT group_join_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+--------------------------------------------------------------------------------
+
+-- INSERT
+
+-- master TABLE INSERT SQL
+
+INSERT INTO master(master_id, master_pw) VALUES('master', '1234');
+
+ 
+-- admin TABLE INSERT SQL
+
+INSERT INTO admin(admin_id, admin_pw) VALUES('admin1', '1234');
+
+
+-- member TABLE INSERT SQL
+
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wjdrb', '1234', '갓규', '음악', '0', 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('ckddnr', '1234', 'PM', '게임', '1', 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('dydwls', '1234', 'yong', '게임', '0', 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wlstjs', '1234', 'jin', '영화', '1', 0);
+
+
+-- notice TABLE INSERT SQL
+
+INSERT INTO notice(notice_num, member_id, notice_content) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '퇴근');
+INSERT INTO notice(notice_num, member_id, notice_content) VALUES(notice_SEQ.NEXTVAL, 'wjdrb', '금주');
+
+
+-- friend TABLE INSERT SQL
+
+INSERT INTO friend(member_id, friend_id) VALUES('ckddnr', 'dydwls');
+INSERT INTO friend(member_id, friend_id) VALUES('ckddnr', 'wlstjs');
+INSERT INTO friend(member_id, friend_id) VALUES('dydwls', 'ckddnr');
+INSERT INTO friend(member_id, friend_id) VALUES('wlstjs', 'ckddnr');
+
+
+-- friend_request TABLE INSERT SQL
+
+INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'ckddnr', 0);
+INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'dydwls', 0);
+
+
+-- groups TABLE INSERT SQL
+
+INSERT INTO groups(group_num, group_name, group_info_open, group_singo_cnt) VALUES(0, '게시글', 0, 0);
+INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'kosta', 0, '독서', 0);
+INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'coffee', 1, '게임', 0);
+
+
+-- group_admin TABLE INSERT SQL
+
+INSERT INTO group_admin(member_id, group_num) VALUES('ckddnr', 1);
+INSERT INTO group_admin(member_id, group_num) VALUES('wjdrb', 2);
+
+
+-- group_join TABLE INSERT SQL
+
+INSERT INTO group_join(group_num, member_id) VALUES(1, 'wjdrb');
+INSERT INTO group_join(group_num, member_id) VALUES(2, 'ckddnr');
+
+
+-- group_member TABLE INSERT SQL
+
+INSERT INTO group_member(group_num, member_id) VALUES(1, 'wlstjs');
+INSERT INTO group_member(group_num, member_id) VALUES(2, 'wlstjs');
+
+
+-- group_singo TABLE INSERT SQL
+
+INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 1, '퇴근');
+UPDATE groups SET group_singo_cnt = group_singo_cnt + 1 WHERE groups.group_num = 1;
+INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 2, '도박');
+UPDATE groups SET group_singo_cnt = group_singo_cnt + 1 WHERE groups.group_num = 2;
+
+
+-- board TABLE INSERT SQL
+
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'ckddnr', '집...', SYSTIMESTAMP, 1, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(1, board_SEQ.NEXTVAL, 'wlstjs', '돈...', SYSTIMESTAMP, 0, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'dydwls', '게임...', SYSTIMESTAMP, 0, 0, 0);
+
+-- board_singo TABLE INSERT SQL
+
+INSERT INTO board_singo(board_singo_num, board_num, board_singo_reason) VALUES(board_singo_SEQ.NEXTVAL, 1, '부적절한 게시글');
+
+
+-- reply TABLE INSERT SQL
+
+INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 1, 'wjdrb', '가세요', SYSTIMESTAMP, 0);
+INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 2, 'wjdrb', '냠냠', SYSTIMESTAMP, 0);
+
+
+-- reply_singo TABLE INSERT SQL
+
+INSERT INTO reply_singo(reply_singo_num, reply_num, reply_singo_reason) VALUES(reply_singo_SEQ.NEXTVAL, 2, '부적절한 댓글');
+
+
+-- chat TABLE INSERT SQL
+
+INSERT INTO chat(chat_num, member_id) VALUES(chat_SEQ.NEXTVAL, 'ckddnr');
+INSERT INTO chat(chat_num, member_id) VALUES(chat_SEQ.CURRVAL, 'wjdrb');
+INSERT INTO chat(chat_num, member_id) VALUES(chat_SEQ.NEXTVAL, 'ckddnr');
+
+
+-- message TABLE INSERT SQL
+
+
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, '커피내기');
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, '안내면진거');
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'ckddnr', SYSTIMESTAMP, '가위바위보');
+
+
+-- one_random_chat TABLE INSERT SQL
+
+INSERT INTO one_random_chat(one_random_num, member_id) VALUES(one_random_chat_SEQ.NEXTVAL, 'wjdrb');
+INSERT INTO one_random_chat(one_random_num, member_id) VALUES(one_random_chat_SEQ.NEXTVAL, 'ckddnr');
+
+
+-- group_random_chat TABLE INSERT SQL
+
+INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'wjdrb');
+INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'ckddnr');
+INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'dydwls');
+INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'wlstjs');

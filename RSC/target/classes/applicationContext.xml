@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<context:annotation-config />
+
+	<!-- DB Connection을 가져오는 빈 -->
+	<bean id = "dataSource" class = "org.apache.commons.dbcp.BasicDataSource">
+		<property name = "driverClassName" value = "oracle.jdbc.driver.OracleDriver"/>
+		<property name = "url" value = "jdbc:oracle:thin:@59.187.224.177:7624:xe"/>
+		<property name = "username" value = "kosta"/>
+		<property name = "password" value = "1234"/>
+	</bean>
+	
+	<!-- sqlSessionFactory 설정하는 빈 -->
+	<bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name = "dataSource" ref = "dataSource"/>
+		<property name = "configLocation" value = "SqlMapConfig.xml"/>
+	</bean>
+	
+	<!-- DAO 빈 -->
+	<bean id = "dao" class = "dao.MemberDAO">
+		<property name = "sqlSessionFactory" ref = "sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 트랜잭션 매니저 빈 -->
+	<bean id = "transactionManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name = "dataSource" ref = "dataSource"/>
+	</bean>
+
+</beans>

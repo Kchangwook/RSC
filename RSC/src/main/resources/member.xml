@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+
+	<resultMap id="memberResult" type="member">
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberPw" column="MEMBER_PW" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberInterest" column="MEMBER_INTEREST" />
+		<result property="memberInfoOpen" column="MEMBER_INFO_OPEN" />
+		<result property="memberLogin" column="MEMBER_LOGIN_TIME" />
+		<result property="memberLogout" column="MEMBER_LOGOUT_TIME" />
+		<result property="memberPresentLogin" column="MEMBER_PRESENT_LOGIN" />
+	</resultMap>
+
+	<!-- member 테이블 내의 모든 데이터를 가져오기 -->
+	<select id="selectAll" resultMap="memberResult">
+	select * from member
+	</select>
+	
+	<!-- 아이디를 통한 member 검색 -->
+	<select id = "selectById" parameterType = "String" resultMap = "memberResult">
+	select * from member where id = #{memberId}
+	</select>
+	
+	<!-- member 데이터 삽입 -->
+	<insert id="add" parameterType = "member">
+	insert into member values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},0,0,#{memberPresentLogin})
+	</insert>
+	
+	<!-- member 테이블 내의 모든 데이터 삭제 -->
+	<delete id="deleteAll">
+	delete from member
+	</delete>
+	
+	<!-- member 테이블 내의 데이터 수 가져오기 -->
+	<select id = "getCount" resultType = "int">
+	select count(*) from member
+	</select>
+	
+	<!-- 닉네임으로 데이터 가져오기 -->
+	<select id = "selectByNick" parameterType = "String" resultMap = "member">
+	select * from member where member_nick = #{memberNick}
+	</select>
+
+</mapper>
