@@ -7,6 +7,17 @@
 	
 	<context:annotation-config />
 
+	<!-- FTPClient Factory-->
+	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+    <property name="host" value="59.187.224.177"/>
+    <property name="port" value="5543"/>
+    <property name="username" value="project"/>
+    <property name="password" value="1234"/>
+    <property name="clientMode" value="0"/>
+    <property name="fileType" value="2"/>
+    <property name="bufferSize" value="100000"/>
+</bean>
+
 	<!-- DB Connection을 가져오는 빈 -->
 	<bean id = "dataSource" class = "org.apache.commons.dbcp.BasicDataSource">
 		<property name = "driverClassName" value = "oracle.jdbc.driver.OracleDriver"/>
@@ -36,19 +47,19 @@
 		<property name="mapperLocations" value = "admin.xml"/>
 	</bean>
 	
-	<!-- MasterDAO 빈 -->
+	<!-- masterDAO -->
 	<bean id = "masterDAO" class = "dao.MasterDAO">
 		<property name = "sqlSessionFactory" ref = "masterFactory"/>
 	</bean>
 	
-	<!-- MemberDAO 빈 -->
-	<bean id = "memberDAO" class = "dao.MemberDAO">
-		<property name = "sqlSessionFactory" ref = "memberFactory"/>
+	<!-- adminDAO -->
+	<bean id = "adminDAO" class = "dao.AdminDAO">
+		<property name = "sqlSessionFactory" ref = "adminFactory"/>
 	</bean>
 	
-	<!-- AdminDAO 빈 -->
- 	<bean id = "adminDAO" class = "dao.AdminDAO">
-		<property name = "sqlSessionFactory" ref = "adminFactory"/>
+	<!-- memberDAO -->
+	<bean id = "memberDAO" class = "dao.MemberDAO">
+		<property name = "sqlSessionFactory" ref = "memberFactory"/>
 	</bean>
 	
 	<!-- 트랜잭션 매니저 빈 -->
