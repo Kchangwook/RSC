@@ -15,17 +15,30 @@
 		<property name = "password" value = "1234"/>
 	</bean>
 	
-	<!-- sqlSessionFactory 설정하는 빈 -->
+	<!-- MemberSessionFactory 설정하는 빈 -->
 	<bean id = "memberFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
 		<property name = "dataSource" ref = "dataSource"/>
 		<property name = "configLocation" value = "SqlMapConfig.xml"/>
 		<property name="mapperLocations" value = "member.xml"/>
 	</bean>
 	
+	<!-- MasterSessionFactory 설정하는 빈 -->
+	<bean id = "masterFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name = "dataSource" ref = "dataSource"/>
+		<property name = "configLocation" value = "SqlMapConfig.xml"/>
+		<property name="mapperLocations" value = "master.xml"/>
+	</bean>
+	
+	<!-- AdminSessionFactory 설정하는 빈 -->
 	<bean id = "adminFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
 		<property name = "dataSource" ref = "dataSource"/>
 		<property name = "configLocation" value = "SqlMapConfig.xml"/>
 		<property name="mapperLocations" value = "admin.xml"/>
+	</bean>
+	
+	<!-- MasterDAO 빈 -->
+	<bean id = "masterDAO" class = "dao.MasterDAO">
+		<property name = "sqlSessionFactory" ref = "masterFactory"/>
 	</bean>
 	
 	<!-- MemberDAO 빈 -->
