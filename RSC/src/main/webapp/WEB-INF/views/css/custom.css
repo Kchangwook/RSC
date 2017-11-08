@@ -1,0 +1,40 @@
+/* your styles go here */
+
+div.content-page{
+	margin: 50px;
+}
+
+div.content-page .row{
+	margin-bottom: 5%
+}
+
+div.main-page .card{
+	margin:10px;
+	max-height:500px;
+}
+
+.main-page .card .header{
+	padding:5%;
+}
+
+.main-page .card .header img{
+	width:50px;
+	height:50px;
+	border-radius: 25px;
+}
+
+.main-page .card hr{
+	margin: 3px;
+}
+
+.main-page .card .content{
+	padding:5%;
+}
+
+.main-page .card .footer{
+	padding:5%;
+}
+
+div.footer .time-tag{
+	color: #aeaeae;
+}
