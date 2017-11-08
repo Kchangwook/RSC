@@ -7,17 +7,19 @@ public class Notice {
 	private int noticeNum; // col : notice_num
 	private String memberId; // col : member_id
 	private String noticeContent; // col : notice_content
+	private int noticeType; // col : notice_type
 	
 	/* 생성자 */
 	public Notice() {
 	}
-	public Notice(int noticeNum, String memberId, String noticeContent) {
+	public Notice(int noticeNum, String memberId, String noticeContent, int noticeType) {
 		super();
 		this.noticeNum = noticeNum;
 		this.memberId = memberId;
 		this.noticeContent = noticeContent;
+		this.noticeType = noticeType;
 	}
-	
+
 	/* Getter, Setter */
 	public int getNoticeNum() {
 		return noticeNum;
@@ -40,6 +42,13 @@ public class Notice {
 		this.noticeContent = noticeContent;
 	}
 	
+	public int getNoticeType() {
+		return noticeType;
+	}
+	public void setNoticeType(int noticeType) {
+		this.noticeType = noticeType;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {
@@ -50,6 +59,8 @@ public class Notice {
 		builder.append(memberId);
 		builder.append(", noticeContent=");
 		builder.append(noticeContent);
+		builder.append(", noticeType=");
+		builder.append(noticeType);
 		builder.append("]");
 		return builder.toString();
 	}
