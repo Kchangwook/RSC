@@ -20,10 +20,10 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <!-- jQuery Circle-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
 <!-- Custom Scrollbar-->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css">
+	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
 <!-- theme stylesheet-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css"
 	id="theme-stylesheet">
@@ -40,9 +40,12 @@
 </head>
 
 <body>
+	<!-- 네비게이션 바 include -->
 	<jsp:include page="nav.jsp"/>
 
 	<div class="page home-page">
+	
+		<!-- 헤더 include -->
 		<jsp:include page="header.jsp"/>
 
 		<!-- 본문 부분 -->
@@ -150,13 +153,12 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-6">
-						<p>Your company &copy; 2017-2019</p>
+						<p>KOSTA 161 RSC &copy; 2017</p>
 					</div>
 					<div class="col-sm-6 text-right">
 						<p>
-							Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a>
+							마지막 문장
 						</p>
-						<!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
 					</div>
 				</div>
 			</div>
