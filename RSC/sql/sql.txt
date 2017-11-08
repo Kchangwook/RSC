@@ -1,4 +1,4 @@
--- DROP TABLE SQL
+Ôªø-- DROP TABLE SQL
 
 DROP TABLE member CASCADE CONSTRAINTS;
 DROP TABLE groups CASCADE CONSTRAINTS;
@@ -11,6 +11,7 @@ DROP TABLE friend CASCADE CONSTRAINTS;
 DROP TABLE message CASCADE CONSTRAINTS;
 DROP TABLE notice CASCADE CONSTRAINTS;
 DROP TABLE group_member CASCADE CONSTRAINTS;
+DROP TABLE group_delete CASCADE CONSTRAINTS;
 DROP TABLE group_singo CASCADE CONSTRAINTS;
 DROP TABLE board_singo CASCADE CONSTRAINTS;
 DROP TABLE reply_singo CASCADE CONSTRAINTS;
@@ -239,7 +240,8 @@ CREATE TABLE notice
 (
     notice_num        INT               NOT NULL, 
     member_id         VARCHAR2(50)      NOT NULL, 
-    notice_content    VARCHAR2(1000)    NOT NULL, 
+    notice_content    VARCHAR2(1000)    NOT NULL,
+    notice_type       NUMBER            NULL,  
     CONSTRAINT NOTICE_PK PRIMARY KEY (notice_num)
 );
 
@@ -269,6 +271,22 @@ ALTER TABLE group_member
 
 ALTER TABLE group_member
     ADD CONSTRAINT group_member_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+
+
+-- group_delete TABLE CREATE SQL
+
+CREATE TABLE group_delete
+(
+    group_num        INT       NOT NULL, 
+    group_del_yes    NUMBER    NULL, 
+    group_del_no     NUMBER    NULL, 
+    group_del_all    NUMBER    NULL, 
+    CONSTRAINT GROUP_DELETE_PK PRIMARY KEY (group_num)
+);
+
+
+ALTER TABLE group_delete
+    ADD CONSTRAINT group_delete_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
 
 
 -- group_singo TABLE CREATE SQL
@@ -428,16 +446,16 @@ INSERT INTO admin(admin_id, admin_pw) VALUES('admin1', '1234');
 
 -- member TABLE INSERT SQL
 
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wjdrb', '1234', '∞´±‘', '¿Ωæ«', '0', 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('ckddnr', '1234', 'PM', '∞‘¿”', '1', 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('dydwls', '1234', 'yong', '∞‘¿”', '0', 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wlstjs', '1234', 'jin', 'øµ»≠', '1', 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wjdrb', '1234', 'Í∞ìÍ∑ú', 'ÏùåÏïÖ', 0, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('ckddnr', '1234', 'PM', 'Í≤åÏûÑ', 1, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('dydwls', '1234', 'yong', 'Í≤åÏûÑ', 0, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wlstjs', '1234', 'jin', 'ÏòÅÌôî', 1, 0);
 
 
 -- notice TABLE INSERT SQL
 
-INSERT INTO notice(notice_num, member_id, notice_content) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '≈±Ÿ');
-INSERT INTO notice(notice_num, member_id, notice_content) VALUES(notice_SEQ.NEXTVAL, 'wjdrb', '±›¡÷');
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', 'Ìá¥Í∑º', 3);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'wjdrb', 'Í∏àÏ£º', 3);
 
 
 -- friend TABLE INSERT SQL
@@ -451,14 +469,16 @@ INSERT INTO friend(member_id, friend_id) VALUES('wlstjs', 'ckddnr');
 -- friend_request TABLE INSERT SQL
 
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'ckddnr', 0);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', 'wjdrbÎãòÏùò ÏπúÍµ¨ÏöîÏ≤≠Ïù¥ ÏûàÏäµÎãàÎã§', 2);
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'dydwls', 0);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'dydwls', 'wjdrbÎãòÏùò ÏπúÍµ¨ÏöîÏ≤≠Ïù¥ ÏûàÏäµÎãàÎã§', 2);
 
 
 -- groups TABLE INSERT SQL
 
-INSERT INTO groups(group_num, group_name, group_info_open, group_singo_cnt) VALUES(0, '∞‘Ω√±€', 0, 0);
-INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'kosta', 0, 'µ∂º≠', 0);
-INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'coffee', 1, '∞‘¿”', 0);
+INSERT INTO groups(group_num, group_name, group_info_open, group_singo_cnt) VALUES(0, 'Í≤åÏãúÍ∏Ä', 0, 0);
+INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'kosta', 0, 'ÎèÖÏÑú', 0);
+INSERT INTO groups(group_num, group_name, group_info_open, group_interest, group_singo_cnt) VALUES(groups_SEQ.NEXTVAL, 'coffee', 1, 'Í≤åÏûÑ', 0);
 
 
 -- group_admin TABLE INSERT SQL
@@ -481,32 +501,32 @@ INSERT INTO group_member(group_num, member_id) VALUES(2, 'wlstjs');
 
 -- group_singo TABLE INSERT SQL
 
-INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 1, '≈±Ÿ');
+INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 1, 'Ìá¥Í∑º');
 UPDATE groups SET group_singo_cnt = group_singo_cnt + 1 WHERE groups.group_num = 1;
-INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 2, 'µµπ⁄');
+INSERT INTO group_singo(group_singo_num, group_num, group_singo_reason) VALUES(group_singo_SEQ.NEXTVAL, 2, 'ÎèÑÎ∞ï');
 UPDATE groups SET group_singo_cnt = group_singo_cnt + 1 WHERE groups.group_num = 2;
 
 
 -- board TABLE INSERT SQL
 
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'ckddnr', '¡˝...', SYSTIMESTAMP, 1, 0, 0);
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(1, board_SEQ.NEXTVAL, 'wlstjs', 'µ∑...', SYSTIMESTAMP, 0, 0, 0);
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'dydwls', '∞‘¿”...', SYSTIMESTAMP, 0, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'ckddnr', 'Ïßë...', SYSTIMESTAMP, 1, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(1, board_SEQ.NEXTVAL, 'wlstjs', 'Îèà...', SYSTIMESTAMP, 0, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'dydwls', 'Í≤åÏûÑ...', SYSTIMESTAMP, 0, 0, 0);
 
 -- board_singo TABLE INSERT SQL
 
-INSERT INTO board_singo(board_singo_num, board_num, board_singo_reason) VALUES(board_singo_SEQ.NEXTVAL, 1, '∫Œ¿˚¿˝«— ∞‘Ω√±€');
+INSERT INTO board_singo(board_singo_num, board_num, board_singo_reason) VALUES(board_singo_SEQ.NEXTVAL, 1, 'Î∂ÄÏ†ÅÏ†àÌïú Í≤åÏãúÍ∏Ä');
 
 
 -- reply TABLE INSERT SQL
 
-INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 1, 'wjdrb', '∞°ººø‰', SYSTIMESTAMP, 0);
-INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 2, 'wjdrb', '≥»≥»', SYSTIMESTAMP, 0);
+INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 1, 'wjdrb', 'Í∞ÄÏÑ∏Ïöî', SYSTIMESTAMP, 0);
+INSERT INTO reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag) VALUES(reply_SEQ.NEXTVAL, 2, 'wjdrb', 'ÎÉ†ÎÉ†', SYSTIMESTAMP, 0);
 
 
 -- reply_singo TABLE INSERT SQL
 
-INSERT INTO reply_singo(reply_singo_num, reply_num, reply_singo_reason) VALUES(reply_singo_SEQ.NEXTVAL, 2, '∫Œ¿˚¿˝«— ¥Ò±€');
+INSERT INTO reply_singo(reply_singo_num, reply_num, reply_singo_reason) VALUES(reply_singo_SEQ.NEXTVAL, 2, 'Î∂ÄÏ†ÅÏ†àÌïú ÎåìÍ∏Ä');
 
 
 -- chat TABLE INSERT SQL
@@ -519,9 +539,9 @@ INSERT INTO chat(chat_num, member_id) VALUES(chat_SEQ.NEXTVAL, 'ckddnr');
 -- message TABLE INSERT SQL
 
 
-INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, 'ƒø««≥ª±‚');
-INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, 'æ»≥ª∏È¡¯∞≈');
-INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'ckddnr', SYSTIMESTAMP, '∞°¿ßπŸ¿ß∫∏');
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, 'Ïª§ÌîºÎÇ¥Í∏∞');
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'wjdrb', SYSTIMESTAMP, 'ÏïàÎÇ¥Î©¥ÏßÑÍ±∞');
+INSERT INTO message(chat_num, message_num, member_id, message_sending_time, message_content) VALUES(1, message_SEQ.NEXTVAL, 'ckddnr', SYSTIMESTAMP, 'Í∞ÄÏúÑÎ∞îÏúÑÎ≥¥');
 
 
 -- one_random_chat TABLE INSERT SQL
