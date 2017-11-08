@@ -24,12 +24,12 @@
 	
 	<!-- 아이디를 통한 member 검색 -->
 	<select id = "selectById" parameterType = "String" resultMap = "memberResult">
-	select * from member where id = #{memberId}
+	select * from member where member_id = #{memberId}
 	</select>
 	
 	<!-- member 데이터 삽입 -->
 	<insert id="add" parameterType = "member">
-	insert into member values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},0,0,#{memberPresentLogin})
+	insert into member(member_id, member_pw, member_nick,member_img, member_interest, member_info_open, member_present_login) values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},#{memberPresentLogin})
 	</insert>
 	
 	<!-- member 테이블 내의 모든 데이터 삭제 -->
@@ -43,7 +43,7 @@
 	</select>
 	
 	<!-- 닉네임으로 데이터 가져오기 -->
-	<select id = "selectByNick" parameterType = "String" resultMap = "member">
+	<select id = "selectByNick" parameterType = "String" resultMap = "memberResult">
 	select * from member where member_nick = #{memberNick}
 	</select>
 

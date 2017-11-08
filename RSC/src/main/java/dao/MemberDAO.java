@@ -27,7 +27,7 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	}//end of addMember
 	
 	/** 아이디를 통해 데이터를 가져오는 함수 */
-	public Member searchMemberById(String id) {
+	public Member searchById(String id) {
 		
 		Member m = null;
 		
@@ -80,7 +80,7 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		Member m = null;
 		
 		session = getSqlSession();
-		m = session.selectOne("member.selectByNick");
+		m = session.selectOne("member.selectByNick",nick);
 		
 		return m;
 		

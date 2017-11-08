@@ -16,14 +16,26 @@
 	</bean>
 	
 	<!-- sqlSessionFactory 설정하는 빈 -->
-	<bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id = "memberFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
 		<property name = "dataSource" ref = "dataSource"/>
 		<property name = "configLocation" value = "SqlMapConfig.xml"/>
+		<property name="mapperLocations" value = "member.xml"/>
 	</bean>
 	
-	<!-- DAO 빈 -->
-	<bean id = "dao" class = "dao.MemberDAO">
-		<property name = "sqlSessionFactory" ref = "sqlSessionFactory"/>
+	<bean id = "adminFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name = "dataSource" ref = "dataSource"/>
+		<property name = "configLocation" value = "SqlMapConfig.xml"/>
+		<property name="mapperLocations" value = "admin.xml"/>
+	</bean>
+	
+	<!-- MemberDAO 빈 -->
+	<bean id = "memberDAO" class = "dao.MemberDAO">
+		<property name = "sqlSessionFactory" ref = "memberFactory"/>
+	</bean>
+	
+	<!-- AdminDAO 빈 -->
+ 	<bean id = "adminDAO" class = "dao.AdminDAO">
+		<property name = "sqlSessionFactory" ref = "adminFactory"/>
 	</bean>
 	
 	<!-- 트랜잭션 매니저 빈 -->

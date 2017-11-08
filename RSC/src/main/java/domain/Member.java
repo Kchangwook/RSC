@@ -17,6 +17,17 @@ public class Member {
 	/* 생성자 */
 	public Member() {
 	}
+	public Member(String memberId, String memberPw, String memberNick, String memberInterest, int memberInfoOpen,
+			int memberPresentLogin) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+		this.memberImg = "";
+		this.memberNick = memberNick;
+		this.memberInterest = memberInterest;
+		this.memberInfoOpen = memberInfoOpen;
+		this.memberPresentLogin = memberPresentLogin;
+	}
 	public Member(String memberId, String memberPw, String memberNick, String memberImg, String memberInterest,
 			int memberInfoOpen, String memberLogin, String memberLogout, int memberPresentLogin) {
 		super();

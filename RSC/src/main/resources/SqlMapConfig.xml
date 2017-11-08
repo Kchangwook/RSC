@@ -6,10 +6,8 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="domain.Member" alias="member"/>
+		<typeAlias type = "domain.Admin" alias = "admin"/>
+		<typeAlias type = "domain.Master" alias = "master"/>
 	</typeAliases>
-
-	<mappers>
-		<mapper resource="member.xml" />
-	</mappers>
 
 </configuration>
