@@ -32,7 +32,7 @@
 	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult">
 		select * from board 
 		where member_id = #{memberId} 
-		order by board_time desc
+		order by BOARD_TIME desc
 	</select>
 	
 	<!-- 게시글 추가 -->

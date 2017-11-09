@@ -26,12 +26,19 @@ public class BoardController {
 	
 	// 글쓰기 및 글 불러오기
 	@RequestMapping("add.do")
-	public String addBoard(Board board, Model data) {
-		System.out.println(board);
-		service.addBoard(board);
+	public String addBoard(Board b, Model data, String memberId) {
+		System.out.println(b);
+		service.addBoard(b);
 		System.out.println("이제 끝이다");
-		
+		data.addAttribute("list", service.selectAllBoard(memberId));
+		System.out.println("얘는 찍히니");
 		return "index2";
 	} // end of addBoard
-
+	
+	// 로그인 후 글 불러오기
+	@RequestMapping("read.do")
+	public String readBoard(Model data, String memberId) {
+		data.addAttribute("list", service.selectAllBoard(memberId));
+		return "index2";
+	}
 } // end of BoardController

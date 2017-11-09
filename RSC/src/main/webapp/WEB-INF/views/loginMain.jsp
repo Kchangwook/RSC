@@ -48,136 +48,97 @@
 	<div class="page home-page">
 	
 		<!-- 헤더 include -->
-		<jsp:include page="header.jsp"/>
+		<jsp:include page="header.jsp"/>f
 
 		<!-- 본문 부분 -->
 		<div class="content-page">
 
 			<!-- 로그인 메인페이지 -->
-			<div class="main-page">
-			<!-- 일간 TOP -->
-				일간 TOP
+			<div class="main-page2">
 				<div class="row">
 					<!-- 글 작성 틀 -->
-					<div class="col-md-4">
+					<div class="col-md-12">
 						<div class="card w3-round-large">
 
 							<!-- 글 머리 : 사진, 닉네임 -->
 							<div class="header">
-								<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;${data.memberId}</span>
+								<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;${sessionScope.id}</span>
 							</div>
 
 							<!-- 글 내용 -->
 							<div class="content">
-								<form name="write" action="${pageContext.request.contextPath}/board/add.do" method="post">
-									<textarea rows="5" cols="120" name="boardContent">
+								<form name="write" action="${pageContext.request.contextPath}/board/add.do" method="post" style="width:100%">
+									<textarea rows="5" style="width:100%" name="boardContent">
 		
 									</textarea><br>
-								<input type="hidden" name="memberId" value="${data.memberId}"> <br>
+								<input type="hidden" name="memberId" value="${sessionScope.id}"> <br>
 						<div align="right">
 						<input type=submit value=글쓰기 ></div>
 					</form>
 					</div>
 							<hr>
 
-							<!-- 글 작성 시간 -->
-							<div class="footer">
-								<div class="time-tag">
-									<i class="fa fa-clock-o"></i> 3분전
-								</div>
-							</div>
 						</div>
 					</div>
 					<!--/글 작성 틀-->
 				</div> 
-				<!--/일간 TOP -->
+
+				<div class="row">
+				<!-- 등록된 글이 없을때 -->
+					<c:if test="${empty list || fn:length(list) == 0 }">
+						<!-- 글 작성 틀 -->
+						<div class="col-md-12">
+							<div class="card w3-round-large">
+
+								<!-- 글 머리 : 사진, 닉네임 -->
+								<div class="header">
+									<span><img
+										src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+									<span>&nbsp;&nbsp;${sessionScope.id}</span>
+								</div>
+
+								<!-- 글 내용 -->
+								<div class="content">글을 등록해 주세요</div>
+								<div align="right"></div>
+								<hr>
+
+							</div>
+						</div>
+					<!--/글 작성 틀-->
+					</c:if>
+					<!-- /등록된 글이 없을때 -->
+				</div>
+				
 			
 					
-				
-				<!-- 일간 TOP -->
-				일간 TOP
+				<!-- 로그인 후 글 불러오기 -->
 				<div class="row">
 					<!-- 글 작성 틀 -->
 					<div class="col-md-4">
 						<div class="card w3-round-large">
-	
+							<c:forEach items="${requestScope.list}" var="data">
 							<!-- 글 머리 : 사진, 닉네임 -->
 							<div class="header">
-								<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
+								<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;${data.memberId}</span>
 							</div>
 
 							<!-- 글 내용 -->
-							<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-								삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
+							<div class="content">${data.boardContent}</div>
 							<hr>
-
+  
 							<!-- 글 작성 시간 -->
 							<div class="footer">
 								<div class="time-tag">
-									<i class="fa fa-clock-o"></i> 3분전
+									<i class="fa fa-clock-o"></i> ${data.boardTime}
 								</div>
-							</div>
+							</div> 
+							</c:forEach> 
 						</div>
 					</div>
 					<!--/글 작성 틀-->
 				</div> 
-				<!--/일간 TOP -->
-
-				<!-- 주간 TOP -->
-				주간 TOP
-				<div class="row">
-						<!-- 글 작성 틀 -->
-						<div class="col-md-4">
-							<div class="card w3-round-large">
-	
-								<!-- 글 머리 : 사진, 닉네임 -->
-								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
-								</div>
-	
-								<!-- 글 내용 -->
-								<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-									삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
-								<hr>
-	
-								<!-- 글 작성 시간 -->
-								<div class="footer">
-									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> 3분전
-									</div>
-								</div>
-							</div>
-						</div>
-						<!--/글 작성 틀-->
-				</div> <!--/주간 TOP -->
-
-				<!-- 월간 TOP -->
-				월간 TOP
-				<div class="row">
-						<!-- 글 작성 틀 -->
-						<div class="col-md-4">
-							<div class="card w3-round-large">
-	
-								<!-- 글 머리 : 사진, 닉네임 -->
-								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
-								</div>
-	
-								<!-- 글 내용 -->
-								<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-									삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
-								<hr>
-	
-								<!-- 글 작성 시간 -->
-								<div class="footer">
-									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> 3분전
-									</div>
-								</div>
-							</div>
-						</div>
-					<!--/글 작성 틀-->
-				</div> <!--/월간 TOP -->
+				<!-- /로그인 후 글 불러오기 -->
+				
 				
 			</div> <!-- /로그인 메인 -->
 			
