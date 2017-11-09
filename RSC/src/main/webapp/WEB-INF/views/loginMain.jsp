@@ -108,38 +108,40 @@
 					</c:if>
 					<!-- /등록된 글이 없을때 -->
 				</div>
-				
-			
-					
+
+
+
 				<!-- 로그인 후 글 불러오기 -->
 				<div class="row">
 					<!-- 글 작성 틀 -->
-					<div class="col-md-4">
-						<div class="card w3-round-large">
-							<c:forEach items="${requestScope.list}" var="data">
-							<!-- 글 머리 : 사진, 닉네임 -->
-							<div class="header">
-								<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;${data.memberId}</span>
-							</div>
-
-							<!-- 글 내용 -->
-							<div class="content">${data.boardContent}</div>
-							<hr>
-  
-							<!-- 글 작성 시간 -->
-							<div class="footer">
-								<div class="time-tag">
-									<i class="fa fa-clock-o"></i> ${data.boardTime}
+					<c:forEach items="${requestScope.list}" var="data">
+						<div class="col-md-12">
+							<div class="card w3-round-large">
+								<!-- 글 머리 : 사진, 닉네임 -->
+								<div class="header">
+									<span><img
+										src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+									<span>&nbsp;&nbsp;${data.memberId}</span>
 								</div>
-							</div> 
-							</c:forEach> 
+
+								<!-- 글 내용 -->
+								<div class="content">${data.boardContent}</div>
+								<hr>
+
+								<!-- 글 작성 시간 -->
+								<div class="footer">
+									<div class="time-tag">
+										<i class="fa fa-clock-o"></i> ${data.boardTime}
+									</div>
+								</div>
+							</div>
 						</div>
-					</div>
+					</c:forEach>
 					<!--/글 작성 틀-->
-				</div> 
+				</div>
 				<!-- /로그인 후 글 불러오기 -->
-				
-				
+
+
 			</div> <!-- /로그인 메인 -->
 			
 		</div>
