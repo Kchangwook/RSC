@@ -3,12 +3,12 @@ package controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/** index.html로 시작하기 위한 컨트롤러 */
+/** 기본 기능을 위한 컨트롤러 */
 @Controller
-@RequestMapping("start")
-public class StartController {
+@RequestMapping("basic")
+public class BasicController {
 
-	@RequestMapping("index.do")
+	@RequestMapping("start.do")
 	public String start() {
 		
 		return "index";

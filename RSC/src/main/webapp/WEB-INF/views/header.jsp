@@ -9,6 +9,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.mod-head{
+	background-color:#F7921E;
+	color:white;
+}
+</style>
 </head>
 <body>
 	<header class="header">
@@ -98,13 +104,12 @@
   	<div class="modal fade" id="signUpModal" role="dialog">
     	<div class="modal-dialog">
     		<div class="modal-content">
-        		<div class="modal-header">
-          			<h4 class="modal-title">회원 가입</h4>
+        		<div class="modal-header mod-head">
+          			<h4><b>회원 가입</b></h4>
         		</div>
 				<div class="modal-body">
 					<form action="">
-					<!-- 회원가입 폼 작성 -->
-					회원가입 폼
+					
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -119,8 +124,8 @@
   	<div class="modal fade" id="signInModal" role="dialog">
     	<div class="modal-dialog">
     		<div class="modal-content">
-        		<div class="modal-header">
-          			<h4 class="modal-title">로그인</h4>
+        		<div class="modal-header mod-head">
+          			<h4><b>로그인</b></h4>
         		</div>
         		<div class="modal-body">
         			<form>

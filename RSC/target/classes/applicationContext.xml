@@ -1,70 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
-	<context:annotation-config />
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- FTPClient Factory-->
-<!-- 	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
-    <property name="host" value="59.187.224.177"/>
-    <property name="port" value="5543"/>
-    <property name="username" value="project"/>
-    <property name="password" value="1234"/>
-    <property name="clientMode" value="0"/>
-    <property name="fileType" value="2"/>
-    <property name="bufferSize" value="100000"/>
-</bean> -->
+	<context:annotation-config />
+	<tx:annotation-driven />
+
+	<!-- ftp Client -->
+	<bean id = "ftpClient" class = "ftp.FTPClientImpl">
+		<property name = "controlEncoding" value = "UTf-8"/>
+		<property name = "url" value = "59.187.224.177"/>
+		<property name = "id" value = "project"/>
+		<property name = "pwd" value = "1234"/>
+		<property name = "port" value = "5543"/>
+		<property name = "fileType" value = "FTP.BINARY_FILE_TYPE"/>
+	</bean>
 
 	<!-- DB Connection을 가져오는 빈 -->
-	<bean id = "dataSource" class = "org.apache.commons.dbcp.BasicDataSource">
-		<property name = "driverClassName" value = "oracle.jdbc.driver.OracleDriver"/>
-		<property name = "url" value = "jdbc:oracle:thin:@59.187.224.177:7624:xe"/>
-		<property name = "username" value = "kosta"/>
-		<property name = "password" value = "1234"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@59.187.224.177:7624:xe" />
+		<property name="username" value="kosta" />
+		<property name="password" value="1234" />
 	</bean>
-	
+
 	<!-- MemberSessionFactory 설정하는 빈 -->
-	<bean id = "memberFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
-		<property name = "dataSource" ref = "dataSource"/>
-		<property name = "configLocation" value = "SqlMapConfig.xml"/>
-		<property name="mapperLocations" value = "member.xml"/>
+	<bean id="memberFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="member.xml" />
 	</bean>
-	
+
 	<!-- MasterSessionFactory 설정하는 빈 -->
-	<bean id = "masterFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
-		<property name = "dataSource" ref = "dataSource"/>
-		<property name = "configLocation" value = "SqlMapConfig.xml"/>
-		<property name="mapperLocations" value = "master.xml"/>
+	<bean id="masterFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="master.xml" />
 	</bean>
-	
+
 	<!-- AdminSessionFactory 설정하는 빈 -->
-	<bean id = "adminFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
-		<property name = "dataSource" ref = "dataSource"/>
-		<property name = "configLocation" value = "SqlMapConfig.xml"/>
-		<property name="mapperLocations" value = "admin.xml"/>
+	<bean id="adminFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="admin.xml" />
 	</bean>
-	
+
 	<!-- masterDAO -->
-	<bean id = "masterDAO" class = "dao.MasterDAO">
-		<property name = "sqlSessionFactory" ref = "masterFactory"/>
+	<bean id="masterDAO" class="dao.MasterDAO">
+		<property name="sqlSessionFactory" ref="masterFactory" />
 	</bean>
-	
+
 	<!-- adminDAO -->
-	<bean id = "adminDAO" class = "dao.AdminDAO">
-		<property name = "sqlSessionFactory" ref = "adminFactory"/>
+	<bean id="adminDAO" class="dao.AdminDAO">
+		<property name="sqlSessionFactory" ref="adminFactory" />
 	</bean>
-	
+
 	<!-- memberDAO -->
-	<bean id = "memberDAO" class = "dao.MemberDAO">
-		<property name = "sqlSessionFactory" ref = "memberFactory"/>
+	<bean id="memberDAO" class="dao.MemberDAO">
+		<property name="sqlSessionFactory" ref="memberFactory" />
 	</bean>
-	
+
 	<!-- 트랜잭션 매니저 빈 -->
-	<bean id = "transactionManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name = "dataSource" ref = "dataSource"/>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 </beans>
