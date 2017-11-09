@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("basic")
 public class BasicController {
 
+	/** 시작 페이지 이동 */
 	@RequestMapping("start.do")
 	public String start() {
 		
