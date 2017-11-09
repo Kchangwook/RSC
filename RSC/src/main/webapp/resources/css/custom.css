@@ -77,7 +77,13 @@ div.modal-body label{
 	margin-top:10px;
 }
 
-div.modal-body table, tr, td{
+div.modal-body table{
+	width:100%;
+}
+div.modal-body table tr{
+	width:100%;
+}
+div.modal-body table tr td{
 	width:100%;
 }
 div#signUpModal .modal-body table td.tdImgInput{
@@ -135,10 +141,56 @@ div.modal-body .container{
     padding: 16px;
 }
 
-div.modal-footer input[type=submit]{
+div.modal-footer .btnOrange{
 	background-color:#F7921E;
 	color:white;
 }
+
+/* 그룹관리 페이지 */
+div.groupAdmin-page .card{
+	margin:2% 0;
+}
+div.groupAdmin-page .card .content{
+	height:10%;
+}
+
+div.groupAdmin-page .card .content table{
+	width:100%;
+}
+div.groupAdmin-page .card .content table tr{
+	width:100%;
+}
+
+div.groupAdmin-page .card .content table td.groupImg{
+	width:15%;
+	padding:2%;
+}
+
+div.groupAdmin-page .card .content table td.groupImg img{
+	max-width:70%;
+	border-radius: 50%;
+	padding:2%;
+}
+
+div.groupAdmin-page .card .content table td.groupName{
+	font-weight: bold;
+	font-size: 15px;
+}
+div.groupAdmin-page .card .content table td.groupInterest{
+	width:30%;
+}
+
+div.groupAdmin-page .card .content table td.groupDelBtn{
+	text-align:right;
+	padding: 0 1%;
+	width:10%;
+}
+
+div.groupAdmin-page .card .content table td.groupDelBtn span{
+	color:red;
+	cursor:pointer;
+}
+
 
 
 

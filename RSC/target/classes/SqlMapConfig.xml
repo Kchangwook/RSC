@@ -10,6 +10,7 @@
 		<typeAlias type = "domain.Master" alias = "master"/>
 		<typeAlias type = "domain.Board" alias = "board"/>
 		<typeAlias type = "domain.Notice" alias = "notice"/>
+		<typeAlias type = "domain.Groups" alias = "groups" />
 	</typeAliases>
 
 </configuration>

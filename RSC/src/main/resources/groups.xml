@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="group">
+
+	<resultMap id="groupResult" type="groups">
+		<result property="groupNum" column="group_num"/>
+		<result property="groupName" column="group_name"/>
+		<result property="groupImg" column="group_img"/>
+		<result property="groupInfo" column="group_info"/>
+		<result property="groupInfoOpen" column="group_info_open"/>
+		<result property="groupInterest" column="group_interest"/>
+		<result property="groupSingoCnt" column="group_singo_cnt"/>
+	</resultMap>
+
+	<!-- groups 테이블 내의 모든 데이터를 가져오기 -->
+	<select id="selectAll" resultMap="groupResult">
+		select * from groups where group_num > 0 
+	</select>
+	
+	<!-- 그룹 번호로 그룹 삭제 -->
+	<delete id="deleteGroupByNum" parameterType="int">
+		delete groups where group_num=#{groupNum}
+	</delete>
+
+	
+</mapper>

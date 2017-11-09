@@ -471,6 +471,8 @@ nav.side-navbar a.brand-small {
   text-transform: uppercase;
   font-weight: 500;
   padding: 0;
+  color:white;
+  text-decoration: none;
 }
 
 nav.side-navbar a.brand-small:hover, nav.side-navbar a.brand-small:focus {
@@ -517,9 +519,11 @@ nav.side-navbar .sidenav-header span {
 
 nav.side-navbar .sidenav-header h2 {
   margin: 10px 0 0;
+  color:white;
+  text-decoration: none;
 }
 
-nav.side-navbar a {
+nav.side-navbar .main-menu a {
   font-size: 0.95em;
   font-weight: 300;
   color: #fff;
@@ -536,7 +540,7 @@ nav.side-navbar a i {
 nav.side-navbar a span {
 }
 
-nav.side-navbar a:focus, nav.side-navbar a:hover, nav.side-navbar a[aria-expanded="true"] {
+nav.side-navbar .main-menu a:focus, nav.side-navbar .main-menu a:hover, nav.side-navbar .main-menu a[aria-expanded="true"] {
   background: rgba(247,146,30,.6);
   color: #fff;
   border-radius: 5px;
@@ -676,8 +680,8 @@ nav.side-navbar.shrink span {
 }
 
 @media (min-width: 768px) {
-  nav.side-navbar a {
-    font-size: 1.1em;
+  nav.side-navbar .main-menu a {
+    font-size: 1.2em;
   }
 }
 

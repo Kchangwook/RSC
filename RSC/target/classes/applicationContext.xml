@@ -60,6 +60,13 @@
 		<property name = "configLocation" value = "SqlMapConfig.xml"/>
 		<property name="mapperLocations" value = "notice.xml"/>
 	</bean>
+	
+	<!-- GroupsSessionFactory 설정하는 빈 -->
+	<bean id="groupsFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="groups.xml" />
+	</bean>
 
 	<!-- masterDAO -->
 	<bean id="masterDAO" class="dao.MasterDAO">
@@ -100,6 +107,16 @@
 	<!-- noticeService -->
 	<bean id= "noticeService" class="service.NoticeService">
 		<property name = "noticeDAO" ref = "noticeDAO"/>
+	</bean>
+	
+	<!-- groupsDAO -->
+	<bean id="groupsDAO" class="dao.GroupsDAO">
+		<property name="sqlSessionFactory" ref="groupsFactory"/>
+	</bean>
+	
+	<!-- groupsService -->
+	<bean id="groupsService" class="service.GroupsService">
+		<property name="groupsDAO" ref="groupsDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->

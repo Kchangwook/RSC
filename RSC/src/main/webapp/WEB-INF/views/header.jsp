@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%session.setAttribute("id", "ckddnr"); %>
 
 <!DOCTYPE html>
 <html>
@@ -13,12 +12,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <style>
+.navbar{
+	border-radius: 0;
+}
+
 .mod-head {
 	background-color: #F7921E;
 	color: white;
 }
-
 
 .filebox label { 
 	display: inline-block; 
@@ -207,7 +210,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="button" class="btn btn-default" onclick="checkInfo()"
+						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()"
 							value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
@@ -220,7 +223,7 @@
     	<div class="modal-dialog">
     		<div class="modal-content">
         		<form action="login.do" method="POST">
-        		<div class="modal-header">
+        		<div class="modal-header mod-head">
           			<h4 class="modal-title">로그인</h4>
         		</div>
 				<div class="modal-body">
@@ -232,7 +235,7 @@
   						</div>
 				</div>
 				<div class="modal-footer">
-          			<input type="submit" class="btn btn-default" value="로그인">
+          			<input type="submit" class="btn btn-default btnOrange" value="로그인">
           			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         		</div>
         		</form>
