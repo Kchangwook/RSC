@@ -10,14 +10,13 @@
 	<tx:annotation-driven />
 
 	<!-- ftp Client -->
-	<!-- <bean id = "ftpClient" class = "ftp.FTPClientImpl">
+	<bean id = "ftpClient" class = "ftp.FTPClientImpl">
 		<property name = "controlEncoding" value = "UTf-8"/>
 		<property name = "url" value = "59.187.224.177"/>
 		<property name = "id" value = "project"/>
 		<property name = "pwd" value = "1234"/>
 		<property name = "port" value = "5543"/>
-		<property name = "fileType" value = "FTP.BINARY_FILE_TYPE"/>
-	</bean> -->
+	</bean>
 
 	<!-- DB Connection을 가져오는 빈 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">

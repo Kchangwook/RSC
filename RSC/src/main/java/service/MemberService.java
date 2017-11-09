@@ -4,6 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dao.AdminDAO;
 import dao.MemberDAO;
+import domain.Admin;
 import domain.Member;
 
 /** member 데이터를 이용한 서비스 */
@@ -65,12 +66,34 @@ public class MemberService{
 		
 		//이미지가 존재하지 않으면 기본 이미지로 설정
 		if(m.getMemberImg() == null) 
-			
+			m.setMemberImg("");
 		
 		flag = memberDAO.addMember(m);
 		
 		return flag;
 		
 	}//end of addMember
+	
+	/** 회원이 존재하는지 확인하는 함수 */
+	public int checkLogin(String id, String pwd) {
+		
+		int flag = 0;
+		
+		Member m = memberDAO.searchById(id);
+		Admin a = adminDAO.searchById(id);
+		
+		// master계정인 경우: 1
+		if(id.equals("master") && pwd.equals("1234"))
+			flag = 1;
+		// admin 계정인 경우: 2
+		else if(a != null && a.getAdminPw().equals(pwd))
+			flag = 2;
+		// member 계정인 경우: 3
+		else if( m != null && m.getMemberPw().equals(pwd))
+			flag = 3;
+			
+		return flag;
+		
+	}//end of checkLogin
 
 }//end of MemberService

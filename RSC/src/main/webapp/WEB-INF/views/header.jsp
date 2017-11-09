@@ -58,6 +58,9 @@
 	<header class="header">
 		<nav class="navbar">
 			<div class="container-fluid">
+				<input type = "hidden" id = "msg" value = "${msg }">
+				<input type = "hidden" id = "sessionId" value = "${id }">
+				<input type = "hidden" id = "sessionLevel" value = "${level }">
 				<div
 					class="navbar-holder d-flex align-items-center justify-content-between">
 					<div class="navbar-header">
@@ -203,7 +206,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="submit" class="btn btn-default" onclick="checkInfo()"
+						<input type="button" class="btn btn-default" onclick="checkInfo()"
 							value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
@@ -213,29 +216,49 @@
 	</div>
 	<!-- 로그인 모달 -->
 	<div class="modal fade" id="signInModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header mod-head">
-					<h4>
-						<b>로그인</b>
-					</h4>
-				</div>
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+        		<form action="login.do" method="POST">
+        		<div class="modal-header">
+          			<h4 class="modal-title">로그인</h4>
+        		</div>
 				<div class="modal-body">
-					<form>
-						<!-- 로그인 폼 작성 -->
-						로그인 폼
-					</form>
+  						<div class="container">
+  							<table>
+  								<tr><td><input type="text" id = "loginId" name="memberId" placeholder = "아이디"></td></tr>
+  								<tr><td><input type="password" id = "loginPwd" name="memberPw" placeholder = "비밀번호"></td></tr>
+  							</table>
+  						</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">로그인</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				</div>
-			</div>
-		</div>
-	</div>
+          			<input type="submit" class="btn btn-default" value="로그인">
+          			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        		</div>
+        		</form>
+      		</div>
+    	</div>
+  	</div>
 
 
 	<script>
+	
+		function getMessage(){
+			
+			var msg = document.getElementById("msg").value;
+			var sessionId = document.getElementById("sessionId").value;
+			var sessionLevel = document.getElementById("sessionLevel").value;
+			
+			if(msg != "")
+				alert(msg);
+			if(sessionId != "")
+				alert(sessionId);
+			if(sessionLevel != "")
+				alert(sessionLevel);
+			
+		}
+		
+		window.onload = getMessage();
+	
 		//필수 정보가 모두 입력되었는지 확인
 		function checkInfo(){
 			
@@ -245,13 +268,13 @@
 			
 			if(id == ""){
 				alert("아이디를 입력하세요");
-				return false;
+				exit;
 			}else if(pwd == ""){
 				alert("비밀번호를 입력하세요");
-				return false;
+				exit;
 			}else if(nick == ""){
 				alert("닉네임을 입력하세요");
-				return false;
+				exit;
 			}else{
 				document.getElementById("frm").submit();
 			}
