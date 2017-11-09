@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+
+	<resultMap id="noticeResult" type="notice">
+		<result property="noticeNum" column="NOTICE_NUM" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="noticeContent" column="NOTICE_CONTENT" />
+		<result property="noticeType" column="NOTICE_TYPE" />
+	</resultMap>
+	
+	<!-- notice 데이터 삽입 -->
+	<insert id="add" parameterType="notice">
+		insert into notice(notice_num, member_id, notice_content, notice_type) values (#{noticeNum}, #{memberId}, #{noticeContent}, #{noticeType})
+	</insert>
+	
+	<!-- 아이디를 통한 notice 검색 -->
+	<select id="selectById" parameterType="String" resultMap="noticeResult">
+		select * from notice where member_id = #{memberId}
+	</select>
+	
+	<!-- noticeNum을 통한 notice 테이블 내의 데이터 삭제 -->
+	<delete id="deleteByNoticeNum" parameterType="String">
+		delete from notice where notice_num = #{noticeNum}
+	</delete>
+
+</mapper>

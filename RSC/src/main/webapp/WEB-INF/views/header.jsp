@@ -316,31 +316,66 @@
 
 		//알림 모달
 		function viewAlertList() {
-			var alertHtml = '';
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					resData = JSON.parse(resData);
+		var alertHtml = '';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
+				console.log(resData);
 
+				if (resData == null) {
+					alertHtml += '<li>' +
+					'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+					'<div class="msg-body">' +
+					'<span>알림이 없습니다</span>' +
+					'</div>' +
+					'</a>' +
+					'</li>';
+				} else {
 					for (i = 0; i < resData.length; i++) {
-						alertHtml += '<li>'
-								+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
-								+ '<div class="msg-profile">'
-								+ '<img src="resData[i].imgUrl" alt="..." class="img-fluid rounded-circle">'
-								+ '</div>' + '<div class="msg-body">'
-								+ '<h3 class="h5">${resData[i].nick}</h3>'
-								+ '<span>${resData[i].content}</span>'
-								+ '<small>${resData[i].time}</small>'
-								+ '</div>' + '</a>' + '</li>';
+						if (resData[i].noticeType == 1) {
+							alertHtml += '<li>' +
+							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						} else if (resData[i].noticeType == 2) {
+							alertHtml += '<li>' +
+							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						} else {
+						alertHtml += '<li>' +
+							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+							'<div class="msg-body" onClick="deleteNotice('+resData[i].noticeNum+')">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						
+						}
 					}
-					document.getElementById("viewAlert").innerHTML = alertHtml;
 				}
-			};
+				document.getElementById("viewAlert").innerHTML = alertHtml;
+			}
+		};
 
-			xhttp.open("POST", "알림 가져올 경로", true);
-			xhttp.send();
-		}
+		xhttp.open("POST", "../notice/searchById.do?memberId="+'${sessionScope.id}', true);
+		xhttp.send();
+	}
+		
+	function deleteNotice(noticeNum) {
+		var xhttp = new XMLHttpRequest();
+		
+		xhttp.open("POST", "../notice/deleteByNoticeNum.do?noticeNum="+noticeNum, true);
+		xhttp.send();
+	}
 	</script>
 
 </body>

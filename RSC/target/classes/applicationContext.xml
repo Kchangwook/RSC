@@ -53,6 +53,13 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="board.xml" />
 	</bean>
+	
+	<!-- NoticeSessionFactory 설정하는 빈 -->
+	<bean id = "noticeFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name = "dataSource" ref = "dataSource"/>
+		<property name = "configLocation" value = "SqlMapConfig.xml"/>
+		<property name="mapperLocations" value = "notice.xml"/>
+	</bean>
 
 	<!-- masterDAO -->
 	<bean id="masterDAO" class="dao.MasterDAO">
@@ -74,6 +81,11 @@
 		<property name = "sqlSessionFactory" ref="boardFactory"/>
 	</bean>
 	
+	<!-- noticeDAO -->
+	<bean id = "noticeDAO" class = "dao.NoticeDAO">
+		<property name = "sqlSessionFactory" ref = "noticeFactory"/>
+	</bean>
+	
 	<!-- memberService -->
 	<bean id = "memberService" class = "service.MemberService">
 		<property name = "memberDAO" ref = "memberDAO"/>
@@ -83,6 +95,11 @@
 	<!-- boardService -->
 	<bean id = "boardService" class = "service.BoardService">
 		<property name="boardDAO"  ref="boardDAO"/>
+	</bean>
+	
+	<!-- noticeService -->
+	<bean id= "noticeService" class="service.NoticeService">
+		<property name = "noticeDAO" ref = "noticeDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->
