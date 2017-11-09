@@ -51,8 +51,9 @@ public class NoticeController {
 	
 	/** noticeNum을 통한 notice 테이블 내의 데이터 삭제 기능 */
 	@RequestMapping(value="deleteByNoticeNum.do",produces = "application/json; charset=utf8")
-	public void deleteByNoticeNum(@RequestParam("NoticeNum") int NoticeNum) {
+	public void deleteByNoticeNum(@RequestParam("noticeNum") int noticeNum) {
 		
+		noticeService.deleteByNoticeNum(noticeNum);
 	}//end of deleteByNoticeNum
 	
 }//end of NoticeController

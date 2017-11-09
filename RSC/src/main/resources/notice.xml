@@ -23,7 +23,7 @@
 	</select>
 	
 	<!-- noticeNum을 통한 notice 테이블 내의 데이터 삭제 -->
-	<delete id="deleteByNoticeNum" parameterType="String">
+	<delete id="deleteByNoticeNum" parameterType="int">
 		delete from notice where notice_num = #{noticeNum}
 	</delete>
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%session.setAttribute("id", "ckddnr"); %>
 
 <!DOCTYPE html>
 <html>
@@ -84,7 +85,7 @@
 								<li class="nav-item dropdown"><a id="notifications"
 									rel="nofollow" href="#" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false" class="nav-link">
-										<i class="fa fa-bell" onclick="viewAlertList()"></i>
+										<i class="fa fa-bell fa-2x" onclick="viewAlertList()"></i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
@@ -314,6 +315,7 @@
 			xhttp.send();
 		}
 
+		
 		//알림 모달
 		function viewAlertList() {
 		var alertHtml = '';
@@ -322,7 +324,6 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var resData = this.responseText;
 				resData = JSON.parse(resData);
-				console.log(resData);
 
 				if (resData == null) {
 					alertHtml += '<li>' +
@@ -352,8 +353,8 @@
 							'</li>';
 						} else {
 						alertHtml += '<li>' +
-							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
-							'<div class="msg-body" onClick="deleteNotice('+resData[i].noticeNum+')">' +
+							'<a onClick="deleteNotice('+resData[i].noticeNum+')" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
 							'<span>'+resData[i].noticeContent+'</span>' +
 							'</div>' +
 							'</a>' +
@@ -371,10 +372,16 @@
 	}
 		
 	function deleteNotice(noticeNum) {
+		 
 		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				
+			}
+		}
 		
 		xhttp.open("POST", "../notice/deleteByNoticeNum.do?noticeNum="+noticeNum, true);
-		xhttp.send();
+		xhttp.send(); 
 	}
 	</script>
 

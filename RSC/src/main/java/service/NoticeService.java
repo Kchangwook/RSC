@@ -42,10 +42,10 @@ public class NoticeService {
 	
 	
 	/** noticeNum을 통한 notice 테이블 내의 데이터 삭제 */
-	public boolean deleteByNoticeNum(String noticeNum) {
+	public boolean deleteByNoticeNum(int noticeNum) {
 		
 		boolean flag = true;
-		
+		System.out.println(noticeNum);
 		flag = noticeDAO.deleteByNoticeNum(noticeNum);
 		
 		return flag;

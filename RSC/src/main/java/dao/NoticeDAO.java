@@ -39,11 +39,12 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 	}//end of searchNoticeById
 	
 	/** noticeNum을 통한 notice 테이블 내의 데이터 삭제 */
-	public boolean deleteByNoticeNum(String noticeNum) {
+	public boolean deleteByNoticeNum(int noticeNum) {
+		
 		boolean flag = true;
 		
 		session = getSqlSession();
-		flag = session.delete("notice.deleteByNoticeNum")>0?true:false;
+		flag = session.delete("notice.deleteByNoticeNum", noticeNum)>0?true:false;
 		
 		return flag;
 		
