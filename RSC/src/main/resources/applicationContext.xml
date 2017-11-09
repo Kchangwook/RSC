@@ -8,7 +8,7 @@
 	<context:annotation-config />
 
 	<!-- FTPClient Factory-->
-	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+<!-- 	<bean id="ftpClientFactory" class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
     <property name="host" value="59.187.224.177"/>
     <property name="port" value="5543"/>
     <property name="username" value="project"/>
@@ -16,7 +16,7 @@
     <property name="clientMode" value="0"/>
     <property name="fileType" value="2"/>
     <property name="bufferSize" value="100000"/>
-</bean>
+</bean> -->
 
 	<!-- DB Connection을 가져오는 빈 -->
 	<bean id = "dataSource" class = "org.apache.commons.dbcp.BasicDataSource">
