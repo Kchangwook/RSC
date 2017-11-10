@@ -154,7 +154,7 @@
 				<div class="modal-header mod-head">
 					<h4>회원 가입</h4>
 				</div>
-				<form action="join.do" id = "frm" method="POST">
+				<form action="join.do" name = "frm" id = "frm" method="POST">
 					<div class="modal-body">
 						<div class="container">
 							<table>
@@ -171,17 +171,14 @@
 								</tr>
 								<tr>
 									<td>
-										<div class = "profile">
-											<span style = "z-index: 4;margin-top: 70px;"><b>프로필 사진</b></span>
-											<img src = "" id = "img" style = "z-index:2">
-										</div>
+										<input type="text" width = "50px" name="imgSrc" id="imgSrc" placeholder="이미지" disabled="disabled">
 									</td>
-								</tr>
+									</tr>
 								<tr>
 									<td class="tdImgButton">
 									<div class="filebox">
-										<label for="ex_file">선택</label>
-										<input type="file" name = "memberImg" id="memberImg" accept=".jpg .gif .png">
+										<label for="memberImg">선택</label>
+										<input type="file" name = "memberImg" id="memberImg" accept=".jpg" onchange="changeSrc()">
 									</div>
 									</td>
 								</tr>
