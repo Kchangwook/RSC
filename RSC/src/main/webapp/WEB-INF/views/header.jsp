@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% session.setAttribute("id", "dydwls"); %>
-<% session.setAttribute("level", "member"); %>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -14,12 +15,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 <style>
+.navbar{
+	border-radius: 0;
+}
+
 .mod-head {
 	background-color: #F7921E;
 	color: white;
 }
-
 
 .filebox label { 
 	display: inline-block; 
@@ -60,6 +65,9 @@
 	<header class="header">
 		<nav class="navbar">
 			<div class="container-fluid">
+				<input type = "hidden" id = "msg" value = "${msg }">
+				<input type = "hidden" id = "sessionId" value = "${id }">
+				<input type = "hidden" id = "sessionLevel" value = "${level }">
 				<div
 					class="navbar-holder d-flex align-items-center justify-content-between">
 					<div class="navbar-header">
@@ -83,7 +91,7 @@
 								<li class="nav-item dropdown"><a id="notifications"
 									rel="nofollow" href="#" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false" class="nav-link">
-										<i class="fa fa-bell" onclick="viewAlertList()"></i>
+										<i class="fa fa-bell fa-2x" onclick="viewAlertList()"></i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
@@ -107,7 +115,7 @@
 
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item"><a href="#로그인후 메인페이지"
-									class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg"> 이름
+									class="nav-link"> <img src="img/profile.jpg"> 이름
 								</a></li>
 
 								<!-- 로그아웃 -->
@@ -205,7 +213,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="submit" class="btn btn-default" onclick="checkInfo()"
+						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()"
 							value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
@@ -215,29 +223,49 @@
 	</div>
 	<!-- 로그인 모달 -->
 	<div class="modal fade" id="signInModal" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header mod-head">
-					<h4>
-						<b>로그인</b>
-					</h4>
-				</div>
+    	<div class="modal-dialog">
+    		<div class="modal-content">
+        		<form action="login.do" method="POST">
+        		<div class="modal-header mod-head">
+          			<h4 class="modal-title">로그인</h4>
+        		</div>
 				<div class="modal-body">
-					<form>
-						<!-- 로그인 폼 작성 -->
-						로그인 폼
-					</form>
+  						<div class="container">
+  							<table>
+  								<tr><td><input type="text" id = "loginId" name="memberId" placeholder = "아이디"></td></tr>
+  								<tr><td><input type="password" id = "loginPwd" name="memberPw" placeholder = "비밀번호"></td></tr>
+  							</table>
+  						</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">로그인</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				</div>
-			</div>
-		</div>
-	</div>
+          			<input type="submit" class="btn btn-default btnOrange" value="로그인">
+          			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        		</div>
+        		</form>
+      		</div>
+    	</div>
+  	</div>
 
 
 	<script>
+	
+		function getMessage(){
+			
+			var msg = document.getElementById("msg").value;
+			var sessionId = document.getElementById("sessionId").value;
+			var sessionLevel = document.getElementById("sessionLevel").value;
+			
+/* 			if(msg != "")
+				alert(msg);
+			if(sessionId != "")
+				alert(sessionId);
+			if(sessionLevel != "")
+				alert(sessionLevel); */
+			
+		}
+		
+		window.onload = getMessage();
+	
 		//필수 정보가 모두 입력되었는지 확인
 		function checkInfo(){
 			
@@ -247,13 +275,13 @@
 			
 			if(id == ""){
 				alert("아이디를 입력하세요");
-				return false;
+				exit;
 			}else if(pwd == ""){
 				alert("비밀번호를 입력하세요");
-				return false;
+				exit;
 			}else if(nick == ""){
 				alert("닉네임을 입력하세요");
-				return false;
+				exit;
 			}else{
 				document.getElementById("frm").submit();
 			}
@@ -293,33 +321,74 @@
 			xhttp.send();
 		}
 
+		
 		//알림 모달
 		function viewAlertList() {
-			var alertHtml = '';
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					resData = JSON.parse(resData);
+		var alertHtml = '';
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
 
+				if (resData == null) {
+					alertHtml += '<li>' +
+					'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+					'<div class="msg-body">' +
+					'<span>알림이 없습니다</span>' +
+					'</div>' +
+					'</a>' +
+					'</li>';
+				} else {
 					for (i = 0; i < resData.length; i++) {
-						alertHtml += '<li>'
-								+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
-								+ '<div class="msg-profile">'
-								+ '<img src="resData[i].imgUrl" alt="..." class="img-fluid rounded-circle">'
-								+ '</div>' + '<div class="msg-body">'
-								+ '<h3 class="h5">${resData[i].nick}</h3>'
-								+ '<span>${resData[i].content}</span>'
-								+ '<small>${resData[i].time}</small>'
-								+ '</div>' + '</a>' + '</li>';
+						if (resData[i].noticeType == 1) {
+							alertHtml += '<li>' +
+							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						} else if (resData[i].noticeType == 2) {
+							alertHtml += '<li>' +
+							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						} else {
+						alertHtml += '<li>' +
+							'<a onClick="deleteNotice('+resData[i].noticeNum+')" class="dropdown-item d-flex">' +
+							'<div class="msg-body">' +
+							'<span>'+resData[i].noticeContent+'</span>' +
+							'</div>' +
+							'</a>' +
+							'</li>';
+						
+						}
 					}
-					document.getElementById("viewAlert").innerHTML = alertHtml;
 				}
-			};
+				document.getElementById("viewAlert").innerHTML = alertHtml;
+			}
+		};
 
-			xhttp.open("POST", "알림 가져올 경로", true);
-			xhttp.send();
+		xhttp.open("POST", "../notice/searchById.do?memberId="+'${sessionScope.id}', true);
+		xhttp.send();
+	}
+		
+	function deleteNotice(noticeNum) {
+		 
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				
+			}
 		}
+		
+		xhttp.open("POST", "../notice/deleteByNoticeNum.do?noticeNum="+noticeNum, true);
+		xhttp.send(); 
+	}
 	</script>
 
 </body>
