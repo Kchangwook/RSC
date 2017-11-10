@@ -12,7 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
+
 <style>
 .navbar{
 	border-radius: 0;
@@ -63,10 +63,7 @@
 		<nav class="navbar">
 			<div class="container-fluid">
 				<input type = "hidden" id = "msg" value = "${msg }">
-				<input type = "hidden" id = "sessionId" value = "${id }">
-				<input type = "hidden" id = "sessionLevel" value = "${level }">
-				<div
-					class="navbar-holder d-flex align-items-center justify-content-between">
+				<div class="navbar-holder d-flex align-items-center justify-content-between">
 					<div class="navbar-header">
 						<!-- header 목록 버튼 -->
 						<a id="toggle-btn" href="#" class="menu-btn"> <i
@@ -118,7 +115,7 @@
 
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item"><a href="#로그인후 메인페이지"
-									class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">&nbsp;${sessionScope.id}
+									class="nav-link"> <img src="img/profile.jpg"> 이름
 								</a></li>
 
 								<!-- 로그아웃 -->
@@ -133,7 +130,7 @@
 
 								<!-- 회원가입  -->
 								<li id="viewSignUp" class="nav-item"><a href="#"
-									class="nav-link" data-toggle="modal" data-target="#signUpModal">회원가입</a>
+									class="nav-link" data-toggle="modal" onclick = "clearContent()" data-target="#signUpModal">회원가입</a>
 								</li>
 
 								<!-- 로그인 -->
@@ -184,7 +181,7 @@
 									<td class="tdImgButton">
 									<div class="filebox">
 										<label for="ex_file">선택</label>
-										<input type="file" name = "memberImg" id="ex_file" accept=".jpg .gif .png">
+										<input type="file" name = "memberImg" id="memberImg" accept=".jpg .gif .png">
 									</div>
 									</td>
 								</tr>
@@ -215,7 +212,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="msg" style="width: 100%; color: red; text-align: left;"></span>
+						<span id="join_msg" style="width: 100%; color: red; text-align: left;"></span>
 						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()"
 							value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -248,9 +245,6 @@
       		</div>
     	</div>
   	</div>
-
-	<!-- header의 script부분 -->
-  	<jsp:include page="script.jsp"/>
-
+<script type="text/javascript" src = "${pageContext.request.contextPath }/resources/js/header.js"></script>
 </body>
 </html>

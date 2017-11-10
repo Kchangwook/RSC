@@ -2,6 +2,7 @@ package ftp;
 
 import java.io.IOException;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 /** FTP Client를 구현하는 클래스 */
@@ -41,11 +42,16 @@ public class FTPClientImpl extends FTPClient {
 	
 	/* 함수 */
 	/** FTP Connection을 생성하는 함수 */
-	public void connect() {
+	public void connect(String remoteFile) {
 		try {
+			
+			super.setControlEncoding("UTF-8");
 			super.connect(url,port);
 			super.login(id, pwd);
 			super.enterLocalPassiveMode();
+			super.changeWorkingDirectory(remoteFile);
+			super.setFileType(FTP.BINARY_FILE_TYPE);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

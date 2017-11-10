@@ -1,11 +1,14 @@
 package service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import dao.AdminDAO;
 import dao.MemberDAO;
 import domain.Admin;
 import domain.Member;
+import ftp.FTPService;
 
 /** member 데이터를 이용한 서비스 */
 @Transactional
@@ -14,6 +17,7 @@ public class MemberService{
 	/* 변수 */
 	private MemberDAO memberDAO;
 	private AdminDAO adminDAO;
+	private FTPService ftp;
 	
 	/* 프로퍼티 */
 	public void setMemberDAO(MemberDAO memberDAO) {
@@ -22,12 +26,13 @@ public class MemberService{
 	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
 	}
+	public void setFTPService(FTPService ftpService) {
+		this.ftp = ftpService;
+	}
 	
 	/* 함수 */
 	/** 회원 아이디가 존재하는지 검색하는 서비스 */
 	public boolean isNotHavingId(String id) {
-		
-		System.out.println("검색");
 		
 		boolean flag = true;
 		
@@ -60,15 +65,21 @@ public class MemberService{
 	}//end of checkSameNick
 	
 	/** 회원 정보를 추가하는 함수 */
-	public boolean addMember(Member m) {
+	public boolean addMember(Member m,HttpServletRequest request) {
 		
 		boolean flag = true;
 		
+		if(m.getMemberInterest() == null)
+			m.setMemberInterest("");
+		
 		//이미지가 존재하지 않으면 기본 이미지로 설정
-		if(m.getMemberImg() == null) 
-			m.setMemberImg("");
+		if(m.getMemberImg() == "") 
+			m.setMemberImg("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/resources/img/profile.jpg");
+		
+		ftp.upload(m.getMemberImg(), "", m.getMemberId()+"_profile.jpg");
 		
 		flag = memberDAO.addMember(m);
+		
 		
 		return flag;
 		

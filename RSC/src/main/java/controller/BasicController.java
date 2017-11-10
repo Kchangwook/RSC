@@ -1,5 +1,6 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
@@ -35,9 +36,9 @@ public class BasicController {
 	
 	/** 회원 가입 */
 	@RequestMapping("join.do")
-	public String join(Model model,@ModelAttribute("member") Member m) {
+	public String join(Model model,@ModelAttribute("member") Member m,HttpServletRequest request) {
 		
-		if(memberService.addMember(m))
+		if(memberService.addMember(m,request))
 			model.addAttribute("msg", "가입에 성공했습니다.");
 		else
 			model.addAttribute("msg","가입에 실패했습니다.");

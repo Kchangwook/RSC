@@ -9,6 +9,11 @@
 	<context:annotation-config />
 	<tx:annotation-driven />
 
+	<!-- ftpService -->
+	<bean id = "ftpService" class = "ftp.FTPService">
+		<property name = "FTPClientImpl" ref = "ftpClient"/>
+	</bean>
+
 	<!-- ftp Client -->
 	<bean id = "ftpClient" class = "ftp.FTPClientImpl">
 		<property name = "controlEncoding" value = "UTf-8"/>
@@ -104,6 +109,7 @@
 	<bean id = "memberService" class = "service.MemberService">
 		<property name = "memberDAO" ref = "memberDAO"/>
 		<property name = "adminDAO" ref = "adminDAO"/>
+		<property name = "FTPService" ref = "ftpService"/>
 	</bean>
 	
 	<!-- boardService -->
