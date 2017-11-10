@@ -457,6 +457,7 @@ INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_in
 
 INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '퇴근', 3);
 INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'wjdrb', '금주', 3);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '1 그룹의 삭제 여부를 위한 투표가 있습니다',1, '1');
 
 
 -- friend TABLE INSERT SQL

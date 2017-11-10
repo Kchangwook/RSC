@@ -16,7 +16,7 @@
 				class="sidenav-header d-flex align-items-center justify-content-center">
 				<div class="sidenav-header-inner text-center">
 					<a href="${pageContext.request.contextPath}/index.html">
-					<img src="${pageContext.request.contextPath}/resources/img/logo.png">
+					<img src="${pageContext.request.contextPath}/resources/img/logo.png">&nbsp;&nbsp;&nbsp;
 					<h2 class="h5 text-uppercase">Relation Social Community</h2></a>
 				</div>
 				<div class="sidenav-header-logo">

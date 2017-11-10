@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%session.setAttribute("id", "ckddnr"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,7 +93,13 @@
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
 
-										<!-- 알림 틀 -->
+										<li><a rel="nofollow" href="#"
+											class="dropdown-item d-flex">
+												<div class="msg-body">
+													<span>알림이 없습니다</span>
+												</div>
+										</a></li>
+										<%-- <!-- 알림 틀 -->
 										<li><a rel="nofollow" href="#"
 											class="dropdown-item d-flex">
 												<div class="msg-profile">
@@ -106,7 +112,7 @@
 													<span>게시물이 신고되었습니다</span> <small>1시간 전</small>
 												</div>
 										</a></li>
-										<!-- 알림틀 끝 -->
+										<!-- 알림틀 끝 --> --%>
 
 									</ul></li>
 
@@ -243,150 +249,8 @@
     	</div>
   	</div>
 
-
-	<script>
-	
-		function getMessage(){
-			
-			var msg = document.getElementById("msg").value;
-			var sessionId = document.getElementById("sessionId").value;
-			var sessionLevel = document.getElementById("sessionLevel").value;
-			
-/* 			if(msg != "")
-				alert(msg);
-			if(sessionId != "")
-				alert(sessionId);
-			if(sessionLevel != "")
-				alert(sessionLevel); */
-			
-		}
-		
-		window.onload = getMessage();
-	
-		//필수 정보가 모두 입력되었는지 확인
-		function checkInfo(){
-			
-			var id = document.getElementById("id").value;
-			var nick = document.getElementById("nick").value;
-			var pwd = document.getElementById("pwd").value;
-			
-			if(id == ""){
-				alert("아이디를 입력하세요");
-				exit;
-			}else if(pwd == ""){
-				alert("비밀번호를 입력하세요");
-				exit;
-			}else if(nick == ""){
-				alert("닉네임을 입력하세요");
-				exit;
-			}else{
-				document.getElementById("frm").submit();
-			}
-			
-			
-		}
-		
-		//동일한 닉네임이 있는지 확인
-		function checkSameNick() {
-			var nick = document.getElementById("nick").value;
-			var xhttp = new XMLHttpRequest();
-
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					document.getElementById("msg").innerText = resData;
-				}
-			}
-
-			xhttp.open("GET", "../join/checkNick.do?nick=" + nick, true);
-			xhttp.send();
-		}
-		
-		//동일한 아이디가 있는지 확인
-		function checkSameId() {
-			var id = document.getElementById("id").value;
-			var xhttp = new XMLHttpRequest();
-
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					document.getElementById("msg").innerText = resData;
-				}
-			}
-
-			xhttp.open("GET", "../join/checkId.do?id=" + id, true);
-			xhttp.send();
-		}
-
-		
-		//알림 모달
-		function viewAlertList() {
-		var alertHtml = '';
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var resData = this.responseText;
-				resData = JSON.parse(resData);
-
-				if (resData == null) {
-					alertHtml += '<li>' +
-					'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
-					'<div class="msg-body">' +
-					'<span>알림이 없습니다</span>' +
-					'</div>' +
-					'</a>' +
-					'</li>';
-				} else {
-					for (i = 0; i < resData.length; i++) {
-						if (resData[i].noticeType == 1) {
-							alertHtml += '<li>' +
-							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
-							'<div class="msg-body">' +
-							'<span>'+resData[i].noticeContent+'</span>' +
-							'</div>' +
-							'</a>' +
-							'</li>';
-						} else if (resData[i].noticeType == 2) {
-							alertHtml += '<li>' +
-							'<a rel="nofollow" href="#" class="dropdown-item d-flex">' +
-							'<div class="msg-body">' +
-							'<span>'+resData[i].noticeContent+'</span>' +
-							'</div>' +
-							'</a>' +
-							'</li>';
-						} else {
-						alertHtml += '<li>' +
-							'<a onClick="deleteNotice('+resData[i].noticeNum+')" class="dropdown-item d-flex">' +
-							'<div class="msg-body">' +
-							'<span>'+resData[i].noticeContent+'</span>' +
-							'</div>' +
-							'</a>' +
-							'</li>';
-						
-						}
-					}
-				}
-				document.getElementById("viewAlert").innerHTML = alertHtml;
-			}
-		};
-
-		xhttp.open("POST", "../notice/searchById.do?memberId="+'${sessionScope.id}', true);
-		xhttp.send();
-	}
-		
-	function deleteNotice(noticeNum) {
-		 
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				
-			}
-		}
-		
-		xhttp.open("POST", "../notice/deleteByNoticeNum.do?noticeNum="+noticeNum, true);
-		xhttp.send(); 
-	}
-	</script>
+	<!-- header의 script부분 -->
+  	<jsp:include page="script.jsp"/>
 
 </body>
 </html>

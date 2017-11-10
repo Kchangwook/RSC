@@ -10,11 +10,12 @@
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="noticeContent" column="NOTICE_CONTENT" />
 		<result property="noticeType" column="NOTICE_TYPE" />
+		<result property="noticeTarget" column="NOTICE_TARGET" />
 	</resultMap>
 	
 	<!-- notice 데이터 삽입 -->
 	<insert id="add" parameterType="notice">
-		insert into notice(notice_num, member_id, notice_content, notice_type) values (#{noticeNum}, #{memberId}, #{noticeContent}, #{noticeType})
+		insert into notice(notice_num, member_id, notice_content, notice_type, notice_target) values (#{noticeNum}, #{memberId}, #{noticeContent}, #{noticeType}, #{noticeTarget)
 	</insert>
 	
 	<!-- 아이디를 통한 notice 검색 -->

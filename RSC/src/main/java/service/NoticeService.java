@@ -45,7 +45,7 @@ public class NoticeService {
 	public boolean deleteByNoticeNum(int noticeNum) {
 		
 		boolean flag = true;
-		System.out.println(noticeNum);
+		
 		flag = noticeDAO.deleteByNoticeNum(noticeNum);
 		
 		return flag;

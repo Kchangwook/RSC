@@ -37,7 +37,8 @@ public class NoticeController {
 				sb.append("\"noticeNum\":\""+list.get(i).getNoticeNum()+"\",");
 				sb.append("\"memberId\":\""+list.get(i).getMemberId()+"\",");
 				sb.append("\"noticeContent\":\""+list.get(i).getNoticeContent()+"\",");
-				sb.append("\"noticeType\":\""+list.get(i).getNoticeType()+"\"}");
+				sb.append("\"noticeType\":\""+list.get(i).getNoticeType()+"\",");
+				sb.append("\"noticeTarget\":\""+list.get(i).getNoticeTarget()+"\"}");
 				if(i != list.size()-1 ) {
 					sb.append(",");
 				}
