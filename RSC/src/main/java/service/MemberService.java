@@ -1,8 +1,13 @@
 package service;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.transaction.annotation.Transactional;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import dao.AdminDAO;
 import dao.MemberDAO;
@@ -69,17 +74,26 @@ public class MemberService{
 		
 		boolean flag = true;
 		
-		if(m.getMemberInterest() == null)
-			m.setMemberInterest("");
-		
-		//이미지가 존재하지 않으면 기본 이미지로 설정
-		if(m.getMemberImg() == "") 
-			m.setMemberImg("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/resources/img/profile.jpg");
-		
-		ftp.upload(m.getMemberImg(), "", m.getMemberId()+"_profile.jpg");
-		
-		flag = memberDAO.addMember(m);
-		
+		try {
+			
+			if(m.getMemberInterest() == null)
+				m.setMemberInterest("");
+			
+			//이미지가 존재하지 않으면 기본 이미지로 설정
+			if(m.getMemberImg() == "") 
+				m.setMemberImg("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/resources/img/profile.jpg");
+			
+			MultipartRequest mult = new MultipartRequest(request,"/upload",10*1024*1024
+					,"UTF-8",new DefaultFileRenamePolicy());
+			
+			ftp.upload(m.getMemberImg(), "", m.getMemberId()+"_profile.jpg");
+			
+			flag = memberDAO.addMember(m);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return flag;
 		

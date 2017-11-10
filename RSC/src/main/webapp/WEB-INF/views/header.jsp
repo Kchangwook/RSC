@@ -154,7 +154,7 @@
 				<div class="modal-header mod-head">
 					<h4>회원 가입</h4>
 				</div>
-				<form action="join.do" name = "frm" id = "frm" method="POST">
+				<form action="join.do" name = "frm" id = "frm" method="POST" enctype="multpart/form-data">
 					<div class="modal-body">
 						<div class="container">
 							<table>
