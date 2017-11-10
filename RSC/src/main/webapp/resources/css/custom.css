@@ -179,6 +179,9 @@ div.groupAdmin-page .card .content table td.groupName{
 div.groupAdmin-page .card .content table td.groupInterest{
 	width:30%;
 }
+div.groupAdmin-page .card .content table td.groupInfoOpen{
+	width:30%;
+}
 
 div.groupAdmin-page .card .content table td.groupDelBtn{
 	text-align:right;
@@ -190,6 +193,95 @@ div.groupAdmin-page .card .content table td.groupDelBtn span{
 	color:red;
 	cursor:pointer;
 }
+
+/* 그룹관리 페이지 검색 */
+div.groupAdmin-page .groupSearchDiv{
+	width:100%;
+	max-height:30%;
+	padding:1%;
+	text-align: center;
+}
+div.groupAdmin-page span.groupSearchSpan{
+	width:60%;
+}
+
+div.groupAdmin-page .searchBtn{
+   	background-color: #F7921E;
+   	color:white;
+   	padding:7px;
+   	
+}
+
+div.groupAdmin-page #newGroupListDiv{
+	width:100%;
+}
+
+/* 회원 관리 페이지 */
+div.memberAdmin-page .card{
+	margin:2% 0;
+}
+div.memberAdmin-page .card .content{
+	height:10%;
+}
+
+div.memberAdmin-page .card .content table{
+	width:100%;
+}
+div.memberAdmin-page .card .content table tr{
+	color:#a4a4a4;
+	width:100%;
+}
+
+div.memberAdmin-page .card .content table td.memberImg{
+	width:15%;
+	padding:2%;
+}
+
+div.memberAdmin-page .card .content table td.memberImg img{
+	max-width:70%;
+	border-radius: 50%;
+	padding:2%;
+}
+
+div.memberAdmin-page .card .content table td.memberName{
+	font-weight: bold;
+	font-size: 15px;
+	width:35%;
+}
+
+div.memberAdmin-page .card .content table td.memberDelBtn{
+	text-align:right;
+	padding: 0 1%;
+	width:10%;
+}
+
+div.memberAdmin-page .card .content table td.memberDelBtn span{
+	color:red;
+	cursor:pointer;
+}
+
+/* 회원관리 페이지 검색 */
+div.memberAdmin-page .memberSearchDiv{
+	width:100%;
+	max-height:30%;
+	padding:1%;
+	text-align: center;
+}
+div.memberAdmin-page span.memberSearchSpan{
+	width:60%;
+}
+
+div.memberAdmin-page .searchBtn{
+   	background-color: #F7921E;
+   	color:white;
+   	padding:7px;
+   	
+}
+
+div.memberAdmin-page #newMemberListDiv{
+	width:100%;
+}
+
 
 
 /* 로그인 후 페이지 */

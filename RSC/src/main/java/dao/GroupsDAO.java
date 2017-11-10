@@ -21,4 +21,10 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		session = getSqlSession();
 		return session.delete("group.deleteGroupByNum",groupNum)>0 ? true : false ;
 	}
+	
+	// 그룹명으로 그룹 검색
+	public List<Groups> searchGroupByName(String groupName) {
+		session = getSqlSession();
+		return session.selectList("group.selectGroupByName",groupName);
+	}
 }

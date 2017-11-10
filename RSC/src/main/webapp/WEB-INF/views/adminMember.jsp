@@ -52,39 +52,36 @@
 		<!-- 본문 부분 -->
 		<div class="content-page">
 
-			<!-- 그룹관리 메인페이지 -->
-			<div class="groupAdmin-page">
+			<!-- 회원관리 메인페이지 -->
+			<div class="memberAdmin-page">
 				<div class="row">
 					<div class="col-md-10">
-						<h3>그룹 관리</h3><br>
-						<div class="groupSearchDiv">
-							<span class="groupSearchSpan"><input id="groupNameInput" class="w3-input w3-border" type="text" placeholder="그룹명으로 검색" onkeypress="if(event.keyCode==13) {searchGroup();}"></span>
-							<button class="searchBtn w3-border" onclick="searchGroup()">검색</button>
+						<h3>회원 관리</h3><br>
+						<div class="memberSearchDiv">
+							<span class="memberSearchSpan"><input id="memberInput" class="w3-input w3-border" type="text" placeholder="회원 ID 또는 닉네임으로 검색" onkeypress="if(event.keyCode==13) {searchMember();}"></span>
+							<button class="searchBtn w3-border" onclick="searchMember()">검색</button>
 						</div>
 					</div>
 				</div>
 					
 			<div class="row">
-				<div id="newGroupListDiv">
-					<c:forEach items="${requestScope.allList}" var="group">
+				<div id="newMemberListDiv">
+					<c:forEach items="${requestScope.allList}" var="member">
 						<div class="col-md-10">
 							<div class="card w3-round-large">
 								<!-- 글 내용 -->
 								<div class="content">
 									<table>
 										<tr>
-											<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>
-											<td class="groupName" colspan="3"><a href="#">${group.groupName}</a></td>
-											<td class="groupDelBtn"><span onclick="groupDelete('${group.groupNum}','${group.groupName}')">그룹삭제</span></td></tr>
+											<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>
+											<td class="memberName" colspan="3"><a href="#">${member.memberNick}</a></td>
+											<td colspan="3"><b>ID</b> : ${member.memberId}</a></td>
+											<td class="memberDelBtn"><span onclick="memberDelete('${member.memberId}','${member.memberNick}')">계정삭제</span></td></tr>
 										<tr>
-											<td colspan="3">정보 : ${group.groupInfo}</td>
-											<td></td>
-										</tr>
-										<tr>
-											<td class="groupInterest">관심사 : ${group.groupInterest}</td>
-											<td class="groupInfoOpen">정보공개 : 
+											<td colspan="3"><b>관심사</b> : ${member.memberInterest}</td>
+											<td colspan="3"><b>정보공개</b> : 
 											<c:choose>
-												<c:when test="${group.groupInfoOpen eq '0'}">
+												<c:when test="${member.memberInfoOpen eq '0'}">	
 													비공개
 												</c:when>
 												<c:otherwise>
@@ -92,8 +89,21 @@
 												</c:otherwise>
 											</c:choose>
 											</td>
-											<td>신고횟수 : ${group.groupSingoCnt}</td>
 											<td></td>
+										</tr>
+										<tr>
+											<td colspan="3"><b>최근 로그인</b> : ${member.memberLogin}</td>
+											<td colspan="3"><b>최근 로그아웃</b> : ${member.memberLogout}</td>
+											<td>
+											<c:choose>
+												<c:when test="${member.memberPresentLogin eq '0'}">
+													<i class="fa fa-circle" style="color:red; font-size: xx-small;"></i>&nbsp;오프라인
+												</c:when>
+												<c:otherwise>
+													<i class="fa fa-circle" style="color:green; font-size:xx-small;"></i>&nbsp;온라인
+												</c:otherwise>
+											</c:choose>
+											</td>
 										</tr>
 									</table>
 								</div>
@@ -137,7 +147,7 @@
 	
 	<script>
 		function groupDelete(groupNum,groupName){
-			if(confirm(groupName+' 그룹을 삭제하시겠습니까?')){
+			if(confirm(groupName+' 회원을 삭제하시겠습니까?')){
 				console.log('삭제');
 				goDelete(groupNum);
 			} else {
@@ -146,12 +156,12 @@
 		}
 		
 		function goDelete(groupNum){
-			location.href='http://localhost:10101/rcsTest/admin/groupDelete.do?groupNum='+groupNum;
+			alert("삭제완료");
 		}
 		
-		function searchGroup(){
-			var groupName = document.getElementById("groupNameInput").value;
-			if(groupName==''){
+		function searchMember(){
+			var memberIdName = document.getElementById("memberInput").value;
+			if(memberIdName==''){
 				alert("검색어를 입력해주세요");
 			} else {
 				var xhttp = new XMLHttpRequest();
@@ -159,57 +169,59 @@
 					if (this.readyState == 4 && this.status == 200) {
 						var resData = this.responseText;
 						resData=JSON.parse(resData);
-						newGroupList(resData,groupName);
+						console.log(resData);
+						newMemberList(resData,memberIdName);
 					}
 				}
-				xhttp.open("POST", "searchGroup.do?groupName="+groupName, true);
+				xhttp.open("POST", "searchMember.do?memberIdName="+memberIdName, true);
 				xhttp.send(); 
 			}
 
 		}
 		
-		function newGroupList(resData,groupName){
+		function newMemberList(resData,memberIdName){
 			
-			var groupListHTML = '';
+			var memberListHTML = '';
 			
 			if(resData.length==0){
-				groupListHTML =
+				memberListHTML =
 					'<div class="col-md-10" style="text-align:center">'+
-						'<h5>\''+groupName+'\'을 포함한 데이터가 존재하지 않습니다</h5>'+
+						'<h5>\''+memberIdName+'\'을 포함한 회원 데이터가 존재하지 않습니다</h5>'+
 					'</div>';
 				
 			} else {
 				for(i=0 ; i < resData.length ; i++){
-					groupListHTML += 
-						'<div class="col-md-10">'+
-							'<div class="card w3-round-large">'+
-								'<div class="content">'+
-									'<table>'+
-										'<tr>'+
-											'<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>'+
-											'<td class="groupName" colspan="3">'+resData[i].groupName+'</td>'+
-											'<td class="groupDelBtn"><span onclick="groupDelete("'+resData[i].groupNum+'","'+resData[i].groupName+')">그룹삭제</span></td>'+
-										'</tr>'+
-										'<tr>'+
-											'<td colspan="3">정보 : '+resData[i].groupInfo+'</td>'+
-											'<td></td>'+
-										'</tr>'+
-										'<tr>'+
-											'<td class="groupInterest">관심사 : '+resData[i].groupInterest+'</td>'+
-											'<td class="groupInfoOpen">정보공개 : '+(resData[i].groupInfoOpen==0?"비공개":"공개")+'</td>'+
-											'<td>신고횟수 : '+resData[i].groupSingoCnt+'</td>'+
-											'<td></td>'+
-										'</tr>'+
-									'</table>'+
-								'</div>'+
-							'</div>'+
-						'</div>';
+					memberListHTML +=
+					'<div class="col-md-10">'+
+					'<div class="card w3-round-large">'+
+					'<div class="content">'+
+					'<table>'+
+					'<tr>'+
+					'<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>'+
+					'<td class="memberName" colspan="3"><a href="#">'+resData[i].memberNick+'</a></td>'+
+					'<td colspan="3"><b>ID</b> : '+resData[i].memberId+'</a></td>'+
+					'<td class="memberDelBtn"><span onclick="memberDelete(\''+resData[i].memberId+'\',\''+resData[i].memberNick+'\')">계정삭제</span></td>'+
+					'</tr>'+
+					'<tr>'+
+					'<td colspan="3"><b>관심사</b> : '+resData[i].memberInterest+'</td>'+
+					'<td colspan="3"><b>정보공개</b> : '+(resData[i].memberInfoOpen==0?"비공개":"공개")+'</td>'+
+					'<td></td>'+
+					'</tr>'+
+					'<tr>'+
+					'<td colspan="3"><b>최근 로그인</b> : '+resData[i].memberLogin+'</td>'+
+					'<td colspan="3"><b>최근 로그아웃</b> : '+resData[i].memberLogout+'</td>'+
+					'<td>'+
+					(resData[i].memberPresentLogin==0?"<i class=\"fa fa-circle\" style=\"color:red; font-size: xx-small;\"></i>&nbsp;오프라인":"<i class=\"fa fa-circle\" style=\"color:green; font-size: xx-small;\"></i>&nbsp;온라인")+
+					'</td>'+
+					'</tr>'+
+					'</table>'+
+					'</div>'+
+					'</div>'+
+					'</div>';
 				}
 			}
-
-			document.getElementById("newGroupListDiv").innerHTML = groupListHTML;
+			document.getElementById("newMemberListDiv").innerHTML = memberListHTML;
 		}
-		
 	</script>
 
 </body>

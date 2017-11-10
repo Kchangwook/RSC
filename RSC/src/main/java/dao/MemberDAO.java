@@ -98,4 +98,10 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		
 	}//end of updateLoginInfo
 	
+	/** 닉네임 또는 아이디로 멤버 리스트 반환*/
+	public List<Member> searchByIdName(String memberIdName){
+		session = getSqlSession();
+		return session.selectList("member.selectByIdName",memberIdName);
+	}
+	
 }//end of MemberDAO

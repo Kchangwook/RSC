@@ -54,8 +54,8 @@
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp">
-									<i class="fa fa-user"></i><span>계정 관리</span>
+								<a href="${pageContext.request.contextPath}/admin/member.do">
+									<i class="fa fa-user"></i><span>회원 관리</span>
 								</a>
 							</li>
 							<li>
@@ -75,8 +75,8 @@
 								<a href="${pageContext.request.contextPath}/admin/group.do"><i class="fa fa-users"></i><span>그룹 관리</span></a>
 							</li>
 							<li>
-								<a href="index.jsp">
-									<i class="fa fa-user"></i><span>계정 관리</span>
+								<a href="${pageContext.request.contextPath}/admin/member.do">
+									<i class="fa fa-user"></i><span>회원 관리</span>
 								</a>
 							</li>
 							<li>

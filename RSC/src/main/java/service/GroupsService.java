@@ -22,5 +22,10 @@ public class GroupsService {
 	public boolean deleteGroupByNum(int groupNum) {
 		return groupsDAO.deleteGroupsByNum(groupNum);
 	}
+	
+	// 그룹명으로 그룹 검색하는 메서드
+	public List<Groups> searchGroupByName(String groupName){
+		return groupsDAO.searchGroupByName(groupName);
+	}
 
 }

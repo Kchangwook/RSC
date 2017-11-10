@@ -24,6 +24,11 @@
 	<delete id="deleteGroupByNum" parameterType="int">
 		delete groups where group_num=#{groupNum}
 	</delete>
+	
+	<!-- 그룹명으로 그룹 검색 (171110 이용진)-->
+	<select id="selectGroupByName" parameterType="String" resultMap="groupResult">
+		select * from groups where group_name like '%'||#{groupName}||'%' and group_num>0
+	</select>
 
 	
 </mapper>

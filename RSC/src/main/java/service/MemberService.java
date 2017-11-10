@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -127,5 +128,15 @@ public class MemberService{
 		return memberDAO.updateLoginInfo(id);
 		
 	}//end of updateLoginInfo
+	
+	/** 멤버 닉네임 또는 아이디로 리스트 반환 */
+	public List<Member> searchByIdName(String memberIdName){
+		return memberDAO.searchByIdName(memberIdName);
+	}
+	
+	/** 모든 멤버 리스트 반환 */
+	public List<Member> searchAllMembers(){
+		return memberDAO.searchAll();
+	}
 
 }//end of MemberService

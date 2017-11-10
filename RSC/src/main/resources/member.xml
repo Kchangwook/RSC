@@ -52,5 +52,10 @@
 	update member set member_present_login = 1, member_login_time = TO_char(SYSDATE,'yyyy/mm/dd hh:mi:ss')
 	where member_id = #{memberId}
 	</update>
+	
+	<!-- id 또는 닉네임으로 검색하여 데이터 가져오기 -->
+	<select id="selectByIdName" parameterType="String" resultMap="memberResult">
+		select * from member where member_id like '%'||#{memberIdName}||'%' or member_nick like '%'||#{memberIdName}||'%'
+	</select>
 
 </mapper>
