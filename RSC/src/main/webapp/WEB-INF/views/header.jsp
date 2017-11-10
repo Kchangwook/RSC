@@ -118,7 +118,7 @@
 
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item"><a href="#로그인후 메인페이지"
-									class="nav-link"> <img src="img/profile.jpg"> 이름
+									class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">&nbsp;${sessionScope.id}
 								</a></li>
 
 								<!-- 로그아웃 -->
