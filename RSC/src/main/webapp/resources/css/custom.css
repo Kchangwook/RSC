@@ -192,6 +192,30 @@ div.groupAdmin-page .card .content table td.groupDelBtn span{
 }
 
 
+/* 로그인 후 페이지 */
+
+.main-page2 .card .header{
+	padding:1% 5%;
+}
+
+.main-page2 .card .header img{
+	width:50px;
+	height:50px;
+	border-radius: 25px;
+}
+
+.main-page2 .card hr{
+	margin: 3px;
+}
+
+.main-page2 .card .content{
+	padding:1% 5%;
+}
+
+.main-page2 .card .footer{
+	padding:1% 5%;
+}
+
 
 
 
