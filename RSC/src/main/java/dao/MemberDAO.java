@@ -86,4 +86,16 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		
 	}//end of nick
 	
+	/** 로그인 정보를 수정하기 */
+	public boolean updateLoginInfo(String id) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.update("member.updateLoginInfo",id)>0?true:false;
+		
+		return flag;
+		
+	}//end of updateLoginInfo
+	
 }//end of MemberDAO

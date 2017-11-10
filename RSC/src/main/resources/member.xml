@@ -46,5 +46,11 @@
 	<select id = "selectByNick" parameterType = "String" resultMap = "memberResult">
 	select * from member where member_nick = #{memberNick}
 	</select>
+	
+	<!-- member테이블의 login시간과 로그인 여부를 업데이트 -->
+	<update id = "updateLoginInfo" parameterType = "String">
+	update member set member_present_login = 1, member_login_time = TO_char(SYSDATE,'yyyy/mm/dd hh:mi:ss')
+	where member_id = #{memberId}
+	</update>
 
 </mapper>

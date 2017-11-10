@@ -95,5 +95,12 @@ public class MemberService{
 		return flag;
 		
 	}//end of checkLogin
+	
+	/** 로그인 성공시 회원 정보를 수정하는 함수 */
+	public boolean updateLoginInfo(String id) {
+		
+		return memberDAO.updateLoginInfo(id);
+		
+	}//end of updateLoginInfo
 
 }//end of MemberService

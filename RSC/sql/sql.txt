@@ -241,7 +241,8 @@ CREATE TABLE notice
     notice_num        INT               NOT NULL, 
     member_id         VARCHAR2(50)      NOT NULL, 
     notice_content    VARCHAR2(1000)    NOT NULL,
-    notice_type       NUMBER            NULL,  
+    notice_type       NUMBER            NULL, 
+    notice_target     VARCHAR2(50)      NULL, 
     CONSTRAINT NOTICE_PK PRIMARY KEY (notice_num)
 );
 
@@ -469,9 +470,9 @@ INSERT INTO friend(member_id, friend_id) VALUES('wlstjs', 'ckddnr');
 -- friend_request TABLE INSERT SQL
 
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'ckddnr', 0);
-INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', 'wjdrb님의 친구요청이 있습니다', 2);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '갓규님의 친구요청이 있습니다', 2, 'wjdrb');
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'dydwls', 0);
-INSERT INTO notice(notice_num, member_id, notice_content, notice_type) VALUES(notice_SEQ.NEXTVAL, 'dydwls', 'wjdrb님의 친구요청이 있습니다', 2);
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'dydwls', '갓규님의 친구요청이 있습니다', 2, 'wjdrb');
 
 
 -- groups TABLE INSERT SQL
@@ -556,3 +557,5 @@ INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_c
 INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'ckddnr');
 INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'dydwls');
 INSERT INTO group_random_chat(group_random_num, member_id) VALUES(group_random_chat_SEQ.NEXTVAL, 'wlstjs');
+
+commit;
