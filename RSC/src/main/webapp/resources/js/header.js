@@ -119,14 +119,14 @@ function searchMemberAndGroup(searchValue) {
 					for (i = 0; i < resData.length; i++) {
 						if (resData[i].memberNick != null) {
 							alertHtml += '<li>'
-									+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+									+ '<a onClick="moveToMember(' + resData[i].memberId + ')" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
 									+ '<span>' + resData[i].memberNick
 									+ '</span>' + '</div>' + '</a>'
 									+ '</li>';
 						} else {
 							alertHtml += '<li>'
-									+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+									+ '<a onClick="moveToGroup(' + resData[i].groupNum + ')" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
 									+ '<span>' + resData[i].groupName
 									+ '</span>' + '</div>' + '</a>'
@@ -141,6 +141,16 @@ function searchMemberAndGroup(searchValue) {
 		xhttp.open("POST", "../searchMemberAndGroup/searchByPart.do?part="+ searchValue, true);
 		xhttp.send();
 	}
+}
+
+// 검색한 회원으로 이동
+function moveToMember(memberId) {
+	
+}
+
+// 검색한 그룹으로 이동
+function moveToGroup(groupNum) {
+	
 }
 
 // 알림에서 사용할 아이디
@@ -164,7 +174,7 @@ function viewAlertList() {
 
 			if (resData == null) {
 				alertHtml += '<li>'
-						+ '<a rel="nofollow" href="#" class="dropdownitem dflex">'
+						+ '<a rel="nofollow" href="#" class="dropdownitem d-flex">'
 						+ '<div class="msgbody">' + '<span>알림이 없습니다</span>'
 						+ '</div>' + '</a>' + '</li>';
 			} else {
@@ -174,7 +184,7 @@ function viewAlertList() {
 								+ '<a onClick="deleteGroupNotice(\''
 								+ resData[i].noticeTarget + '\',\''
 								+ resData[i].noticeContent
-								+ '\')" class="dropdownitem dflex">'
+								+ '\')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
@@ -182,14 +192,14 @@ function viewAlertList() {
 						alertHtml += '<li>' + '<a onClick="addFriendNotice(\''
 								+ resData[i].noticeTarget + '\',\''
 								+ resData[i].noticeContent
-								+ '\')" class="dropdownitem dflex">'
+								+ '\')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
 					} else {
 						alertHtml += '<li>' + '<a onClick="deleteNotice('
 								+ resData[i].noticeNum
-								+ ')" class="dropdownitem dflex">'
+								+ ')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';

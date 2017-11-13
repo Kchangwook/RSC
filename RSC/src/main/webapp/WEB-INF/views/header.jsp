@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%session.setAttribute("id", "ckddnr"); %>
 
 <!DOCTYPE html>
 <html>
@@ -108,12 +107,12 @@
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
 
-										<!-- <li><a rel="nofollow" href="#"
+										<li><a rel="nofollow" href="#"
 											class="dropdown-item d-flex">
 												<div class="msg-body">
 													<span>알림이 없습니다</span>
 												</div>
-										</a></li> -->
+										</a></li>
 										
 										<%-- <!-- 알림 틀 -->
 										<li><a rel="nofollow" href="#"
@@ -138,8 +137,8 @@
 								</a></li>
 
 								<!-- 로그아웃 -->
-								<li id="viewSignOut" class="nav-item"><a href="#로그아웃 링크"
-									class="nav-link">로그아웃</a></li>
+								<li id="viewSignOut" class="nav-item"><a href="logout.do" 
+								class="nav-link">로그아웃</a></li>
 
 
 							</c:when>
