@@ -104,4 +104,15 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		return session.selectList("member.selectByIdName",memberIdName);
 	}
 	
+	/** 아이디를 통해 닉네임 반환 */
+	public String getNick(String id) {
+		
+		String name = "";
+		
+		name = session.selectOne("member.selectNick",id);
+		
+		return name;
+		
+	}//end of getNick
+	
 }//end of MemberDAO

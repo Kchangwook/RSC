@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
@@ -41,21 +39,21 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="admin.xml" />
 	</bean>
-	
+
 	<!-- BoardSessionFactory 설정하는 빈 -->
 	<bean id="boardFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="board.xml" />
 	</bean>
-	
+
 	<!-- NoticeSessionFactory 설정하는 빈 -->
-	<bean id = "noticeFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
-		<property name = "dataSource" ref = "dataSource"/>
-		<property name = "configLocation" value = "SqlMapConfig.xml"/>
-		<property name="mapperLocations" value = "notice.xml"/>
+	<bean id="noticeFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="notice.xml" />
 	</bean>
-	
+
 	<!-- GroupsSessionFactory 설정하는 빈 -->
 	<bean id="groupsFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -77,47 +75,52 @@
 	<bean id="memberDAO" class="dao.MemberDAO">
 		<property name="sqlSessionFactory" ref="memberFactory" />
 	</bean>
-	
+
 	<!-- boardDAO -->
-	<bean id = "boardDAO" class = "dao.BoardDAO">
-		<property name = "sqlSessionFactory" ref="boardFactory"/>
+	<bean id="boardDAO" class="dao.BoardDAO">
+		<property name="sqlSessionFactory" ref="boardFactory" />
 	</bean>
-	
+
 	<!-- noticeDAO -->
-	<bean id = "noticeDAO" class = "dao.NoticeDAO">
-		<property name = "sqlSessionFactory" ref = "noticeFactory"/>
+	<bean id="noticeDAO" class="dao.NoticeDAO">
+		<property name="sqlSessionFactory" ref="noticeFactory" />
 	</bean>
-	
+
 	<!-- memberService -->
-	<bean id = "memberService" class = "service.MemberService">
-		<property name = "memberDAO" ref = "memberDAO"/>
-		<property name = "adminDAO" ref = "adminDAO"/>
+	<bean id="memberService" class="service.MemberService">
+		<property name="memberDAO" ref="memberDAO" />
+		<property name="adminDAO" ref="adminDAO" />
 	</bean>
-	
+
 	<!-- boardService -->
-	<bean id = "boardService" class = "service.BoardService">
-		<property name="boardDAO"  ref="boardDAO"/>
+	<bean id="boardService" class="service.BoardService">
+		<property name="boardDAO" ref="boardDAO" />
 	</bean>
-	
+
 	<!-- noticeService -->
-	<bean id= "noticeService" class="service.NoticeService">
-		<property name = "noticeDAO" ref = "noticeDAO"/>
+	<bean id="noticeService" class="service.NoticeService">
+		<property name="noticeDAO" ref="noticeDAO" />
 	</bean>
-	
+
 	<!-- groupsDAO -->
 	<bean id="groupsDAO" class="dao.GroupsDAO">
-		<property name="sqlSessionFactory" ref="groupsFactory"/>
+		<property name="sqlSessionFactory" ref="groupsFactory" />
 	</bean>
-	
+
 	<!-- groupsService -->
 	<bean id="groupsService" class="service.GroupsService">
-		<property name="groupsDAO" ref="groupsDAO"/>
+		<property name="groupsDAO" ref="groupsDAO" />
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- multi file -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
 </beans>

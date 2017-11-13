@@ -77,6 +77,11 @@ public class BasicController {
 			throw new Exception();
 		}
 		
+		//닉네임 가져온 후 세션에 추가
+		String nick = memberService.getNick(id);
+		
+		session.setAttribute("nick", nick);
+		
 		url = "loginMain";
 
 		memberService.updateLoginInfo(id);
