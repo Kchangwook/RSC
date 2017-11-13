@@ -1,20 +1,15 @@
 package service;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
 import dao.AdminDAO;
 import dao.MemberDAO;
 import domain.Admin;
 import domain.Member;
-import ftp.FTPService;
 
 /** member 데이터를 이용한 서비스 */
 @Transactional
@@ -23,7 +18,6 @@ public class MemberService{
 	/* 변수 */
 	private MemberDAO memberDAO;
 	private AdminDAO adminDAO;
-	private FTPService ftp;
 	
 	/* 프로퍼티 */
 	public void setMemberDAO(MemberDAO memberDAO) {
@@ -31,9 +25,6 @@ public class MemberService{
 	}
 	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
-	}
-	public void setFTPService(FTPService ftpService) {
-		this.ftp = ftpService;
 	}
 	
 	/* 함수 */
@@ -74,28 +65,16 @@ public class MemberService{
 	public boolean addMember(Member m,HttpServletRequest request) {
 		
 		boolean flag = true;
-		
-		try {
-			
+
 			if(m.getMemberInterest() == null)
 				m.setMemberInterest("");
 			
 			//이미지가 존재하지 않으면 기본 이미지로 설정
 			if(m.getMemberImg() == "") 
-				m.setMemberImg("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/resources/img/profile.jpg");
-			
-			MultipartRequest mult = new MultipartRequest(request,"/upload",10*1024*1024
-					,"UTF-8",new DefaultFileRenamePolicy());
-			
-			ftp.upload(m.getMemberImg(), "", m.getMemberId()+"_profile.jpg");
+				m.setMemberImg("/resources/img/profile.jpg");
 			
 			flag = memberDAO.addMember(m);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		return flag;
 		
 	}//end of addMember
