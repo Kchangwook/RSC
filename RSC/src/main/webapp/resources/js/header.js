@@ -53,6 +53,7 @@ function checkInfo() {
 		return false;
 	} else {
 		document.getElementById("frm").submit();
+		document.getElementById("frm2").submit();
 	}
 
 }

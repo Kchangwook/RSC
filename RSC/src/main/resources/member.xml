@@ -29,7 +29,7 @@
 	
 	<!-- 회원가입 member 데이터 삽입 -->
 	<insert id="add" parameterType = "member">
-	insert into member(member_id, member_pw, member_nick,member_img, member_interest, member_info_open, member_present_login) values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},#{memberPresentLogin})
+	insert into member(member_id, member_pw, member_nick,member_img, member_interest, member_info_open, member_present_login) values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},0)
 	</insert>
 	
 	<!-- member 테이블 내의 모든 데이터 삭제 -->

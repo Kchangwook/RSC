@@ -1,17 +1,16 @@
 package controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import domain.Member;
 import service.BoardService;
 import service.MemberService;
 
@@ -35,13 +34,22 @@ public class BasicController {
 	}//end of start
 	
 	/** 회원 가입 */
-	@RequestMapping("join.do")
-	public String join(Model model,@ModelAttribute("member") Member m,HttpServletRequest request) {
+	@RequestMapping(value = "join.do", method = RequestMethod.POST)
+	public String join(MultipartHttpServletRequest request) {
 		
-		if(memberService.addMember(m,request))
-			model.addAttribute("msg", "가입에 성공했습니다.");
-		else
-			model.addAttribute("msg","가입에 실패했습니다.");
+		System.out.println(request.getParameter("memberId"));
+		System.out.println(request.getParameter("memberPw"));
+		
+//		Member m = null;
+//		DefaultMultipartHttpServletRequest req = new DefaultMultipartHttpServletRequest(request);
+//		System.out.println(req.getParameter("memberId"));
+//		System.out.println(m.getMemberId());
+//		System.out.println(request.getParameter("memberId"));
+//		
+//		if(memberService.addMember(m,request))
+//			request.setAttribute("msg","가입에 성공했습니다.");
+//		else
+//			request.setAttribute("msg","가입에 실패했습니다.");
 		
 		return "index";
 	}//end of join
