@@ -27,7 +27,7 @@
 	select * from member where member_id = #{memberId}
 	</select>
 	
-	<!-- member 데이터 삽입 -->
+	<!-- 회원가입 member 데이터 삽입 -->
 	<insert id="add" parameterType = "member">
 	insert into member(member_id, member_pw, member_nick,member_img, member_interest, member_info_open, member_present_login) values(#{memberId},#{memberPw},#{memberNick},#{memberImg},#{memberInterest},#{memberInfoOpen},#{memberPresentLogin})
 	</insert>
@@ -55,7 +55,12 @@
 	
 	<!-- id 또는 닉네임으로 검색하여 데이터 가져오기 -->
 	<select id="selectByIdName" parameterType="String" resultMap="memberResult">
-		select * from member where member_id like '%'||#{memberIdName}||'%' or member_nick like '%'||#{memberIdName}||'%'
+		select * from member where member_id like '%'||#{memberId}||'%' or member_nick like '%'||#{memberNick}||'%'
+	</select>
+
+	<!-- 해당하는 id의 닉네임 가져오기 -->
+	<select id = "selectNick" parameterType = "String" resultType="String">
+	select member_nick from member where member_id = #{memberId}
 	</select>
 
 </mapper>

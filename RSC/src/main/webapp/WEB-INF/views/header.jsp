@@ -154,7 +154,7 @@
 				<div class="modal-header mod-head">
 					<h4>회원 가입</h4>
 				</div>
-				<form action="join.do" name = "frm" id = "frm" method="POST" enctype="multpart/form-data">
+				<form action="join.do" name = "frm" id = "frm" method="POST" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="container">
 							<table>
@@ -178,7 +178,7 @@
 									<td class="tdImgButton">
 									<div class="filebox">
 										<label for="memberImg">선택</label>
-										<input type="file" name = "memberImg" id="memberImg" accept=".jpg" onchange="changeSrc()">
+										<input type="file" name = "memberImg" id="memberImg" accept="image/*" onchange="changeSrc()">
 									</div>
 									</td>
 								</tr>
@@ -210,8 +210,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="join_msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()"
-							value="회원가입">
+						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()" value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
@@ -242,6 +241,6 @@
       		</div>
     	</div>
   	</div>
-<script type="text/javascript" src = "${pageContext.request.contextPath }/resources/js/header.js"></script>
+<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/header.js"></script>
 </body>
 </html>
