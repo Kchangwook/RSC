@@ -89,8 +89,72 @@ function checkSameId() {
 	xhttp.send();
 }
 
+//회원 또는 그룹 검색
+function searchMemberAndGroup(searchValue) {
+	var alertHtml = '';
+
+	if (searchValue == '') {
+		alertHtml += '<li>'
+				+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+				+ '<div class="search-body">'
+				+ '<span>검색어를 입력하세요</span>' + '</div>' + '</a>'
+				+ '</li>';
+		document.getElementById("searchMemberAndGroup").innerHTML = alertHtml;
+	} else {
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
+				
+
+				if (resData.length == 0) {
+					alertHtml += '<li>'
+							+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+							+ '<div class="search-body">'
+							+ '<span>검색 결과가 없습니다</span>' + '</div>'
+							+ '</a>' + '</li>';
+				} else {
+					for (i = 0; i < resData.length; i++) {
+						if (resData[i].memberNick != null) {
+							alertHtml += '<li>'
+									+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+									+ '<div class="search-body">'
+									+ '<span>' + resData[i].memberNick
+									+ '</span>' + '</div>' + '</a>'
+									+ '</li>';
+						} else {
+							alertHtml += '<li>'
+									+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+									+ '<div class="search-body">'
+									+ '<span>' + resData[i].groupName
+									+ '</span>' + '</div>' + '</a>'
+									+ '</li>';
+						}
+					}
+				}
+				document.getElementById("searchMemberAndGroup").innerHTML = alertHtml;
+			}
+		};
+
+		xhttp.open("POST", "../searchMemberAndGroup/searchByPart.do?part="+ searchValue, true);
+		xhttp.send();
+	}
+}
+
+// 알림에서 사용할 아이디
+function getMemberId() {
+
+	memberId = document.getElementById("noticeMemberId").value;
+
+}
+
+window.onload = getMemberId();
+
 // 종모양 클릭하면 알림 모달 팝업
 function viewAlertList() {
+	console.log(memberId);
 	var alertHtml = '';
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -137,8 +201,7 @@ function viewAlertList() {
 		}
 	};
 
-	xhttp.open("POST", "../notice/searchById.do?memberId="
-			+ '${sessionScope.id}', true);
+	xhttp.open("POST", "../notice/searchById.do?memberId=" + memberId, true);
 	xhttp.send();
 }
 
