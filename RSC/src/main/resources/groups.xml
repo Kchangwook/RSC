@@ -30,5 +30,9 @@
 		select * from groups where group_name like '%'||#{groupName}||'%' and group_num>0
 	</select>
 
+	<!-- 일부 그룹 이름으로 데이터 가져오기 -->
+	<select id = "selectByPartOfGroupName" parameterType = "String" resultMap = "groupResult">
+	select * from groups where group_name like '%'||#{groupName}||'%' And group_info_open=1
+	</select>
 	
 </mapper>

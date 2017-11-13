@@ -161,5 +161,16 @@ public class MemberService {
 		return memberDAO.getNick(id);
 
 	}// end of getNick
+	
+	/** 일부 membrNick을 통해 member 데이터를 가져오는 함수 */
+	public List<Member> searchByPartOfMemberNick(String memberNick) {
+		
+		List<Member> list = null;
+		
+		list = memberDAO.searchByPartOfMemberNick(memberNick);
+		
+		return list;
+		
+	}//end of searchByPartOfMemberNick
 
 }// end of MemberService

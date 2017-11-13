@@ -62,5 +62,10 @@
 	<select id = "selectNick" parameterType = "String" resultType="String">
 	select member_nick from member where member_id = #{memberId}
 	</select>
+	
+	<!-- 일부 닉네임으로 데이터 가져오기 -->
+	<select id = "selectByPartOfMemberNick" parameterType = "String" resultMap = "memberResult">
+	select * from member where member_nick like '%'||#{memberNick}||'%' And member_info_open=1
+	</select>
 
 </mapper>

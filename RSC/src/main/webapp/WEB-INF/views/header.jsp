@@ -55,6 +55,9 @@
 		height:160px;
 		align:center;
 	}
+	#searchMemberAndGroup {
+		width : 100%;
+	}
 
 </style>
 </head>
@@ -71,13 +74,25 @@
 						</a>
 					</div>
 
-					<div>
-						<input class="w3-input w3-round-large" type="text"
-							placeholder="회원 또는 그룹 검색">
-					</div>
-
+					<!-- 회원 또는 그룹 검색 -->
 					<ul
 						class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+						<li class="nav-item dropdown">
+						<input id="notifications" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"
+							class="w3-input w3-round-large nav-link" type="text"
+								onInput="searchMemberAndGroup(this.value)"
+								placeholder="회원 또는 그룹 검색">
+
+							<ul aria-labelledby="notifications" class="dropdown-menu round-large" id="searchMemberAndGroup" >
+								<li><a rel="nofollow" href="#" class="dropdown-item d-flex">
+										<span>검색어를 입력하세요</span>
+								</a></li>
+							</ul>
+						</li>
+					</ul>
+
+					<ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 						<!-- 로그인 성공시 (세션이 있는 경우) -->
 						<c:choose>
 							<c:when test="${sessionScope.id ne null}">
@@ -85,7 +100,9 @@
 								<li class="nav-item dropdown"><a id="notifications"
 									rel="nofollow" href="#" data-toggle="dropdown"
 									aria-haspopup="true" aria-expanded="false" class="nav-link">
-										<i class="fa fa-bell fa-2x" onclick="viewAlertList()"></i>
+										
+										<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
+										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }"></i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
@@ -96,6 +113,7 @@
 													<span>알림이 없습니다</span>
 												</div>
 										</a></li>
+										
 										<%-- <!-- 알림 틀 -->
 										<li><a rel="nofollow" href="#"
 											class="dropdown-item d-flex">
@@ -119,8 +137,8 @@
 								</a></li>
 
 								<!-- 로그아웃 -->
-								<li id="viewSignOut" class="nav-item"><a href="#로그아웃 링크"
-									class="nav-link">로그아웃</a></li>
+								<li id="viewSignOut" class="nav-item"><a href="logout.do" 
+								class="nav-link">로그아웃</a></li>
 
 
 							</c:when>

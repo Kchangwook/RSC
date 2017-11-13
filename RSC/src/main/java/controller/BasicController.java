@@ -99,4 +99,18 @@ public class BasicController {
 		
 	}//end of login
 	
+	/** 로그아웃 */
+	@RequestMapping("logout.do")
+public String logout(HttpSession session) throws Exception {
+		
+		String url = "index";
+		
+		session.invalidate();
+		session = null;
+		
+		return url;
+		
+	}//end of logout
+	
+	
 }//end of StartController
