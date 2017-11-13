@@ -16,29 +16,27 @@ public class BoardController {
 	
 	/* 변수 */
 	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
-	public BoardService service = context.getBean("boardService", BoardService.class);
+	public BoardService boardService = context.getBean("boardService", BoardService.class);
 	
 	
 	// 프로퍼티값 설정
 	public void setService(BoardService service) {
-		this.service = service;
+		this.boardService = service;
 	}
 	
 	// 글쓰기 및 글 불러오기
-	@RequestMapping("add.do")
+	@RequestMapping("addBoard.do")
 	public String addBoard(Board b, Model data, String memberId) {
-		System.out.println(b);
-		service.addBoard(b);
-		System.out.println("이제 끝이다");
-		data.addAttribute("list", service.selectAllBoard(memberId));
-		System.out.println("얘는 찍히니");
-		return "index2";
+		boardService.addBoard(b);
+		data.addAttribute("list", boardService.selectAllBoard(memberId));
+		return "loginMain";
 	} // end of addBoard
 	
 	// 로그인 후 글 불러오기
-	@RequestMapping("read.do")
+	@RequestMapping("readBoard.do")
 	public String readBoard(Model data, String memberId) {
-		data.addAttribute("list", service.selectAllBoard(memberId));
-		return "index2";
+		data.addAttribute("list", boardService.selectAllBoard(memberId));
+		return "loginMain";
 	}
+	
 } // end of BoardController

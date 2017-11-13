@@ -14,16 +14,12 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	private SqlSession session;
 	
 	// 게시글 등록
-	public void addBoard(Board board) {
-		System.out.println("여기까지는 가겟지");
-		System.out.println(board);
-		getSqlSession().insert("addBoard", board);
+	public void addBoard(Board b) {
+		getSqlSession().insert("addBoard", b);
 	}
 	
 	public List<Board> selectAll(String memberId) {
-		 List<Board> list = getSqlSession().selectList("selectBoardByIdDesc", memberId);
-		 System.out.println(list);
-		return list;
+		return getSqlSession().selectList("selectBoardByIdDesc", memberId);
 	}
 	
 	

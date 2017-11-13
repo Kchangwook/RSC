@@ -13,10 +13,12 @@ public class Board {
 	private int boardSingoFlag; // col : board_singo_flag
 	private int boardLike; // col : board_like
 	private int boardCnt; // col : board_cnt
+	private String memberNick; // col : member_nick 
 
 	/* 생성자 */
 	public Board() {
 	}
+	/* id 포함 생성자 */
 	public Board(int groupNum, int boardNum, String memberId, String boardContent, String boardFile, String boardTime,
 			int boardSingoFlag, int boardLike, int boardCnt) {
 		super();
@@ -30,7 +32,20 @@ public class Board {
 		this.boardLike = boardLike;
 		this.boardCnt = boardCnt;
 	}
-	
+	/* nick 포함 생성자 */	
+	public Board(int groupNum, int boardNum, String boardContent, String boardFile, String boardTime,
+			int boardSingoFlag, int boardLike, int boardCnt, String memberNick) {
+		super();
+		this.groupNum = groupNum;
+		this.boardNum = boardNum;
+		this.boardContent = boardContent;
+		this.boardFile = boardFile;
+		this.boardTime = boardTime;
+		this.boardSingoFlag = boardSingoFlag;
+		this.boardLike = boardLike;
+		this.boardCnt = boardCnt;
+		this.memberNick = memberNick;
+	}
 	/* Getter, Setter */
 	public int getGroupNum() {
 		return groupNum;
@@ -95,6 +110,13 @@ public class Board {
 		this.boardCnt = boardCnt;
 	}
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {
@@ -117,8 +139,10 @@ public class Board {
 		builder.append(boardLike);
 		builder.append(", boardCnt=");
 		builder.append(boardCnt);
+		builder.append(", memberNick=");
+		builder.append(memberNick);
 		builder.append("]");
 		return builder.toString();
 	}
-	
+	 
 } // end of class Board

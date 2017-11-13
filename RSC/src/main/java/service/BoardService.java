@@ -18,10 +18,8 @@ public class BoardService {
 	
 	/* 함수 */
 	/** 게시글 입력하는 함수*/
-	public void addBoard(Board board) {
-		System.out.println("여기는 오니??");
-		System.out.println(board);
-		boardDAO.addBoard(board);
+	public void addBoard(Board b) {
+		boardDAO.addBoard(b);
 	}
 	
 	/** 게시글 불러오는 함수 */

@@ -16,23 +16,29 @@
 		<result property="boardLike" column="BOARD_LIKE" />
 		<result property="boardCnt" column="BOARD_CNT" />
 	</resultMap>
+	
+	<resultMap id="boardResult2" type="board">
+		<result property="groupNum" column="GROUP_NUM" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardFile" column="BOARD_FILE" />
+		<result property="boardTime" column="BOARD_TIME" />
+		<result property="boardSingoFlag" column="BOARD_SINGO_FLAG" />
+		<result property="boardLike" column="BOARD_LIKE" />
+		<result property="boardCnt" column="BOARD_CNT" />
+	</resultMap>
 
 	<!-- board 테이블 내의 모든 데이터를 가져오기 -->
 	<select id="selectAllboard" resultMap="boardResult">
 		select * from board
 	</select>
 	
-	<!-- 아이디를 통한 게시글 검색 -->
-	<select id="selectBoardById" parameterType="String" resultMap="boardResult">
-		select * from board 
-		where member_id = #{memberId}	
-	</select>
-	
-	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬 -->
-	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult">
-		select * from board 
-		where member_id = #{memberId} 
-		order by BOARD_TIME desc
+	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬(Nick으로 반환) -->
+	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult2">
+		select b.board_num, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		from member m, board b
+		where m.member_id = b.member_id and m.member_id=#{memberId} order by b.board_time desc
 	</select>
 	
 	<!-- 게시글 추가 -->
