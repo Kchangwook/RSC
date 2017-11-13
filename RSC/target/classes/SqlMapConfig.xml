@@ -11,6 +11,9 @@
 		<typeAlias type = "domain.Board" alias = "board"/>
 		<typeAlias type = "domain.Notice" alias = "notice"/>
 		<typeAlias type = "domain.Groups" alias = "groups" />
+		<typeAlias type = "domain.BoardSingo" alias="boardSingo"/>
+		<typeAlias type = "domain.ReplySingo" alias="replySingo"/>
+		<typeAlias type = "domain.GroupSingo" alias="groupSingo"/>
 	</typeAliases>
 
 </configuration>

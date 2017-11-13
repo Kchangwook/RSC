@@ -67,5 +67,9 @@
 	<select id = "selectByPartOfMemberNick" parameterType = "String" resultMap = "memberResult">
 	select * from member where member_nick like '%'||#{memberNick}||'%' And member_info_open=1
 	</select>
+	
+	<delete id="deleteById" parameterType="String">
+		delete from member where member_id=#{memberId}
+	</delete>
 
 </mapper>

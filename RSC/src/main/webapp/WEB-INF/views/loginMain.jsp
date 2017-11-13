@@ -48,8 +48,7 @@
 	<div class="page home-page">
 	
 		<!-- 헤더 include -->
-		<jsp:include page="header.jsp"/>f
-
+		<jsp:include page="header.jsp"/>
 		<!-- 본문 부분 -->
 		<div class="content-page">
 

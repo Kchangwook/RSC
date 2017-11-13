@@ -6,6 +6,8 @@ public class GroupSingo {
 	/* 변수 */
 	private int groupSingoNum; // col : group_singo_num
 	private int groupNum; // col : group_num
+	private String groupName; // col : group_name (groups table)
+	private String groupSingoCnt; // col : group_singo_cnt (groups table)
 	private String groupSingoReason; // col : group_singo_reason
 	
 	/* 생성자 */
@@ -18,6 +20,15 @@ public class GroupSingo {
 		this.groupSingoReason = groupSingoReason;
 	}
 	
+	public GroupSingo(int groupSingoNum, int groupNum, String groupName, String groupSingoCnt,
+			String groupSingoReason) {
+		super();
+		this.groupSingoNum = groupSingoNum;
+		this.groupNum = groupNum;
+		this.groupName = groupName;
+		this.groupSingoCnt = groupSingoCnt;
+		this.groupSingoReason = groupSingoReason;
+	}
 	/* Getter, Setter */
 	public int getGroupSingoNum() {
 		return groupSingoNum;
@@ -40,6 +51,18 @@ public class GroupSingo {
 		this.groupSingoReason = groupSingoReason;
 	}
 	
+	public String getGroupName() {
+		return groupName;
+	}
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+	public String getGroupSingoCnt() {
+		return groupSingoCnt;
+	}
+	public void setGroupSingoCnt(String groupSingoCnt) {
+		this.groupSingoCnt = groupSingoCnt;
+	}
 	/* toString */
 	@Override
 	public String toString() {

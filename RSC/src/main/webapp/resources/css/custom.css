@@ -43,6 +43,14 @@ header.header nav.navbar input{
 	width:550px;
 }
 
+header.header nav.navbar ul{
+	margin-bottom:0;
+}
+
+header.header nav.navbar img{
+	margin-bottom:0;
+}
+
 @media screen and (max-width:800px) {
 	header.header nav.navbar input{
 		width:300px;
@@ -280,6 +288,74 @@ div.memberAdmin-page .searchBtn{
 
 div.memberAdmin-page #newMemberListDiv{
 	width:100%;
+}
+
+/* 관리자 신고 페이지 */
+div.singoAdmin-page .singoSelectDiv{
+	width: 100%;
+}
+div.singoAdmin-page .singoSelectDiv .singoSelectSpan{
+	vertical-align:middle;
+	width:30%;
+}
+div.singoAdmin-page .singoSelectDiv .singoSelectSpan select{
+	height:37px;
+	padding-left:5%;
+}
+div.singoAdmin-page .singoSelectDiv button{
+	vertical-align:middle;
+	background-color: #F7921E;
+	color:white;
+	border:1px solid #ccc;
+	padding:7px;
+}
+div.singoAdmin-page table{
+	width:100%;
+}
+div.singoAdmin-page table th.tdNum{
+	width:10%;
+}
+div.singoAdmin-page table th.MemberId{
+	width:10%
+}
+div.singoAdmin-page table th.tdContent{
+	width:35%;
+}
+div.singoAdmin-page table th.tdReason{
+	width:30%;
+}
+div.singoAdmin-page table th.tdBack{
+	width:7.5%;	
+}
+div.singoAdmin-page table th.tdDelete{
+	width:7.5%;
+}
+div.singoAdmin-page table button{
+	border:none;
+	color:white;
+	padding:5px;
+	font-weight: bold;
+	margin: 0;
+	
+}
+div.singoAdmin-page table button.backBtn{
+	background-color: #47C83E;
+}
+div.singoAdmin-page table button.deleteBtn{
+	background-color: red;
+}
+
+div.singoAdmin-page table th.tdGNum{
+	width:15%;
+}
+div.singoAdmin-page table th.tdGName{
+	width:30%;
+}
+div.singoAdmin-page table th.tdGReason{
+	width:30%;
+}
+div.singoAdmin-page table th.tdGSingoCnt{
+	width:10%;
 }
 
 

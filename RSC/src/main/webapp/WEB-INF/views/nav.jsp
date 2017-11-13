@@ -64,7 +64,9 @@
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-ban"></i><span>신고</span></a>
+								<a href="${pageContext.request.contextPath}/admin/singo.do">
+									<i class="fa fa-ban"></i><span>신고</span>
+								</a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-bullhorn"></i><span>공지</span></a>
@@ -85,7 +87,9 @@
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-ban"></i><span>신고</span></a>
+								<a href="${pageContext.request.contextPath}/admin/singo.do">
+									<i class="fa fa-ban"></i><span>신고</span>
+								</a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-bullhorn"></i><span>공지</span></a>

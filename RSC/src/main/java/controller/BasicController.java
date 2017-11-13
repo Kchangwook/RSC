@@ -101,7 +101,7 @@ public class BasicController {
 	
 	/** 로그아웃 */
 	@RequestMapping("logout.do")
-public String logout(HttpSession session) throws Exception {
+	public String logout(HttpSession session) throws Exception {
 		
 		String url = "index";
 		

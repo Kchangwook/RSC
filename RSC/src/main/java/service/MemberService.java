@@ -172,5 +172,10 @@ public class MemberService {
 		return list;
 		
 	}//end of searchByPartOfMemberNick
+	
+	/** ID로 member 삭제 */
+	public boolean deleteMemberByID(String memberId) {
+		return memberDAO.deleteMemberByID(memberId);
+	}
 
 }// end of MemberService

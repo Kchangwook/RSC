@@ -75,8 +75,7 @@
 					</div>
 
 					<!-- 회원 또는 그룹 검색 -->
-					<ul
-						class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+					<ul	class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 						<li class="nav-item dropdown">
 						<input id="notifications" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"
@@ -96,49 +95,36 @@
 						<!-- 로그인 성공시 (세션이 있는 경우) -->
 						<c:choose>
 							<c:when test="${sessionScope.id ne null}">
+								<!-- 로그인 사용자  -->
+								<li id="loginInfo" class="nav-item">
+									<a href="#로그인후 메인페이지" class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
+									<c:choose>
+										<c:when test="${sessionScope.nick eq null}">
+											${sessionScope.id}
+										</c:when>
+										<c:otherwise>
+											${sessionScope.nick}
+										</c:otherwise>
+									
+									</c:choose>
+								</a></li>
+							
 								<!-- 알림 아이콘 및 링크 -->
-								<li class="nav-item dropdown"><a id="notifications"
-									rel="nofollow" href="#" data-toggle="dropdown"
-									aria-haspopup="true" aria-expanded="false" class="nav-link">
-										
-										<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
-										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }"></i>
+								<li class="nav-item dropdown">
+								<a id="notifications" rel="nofollow" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
+									<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
+										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }">
+									</i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu"
 										id="viewAlert">
 
-										<li><a rel="nofollow" href="#"
-											class="dropdown-item d-flex">
-												<div class="msg-body">
-													<span>알림이 없습니다</span>
-												</div>
-										</a></li>
-										
-										<%-- <!-- 알림 틀 -->
-										<li><a rel="nofollow" href="#"
-											class="dropdown-item d-flex">
-												<div class="msg-profile">
-													<img
-														src="${pageContext.request.contextPath}/resources/img/profile.jpg"
-														alt="..." class="img-fluid rounded-circle">
-												</div>
-												<div class="msg-body">
-													<h3 class="h5">관리자</h3>
-													<span>게시물이 신고되었습니다</span> <small>1시간 전</small>
-												</div>
-										</a></li>
-										<!-- 알림틀 끝 --> --%>
-
-									</ul></li>
-
-								<!-- 로그인 사용자  -->
-								<li id="loginInfo" class="nav-item"><a href="#로그인후 메인페이지"
-									class="nav-link"> <img src="img/profile.jpg"> 이름
-								</a></li>
+									</ul>
+								</li>
 
 								<!-- 로그아웃 -->
-								<li id="viewSignOut" class="nav-item"><a href="logout.do" 
-								class="nav-link">로그아웃</a></li>
+								<li id="viewSignOut" class="nav-item">
+								<a href="${pageContext.request.contextPath}/basic/logout.do" class="nav-link">로그아웃</a></li>
 
 
 							</c:when>

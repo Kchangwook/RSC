@@ -173,7 +173,7 @@ function viewAlertList() {
 			var resData = this.responseText;
 			resData = JSON.parse(resData);
 
-			if (resData == null) {
+			if (resData.length==0) {
 				alertHtml += '<li>'
 						+ '<a rel="nofollow" href="#" class="dropdownitem d-flex">'
 						+ '<div class="msgbody">' + '<span>알림이 없습니다</span>'

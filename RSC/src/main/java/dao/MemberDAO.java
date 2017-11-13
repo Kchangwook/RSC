@@ -127,4 +127,10 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		
 	}//end of searchByPartOfMemberNick
 	
+	/** ID로 member 삭제 */
+	public boolean deleteMemberByID(String memberId) {
+		session = getSqlSession();
+		return session.delete("member.deleteById",memberId)>0 ? true : false;
+	}
+	
 }//end of MemberDAO
