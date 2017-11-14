@@ -238,21 +238,20 @@
 
 
 
-
-	<div class="modal fade" id="detailView" role="dialog" >
+	<!-- 글 상세보기 모달 -->
+	<div class="modal fade" id="detailView" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-			<!-- 글 작성 틀 -->
-			<div class="col-md-12 padding" >
+				<!-- 글 작성 틀 -->
+				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
-					<div class="header padding" >
-						<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> 
-						<span id="memberNick">
-						</span>
+					<div class="header padding">
+						<span><img
+							src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+						<span id="memberNick"> </span>
 					</div>
 					<!-- 글 조회수 -->
-					<div class="cnt" id="boardCnt" >
-					</div>
+					<div class="cnt" id="boardCnt"></div>
 					<!-- 글 내용 -->
 					<div class="content col-md-12" id="boardContent"></div>
 					<hr>
@@ -260,7 +259,8 @@
 					<!-- 글 작성 시간 -->
 					<div class="footer">
 						<div class="time-tag">
-							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span id="boardTime"></span>
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
 						</div>
 					</div>
 					<br>
@@ -275,7 +275,8 @@
 					<!-- 좋아요 -->
 					<div class="like">
 						<form class="form-inline" action="like.do">
-							<input type="submit" value="좋아요" class="btn btn-default btnOrange"> <input type="hidden"
+							<input type="submit" value="좋아요"
+								class="btn btn-default btnOrange"> <input type="hidden"
 								name="boardNum" value="${sessionScope.id}">
 						</form>
 					</div>
@@ -285,15 +286,16 @@
 							<input type="text" placeholder="댓글을 입력하세요">
 						</div>
 						<div align="right">
-							<input type="submit" value="작성완료" class="btn btn-default btnOrange"> <input type="hidden"
+							<input type="submit" value="작성완료"
+								class="btn btn-default btnOrange"> <input type="hidden"
 								name="boardNum" value="${sessionScope.id}">
 						</div>
 					</form>
 					<!-- /댓글 작성 틀 -->
+				</div>
+				<!--/글 작성 틀-->
 			</div>
-			<!--/글 작성 틀-->
-			</div>
-			
+
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
@@ -318,6 +320,7 @@
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 
+	<!-- 모달 비동기 스크립트 -->
 	<script>
 		function searchBoard(boardNum) {
 			var xhttp = new XMLHttpRequest();
