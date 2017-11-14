@@ -1,5 +1,9 @@
 package controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import domain.Board;
 import domain.Member;
 import service.BoardService;
 import service.MemberService;
@@ -28,7 +33,10 @@ public class BasicController {
 	/* 서블릿 */
 	/** 시작 페이지 이동 */
 	@RequestMapping("start.do")
-	public String start() {
+	public String start(HttpServletRequest request) {
+		
+		Map<String,List<Board>> map = boardService.getLists();
+		request.setAttribute("map", map);
 		
 		return "index";
 		
