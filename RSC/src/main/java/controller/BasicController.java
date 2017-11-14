@@ -90,20 +90,16 @@ public class BasicController {
 		case 3:
 			session.setAttribute("level", "member");
 			session.setAttribute("id", id);
+			//닉네임 가져온 후 세션에 추가
+			String nick = memberService.getNick(id);
+			
+			session.setAttribute("nick", nick);
+			url = "redirect:../board/readBoard.do";
+			memberService.updateLoginInfo(id);
 			break;
 		default:
 			throw new Exception();
 		}
-		
-		//닉네임 가져온 후 세션에 추가
-		String nick = memberService.getNick(id);
-		
-		session.setAttribute("nick", nick);
-		
-		url = "loginMain";
-
-		memberService.updateLoginInfo(id);
-		model.addAttribute("boardList", boardService.selectAllBoard(id));
 		
 		return url;
 		
