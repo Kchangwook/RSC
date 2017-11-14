@@ -1,5 +1,7 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -31,16 +33,17 @@ public class BoardController {
 	@RequestMapping("addBoard.do")
 	public String addBoard(Board b, Model data, String memberId) {
 		boardService.addBoard(b);
-		data.addAttribute("boardList", boardService.selectAllBoard(memberId));
-		return "loginMain";
+		return "redirect:readBoard.do";
 	} // end of addBoard
 	
 	/* 로그인 후 불러오기 */
 	@RequestMapping("readBoard.do")
-	public String readBoard(Model data, String memberId, int boardNum) {
-		data.addAttribute("boardList", boardService.selectAllBoard(memberId));
-		data.addAttribute("replyList", replyService.selectAllReply(boardNum));
-		return "Modal";
+	public String readBoard(HttpServletRequest request) {
+		
+		String memberId = (String)request.getSession().getAttribute("id");
+		
+		request.setAttribute("boardList", boardService.selectAllBoard(memberId));
+		return "loginMain";
 	}
 	
 	/* 번호로 글 검색 */
