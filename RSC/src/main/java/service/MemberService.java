@@ -78,7 +78,7 @@ public class MemberService {
 		
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
 		if (m.getMemberImg() == "")
-			m.setMemberImg("/resources/img/profile.jpg");
+			m.setMemberImg("resources/img/profile.jpg");
 		
 		//내 컴퓨터 내로 이미지 업로드
 		m = this.uploadProfile(request, m);
@@ -143,8 +143,8 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
-			m.setMemberImg(m.getMemberId()+"_"+file.getOriginalFilename());
+			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
 			
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import domain.Board;
 import domain.Member;
 import service.BoardService;
 import service.MemberService;
@@ -34,7 +35,10 @@ public class BasicController {
 	/* 서블릿 */
 	/** 시작 페이지 이동 */
 	@RequestMapping("start.do")
-	public String start() {
+	public String start(HttpServletRequest request) {
+		
+		Map<String,List<Board>> map = boardService.getLists();
+		request.setAttribute("map", map);
 		
 		return "index";
 		
@@ -88,20 +92,16 @@ public class BasicController {
 		case 3:
 			session.setAttribute("level", "member");
 			session.setAttribute("id", id);
+			//닉네임 가져온 후 세션에 추가
+			String nick = memberService.getNick(id);
+			
+			session.setAttribute("nick", nick);
+			url = "redirect:../board/readBoard.do";
+			memberService.updateLoginInfo(id);
 			break;
 		default:
 			throw new Exception();
 		}
-		
-		//닉네임 가져온 후 세션에 추가
-		String nick = memberService.getNick(id);
-		
-		session.setAttribute("nick", nick);
-		
-		url = "loginMain";
-
-		memberService.updateLoginInfo(id);
-		model.addAttribute("list", boardService.selectAllBoard(id));
 		
 		return url;
 		
