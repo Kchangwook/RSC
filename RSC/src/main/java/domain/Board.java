@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Date;
+
 /** board 테이블에 담을 정보 class */
 public class Board {
 	
@@ -9,7 +11,7 @@ public class Board {
 	private String memberId; // col : member_id
 	private String boardContent; // col : board_content
 	private String boardFile; // col : board_file
-	private String boardTime; // col : board_time
+	private Date boardTime; // col : board_time
 	private int boardSingoFlag; // col : board_singo_flag
 	private int boardLike; // col : board_like
 	private int boardCnt; // col : board_cnt
@@ -17,7 +19,7 @@ public class Board {
 	/* 생성자 */
 	public Board() {
 	}
-	public Board(int groupNum, int boardNum, String memberId, String boardContent, String boardFile, String boardTime,
+	public Board(int groupNum, int boardNum, String memberId, String boardContent, String boardFile, Date boardTime,
 			int boardSingoFlag, int boardLike, int boardCnt) {
 		super();
 		this.groupNum = groupNum;
@@ -67,10 +69,10 @@ public class Board {
 		this.boardFile = boardFile;
 	}
 	
-	public String getBoardTime() {
+	public Date getBoardTime() {
 		return boardTime;
 	}
-	public void setBoardTime(String boardTime) {
+	public void setBoardTime(Date boardTime) {
 		this.boardTime = boardTime;
 	}
 	

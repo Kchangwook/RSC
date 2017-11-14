@@ -142,7 +142,7 @@ public class MemberService {
 			}
 
 			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
-			m.setMemberImg(m.getMemberId()+"_"+file.getOriginalFilename());
+			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
 			
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
