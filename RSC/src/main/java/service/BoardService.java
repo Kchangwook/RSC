@@ -33,6 +33,11 @@ public class BoardService {
 	public List<Board> selectAllBoard(String memberId) {
 		return boardDAO.selectAll(memberId);
 	}
+	
+	/** 번호로 게시글 검색하는 함수 */
+	public Board searchBoard(int boardNum) {
+		return boardDAO.searchBoard(boardNum);
+	}
 
 	/** 게시글을 시간 순서대로 가져오는 함수 */
 	public Map<String, List<Board>> getLists() {

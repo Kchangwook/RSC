@@ -384,7 +384,28 @@ div.singoAdmin-page table th.tdGSingoCnt{
 	padding:1% 5%;
 }
 
+/* 글 상세보기 모달 */
+.modal .modal-dialog .modal-content img{
+	width:50px;
+	height:50px;
+	border-radius: 25px;
+}
 
+.modal .modal-dialog .modal-content .col-md-12 .header {
+	padding: 2% 5%;
+}
+
+.modal .modal-dialog .modal-content .col-md-12 .content {
+    padding: 2% 5%;
+}
+
+.modal .modal-dialog .modal-content .col-md-12 hr {
+	margin: 3px;
+}
+
+.padding {
+	padding: 2% 5%;
+}
 
 
 

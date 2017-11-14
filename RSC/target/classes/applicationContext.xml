@@ -70,6 +70,13 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="singo.xml" />
 	</bean>
+	
+	<!-- ReplySessionFactory 설정하는 빈 -->
+	<bean id="replyFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="reply.xml" />
+	</bean>
 
 	<!-- masterDAO -->
 	<bean id="masterDAO" class="dao.MasterDAO">
@@ -95,6 +102,21 @@
 	<bean id="noticeDAO" class="dao.NoticeDAO">
 		<property name="sqlSessionFactory" ref="noticeFactory" />
 	</bean>
+	
+	<!-- groupsDAO -->
+	<bean id="groupsDAO" class="dao.GroupsDAO">
+		<property name="sqlSessionFactory" ref="groupsFactory" />
+	</bean>
+	
+	<!-- SingoDAO -->
+	<bean id="singoDAO" class="dao.SingoDAO">
+		<property name="sqlSessionFactory" ref="singoFactory"/>
+	</bean>
+	
+	<!-- replyDAO -->
+	<bean id = "replyDAO" class = "dao.ReplyDAO">
+		<property name = "sqlSessionFactory" ref = "replyFactory"/>
+	</bean>
 
 	<!-- memberService -->
 	<bean id="memberService" class="service.MemberService">
@@ -112,26 +134,23 @@
 	<bean id="noticeService" class="service.NoticeService">
 		<property name="noticeDAO" ref="noticeDAO" />
 	</bean>
-
-	<!-- groupsDAO -->
-	<bean id="groupsDAO" class="dao.GroupsDAO">
-		<property name="sqlSessionFactory" ref="groupsFactory" />
-	</bean>
-
+	
 	<!-- groupsService -->
 	<bean id="groupsService" class="service.GroupsService">
 		<property name="groupsDAO" ref="groupsDAO" />
 	</bean>
 		
-	<!-- SingoDAO -->
-	<bean id="singoDAO" class="dao.SingoDAO">
-		<property name="sqlSessionFactory" ref="singoFactory"/>
-	</bean>
-	
 	<!-- SingoService -->
 	<bean id="singoService" class="service.SingoService">
 		<property name="singoDAO" ref="singoDAO"/>
 	</bean>
+
+	<!-- replyService -->
+	<bean id="replyService" class="service.ReplyService">
+		<property name = "replyDAO" ref = "replyDAO"/>
+	</bean>
+
+
 
 	<!-- 트랜잭션 매니저 빈 -->
 	<bean id="transactionManager"

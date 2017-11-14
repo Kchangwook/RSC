@@ -41,6 +41,13 @@
 		where m.member_id = b.member_id and m.member_id=#{memberId} order by b.board_time desc
 	</select>
 	
+	<!-- 번호로 게시글 검색 -->
+	<select id="selectBoardByNum" parameterType="int" resultMap="boardResult2">
+		select b.board_num, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		from member m, board b
+		where m.member_id = b.member_id and b.board_num = #{boardNum}
+	</select>
+	
 	<!-- 게시글 추가 -->
 	<insert id="addBoard" parameterType="board">
 		insert 
@@ -67,5 +74,14 @@
 	<select id = "selectOrderByTime" resultMap = "boardResult">
 		select * from board order by board_time desc
 	</select>
+	
+	<!-- 게시글 조회수 증가 -->
+	<update id="addReadNum" parameterType="int">
+		update board
+		set board_cnt = board_cnt + 1
+		where board_num = #{boardNum}
+	</update>
+	
+	
 
 </mapper>
