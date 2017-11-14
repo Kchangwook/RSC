@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+	<resultMap id="replyResult" type="reply">
+		<result property="replyNum" column="REPLY_NUM" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replyTime" column="REPLY_FILE" />
+		<result property="replySingoFlag" column="REPLY_SINGO_FLAG" />
+	</resultMap>
+	
+	<resultMap id="replyResult2" type="reply">
+		<result property="replyNum" column="REPLY_NUM" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replyTime" column="REPLY_FILE" />
+		<result property="replySingoFlag" column="REPLY_SINGO_FLAG" />
+	</resultMap>
+
+	<!-- reply 테이블 내의 모든 데이터를 가져오기 -->
+	<select id="selectAllReply" resultMap="replyResult">
+		select * from reply
+	</select>
+	
+	<!-- 게시글 번호를 통한 댓글 검색 -->
+	<select id="selectReplyById" parameterType="String" resultMap="replyResult">
+		select * from reply
+		where board_num = #{boardNum}	
+	</select>
+	
+	<!-- 아이디를 통한 댓글 검색 & 시간순 정렬 -->
+	<select id="selectReplyByboardNumDesc" parameterType="String" resultMap="replyResult">
+		select * from reply 
+		where board_num = #{boardNum}
+		order by reply_time desc
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert id="addReply" parameterType="reply">
+		insert 
+		into reply(reply_num, board_num, member_id, reply_content, reply_time, reply_singo_flag)
+		VALUES(reply_SEQ.NEXTVAL, #{boardNum}, #{memberId}, #{replyContent}, SYSTIMESTAMP, 0)
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="reply" >
+		update reply
+		set reply_content = #{replyContent}, reply_time = SYSTIMESTAMP
+		where member_id = #{memberId} and reply_num = #{replyNum}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="reply">
+		delete 
+		from reply 
+		where member_id = #{memberId} and reply_num = #{replyNum}
+	</delete>
+
+</mapper>

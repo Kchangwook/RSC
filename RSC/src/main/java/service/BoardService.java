@@ -24,16 +24,20 @@ public class BoardService {
 	}
 
 	/* 함수 */
-	/** 게시글 입력하는 함수 */
-	public void addBoard(Board board) {
-		System.out.println("여기는 오니??");
-		System.out.println(board);
-		boardDAO.addBoard(board);
+
+	/** 게시글 입력하는 함수*/
+	public void addBoard(Board b) {
+		boardDAO.addBoard(b);
 	}
 
 	/** 게시글 불러오는 함수 */
 	public List<Board> selectAllBoard(String memberId) {
 		return boardDAO.selectAll(memberId);
+	}
+	
+	/** 번호로 게시글 검색하는 함수 */
+	public Board searchBoard(int boardNum) {
+		return boardDAO.searchBoard(boardNum);
 	}
 
 	/** 게시글을 시간 순서대로 가져오는 함수 */

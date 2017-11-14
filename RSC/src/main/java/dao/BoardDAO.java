@@ -13,17 +13,20 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	/* 변수 */
 	private SqlSession session;
 	
-	// 게시글 등록
-	public void addBoard(Board board) {
-		System.out.println("여기까지는 가겟지");
-		System.out.println(board);
-		getSqlSession().insert("addBoard", board);
+	/* 게시글 등록 */
+	public void addBoard(Board b) {
+		getSqlSession().insert("addBoard", b);
 	}
 	
+	/* 게시글 아이디로 검색 후 리스트로 반환 */
 	public List<Board> selectAll(String memberId) {
-		 List<Board> list = getSqlSession().selectList("selectBoardByIdDesc", memberId);
-		 System.out.println(list);
-		return list;
+		return getSqlSession().selectList("selectBoardByIdDesc", memberId);
+	}
+	
+	/* 게시글 번호로 검색 후 객체로 반환 & 조회수 증가*/
+	public Board searchBoard(int boardNum) {
+		getSqlSession().update("addReadNum", boardNum);
+		return getSqlSession().selectOne("selectBoardByNum", boardNum);
 	}
 	
 	/** 게시글 시간 순서대로 가져오기 */

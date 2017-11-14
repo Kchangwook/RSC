@@ -103,7 +103,7 @@ public class BasicController {
 		url = "loginMain";
 
 		memberService.updateLoginInfo(id);
-		model.addAttribute("list", boardService.selectAllBoard(id));
+		model.addAttribute("boardList", boardService.selectAllBoard(id));
 		
 		return url;
 		
