@@ -26,4 +26,28 @@ public class SingoService {
 	public List<GroupSingo> searchAllGroupSingo(){
 		return singoDAO.searchAllGroupSingo();
 	}
+	
+	public boolean restoreBoardSingo(String boardSingoNum, String boardNum) {
+		return singoDAO.restoreBoardSingo(boardSingoNum, boardNum);
+	}
+	
+	public boolean restoreReplySingo(String replySingoNum, String replyNum) {
+		return singoDAO.restoreReplySingo(replySingoNum, replyNum);
+	}
+	
+	public boolean restoreGroupSingo(String groupSingoNum, String groupNum) {
+		return singoDAO.restoreGroupSingo(groupSingoNum, groupNum);
+	}
+	
+	public boolean deleteBoardBySingo(String boardNum) {
+		return singoDAO.deleteBoardBySingo(boardNum);
+	}
+	
+	public boolean deleteReplyBySingo(String replyNum) {
+		return singoDAO.deleteReplyBySingo(replyNum);
+	}
+	
+	public boolean deleteGroupBySingo(String groupNum) {
+		return singoDAO.deleteGroupBySingo(groupNum);
+	}
 }

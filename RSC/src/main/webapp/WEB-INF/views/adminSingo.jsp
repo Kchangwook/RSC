@@ -136,11 +136,11 @@
 			singoListHTML +=
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
-						'<th class="tdNum">글 번호</th>'+
+						'<th class="tdNum">신고 번호</th>'+
 						'<th class="tdMemberId">작성자</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
-						'<th class="tdBack"></th>'+
+						'<th class="tdRestore"></th>'+
 						'<th class="tdDelete"></th>'+
 					'</tr></thead>';
 			if(resData.length==0){
@@ -152,12 +152,12 @@
 				for(i=0 ; i<resData.length ; i++){
 					singoListHTML +=
 						'<tr>'+
-							'<td>'+resData[i].boardNum+'</td>'+
+							'<td>'+resData[i].boardSingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
 							'<td>'+resData[i].boardContent+'</td>'+
 							'<td>'+resData[i].boardSingoReason+'</td>'+
-							'<td><Button class="backBtn" onclick="backSingoObj(\'board\',\''+resData[i].boardNum+'\')">복원</Button></td>'+
-							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'board\',\''+resData[i].boardNum+'\')">삭제</Button></td>'+
+							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'board\',\''+resData[i].boardSingoNum+'\',\''+resData[i].boardNum+'\')">복원</Button></td>'+
+							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'board\',\''+resData[i].boardSingoNum+'\',\''+resData[i].boardNum+'\')">삭제</Button></td>'+
 						'</tr>';
 				}
 			}
@@ -167,11 +167,11 @@
 			singoListHTML +=
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
-						'<th class="tdNum">글 번호</th>'+
+						'<th class="tdNum">신고 번호</th>'+
 						'<th class="tdMemberId">작성자</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
-						'<th class="tdBack"></th>'+
+						'<th class="tdRestore"></th>'+
 						'<th class="tdDelete"></th>'+
 					'</tr></thead>';
 			if(resData.length==0){
@@ -183,12 +183,12 @@
 				for(i=0 ; i<resData.length ; i++){
 					singoListHTML +=
 						'<tr>'+
-							'<td>'+resData[i].replyNum+'</td>'+
+							'<td>'+resData[i].replySingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
 							'<td>'+resData[i].replyContent+'</td>'+
 							'<td>'+resData[i].replySingoReason+'</td>'+
-							'<td><Button class="backBtn" onclick="backSingoObj(\'reply\',\''+resData[i].replyNum+'\')">복원</Button></td>'+
-							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'reply\',\''+resData[i].replyNum+'\')">삭제</Button></td>'+
+							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'reply\',\''+resData[i].replySingoNum+'\',\''+resData[i].replyNum+'\')">복원</Button></td>'+
+							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'reply\',\''+resData[i].replySingoNum+'\',\''+resData[i].replyNum+'\')">삭제</Button></td>'+
 						'</tr>';
 				}
 			}
@@ -200,11 +200,11 @@
 			singoListHTML +=
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
-						'<th class="tdGNum">그룹 번호</th>'+
+						'<th class="tdGNum">신고 번호</th>'+
 						'<th class="tdGName">그룹 이름</th>'+
 						'<th class="tdGReason">신고 사유</th>'+
 						'<th class="tdGSingoCnt">신고 횟수</th>'+
-						'<th class="tdBack"></th>'+
+						'<th class="tdRestore"></th>'+
 						'<th class="tdDelete"></th>'+
 					'</tr></thead>';
 			if(resData.length==0){
@@ -216,12 +216,12 @@
 				for(i=0 ; i<resData.length ; i++){
 					singoListHTML +=
 						'<tr>'+
-							'<td>'+resData[i].groupNum+'</td>'+
+							'<td>'+resData[i].groupSingoNum+'</td>'+
 							'<td>'+resData[i].groupName+'</td>'+
 							'<td>'+resData[i].groupSingoReason+'</td>'+
-							'<td>'+resData[i].groupSingoCnt+'</td>'+
-							'<td><Button class="backBtn" onclick="backSingoObj(\'group\',\''+resData[i].groupNum+'\')">복원</Button></td>'+
-							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'group\',\''+resData[i].groupNum+'\')">삭제</Button></td>'+
+							'<td>'+(resData[i].groupSingoCnt>=5?"<b style=\"color:red\">"+resData[i].groupSingoCnt+"</b>":resData[i].groupSingoCnt)+'</td>'+
+							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'group\',\''+resData[i].groupSingoNum+'\',\''+resData[i].groupNum+'\')">복원</Button></td>'+
+							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'group\',\''+resData[i].groupSingoNum+'\',\''+resData[i].groupNum+'\')">삭제</Button></td>'+
 						'</tr>';
 				}
 			}
@@ -231,10 +231,18 @@
 	}
 	
 	/* 신고된 객체 복원 */
-	function backSingoObj(type, num){
+	function restoreSingoObj(type,singoNum,num){
 		if(confirm("복원 하시겠습니까?")){
-			//location.href='backSingo.do?type='+type+'&num='+num;
-			alert(type+" "+num);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					newSingoList(type, resData);
+				}
+			}
+			xhttp.open("POST", "restoreSingo.do?type="+type+"&singoNum="+singoNum+"&num="+num, true);
+			xhttp.send(); 
 			return true;
 		} else {
 			return false;
@@ -242,10 +250,18 @@
 	}
 	
 	/* 신고된 객체 삭제 */
-	function deleteSingoObj(type, num){
+	function deleteSingoObj(type, singoNum, num){
 		if(confirm("삭제 하시겠습니까?")){
-			alert(type+" "+num);
-			//location.href='deleteSingo.do?type='+type+'&num='+num;
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					newSingoList(type, resData);
+				}
+			}
+			xhttp.open("POST", "deleteSingo.do?type="+type+"&singoNum="+singoNum+"&num="+num, true);
+			xhttp.send(); 
 			return true;
 		} else {
 			return false;

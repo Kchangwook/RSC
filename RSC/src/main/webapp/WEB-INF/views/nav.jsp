@@ -69,9 +69,10 @@
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-bullhorn"></i><span>공지</span></a>
+								<a href="#alert" onclick="document.getElementById('alertModal').style.display='block'"><i class="fa fa-bullhorn"></i><span>공지</span></a>
 							</li>
 						</c:when>
+						
 						<c:when test="${sessionScope.level eq 'master'}"> <!-- 최상위관리자 로그인 시 -->
 							<li>
 								<a href="${pageContext.request.contextPath}/admin/group.do"><i class="fa fa-users"></i><span>그룹 관리</span></a>
@@ -92,7 +93,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-bullhorn"></i><span>공지</span></a>
+								<a href="#alert" onclick="document.getElementById('alertModal').style.display='block'"><i class="fa fa-bullhorn"></i><span>공지</span></a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-plus-square"></i><span>관리자 아이디 생성</span></a>
@@ -118,15 +119,42 @@
 					</c:choose>
 				</ul>
 			</div>
-			
-			
 		</div>
 	</nav>
+	
+	<!-- 공지 모달 -->
+	<div id="alertModal" class="w3-modal">
+		<div class="w3-modal-content w3-animate-left w3-card-4">
+			<header class="w3-container">
+				<span onclick="document.getElementById('alertModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+				<h3>공지사항 및 알림</h3>
+			</header>
+			<div class="alert-content">
+			<input type="radio" id="radioAllMember" name="checkTarget" value="allMember" onclick="viewSearchMemberInput(this.value)">전체
+			<input type="radio" id="radioSelectMember" name="checkTarget" value="selectMember" onclick="viewSearchMemberInput(this.value)">선택
+			<span id="searchMemberInput"></span>
+				<table>
+
+				</table>
+			</div>
+
+		</div>
+	</div>
 	
 	<script>
 		function blockAccess(){
 			alert("로그인 후 이용해주시기 바랍니다.");
 			location.reload();
+		}
+		
+		function viewSearchMemberInput(value){
+			if(value=='selectMember'){
+				document.getElementById("searchMemberInput").innerHTML = 
+					'<input type="text" placeholder="회원 ID 또는 닉네임 검색">';
+			} else {
+				document.getElementById("searchMemberInput").innerHTML = '';
+			}
+
 		}
 	
 	</script>
