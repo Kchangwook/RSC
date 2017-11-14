@@ -38,7 +38,7 @@
 								<a href="index.jsp"><i class="fa fa-user"></i><span>친구</span></a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-address-card-o"></i><span>마이페이지</span></a>
+								<a href="mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-address-card-o"></i><span>mypage</span></a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-comments"></i><span>채팅</span></a>

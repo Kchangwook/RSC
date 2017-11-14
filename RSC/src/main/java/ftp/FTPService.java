@@ -24,7 +24,7 @@ public class FTPService {
 		int result = -1;
 		
 		try {
-			File uploadfile = new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + fileName);
+			File uploadfile = new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/member/" + fileName);
 
 			ftp = new FTPClient();
 			ftp.setControlEncoding("UTF-8");
