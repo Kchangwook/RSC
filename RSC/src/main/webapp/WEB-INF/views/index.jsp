@@ -57,25 +57,24 @@
 				<!-- 일간 TOP -->
 				일간 TOP
 				<div class="row">
-					<c:forEach begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.day}" begin="0" end="2" step="1">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-									삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
+								<div class="content">${item.boardContent}</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> 3분전
+										<i class="fa fa-clock-o"></i>${item.boardTime}
 									</div>
 								</div>
 							</div>
@@ -87,25 +86,24 @@
 				<!-- 주간 TOP -->
 				주간 TOP
 				<div class="row">
-					<c:forEach begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.week}" begin="0" end="2" step="1">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-									삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
+								<div class="content">${item.boardContent}</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> 3분전
+										<i class="fa fa-clock-o"></i> ${item.boardTime}
 									</div>
 								</div>
 							</div>
@@ -117,25 +115,24 @@
 				<!-- 월간 TOP -->
 				월간 TOP
 				<div class="row">
-					<c:forEach begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.month}" begin="0" end="2" step="1">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화
-									삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
+								<div class="content">${item.boardContent}</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> 3분전
+										<i class="fa fa-clock-o"></i> ${item.boardTime}
 									</div>
 								</div>
 							</div>

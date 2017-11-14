@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -76,7 +78,7 @@ public class MemberService {
 		
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
 		if (m.getMemberImg() == "")
-			m.setMemberImg("/resources/img/profile.jpg");
+			m.setMemberImg("resources/img/profile.jpg");
 		
 		//내 컴퓨터 내로 이미지 업로드
 		m = this.uploadProfile(request, m);
@@ -174,5 +176,28 @@ public class MemberService {
 	public boolean deleteMemberByID(String memberId) {
 		return memberDAO.deleteMemberByID(memberId);
 	}
+	
+	/** 아이디를 통해 데이터를 가져오는 함수 */
+	public Member searchById(String id) {
+		
+		Member m = null;
+		
+		m = memberDAO.searchById(id);
+		
+		return m;
+		
+	}//end of searchMemberById
+	
+	/** member 정보 수정 함수 */
+	public boolean updateMember(Member member, HttpServletRequest request) {
+		
+		List<Member> list = null;
+		
+		System.out.println("정보수정");
+		
+		//return memberDAO.updateLoginInfo(id);
+		return true;
+		
+	}//end of updateMember
 
 }// end of MemberService

@@ -115,6 +115,9 @@ public class BoardService {
 			}else if(count == 3)
 				break;
 		
+		System.out.println(date);
+		System.out.println(list.get(0));
+		
 		return list;
 		
 	}// end of getMonths
