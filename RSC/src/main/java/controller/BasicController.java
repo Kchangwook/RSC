@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -116,5 +118,57 @@ public class BasicController {
 		
 	}//end of logout
 	
+	/** 마이페이지로 이동 */
+	@RequestMapping("mypage.do")
+public String mypage(Model model, @RequestParam("mypageMemberId") String memberId) {
+		
+		String url = "mypage";
+		
+		Member member = memberService.searchById(memberId);
+		
+		model.addAttribute("member", member);
+		
+		Map map = new HashMap();
+		
+		map.put("exercise", false);
+		map.put("cooking", false);
+		map.put("movie", false);
+		map.put("music", false);
+		map.put("book", false);
+		map.put("fashion", false);
+		map.put("game", false);
+		map.put("trip", false);
+		map.put("etc", false);
+		
+		String[] interest = member.getMemberInterest().split(",");
+		
+		for (int i = 0; i < interest.length; i++) {
+			map.replace(interest[i], true);
+		}
+		
+		model.addAttribute("interest", map);
+		
+		return url;
+		
+	}//end of mypage
+	
+	/** 마이페이지에서 회원 정보 수정 */
+	@RequestMapping("update.do")
+public String update(Model model, @ModelAttribute("member") Member m, HttpServletRequest request, @RequestParam("memberId")String id, @RequestParam("memberPw")String pwd) {
+		
+		String url = "mypage";
+		
+		if(memberService.checkLogin(id, pwd) != 0) {
+			model.addAttribute("msg", "비밀번호가 일치하지 않습니다");
+		} else {
+			if(memberService.updateMember(m, request))
+				model.addAttribute("msg", "정보수정에 성공했습니다");
+			else
+				model.addAttribute("msg","정보수정에 실패했습니다.");
+		}
+		
+		return url;
+		
+	}//end of update
 	
 }//end of StartController

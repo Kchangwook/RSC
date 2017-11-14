@@ -242,7 +242,7 @@ CREATE TABLE notice
     member_id         VARCHAR2(50)      NOT NULL, 
     notice_content    VARCHAR2(1000)    NOT NULL,
     notice_type       NUMBER            NULL, 
-    notice_target     VARCHAR2(50)      NULL, 
+    notice_target     NUMBER      NULL, 
     CONSTRAINT NOTICE_PK PRIMARY KEY (notice_num)
 );
 
@@ -447,10 +447,10 @@ INSERT INTO admin(admin_id, admin_pw) VALUES('admin1', '1234');
 
 -- member TABLE INSERT SQL
 
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wjdrb', '1234', '갓규', '음악', 0, 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('ckddnr', '1234', 'PM', '게임', 1, 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('dydwls', '1234', 'yong', '게임', 0, 0);
-INSERT INTO member(member_id, member_pw, member_nick, member_interest, member_info_open, member_present_login)  VALUES('wlstjs', '1234', 'jin', '영화', 1, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_img ,member_interest, member_info_open, member_present_login)  VALUES('wjdrb', '1234', '갓규', 'resources/img/profile.jpg', '음악', 0, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_img ,member_interest, member_info_open, member_present_login)  VALUES('ckddnr', '1234', 'PM','resources/img/profile.jpg', '게임', 1, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_img ,member_interest, member_info_open, member_present_login)  VALUES('dydwls', '1234', 'yong','resources/img/profile.jpg', '게임', 0, 0);
+INSERT INTO member(member_id, member_pw, member_nick, member_img ,member_interest, member_info_open, member_present_login)  VALUES('wlstjs', '1234', 'jin','resources/img/profile.jpg', '영화', 1, 0);
 
 
 -- notice TABLE INSERT SQL
@@ -471,9 +471,9 @@ INSERT INTO friend(member_id, friend_id) VALUES('wlstjs', 'ckddnr');
 -- friend_request TABLE INSERT SQL
 
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'ckddnr', 0);
-INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '갓규님의 친구요청이 있습니다', 2, 'wjdrb');
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'ckddnr', '갓규님의 친구요청이 있습니다', 2, 1);
 INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) VALUES(friend_request_SEQ.NEXTVAL, 'wjdrb', 'dydwls', 0);
-INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'dydwls', '갓규님의 친구요청이 있습니다', 2, 'wjdrb');
+INSERT INTO notice(notice_num, member_id, notice_content, notice_type, notice_target) VALUES(notice_SEQ.NEXTVAL, 'dydwls', '갓규님의 친구요청이 있습니다', 2, 1);
 
 
 -- groups TABLE INSERT SQL
@@ -511,9 +511,9 @@ UPDATE groups SET group_singo_cnt = group_singo_cnt + 1 WHERE groups.group_num =
 
 -- board TABLE INSERT SQL
 
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'ckddnr', '집...', SYSTIMESTAMP, 1, 0, 0);
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(1, board_SEQ.NEXTVAL, 'wlstjs', '돈...', SYSTIMESTAMP, 0, 0, 0);
-INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'dydwls', '게임...', SYSTIMESTAMP, 0, 0, 0);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'ckddnr', '집...', to_date('17-11-14','YY-MM-DD'), 1, 0, 5);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(1, board_SEQ.NEXTVAL, 'wlstjs', '돈...', to_date('17-11-08','YY-MM-DD'), 0, 0, 10);
+INSERT INTO board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt) VALUES(0, board_SEQ.NEXTVAL, 'dydwls', '게임...', to_date('17-10-23','YY-MM-DD'), 0, 0, 8);
 
 -- board_singo TABLE INSERT SQL
 

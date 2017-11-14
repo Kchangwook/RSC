@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -80,9 +82,11 @@ public class MemberService {
 		
 		//내 컴퓨터 내로 이미지 업로드
 		m = this.uploadProfile(request, m);
+		
+		String fileName[] = m.getMemberImg().split("/");
 
 		//ftp에 파일 업로드
-		ftp.upload("member", m.getMemberImg());
+		ftp.upload("member", fileName[fileName.length-1]);
 
 		//DB에 데이터 추가
 		flag = memberDAO.addMember(m);
@@ -141,7 +145,7 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
 			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
 			
 		} catch (IOException e) {
@@ -174,5 +178,28 @@ public class MemberService {
 	public boolean deleteMemberByID(String memberId) {
 		return memberDAO.deleteMemberByID(memberId);
 	}
+	
+	/** 아이디를 통해 데이터를 가져오는 함수 */
+	public Member searchById(String id) {
+		
+		Member m = null;
+		
+		m = memberDAO.searchById(id);
+		
+		return m;
+		
+	}//end of searchMemberById
+	
+	/** member 정보 수정 함수 */
+	public boolean updateMember(Member member, HttpServletRequest request) {
+		
+		List<Member> list = null;
+		
+		System.out.println("정보수정");
+		
+		//return memberDAO.updateLoginInfo(id);
+		return true;
+		
+	}//end of updateMember
 
 }// end of MemberService

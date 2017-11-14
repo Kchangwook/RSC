@@ -432,7 +432,35 @@ div#alertModal.w3-modal .alert-content{
 	padding: 2% 5%;
 }
 
+.form-inline1 {
+  display: -ms-flexbox;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -ms-flex-align: center;
+  align-items: center;
+}
 
+.singoBtn {
+	float: left;
+	width: 45%;
+}
+
+.likeBtn {
+	float: right;
+	width: 45%;
+}
+
+.likeCnt {
+	float: right;
+	width: 30%;
+	padding-right: 5%;
+}
+
+/* 사이 여백 */
+.clear {
+	clear: both;
+	padding: 1%;
+}
 
 
 

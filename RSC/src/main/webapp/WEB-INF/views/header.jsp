@@ -205,9 +205,9 @@
 								</tr>
 								<tr>
 									<td class="tdRadio"><input type="radio" name="memberInfoOpen"
-										value="0" checked>허용</td>
+										value="1" checked>허용</td>
 									<td class="tdRadio"><input type="radio" name="memberInfoOpen"
-										value="1">허용하지 않음</td>
+										value="0">허용하지 않음</td>
 								</tr>
 							</table>
 						</div>

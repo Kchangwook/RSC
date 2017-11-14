@@ -183,117 +183,89 @@
 	</div>
 
 
-	<%-- <!-- 글 상세보기 모달 -->
+	<!-- 글 상세보기 모달 -->
 	<div class="modal fade" id="detailView" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<table width="100%">
-					<tr>
-						글 머리 : 사진, 닉네임
-						<td width="25%" style="padding-top: 2%; padding-left: 5%;"><span><img
-								src="${pageContext.request.contextPath}/resources/img/profile.jpg"
-								width="50px;" height="50px;" style="border-radius: 25px;"></span>
-							<span id="memberNick"> </span></td>
-						<td width="25%"></td>
-						<td width="25%"></td>
-						글 조회수
-						<td width="25%"><span id="boardCnt"> </span></td>
-					</tr>
-					<tr>
-						<td id="boardContent" colspan="4"></td>
-					</tr>
-					<hr>
-					<tr>
-						글 작성 시간
-						<td colspan="2"><div class="time-tag">
-								<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
-									id="boardTime"></span>
-							</div></td>
-						<td></td>
-						좋아요 카운트
-						<td>좋아요 카운트</td>
-					</tr>
-					<tr>
-						<td>신고하기</td>
-						<td></td>
-						<td></td>
-						<td>좋아요</td>
-					</tr>
-					<tr>
-						<td colspan="3">댓글 입력하세요</td>
-						<td>입력 완료</td>
-					</tr>
-					<tr>
-						<td>사진 닉네임</td>
-						<td colspan="2">댓글 내용</td>
-						<td>작성 시간</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
-	<!-- /글 상세보기 모달 --> --%>
-
-
-
-
-
-
-	<div class="modal fade" id="detailView" role="dialog" >
-		<div class="modal-dialog">
-			<div class="modal-content">
-			<!-- 글 작성 틀 -->
-			<div class="col-md-12 padding" >
+				<!-- 글 작성 틀 -->
+				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
-					<div class="header padding" >
-						<span><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> 
-						<span id="memberNick">
-						</span>
+					<div class="header padding" style="float: left; width: 45%;">
+						<span><img
+							src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
+
 					<!-- 글 조회수 -->
-					<div class="cnt" id="boardCnt" >
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="boardCnt"></span>
 					</div>
+
+					<div class="clear"></div>
+
 					<!-- 글 내용 -->
-					<div class="content col-md-12" id="boardContent"></div>
+					<div class="content col-md-12 padding">
+						<span id="boardContent"> </span>
+					</div>
 					<hr>
 
 					<!-- 글 작성 시간 -->
 					<div class="footer">
-						<div class="time-tag">
-							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span id="boardTime"></span>
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
 						</div>
 					</div>
-					<br>
-					<!-- 신고하기 -->
-					<div class="singo">
+					<!-- 좋아요 카운트 수 -->
+					<div class="likeCnt" align="right">
+						<span id=boardLike>0</span>
+					</div>
+					<!-- /좋아요 카운트 수 -->
+
+					<div class="clear"></div>
+
+					<!-- 신고하기 버튼 -->
+					<div class="singoBtn" align="left">
 						<form class="form-inline" action="singo.do">
 							<input type="submit" class="btn btn-default btnOrange"
 								value="신고하기"> <input type="hidden" name="boardNum"
 								value="${sessionScope.id}">
 						</form>
 					</div>
-					<!-- 좋아요 -->
-					<div class="like">
-						<form class="form-inline" action="like.do">
-							<input type="submit" value="좋아요" class="btn btn-default btnOrange"> <input type="hidden"
+					<!-- /신고하기 버튼-->
+
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<form class="form-inline1" action="like.do">
+							<input class="btn btn-default btnOrange" type="submit"
+								width="75%" value="좋아요"> <input type="hidden"
 								name="boardNum" value="${sessionScope.id}">
 						</form>
 					</div>
+					<!-- /좋아요 버튼 -->
+
+					<div class="clear"></div>
+
 					<!-- 댓글 작성 틀 -->
 					<form action="addReply.do">
-						<div align="left">
-							<input type="text" placeholder="댓글을 입력하세요">
+						<div style="float: left; width: 75%;" align="left">
+							<textarea rows="1" style="width: 100%; resize: none; wrap: hard;"
+								placeholder="댓글을 입력하세요" name="replyContent"></textarea>
 						</div>
-						<div align="right">
-							<input type="submit" value="작성완료" class="btn btn-default btnOrange"> <input type="hidden"
+						<div style="float: right;" align="right">
+							<input type="submit" value="작성완료"
+								class="btn btn-default btnOrange"> <input type="hidden"
 								name="boardNum" value="${sessionScope.id}">
 						</div>
 					</form>
 					<!-- /댓글 작성 틀 -->
+
+				</div>
+				<!--/글 작성 틀-->
+
 			</div>
-			<!--/글 작성 틀-->
-			</div>
-			
+
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
@@ -318,6 +290,7 @@
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 
+	<!-- 모달 비동기 스크립트 -->
 	<script>
 		function searchBoard(boardNum) {
 			var xhttp = new XMLHttpRequest();
@@ -327,9 +300,9 @@
 					resData=JSON.parse(resData);
 					console.log(resData);
 					
-					document.getElementById("memberNick").innerHTML = resData.memberNick;
+					document.getElementById("memberNick").innerText = resData.memberNick;
 					document.getElementById("boardContent").innerText = resData.boardContent;
-					document.getElementById("boardTime").innerText = resData.boardTime;
+					document.getElementById("boardTime").innerText = new Date(resData.boardTime).toUTCString();
 					document.getElementById("boardCnt").innerText = "조회수 : " + resData.boardCnt;
 					
 				}
@@ -338,6 +311,7 @@
 			xhttp.send(); 
 		}
 	</script>
+
 
 </body>
 </html>
