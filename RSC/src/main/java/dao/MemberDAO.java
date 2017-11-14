@@ -115,4 +115,22 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		
 	}//end of getNick
 	
+	/** 일부 membrNick을 통해 member 데이터를 가져오는 함수 */
+	public List<Member> searchByPartOfMemberNick(String memberNick) {
+		
+		List<Member> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("member.selectByPartOfMemberNick", memberNick);
+		
+		return list;
+		
+	}//end of searchByPartOfMemberNick
+	
+	/** ID로 member 삭제 */
+	public boolean deleteMemberByID(String memberId) {
+		session = getSqlSession();
+		return session.delete("member.deleteById",memberId)>0 ? true : false;
+	}
+	
 }//end of MemberDAO

@@ -55,7 +55,6 @@
 
 		<!-- 헤더 include -->
 		<jsp:include page="header.jsp" />
-
 		<!-- 본문 부분 -->
 		<div class="content-page">
 

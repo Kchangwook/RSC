@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="singo">
+
+	<resultMap id="boardSingoResult" type="boardSingo">
+		<result property="boardSingoNum" column="BOARD_SINGO_NUM" />
+		<result property="boardNum" column="BOARD_NUM" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="boardContent" column="BOARD_CONTENT" />
+		<result property="boardSingoReason" column="BOARD_SINGO_REASON" />
+	</resultMap>
+	
+	<resultMap id="replySingoResult" type="replySingo">
+		<result property="replySingoNum" column="REPLY_SINGO_NUM" />
+		<result property="replyNum" column="REPLY_NUM" />
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="replyContent" column="REPLY_CONTENT" />
+		<result property="replySingoReason" column="REPLY_SINGO_REASON" />
+	</resultMap>
+	
+	<resultMap id="groupSingoResult" type="groupSingo">
+		<result property="groupSingoNum" column="group_singo_num" />
+		<result property="groupNum" column="group_num" />
+		<result property="groupName" column="group_name" />
+		<result property="groupSingoCnt" column="group_singo_cnt" />
+		<result property="groupSingoReason" column="group_singo_reason" />
+	</resultMap>
+
+	<select id="selectAllBoardSingo" resultMap="boardSingoResult">
+		select bs.board_singo_num as board_singo_num, 
+			   b.board_num as board_num, 
+			   b.member_id as member_id, 
+			   b.board_content as board_content, 
+			   bs.board_singo_reason as board_singo_reason
+		from board b, board_singo bs
+		where b.board_num = bs.board_num
+	</select>
+	
+	<select id="selectAllReplySingo" resultMap="replySingoResult">
+		select rs.reply_singo_num as reply_singo_num, 
+			   r.reply_num as reply_num, 
+			   r.member_id as member_id, 
+			   r.reply_content as reply_content, 
+			   rs.reply_singo_reason as reply_singo_reason
+		from reply r, reply_singo rs
+		where r.reply_num = rs.reply_num
+	</select>
+	
+	<select id="selectAllGroupSingo" resultMap="groupSingoResult">
+		select gs.group_singo_num as group_singo_num,
+			   g.group_num as group_num,
+			   g.group_name as group_name,
+			   g.group_singo_cnt as group_singo_cnt,
+			   gs.group_singo_reason as group_singo_reason
+		from groups g, group_singo gs
+		where g.group_num=gs.group_num
+	
+	</select>
+	
+	
+	
+
+</mapper>

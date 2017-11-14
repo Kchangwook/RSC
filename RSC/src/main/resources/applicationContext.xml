@@ -60,6 +60,13 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="groups.xml" />
 	</bean>
+	
+	<!-- SingoSessionFactory 설정하는 빈 -->
+	<bean id="singoFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="singo.xml" />
+	</bean>
 
 	<!-- masterDAO -->
 	<bean id="masterDAO" class="dao.MasterDAO">
@@ -111,16 +118,21 @@
 	<bean id="groupsService" class="service.GroupsService">
 		<property name="groupsDAO" ref="groupsDAO" />
 	</bean>
+		
+	<!-- SingoDAO -->
+	<bean id="singoDAO" class="dao.SingoDAO">
+		<property name="sqlSessionFactory" ref="singoFactory"/>
+	</bean>
+	
+	<!-- SingoService -->
+	<bean id="singoService" class="service.SingoService">
+		<property name="singoDAO" ref="singoDAO"/>
+	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
-	</bean>
-
-	<!-- multi file -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="UTF-8" />
 	</bean>
 
 </beans>

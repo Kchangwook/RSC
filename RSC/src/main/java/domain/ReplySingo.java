@@ -5,16 +5,27 @@ public class ReplySingo {
 	
 	/* 변수 */
 	private int replySingoNum; // col : reply_singo_num
-	private int replySingo; // col : reply_num
+	private int replyNum; // col : reply_num
+	private String memberId;
+	private String replyContent;
 	private String replySingoReason; // col : reply_singo_reason
 	
 	/* 생성자 */
 	public ReplySingo() {
 	}
-	public ReplySingo(int replySingoNum, int replySingo, String replySingoReason) {
+	public ReplySingo(int replySingoNum, int replyNum, String replySingoReason) {
 		super();
 		this.replySingoNum = replySingoNum;
-		this.replySingo = replySingo;
+		this.replyNum = replyNum;
+		this.replySingoReason = replySingoReason;
+	}
+	
+	public ReplySingo(int replySingoNum, int replyNum, String memberId, String replyContent, String replySingoReason) {
+		super();
+		this.replySingoNum = replySingoNum;
+		this.replyNum = replyNum;
+		this.memberId = memberId;
+		this.replyContent = replyContent;
 		this.replySingoReason = replySingoReason;
 	}
 	
@@ -26,11 +37,11 @@ public class ReplySingo {
 		this.replySingoNum = replySingoNum;
 	}
 	
-	public int getReplySingo() {
-		return replySingo;
+	public int getReplyNum() {
+		return replyNum;
 	}
-	public void setReplySingo(int replySingo) {
-		this.replySingo = replySingo;
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
 	}
 	
 	public String getReplySingoReason() {
@@ -40,14 +51,27 @@ public class ReplySingo {
 		this.replySingoReason = replySingoReason;
 	}
 	
+	public String getReplyContent() {
+		return replyContent;
+	}
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+	
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 	/* toString */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ReplySingo [replySingoNum=");
 		builder.append(replySingoNum);
-		builder.append(", replySingo=");
-		builder.append(replySingo);
+		builder.append(", replyNum=");
+		builder.append(replyNum);
 		builder.append(", replySingoReason=");
 		builder.append(replySingoReason);
 		builder.append("]");

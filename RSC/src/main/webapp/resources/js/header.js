@@ -53,6 +53,7 @@ function checkInfo() {
 		return false;
 	} else {
 		document.getElementById("frm").submit();
+		document.getElementById("frm2").submit();
 	}
 
 }
@@ -89,8 +90,82 @@ function checkSameId() {
 	xhttp.send();
 }
 
+//회원 또는 그룹 검색
+function searchMemberAndGroup(searchValue) {
+	var alertHtml = '';
+
+	if (searchValue == '') {
+		alertHtml += '<li>'
+				+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+				+ '<div class="search-body">'
+				+ '<span>검색어를 입력하세요</span>' + '</div>' + '</a>'
+				+ '</li>';
+		document.getElementById("searchMemberAndGroup").innerHTML = alertHtml;
+	} else {
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
+				
+
+				if (resData.length == 0) {
+					alertHtml += '<li>'
+							+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
+							+ '<div class="search-body">'
+							+ '<span>검색 결과가 없습니다</span>' + '</div>'
+							+ '</a>' + '</li>';
+				} else {
+					for (i = 0; i < resData.length; i++) {
+						if (resData[i].memberNick != null) {
+							alertHtml += '<li>'
+									+ '<a onClick="moveToMember(' + resData[i].memberId + ')" class="dropdown-item d-flex">'
+									+ '<div class="search-body">'
+									+ '<span>' + resData[i].memberNick
+									+ '</span>' + '</div>' + '</a>'
+									+ '</li>';
+						} else {
+							alertHtml += '<li>'
+									+ '<a onClick="moveToGroup(' + resData[i].groupNum + ')" class="dropdown-item d-flex">'
+									+ '<div class="search-body">'
+									+ '<span>' + resData[i].groupName
+									+ '</span>' + '</div>' + '</a>'
+									+ '</li>';
+						}
+					}
+				}
+				document.getElementById("searchMemberAndGroup").innerHTML = alertHtml;
+			}
+		};
+
+		xhttp.open("POST", "../searchMemberAndGroup/searchByPart.do?part="+ searchValue, true);
+		xhttp.send();
+	}
+}
+
+// 검색한 회원으로 이동
+function moveToMember(memberId) {
+	
+}
+
+// 검색한 그룹으로 이동
+function moveToGroup(groupNum) {
+	
+}
+
+// 알림에서 사용할 아이디
+function getMemberId() {
+
+	memberId = document.getElementById("noticeMemberId").value;
+
+}
+
+window.onload = getMemberId();
+
 // 종모양 클릭하면 알림 모달 팝업
 function viewAlertList() {
+	console.log(memberId);
 	var alertHtml = '';
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -98,9 +173,9 @@ function viewAlertList() {
 			var resData = this.responseText;
 			resData = JSON.parse(resData);
 
-			if (resData == null) {
+			if (resData.length==0) {
 				alertHtml += '<li>'
-						+ '<a rel="nofollow" href="#" class="dropdownitem dflex">'
+						+ '<a rel="nofollow" href="#" class="dropdownitem d-flex">'
 						+ '<div class="msgbody">' + '<span>알림이 없습니다</span>'
 						+ '</div>' + '</a>' + '</li>';
 			} else {
@@ -110,7 +185,7 @@ function viewAlertList() {
 								+ '<a onClick="deleteGroupNotice(\''
 								+ resData[i].noticeTarget + '\',\''
 								+ resData[i].noticeContent
-								+ '\')" class="dropdownitem dflex">'
+								+ '\')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
@@ -118,14 +193,14 @@ function viewAlertList() {
 						alertHtml += '<li>' + '<a onClick="addFriendNotice(\''
 								+ resData[i].noticeTarget + '\',\''
 								+ resData[i].noticeContent
-								+ '\')" class="dropdownitem dflex">'
+								+ '\')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
 					} else {
 						alertHtml += '<li>' + '<a onClick="deleteNotice('
 								+ resData[i].noticeNum
-								+ ')" class="dropdownitem dflex">'
+								+ ')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
@@ -137,8 +212,7 @@ function viewAlertList() {
 		}
 	};
 
-	xhttp.open("POST", "../notice/searchById.do?memberId="
-			+ '${sessionScope.id}', true);
+	xhttp.open("POST", "../notice/searchById.do?memberId=" + memberId, true);
 	xhttp.send();
 }
 

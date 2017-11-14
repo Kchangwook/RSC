@@ -27,4 +27,16 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		session = getSqlSession();
 		return session.selectList("group.selectGroupByName",groupName);
 	}
+	
+	/** 일부 groupName을 통해 group 데이터를 가져오는 함수 */
+	public List<Groups> searchByPartOfGroupName(String groupName) {
+		
+		List<Groups> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("group.selectByPartOfGroupName", groupName);
+		
+		return list;
+		
+	}//end of searchByPartOfGroupName
 }

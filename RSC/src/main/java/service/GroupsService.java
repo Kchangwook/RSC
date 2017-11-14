@@ -27,5 +27,16 @@ public class GroupsService {
 	public List<Groups> searchGroupByName(String groupName){
 		return groupsDAO.searchGroupByName(groupName);
 	}
+	
+	/** 일부 groupName을 통해 group 데이터를 가져오는 함수 */
+	public List<Groups> searchByPartOfGroupName(String groupName) {
+		
+		List<Groups> list = null;
+		
+		list = groupsDAO.searchByPartOfGroupName(groupName);
+		
+		return list;
+		
+	}//end of searchByPartOfGroupName
 
 }
