@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import domain.Member;
 import service.BoardService;
 import service.MemberService;
 
@@ -36,22 +37,17 @@ public class BasicController {
 	/** 회원 가입 */
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
 	public String join(MultipartHttpServletRequest request) {
+				
+		Member m = new Member(request.getParameter("memberId"),request.getParameter("memberPw")
+				,request.getParameter("memberNick"),request.getParameterValues("memberInterest").toString()
+				,Integer.parseInt(request.getParameter("memberInfoOpen")),0);
 		
-		System.out.println(request.getParameter("memberId"));
-		System.out.println(request.getParameter("memberPw"));
+		if(memberService.addMember(m,request))
+			request.setAttribute("msg","가입에 성공했습니다.");
+		else
+			request.setAttribute("msg","가입에 실패했습니다.");
 		
-//		Member m = null;
-//		DefaultMultipartHttpServletRequest req = new DefaultMultipartHttpServletRequest(request);
-//		System.out.println(req.getParameter("memberId"));
-//		System.out.println(m.getMemberId());
-//		System.out.println(request.getParameter("memberId"));
-//		
-//		if(memberService.addMember(m,request))
-//			request.setAttribute("msg","가입에 성공했습니다.");
-//		else
-//			request.setAttribute("msg","가입에 실패했습니다.");
-		
-		return "index";
+		return "redirect:../index.html";
 	}//end of join
 	
 	/** 로그인 

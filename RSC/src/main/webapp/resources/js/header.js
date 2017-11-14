@@ -41,7 +41,14 @@ function checkInfo() {
 	var id = document.getElementById("id").value;
 	var nick = document.getElementById("nick").value;
 	var pwd = document.getElementById("pwd").value;
-
+	var interest = document.getElementsByName("memberInterest");
+	
+	var count = 0;
+	
+	for(var i = 0;i<interest.length;i++)
+		if(interest[i].checked)
+			count++;
+	
 	if (id == "") {
 		alert("아이디를 입력하세요");
 		return false;
@@ -51,9 +58,11 @@ function checkInfo() {
 	} else if (nick == "") {
 		alert("닉네임을 입력하세요");
 		return false;
-	} else {
+	} else if(count == 0){
+		alert("관심사를 선택하세요");
+		return false;
+	}{
 		document.getElementById("frm").submit();
-		document.getElementById("frm2").submit();
 	}
 
 }

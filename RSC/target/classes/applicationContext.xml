@@ -10,7 +10,10 @@
 	<context:annotation-config />
 	<tx:annotation-driven />
 	<mvc:annotation-driven />
-
+	
+	<!-- FTPService -->
+	<bean id = "ftpService" class = "ftp.FTPService" />
+	
 	<!-- DB Connection을 가져오는 빈 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -97,6 +100,7 @@
 	<bean id="memberService" class="service.MemberService">
 		<property name="memberDAO" ref="memberDAO" />
 		<property name="adminDAO" ref="adminDAO" />
+		<property name = "FTPService" ref = "ftpService"/>
 	</bean>
 
 	<!-- boardService -->
