@@ -4,17 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import dao.AdminDAO;
 import dao.MemberDAO;
 import domain.Admin;
 import domain.Member;
+import ftp.FTPService;
 
 /** member 데이터를 이용한 서비스 */
 @Transactional
@@ -23,6 +21,7 @@ public class MemberService {
 	/* 변수 */
 	private MemberDAO memberDAO;
 	private AdminDAO adminDAO;
+	private FTPService ftp;
 
 	/* 프로퍼티 */
 	public void setMemberDAO(MemberDAO memberDAO) {
@@ -31,6 +30,9 @@ public class MemberService {
 
 	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
+	}
+	public void setFTPService(FTPService ftp) {
+		this.ftp = ftp;
 	}
 
 	/* 함수 */
@@ -68,26 +70,23 @@ public class MemberService {
 	}// end of checkSameNick
 
 	/** 회원 정보를 추가하는 함수 */
-	public boolean addMember(Member m, HttpServletRequest request) {
+	public boolean addMember(Member m, MultipartHttpServletRequest request) {
 
 		boolean flag = true;
-
-		
-		if (m.getMemberInterest() == null)
-			m.setMemberInterest("");
-		System.out.println("흥미 끝");
 		
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
 		if (m.getMemberImg() == "")
 			m.setMemberImg("/resources/img/profile.jpg");
-		System.out.println("이미지 설정 끝");
 		
+		//내 컴퓨터 내로 이미지 업로드
+		m = this.uploadProfile(request, m);
+
+		//ftp에 파일 업로드
+		ftp.upload("member", m.getMemberImg());
+
+		//DB에 데이터 추가
 		flag = memberDAO.addMember(m);
-		System.out.println("DB추가 완료");
-		
-//		this.uploadProfile(request, m);
-		System.out.println("사진 업로드 완료");
-		
+				
 		return flag;
 
 	}// end of addMember
@@ -132,28 +131,26 @@ public class MemberService {
 	}
 
 	/** 회원 이미지 업로드 */
-//	private void uploadProfile(HttpServletRequest request, Member m) {
-//		
-//		
-//		
-//		MultipartFile file = req.getFile("memberImg");
-//
-//		try {
-//			if (file.isEmpty()) { // 파일 유무 검사
-//			} else if (file.getSize() > (5 * 1024 * 1024)) {
-//				System.out.println("## 용량이 너무 큽니다. \n 3메가 이하로 해주세요.");
-//			}
-//
-//			// 파일 이름 및 확장자 분리
-//
-//			// 파일 이름 설정 = 원본 파일 이름 _ 사용자ID _ 년월일분초 .확장자.
-//			file.transferTo(new File("/info/member" + m.getMemberId()));
-//
-//		} catch (IOException e) {
-//			throw new RuntimeException(e.getMessage());
-//		}
-//
-//	}// end of uploadProfile
+	private Member uploadProfile(MultipartHttpServletRequest request, Member m) {
+		
+		MultipartFile file = request.getFile("memberImg");
+
+		try {
+			if (file.isEmpty()) { // 파일 유무 검사
+			} else if (file.getSize() > (5 * 1024 * 1024)) {
+				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
+			}
+
+			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+			m.setMemberImg(m.getMemberId()+"_"+file.getOriginalFilename());
+			
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
+		return m;
+
+	}// end of uploadProfile
 
 	/** 닉네임 가져오기 */
 	public String getNick(String id) {
