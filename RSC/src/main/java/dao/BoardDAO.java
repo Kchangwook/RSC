@@ -26,5 +26,15 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return list;
 	}
 	
+	/** 게시글 시간 순서대로 가져오기 */
+	public List<Board> searchOrderByTime(){
+		
+		session = getSqlSession();
+		List<Board> list = session.selectList("board.selectOrderByTime");
+		
+		return list;
+		
+	}//end of searchOrderByTime
+	
 	
 } // end of BoardDAO

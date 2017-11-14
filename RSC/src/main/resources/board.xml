@@ -56,5 +56,10 @@
 		from board 
 		where member_id = #{memberId} and board_num = #{boardNum}
 	</delete>
+	
+	<!-- 시간 순서대로 게시글 가져오기 -->
+	<select id = "selectOrderByTime" resultMap = "boardResult">
+		select * from board order by board_time desc
+	</select>
 
 </mapper>

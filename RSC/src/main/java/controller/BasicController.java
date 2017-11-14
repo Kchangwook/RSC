@@ -38,8 +38,14 @@ public class BasicController {
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
 	public String join(MultipartHttpServletRequest request) {
 				
+		String interests[] = request.getParameterValues("memberInterest");
+		String interest = "";
+		
+		for(String s:interests)
+			interest += s+",";
+		
 		Member m = new Member(request.getParameter("memberId"),request.getParameter("memberPw")
-				,request.getParameter("memberNick"),request.getParameterValues("memberInterest").toString()
+				,request.getParameter("memberNick"),interest
 				,Integer.parseInt(request.getParameter("memberInfoOpen")),0);
 		
 		if(memberService.addMember(m,request))
@@ -99,12 +105,10 @@ public class BasicController {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) throws Exception {
 		
-		String url = "index";
-		
 		session.invalidate();
 		session = null;
 		
-		return url;
+		return "redirect:../index.html";
 		
 	}//end of logout
 	
