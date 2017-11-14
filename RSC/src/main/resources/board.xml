@@ -76,7 +76,7 @@
 	<select id = "selectOrderByTime" resultMap = "boardResult">
 		select b.board_num, m.member_id,m.member_img,m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from board b,Member m 
-		where b.member_id = m.member_id order by board_time desc
+		where b.member_id = m.member_id order by board_cnt desc
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->

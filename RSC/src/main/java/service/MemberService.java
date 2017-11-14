@@ -82,9 +82,11 @@ public class MemberService {
 		
 		//내 컴퓨터 내로 이미지 업로드
 		m = this.uploadProfile(request, m);
+		
+		String fileName[] = m.getMemberImg().split("/");
 
 		//ftp에 파일 업로드
-		ftp.upload("member", m.getMemberImg());
+		ftp.upload("member", fileName[fileName.length-1]);
 
 		//DB에 데이터 추가
 		flag = memberDAO.addMember(m);
@@ -143,7 +145,7 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
 			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
 			
 		} catch (IOException e) {

@@ -53,7 +53,6 @@
 
 			<!-- 비로그인 메인페이지 -->
 			<div class="main-page">
-
 				<!-- 일간 TOP -->
 				일간 TOP
 				<div class="row">
@@ -64,7 +63,7 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
 								</div>
 	
 								<!-- 글 내용 -->
@@ -93,7 +92,7 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
 								</div>
 	
 								<!-- 글 내용 -->
@@ -122,7 +121,7 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;정연</span>
+									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
 								</div>
 	
 								<!-- 글 내용 -->
