@@ -123,6 +123,12 @@ public class Board {
 	public void setMemberNick(String memberNick) {
 		this.memberNick = memberNick;
 	}
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
+	}
+	public String getMemberImg() {
+		return memberImg;
+	}
 	
 	/* toString */
 	@Override

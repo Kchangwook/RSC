@@ -27,7 +27,7 @@ public class BoardTest {
 		
 		List<Board> list = dao.searchOrderByTime();	
 		
-		assertThat(list.size(),is(3));
+		assertThat(list.size(),is(4));
 		
 	}//end of getAllByTime
 

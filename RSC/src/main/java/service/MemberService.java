@@ -76,7 +76,7 @@ public class MemberService {
 		
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
 		if (m.getMemberImg() == "")
-			m.setMemberImg("/resources/img/profile.jpg");
+			m.setMemberImg("resources/img/profile.jpg");
 		
 		//내 컴퓨터 내로 이미지 업로드
 		m = this.uploadProfile(request, m);
