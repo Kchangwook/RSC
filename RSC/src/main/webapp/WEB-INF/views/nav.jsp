@@ -35,7 +35,7 @@
 								<a href="${pageContext.request.contextPath}/board/readBoard.do"><i class="fa fa-user-circle-o"></i><span>마이페이지</span></a>
 							</li>
 							<li>
-								<a href="#"><i class="fa fa-user"></i><span>친구</span></a>
+								<a href="${pageContext.request.contextPath}/friend/getList.do"><i class="fa fa-user"></i><span>친구</span></a>
 							</li>
 							<li>
 								<a href="#"><i class="fa fa-users"></i><span>그룹</span></a>

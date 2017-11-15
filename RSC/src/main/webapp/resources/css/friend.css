@@ -1,0 +1,33 @@
+.firend-img{
+	width:100px;
+	border-radius: 50px;
+	margin-top:	30px;
+}
+.firend-back{
+	width:180px;
+	height:220px;
+}
+.friend-out{
+	width:280px;
+	margin-bottom: 40px;
+	margin-right: 20px;
+}
+.friend-content{
+	text-align: center;
+}
+.friend-name{
+	position:relative;
+	margin-top: 30px;
+	color: #b9b9b9;
+	font-size: 20pt;
+}
+.friend-edge{
+	margin-top: -50px;
+}
+.friend-close{
+	color: red;
+	font-size: 16pt;
+	text-decoration: none;
+	cursor: pointer;
+	margin-left: 140px;
+}

@@ -132,6 +132,7 @@ public class FTPService {
 				if (isLogin == false) {
 					System.out.println("FTP 서버에 로그인 할 수 없습니다.");
 				}
+				client.enterLocalPassiveMode();
 				client.setFileType(FTP.BINARY_FILE_TYPE);
 				client.changeWorkingDirectory(filePath);
 				fos = new FileOutputStream(f);

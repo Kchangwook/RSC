@@ -133,4 +133,16 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		return session.delete("member.deleteById",memberId)>0 ? true : false;
 	}
 	
+	/** member logout정보 수정 */
+	public boolean updateLogout(String memberId) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.update("member.updateLogout",memberId)>0?true:false;
+		
+		return flag;
+		
+	}//end of updateLogout
+	
 }//end of MemberDAO

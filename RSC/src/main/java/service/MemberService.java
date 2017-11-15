@@ -201,5 +201,12 @@ public class MemberService {
 		return true;
 		
 	}//end of updateMember
+	
+	/** member 로그아웃 함수 */
+	public boolean logoutMember(String id) {
+		
+		return memberDAO.updateLogout(id);
+		
+	}//end of logoutMember
 
 }// end of MemberService

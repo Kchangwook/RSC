@@ -71,5 +71,10 @@
 	<delete id="deleteById" parameterType="String">
 		delete from member where member_id=#{memberId}
 	</delete>
+	
+	<!-- 로그아웃 정보를 수정 -->
+	<update id = "updateLogout" parameterType = "String">
+		update member set member_logout_time = SYSTIMESTAMP, member_present_login = 0 where member_id = #{memberId}
+	</update>
 
 </mapper>

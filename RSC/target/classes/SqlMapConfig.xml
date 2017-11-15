@@ -15,6 +15,7 @@
 		<typeAlias type = "domain.ReplySingo" alias="replySingo"/>
 		<typeAlias type = "domain.GroupSingo" alias="groupSingo"/>
 		<typeAlias type = "domain.Reply" alias = "reply" />
+		<typeAlias type = "domain.Friend" alias = "friend"/>
 	</typeAliases>
 
 </configuration>
