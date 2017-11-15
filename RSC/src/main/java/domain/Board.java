@@ -16,16 +16,13 @@ public class Board {
 	private int boardLike; // col : board_like
 	private int boardCnt; // col : board_cnt
 	private String memberNick; // col : member_nick 
-	private String memberImg;
+	private String memberImg; // col : member_img
 
 	/* 생성자 */
 	public Board() {
 	}
-
-	/* id 포함 생성자 */
 	public Board(int groupNum, int boardNum, String memberId, String boardContent, String boardFile, Date boardTime,
-
-			int boardSingoFlag, int boardLike, int boardCnt,String memberImg) {
+			int boardSingoFlag, int boardLike, int boardCnt, String memberNick,String memberImg) {
 		super();
 		this.groupNum = groupNum;
 		this.boardNum = boardNum;
@@ -36,23 +33,10 @@ public class Board {
 		this.boardSingoFlag = boardSingoFlag;
 		this.boardLike = boardLike;
 		this.boardCnt = boardCnt;
-		this.memberImg = memberImg;
-	}
-	/* nick 포함 생성자 */	
-	public Board(int groupNum, int boardNum, String boardContent, String boardFile, Date boardTime,
-			int boardSingoFlag, int boardLike, int boardCnt, String memberNick,String memberImg) {
-		super();
-		this.groupNum = groupNum;
-		this.boardNum = boardNum;
-		this.boardContent = boardContent;
-		this.boardFile = boardFile;
-		this.boardTime = boardTime;
-		this.boardSingoFlag = boardSingoFlag;
-		this.boardLike = boardLike;
-		this.boardCnt = boardCnt;
 		this.memberNick = memberNick;
 		this.memberImg = memberImg;
 	}
+	
 	/* Getter, Setter */
 	public int getGroupNum() {
 		return groupNum;

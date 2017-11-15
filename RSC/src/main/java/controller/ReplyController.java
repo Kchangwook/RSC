@@ -26,6 +26,8 @@ public class ReplyController {
 	// 댓글 작성 및 불러오기
 	@RequestMapping("addReply.do")
 	public String addReply(Reply r, Model model, int boardNum) {
+		System.out.println("addReply.do");
+		System.out.println(r);
 		replyService.addReply(r);
 		model.addAttribute("replyList", replyService.selectAllReply(boardNum));
 		return "loginMain";

@@ -26,7 +26,7 @@ public class FTPService {
 		int result = -1;
 		
 		try {
-			File uploadfile = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/"+dirName+"/" + fileName);
+			File uploadfile = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/"+dirName+"/" + fileName);
 
 			ftp = new FTPClient();
 			ftp.setControlEncoding("UTF-8");
@@ -118,7 +118,7 @@ public class FTPService {
 
 		int result = -1;
 		try {
-			f = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/"+dirName, fileName);
+			f = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/"+dirName, fileName);
 			client = new FTPClient();
 			client.setControlEncoding("UTF-8");
 			client.connect(url, port);
@@ -132,6 +132,7 @@ public class FTPService {
 				if (isLogin == false) {
 					System.out.println("FTP 서버에 로그인 할 수 없습니다.");
 				}
+				client.enterLocalPassiveMode();
 				client.setFileType(FTP.BINARY_FILE_TYPE);
 				client.changeWorkingDirectory(filePath);
 				fos = new FileOutputStream(f);

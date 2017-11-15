@@ -9,14 +9,6 @@
 		<result property="replyNum" column="REPLY_NUM" />
 		<result property="boardNum" column="BOARD_NUM" />
 		<result property="memberId" column="MEMBER_ID" />
-		<result property="replyContent" column="REPLY_CONTENT" />
-		<result property="replyTime" column="REPLY_FILE" />
-		<result property="replySingoFlag" column="REPLY_SINGO_FLAG" />
-	</resultMap>
-	
-	<resultMap id="replyResult2" type="reply">
-		<result property="replyNum" column="REPLY_NUM" />
-		<result property="boardNum" column="BOARD_NUM" />
 		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="replyTime" column="REPLY_FILE" />
@@ -29,13 +21,13 @@
 	</select>
 	
 	<!-- 게시글 번호를 통한 댓글 검색 -->
-	<select id="selectReplyById" parameterType="String" resultMap="replyResult">
+	<select id="selectReplyByNum" parameterType="int" resultMap="replyResult">
 		select * from reply
 		where board_num = #{boardNum}	
 	</select>
 	
 	<!-- 아이디를 통한 댓글 검색 & 시간순 정렬 -->
-	<select id="selectReplyByboardNumDesc" parameterType="String" resultMap="replyResult">
+	<select id="selectReplyByboardNumDesc" parameterType="int" resultMap="replyResult">
 		select * from reply 
 		where board_num = #{boardNum}
 		order by reply_time desc
