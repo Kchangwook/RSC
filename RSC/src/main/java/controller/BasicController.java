@@ -40,7 +40,7 @@ public class BasicController {
 		Map<String, List<Board>> map = boardService.getLists();
 		request.setAttribute("map", map);
 
-		return "redirect:../board/readBoard.do";
+		return "index";
 
 	}// end of start
 

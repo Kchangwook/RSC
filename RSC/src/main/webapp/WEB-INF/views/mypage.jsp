@@ -71,7 +71,7 @@
 								</tr>
 								<tr>
 									<td colspan='2'><input type="text" name="memberNick" id="nick"
-										onblur="checkSameNick()" placeholder="${ sessionScope.nick }"></td>
+										onblur="checkSameNick(this.value)" placeholder="${ sessionScope.nick }"></td>
 								</tr>
 								<tr>
 									<td colspan='2'>
@@ -155,15 +155,6 @@
 												<input type="checkbox" name="memberInterest" value="etc">기타&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											</c:otherwise>
 									</c:choose>
-										<!-- <input type="checkbox" name="memberInterest" value="exercise">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="cooking">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="movie">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="music">음악<br>
-										<input type="checkbox" name="memberInterest" value="book">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="fashion">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="game">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="trip">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="etc">기타</td> -->
 								</tr>
 								<tr>
 									<td colspan='2'><label><b>정보 공개</b></label></td>
@@ -186,7 +177,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="join_msg" style="width: 100%; color: red; text-align: left;"></span>
+						<span id="mypage_msg" style="width: 100%; color: red; text-align: left;"></span>
 						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()" value="수정">
 						<button type="reset" class="btn btn-default">취소</button>
 					</div>

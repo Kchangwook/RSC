@@ -43,17 +43,17 @@ function getMemberId() {
 window.onload = getMemberId();*/
 
 // 동일한 닉네임이 있는지 확인
-function checkSameNick() {
-	var nick = document.getElementById("nick").value;
+function checkSameNick(nick) {
+	//var nick = document.getElementById("nick").value;
 	var xhttp = new XMLHttpRequest();
 
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
-			document.getElementById("join_msg").innerText = resData;
+			console.log("resData"+resData);
+			document.getElementById("mypage_msg").innerText = resData;
 		}
 	}
-	console.log(nick);
 
 	xhttp.open("GET", "../join/checkNick.do?nick=" + nick, true);
 	xhttp.send();
