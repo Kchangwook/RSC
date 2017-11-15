@@ -145,7 +145,9 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+
+			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+
 			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
 			
 		} catch (IOException e) {
@@ -201,5 +203,12 @@ public class MemberService {
 		return true;
 		
 	}//end of updateMember
+	
+	/** member 로그아웃 함수 */
+	public boolean logoutMember(String id) {
+		
+		return memberDAO.updateLogout(id);
+		
+	}//end of logoutMember
 
 }// end of MemberService

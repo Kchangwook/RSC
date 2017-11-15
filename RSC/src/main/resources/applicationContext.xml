@@ -84,6 +84,18 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="reply.xml" />
 	</bean>
+	
+	<!-- FriendSessionFactory -->
+	<bean id = "friendFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="friend.xml" />
+	</bean>
+	
+	<!-- FriendDAO -->
+	<bean id = "friendDAO" class = "dao.FriendDAO">
+		<property name = "sqlSessionFactory" ref = "friendFactory"/>
+	</bean>
 
 	<!-- masterDAO -->
 	<bean id="masterDAO" class="dao.MasterDAO">
@@ -158,7 +170,11 @@
 		<property name = "replyDAO" ref = "replyDAO"/>
 	</bean>
 
-
+	<!-- FriendService -->
+	<bean id = "friendService" class = "service.FriendService">
+		<property name = "FriendDAO" ref = "friendDAO"/>
+		<property name = "FTPService" ref = "ftpService"/>
+	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->
 	<bean id="transactionManager"
