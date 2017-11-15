@@ -32,34 +32,37 @@
 					<c:choose>
 						<c:when test="${sessionScope.level eq 'member'}"> <!-- 회원 로그인 시 -->
 							<li>
-								<a href="index.jsp	"><i class="fa fa-users"></i><span>그룹</span></a>
+								<a href="${pageContext.request.contextPath}/board/readBoard.do"><i class="fa fa-user-circle-o"></i><span>마이페이지</span></a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-user"></i><span>친구</span></a>
+								<a href="#"><i class="fa fa-user"></i><span>친구</span></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/basic/mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-address-card-o"></i><span>mypage</span></a>
+								<a href="#"><i class="fa fa-users"></i><span>그룹</span></a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-comments"></i><span>채팅</span></a>
+								<a href="#"><i class="fa fa-comments"></i><span>채팅</span></a>
 							</li>
 							<li>
-								<a href="index.jsp"><i class="fa fa-telegram"></i><span>랜덤채팅</span></a>
+								<a href="#"><i class="fa fa-telegram"></i><span>랜덤채팅</span></a>
+							</li>
+							<li>
+								<a href="${pageContext.request.contextPath}/basic/mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-address-card-o"></i><span>정보수정</span></a>
 							</li>
 						</c:when>
 						<c:when test="${sessionScope.level eq 'admin'}"> <!-- 관리자 로그인 시 -->
-							<li>
-								<a href="index.jsp">
-  									<a href="${pageContext.request.contextPath}/admin/group.do"><i class="fa fa-users"></i><span>그룹 관리</span></a>
-								</a>
-							</li>
 							<li>
 								<a href="${pageContext.request.contextPath}/admin/member.do">
 									<i class="fa fa-user"></i><span>회원 관리</span>
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp">
+  								<a href="${pageContext.request.contextPath}/admin/group.do">
+  									<i class="fa fa-users"></i><span>그룹 관리</span>
+  								</a>
+							</li>
+							<li>
+								<a href="#">
   									<i class="fa fa-file-text-o"></i><span>게시글 관리</span>
 								</a>
 							</li>
@@ -74,16 +77,18 @@
 						</c:when>
 						
 						<c:when test="${sessionScope.level eq 'master'}"> <!-- 최상위관리자 로그인 시 -->
-							<li>
-								<a href="${pageContext.request.contextPath}/admin/group.do"><i class="fa fa-users"></i><span>그룹 관리</span></a>
-							</li>
-							<li>
+														<li>
 								<a href="${pageContext.request.contextPath}/admin/member.do">
 									<i class="fa fa-user"></i><span>회원 관리</span>
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp">
+  								<a href="${pageContext.request.contextPath}/admin/group.do">
+  									<i class="fa fa-users"></i><span>그룹 관리</span>
+  								</a>
+							</li>
+							<li>
+								<a href="#">
   									<i class="fa fa-file-text-o"></i><span>게시글 관리</span>
 								</a>
 							</li>
@@ -101,19 +106,22 @@
 						</c:when>
 						<c:otherwise> <!-- 비로그인 시 -->
 							<li>
-								<a href="" onclick="blockAccess()"><i class="fa fa-users"></i><span>그룹</span></a>
+								<a href="" onclick="blockAccess()"><i class="fa fa-user-circle-o"></i><span>마이페이지</span></a>
 							</li>
 							<li>
 								<a href="" onclick="blockAccess()"><i class="fa fa-user"></i><span>친구</span></a>
 							</li>
 							<li>
-								<a href="" onclick="blockAccess()"><i class="fa fa-address-card-o"></i><span>마이페이지</span></a>
+								<a href="" onclick="blockAccess()"><i class="fa fa-users"></i><span>그룹</span></a>
 							</li>
 							<li>
 								<a href="" onclick="blockAccess()"><i class="fa fa-comments"></i><span>채팅</span></a>
 							</li>
 							<li>
 								<a href="" onclick="blockAccess()"><i class="fa fa-telegram"></i><span>랜덤채팅</span></a>
+							</li>
+							<li>
+								<a href="" onclick="blockAccess()"><i class="fa fa-address-card-o"></i><span>정보수정</span></a>
 							</li>
 						</c:otherwise>
 					</c:choose>

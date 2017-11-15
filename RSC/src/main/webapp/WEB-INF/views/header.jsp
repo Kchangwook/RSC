@@ -97,7 +97,7 @@
 							<c:when test="${sessionScope.id ne null}">
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
-									<a href="#로그인후 메인페이지" class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
+									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
 									<c:choose>
 										<c:when test="${sessionScope.nick eq null}">
 											${sessionScope.id}
