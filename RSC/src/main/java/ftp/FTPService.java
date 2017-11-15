@@ -24,9 +24,9 @@ public class FTPService {
 		FTPClient ftp = null;
 		FileInputStream fis = null;
 		int result = -1;
-		
+
 		try {
-			File uploadfile = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/"+dirName+"/" + fileName);
+			File uploadfile = new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/" + dirName + "/" + fileName);
 
 			ftp = new FTPClient();
 			ftp.setControlEncoding("UTF-8");
@@ -111,14 +111,14 @@ public class FTPService {
 	//
 	// }
 
-	public int download(String filePath, String fileName,String dirName) throws Exception {
+	public int download(String filePath, String fileName, String dirName) throws Exception {
 		FTPClient client = null;
 		FileOutputStream fos = null;
 		File f = null;
 
 		int result = -1;
 		try {
-			f = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/"+dirName, fileName);
+			f = new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/" + dirName, fileName);
 			client = new FTPClient();
 			client.setControlEncoding("UTF-8");
 			client.connect(url, port);
@@ -154,9 +154,9 @@ public class FTPService {
 					client.disconnect();
 			} catch (Exception e) {
 			}
-
-			return result;
 		}
+		
+		return result;
 	}
 
 }// end of FtpClient
