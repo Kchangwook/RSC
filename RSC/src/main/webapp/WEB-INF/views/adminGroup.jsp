@@ -138,15 +138,11 @@
 	<script>
 		function groupDelete(groupNum,groupName){
 			if(confirm(groupName+' 그룹을 삭제하시겠습니까?')){
-				console.log('삭제');
-				goDelete(groupNum);
+				location.href="groupDelete.do?groupNum="+groupNum;
+				return true;
 			} else {
-				return;
+				return false;
 			}
-		}
-		
-		function goDelete(groupNum){
-			location.href='http://localhost:10101/rcsTest/admin/groupDelete.do?groupNum='+groupNum;
 		}
 		
 		function searchGroup(){

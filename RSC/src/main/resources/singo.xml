@@ -4,7 +4,7 @@
 				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="singo">
-
+	
 	<resultMap id="boardSingoResult" type="boardSingo">
 		<result property="boardSingoNum" column="BOARD_SINGO_NUM" />
 		<result property="boardNum" column="BOARD_NUM" />
@@ -57,10 +57,58 @@
 			   gs.group_singo_reason as group_singo_reason
 		from groups g, group_singo gs
 		where g.group_num=gs.group_num
-	
 	</select>
 	
+	<!-- board table의 board_singo_flage를 0으로 update(신고 이전 상태) -->
+	<update id="updateBoardSingoFlag" parameterType="String">
+		update board 
+		set board_singo_flag = 0 
+		where board_num = #{boardNum}
+	</update>
+	<!-- board_singo table에서 삭제(신고 이전 상태) -->
+	<delete id="deleteBoardSingo" parameterType="String">
+		delete board_singo 
+		where board_singo_num=#{boardSingoNum}
+	</delete>
+	<!-- board 삭제 (신고받은 게시글 삭제)  -->
+	<delete id="deleteBoardBySingo" parameterType="String">
+		delete board
+		where board_num = #{boardNum}
+	</delete>
 	
+	<!-- reply table의 singo_flag를 0으로(신고 이전 상태)-->
+	<update id="updateReplySingoFlag" parameterType="String">
+		update reply 
+		set reply_singo_flag=0
+		where reply_num = #{replyNum}
+	</update>
+	<!-- reply_singo table에서 삭제(신고 이전 상태) -->
+	<delete id="deleteReplySingo" parameterType="String">
+		delete reply_singo 
+		where reply_singo_num = #{replySingoNum}
+	</delete>
+	<!-- reply 삭제 (신고받은 댓글 삭제) -->
+	<delete id="deleteReplyBySingo" parameterType="String">
+		delete reply
+		where reply_num = #{replyNum}
+	</delete>
+	
+	<!-- groups table의 singo_cnt를 1 감소(신고 이전 상태) -->
+	<update id="updateGroupsSingoCnt" parameterType="String">
+		update groups 
+		set group_singo_cnt = (group_singo_cnt - 1) 
+		where group_num = #{groupNum}
+	</update>
+	<!-- group_singo table에서 삭제(신고 이전 상태) -->
+	<delete id="deleteGroupSingo" parameterType="String">
+		delete group_singo
+		where group_singo_num = #{groupSingoNum}
+	</delete>
+	<!-- 신고받은 그룹 삭제 -->
+	<delete id="deleteGroupBySingo" parameterType="String">
+		delete groups
+		where group_num = #{groupNum}
+	</delete>
 	
 
 </mapper>

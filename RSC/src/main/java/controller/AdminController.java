@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -38,10 +37,8 @@ public class AdminController {
 	
 	@RequestMapping("groupDelete.do")
 	public String deleteGroup(@RequestParam("groupNum") String groupNum) {
-		System.out.println(123);
 		int gNum = Integer.parseInt(groupNum.trim());
 		boolean result = groupsService.deleteGroupByNum(gNum);
-		System.out.println(result);
 		return "redirect:group.do";
 	}
 	
@@ -70,7 +67,7 @@ public class AdminController {
 	
 	@RequestMapping("memberDelete.do")
 	public String deleteMember(@RequestParam("memberId") String memberId) {
-		memberService.deleteMemberByID(memberId);
+		boolean result = memberService.deleteMemberByID(memberId.trim());
 		return "redirect:member.do";
 	}
 	
@@ -97,5 +94,50 @@ public class AdminController {
 		return list;
 	}
 	
+	@RequestMapping("restoreSingo.do")
+	public @ResponseBody List restoreSingo(@RequestParam("type") String type,
+			  				   @RequestParam("singoNum") String singoNum,
+			  				   @RequestParam("num") String num) {
+		boolean result;
+		List list;
+		switch(type) {
+		case "board":
+			result = singoService.restoreBoardSingo(singoNum, num);
+			list = singoService.searchAllBoardSingo(); 
+			break;
+		case "reply":
+			result = singoService.restoreReplySingo(singoNum, num);
+			list = singoService.searchAllReplySingo();
+			break;
+		default:
+			result = singoService.restoreGroupSingo(singoNum, num);
+			list = singoService.searchAllGroupSingo();
+			break;
+		}
+		return list;
+	}
+	
+	@RequestMapping("deleteSingo.do")
+	public @ResponseBody List deleteSingo(@RequestParam("type") String type,
+							  @RequestParam("singoNum") String singoNum,
+							  @RequestParam("num") String num) {
+		boolean result;
+		List list;
+		switch (type) {
+		case "board":
+			result = singoService.deleteBoardBySingo(num);
+			list = singoService.searchAllBoardSingo();
+			break;
+		case "reply":
+			result = singoService.deleteReplyBySingo(num);
+			list = singoService.searchAllReplySingo();
+			break;
+		default:
+			result = singoService.deleteGroupBySingo(num);
+			list = singoService.searchAllGroupSingo();
+			break;
+		}
+		return list;
+	}
 
 }

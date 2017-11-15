@@ -146,18 +146,15 @@
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	
 	<script>
-		function groupDelete(groupNum,groupName){
-			if(confirm(groupName+' 회원을 삭제하시겠습니까?')){
-				console.log('삭제');
-				goDelete(groupNum);
+		function memberDelete(memberId,memberNick){
+			if(confirm(memberNick+' 회원을 삭제하시겠습니까?')){
+				location.href="memberDelete.do?memberId="+memberId;
+				return true;
 			} else {
-				return;
+				return false;
 			}
 		}
-		
-		function goDelete(groupNum){
-			alert("삭제완료");
-		}
+
 		
 		function searchMember(){
 			var memberIdName = document.getElementById("memberInput").value;

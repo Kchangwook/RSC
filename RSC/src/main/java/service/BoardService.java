@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dao.BoardDAO;
 import domain.Board;
+import ftp.FTPService;
 
 @Transactional
 /** board 데이터를 이용한 서비스 */
@@ -17,15 +18,20 @@ public class BoardService {
 
 	/* 변수 */
 	private BoardDAO boardDAO;
+	private FTPService ftp;
 
 	/* 프로퍼티 */
+	public void setFTPService(FTPService ftp) {
+		this.ftp = ftp;
+	}
+
 	public void setBoardDAO(BoardDAO boardDAO) {
 		this.boardDAO = boardDAO;
 	}
 
 	/* 함수 */
 
-	/** 게시글 입력하는 함수*/
+	/** 게시글 입력하는 함수 */
 	public void addBoard(Board b) {
 		boardDAO.addBoard(b);
 	}
@@ -34,7 +40,7 @@ public class BoardService {
 	public List<Board> selectAllBoard(String memberId) {
 		return boardDAO.selectAll(memberId);
 	}
-	
+
 	/** 번호로 게시글 검색하는 함수 */
 	public Board searchBoard(int boardNum) {
 		return boardDAO.searchBoard(boardNum);
@@ -64,62 +70,93 @@ public class BoardService {
 
 		List<Board> list = new ArrayList<>();
 		int count = 0;
-		
+
 		Date date = new Date();
-		date.setDate(date.getDate()-1);
-		
-		for(Board b:all)
-			if(date.before(b.getBoardTime()) && count < 3) {
-				count++;
-				list.add(b);
-			}else if(count == 3)
-				break;
-		
+		date.setDate(date.getDate() - 1);
+		try {
+			for (Board b : all)
+				if (date.before(b.getBoardTime()) && count < 3) {
+					count++;
+					
+					// ftp에 존재하는 프로필 파일 다운로드
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
+
+					list.add(b);
+				} else if (count == 3)
+					break;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return list;
-		
+
 	}// end of getDays
-	
+
 	/** 주간 조회수 별로 정리하는 함수 */
 	private List<Board> getWeeks(List<Board> all) {
 
 		List<Board> list = new ArrayList<>();
 		int count = 0;
-		
+
 		Date date = new Date();
-		date.setDate(date.getDate()-7);
-		
-		for(Board b:all)
-			if(date.before(b.getBoardTime()) && count < 3) {
-				count++;
-				list.add(b);
-			}else if(count == 3)
-				break;
+		date.setDate(date.getDate() - 7);
+
+		try {
+			for (Board b : all)
+				if (date.before(b.getBoardTime()) && count < 3) {
+					count++;
+					
+					// ftp에 존재하는 프로필 파일 다운로드
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
+
+					list.add(b);
+				} else if (count == 3)
+					break;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return list;
-		
+
 	}// end of getWeeks
-	
+
 	/** 월간 조회수 별로 정리하는 함수 */
 	private List<Board> getMonths(List<Board> all) {
 
 		List<Board> list = new ArrayList<>();
 		int count = 0;
-		
+
 		Date date = new Date();
-		date.setMonth(date.getMonth()-1);
-		
-		for(Board b:all)
-			if(date.before(b.getBoardTime()) && count < 3) {
-				count++;
-				list.add(b);
-			}else if(count == 3)
-				break;
-		
-		System.out.println(date);
-		System.out.println(list.get(0));
-		
+		date.setMonth(date.getMonth() - 1);
+		try {
+			for (Board b : all)
+				if (date.before(b.getBoardTime()) && count < 3) {
+					count++;
+					
+					// ftp에 존재하는 프로필 파일 다운로드
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
+
+					list.add(b);
+				} else if (count == 3)
+					break;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return list;
-		
+
 	}// end of getMonths
 
 } // end of BoardService
