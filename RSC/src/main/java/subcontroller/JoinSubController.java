@@ -38,7 +38,6 @@ public class JoinSubController {
 			return "닉네임이 존재합니다.";
 		else
 			return "";
-		
 	}//end of checkNick
 	
 }//end of LoginSubController

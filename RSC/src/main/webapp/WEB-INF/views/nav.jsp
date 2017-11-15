@@ -32,19 +32,22 @@
 					<c:choose>
 						<c:when test="${sessionScope.level eq 'member'}"> <!-- 회원 로그인 시 -->
 							<li>
+								<a href="${pageContext.request.contextPath}/board/readBoard.do"><i class="fa fa-address-card-o"></i><span>mypage</span></a>
+							</li>
+							<li>
 								<a href="index.jsp	"><i class="fa fa-users"></i><span>그룹</span></a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-user"></i><span>친구</span></a>
 							</li>
 							<li>
-								<a href="${pageContext.request.contextPath}/basic/mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-address-card-o"></i><span>mypage</span></a>
-							</li>
-							<li>
 								<a href="index.jsp"><i class="fa fa-comments"></i><span>채팅</span></a>
 							</li>
 							<li>
 								<a href="index.jsp"><i class="fa fa-telegram"></i><span>랜덤채팅</span></a>
+							</li>
+							<li>
+								<a href="${pageContext.request.contextPath}/basic/mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-edit"></i><span>정보수정</span></a>
 							</li>
 						</c:when>
 						<c:when test="${sessionScope.level eq 'admin'}"> <!-- 관리자 로그인 시 -->
