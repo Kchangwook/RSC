@@ -77,16 +77,18 @@
 						</c:when>
 						
 						<c:when test="${sessionScope.level eq 'master'}"> <!-- 최상위관리자 로그인 시 -->
-							<li>
-								<a href="${pageContext.request.contextPath}/admin/group.do"><i class="fa fa-users"></i><span>그룹 관리</span></a>
-							</li>
-							<li>
+														<li>
 								<a href="${pageContext.request.contextPath}/admin/member.do">
 									<i class="fa fa-user"></i><span>회원 관리</span>
 								</a>
 							</li>
 							<li>
-								<a href="index.jsp">
+  								<a href="${pageContext.request.contextPath}/admin/group.do">
+  									<i class="fa fa-users"></i><span>그룹 관리</span>
+  								</a>
+							</li>
+							<li>
+								<a href="#">
   									<i class="fa fa-file-text-o"></i><span>게시글 관리</span>
 								</a>
 							</li>
