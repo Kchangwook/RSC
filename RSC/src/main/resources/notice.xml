@@ -27,5 +27,10 @@
 	<delete id="deleteByNoticeNum" parameterType="int">
 		delete from notice where notice_num = #{noticeNum}
 	</delete>
+		
+	<!-- notice 데이터 삽입(관리자) -->
+	<insert id="addFromAdmin2" parameterType="notice">
+		insert into notice (notice_num, member_id, notice_content, notice_type, notice_target) values (notice_seq.nextval, #{memberId}, #{noticeContent}, #{noticeType}, null)
+	</insert>
 
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import dao.NoticeDAO;
+import domain.Member;
 import domain.Notice;
 
 /** notice 데이터를 이용한 서비스 */
@@ -51,5 +52,15 @@ public class NoticeService {
 		return flag;
 		
 	}//end of deleteByNoticeNum
+	
+	/** notice 데이터 추가 (관리자 공지) */
+	public boolean addFromAdmin(Notice n, List<Member> list) {
+		boolean flag = true;
+		for (int i = 0; i < list.size(); i++) {
+			n.setMemberId(list.get(i).getMemberId());
+			flag = noticeDAO.addFromAdmin(n);
+		}
+		return flag;
+	}
 
 }//end of NoticeService
