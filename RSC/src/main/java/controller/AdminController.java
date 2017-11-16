@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -14,10 +16,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import domain.BoardSingo;
 import domain.Groups;
 import domain.Member;
+import domain.Notice;
 import service.GroupsService;
 import service.MemberService;
+import service.NoticeService;
 import service.SingoService;
 
+/**
+ *  관리자 페이지 기능
+ *  	1. 회원 관리
+ *  	2. 그룹 관리
+ *  	3. 게시글 관리
+ * 		4. 신고 게시글/댓글/그룹 관리
+ * 		5. 공지사항
+ * 		6. 관리자 계정 생성(master)
+ * */
 @Controller
 @RequestMapping("admin")
 public class AdminController {
@@ -26,6 +39,7 @@ public class AdminController {
 	private GroupsService groupsService = context.getBean("groupsService", GroupsService.class);
 	private MemberService memberService = context.getBean("memberService", MemberService.class);
 	private SingoService singoService = context.getBean("singoService",SingoService.class);
+	private NoticeService noticeService = context.getBean("noticeService", NoticeService.class);
 	
 	/** 그룹관리 페이지 */
 	@RequestMapping("group.do")
@@ -59,9 +73,7 @@ public class AdminController {
 	
 	@RequestMapping("searchMember.do")
 	public @ResponseBody List<Member> searchMemberByIdName(@RequestParam("memberIdName") String memberIdName){
-		System.out.println("------1");
 		List<Member> list = memberService.searchByIdName(memberIdName);
-		System.out.println(list);
 		return list;
 	}
 	
@@ -138,6 +150,26 @@ public class AdminController {
 			break;
 		}
 		return list;
+	}
+	
+	/** 공지사항 */
+	@RequestMapping("sendNotice.do")
+	public @ResponseBody boolean addNoticetoAll(Notice notice,@RequestParam("memberId") String memberId) {
+		boolean result = true;
+		
+		List<Member> list = new LinkedList<Member>();
+		
+		if (memberId.equals("allMember")){
+			list = memberService.searchAllMembers();
+		} else {
+			String[] memberArr = memberId.split(",");
+			for(int i=0 ; i < memberArr.length ; i++ ) {
+				list.add(new Member());
+				list.get(i).setMemberId(memberArr[i]);
+			}
+		}
+		result = noticeService.addFromAdmin(notice, list);
+		return result;
 	}
 
 }
