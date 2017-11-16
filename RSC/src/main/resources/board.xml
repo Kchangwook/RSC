@@ -38,7 +38,7 @@
 	
 	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬(Nick으로 반환) -->
 	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult">
-		select b.board_num, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		select b.board_num, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from member m, board b
 		where m.member_id = b.member_id and m.member_id=#{memberId} order by b.board_time desc
 	</select>
@@ -85,6 +85,12 @@
 		set board_cnt = board_cnt + 1
 		where board_num = #{boardNum}
 	</update>
+	
+	<select id = "selectForAll" parameterType="String" resultMap="boardResult">
+		select b.board_num, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		from member m, board b
+		where m.member_id = b.member_id and m.member_id=#{memberId} and group_num = 0 order by b.board_time desc
+	</select>
 	
 	
 

@@ -77,7 +77,7 @@ public class MemberService {
 		boolean flag = true;
 		
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
-		if (m.getMemberImg() == "")
+		if (m.getMemberImg().equals(""))
 			m.setMemberImg("resources/img/profile.jpg");
 		
 		//내 컴퓨터 내로 이미지 업로드

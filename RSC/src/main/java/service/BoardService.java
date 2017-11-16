@@ -158,5 +158,12 @@ public class BoardService {
 		return list;
 
 	}// end of getMonths
+	
+	/** 회원이 작성한 전체 게시글 불러오기 */
+	public List<Board> getForAll(String id){
+		
+		return boardDAO.searchForAll(id);
+		
+	}//end of getForAll
 
 } // end of BoardService

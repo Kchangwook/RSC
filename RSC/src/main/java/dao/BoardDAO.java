@@ -39,5 +39,16 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		
 	}//end of searchOrderByTime
 	
+	/** 친구가 작성한 게시글 불러오기 */
+	public List<Board> searchForAll(String id){
+		
+		List<Board> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("board.selectForAll",id);
+		
+		return list;
+		
+	}//end of searchByFriendId
 	
 } // end of BoardDAO

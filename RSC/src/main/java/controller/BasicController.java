@@ -51,8 +51,12 @@ public class BasicController {
 		String interests[] = request.getParameterValues("memberInterest");
 		String interest = "";
 
-		for (String s : interests)
-			interest += s + ",";
+		for (int i = 0;i<interest.length();i++) {
+			if(i == interest.length()-1)
+				interest += interests[i];
+			else
+				interest += interests[i] + ",";
+		}
 
 		Member m = new Member(request.getParameter("memberId"), request.getParameter("memberPw"),
 				request.getParameter("memberNick"), interest, Integer.parseInt(request.getParameter("memberInfoOpen")),
