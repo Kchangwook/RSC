@@ -540,5 +540,16 @@ div#noticeModal.w3-modal .notice-content table tr td button#sendAlertBtn{
 	padding: 1%;
 }
 
+.padding1 {
+	padding: 2% 3%;
+}
+
+/* 댓글 */
+.modal .modal-dialog .modal-content .row img{
+	width:35px;
+	height:35px;
+	border-radius: 25px;
+}
+
 
 

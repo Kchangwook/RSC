@@ -1,10 +1,14 @@
 package controller;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Reply;
 import service.ReplyService;
@@ -15,30 +19,20 @@ import service.ReplyService;
 public class ReplyController {
 
 	/* 변수 */
-	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
-	public ReplyService replyService = context.getBean("replyService", ReplyService.class);
+	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
+	private ReplyService replyService = context.getBean("replyService", ReplyService.class);
 	
-	// 프로퍼티값 설정
+	/* 프로퍼티 */
 	public void setService(ReplyService replyService) {
 		this.replyService = replyService;
 	}
 	
-	// 댓글 작성 및 불러오기
-	@RequestMapping("addReply.do")
-	public String addReply(Reply r, Model model, int boardNum) {
-		System.out.println("addReply.do");
-		System.out.println(r);
-		replyService.addReply(r);
-		model.addAttribute("replyList", replyService.selectAllReply(boardNum));
-		return "loginMain";
-	}
-	
-	/* 댓글 불러오기 */
+	/* 게시글 번호로 댓글 불러오기 */
 	@RequestMapping("readReply.do")
-	public String readReply(Model model, int boardNum) {
-		model.addAttribute("replyList", replyService.selectAllReply(boardNum));
-		return "loginMain";
-	}
+	public @ResponseBody List<Reply> readReply(@RequestParam("boardNum") int boardNum) {
+		List<Reply> list = replyService.selectReply(boardNum);
+		return list;
+	} // end of readReply
 	
 	
 } // end of ReplyController
