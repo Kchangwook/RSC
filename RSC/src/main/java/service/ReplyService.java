@@ -18,13 +18,13 @@ public class ReplyService {
 	
 	/* 함수 */
 	/** 댓글 입력하는 함수 */
-	public void addReply(Reply r) {
-		replyDAO.addReply(r);
+	public boolean addReply(Reply r) {
+		return replyDAO.addReply(r);
 	}
 
-	/** 댓글 불러오는 함수 */
-	public List<Reply> selectAllReply(int boardNum) {
-		return replyDAO.selectAll(boardNum);
+	/** 게시판 번호로 불러오는 함수 */
+	public List<Reply> selectReply(int boardNum) {
+		return replyDAO.searchReply(boardNum);
 	}
 	
 } // end of ReplyService

@@ -10,12 +10,13 @@ public class Reply {
 	private String replyContent; // col : reply_content
 	private String replyTime; // col : reply_time
 	private int replySingoFlag; // col : reply_singo_flag
+	private String memberNick; // col : member_nick
 	
 	/* 생성자 */
 	public Reply() {
 	}
-	public Reply(int replyNum, int boardNum, String memberId, String replyContent, String replyTime,
-			int replySingoFlag) {
+	public Reply(int replyNum, int boardNum, String memberId, String replyContent, String replyTime, int replySingoFlag,
+			String memberNick) {
 		super();
 		this.replyNum = replyNum;
 		this.boardNum = boardNum;
@@ -23,8 +24,10 @@ public class Reply {
 		this.replyContent = replyContent;
 		this.replyTime = replyTime;
 		this.replySingoFlag = replySingoFlag;
+		this.memberNick = memberNick;
 	}
-	
+
+
 	/* Getter, Setter */
 	public int getReplyNum() {
 		return replyNum;
@@ -68,6 +71,13 @@ public class Reply {
 		this.replySingoFlag = replySingoFlag;
 	}
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {
@@ -84,9 +94,10 @@ public class Reply {
 		builder.append(replyTime);
 		builder.append(", replySingoFlag=");
 		builder.append(replySingoFlag);
+		builder.append(", memberNick=");
+		builder.append(memberNick);
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+		
 } // end of class Reply

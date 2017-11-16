@@ -49,4 +49,14 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 		return flag;
 		
 	}
+	
+	/** notice 데이터 추가(관리자 공지) */
+	public boolean addFromAdmin(Notice n) {
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.insert("notice.addFromAdmin2",n)>0 ? true : false ;
+		
+		return flag;
+	}
 }
