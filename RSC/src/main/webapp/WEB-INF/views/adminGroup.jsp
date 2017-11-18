@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <!-- jQuery Circle-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mpobile_progress_circle-1.0.0.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
 <!-- Custom Scrollbar-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
@@ -32,10 +32,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="favicon.png">
-<!-- Tweaks for older IEs-->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
@@ -55,19 +51,19 @@
 			<!-- 그룹관리 메인페이지 -->
 			<div class="groupAdmin-page">
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-12">
 						<h3>그룹 관리</h3><br>
-						<div class="groupSearchDiv">
-							<span class="groupSearchSpan"><input id="groupNameInput" class="w3-input w3-border" type="text" placeholder="그룹명으로 검색" onkeypress="if(event.keyCode==13) {searchGroup();}"></span>
-							<button class="searchBtn w3-border" onclick="searchGroup()">검색</button>
-						</div>
+					</div>
+					<div class="groupSearchDiv">
+						<span class="groupSearchSpan"><input id="groupNameInput" class="w3-input w3-border" type="text" placeholder="그룹명으로 검색" onkeypress="if(event.keyCode==13) {searchGroup();}"></span>
+						<button class="searchBtn w3-border" onclick="searchGroup()">검색</button>
 					</div>
 				</div>
 					
 			<div class="row">
 				<div id="newGroupListDiv">
 					<c:forEach items="${requestScope.allList}" var="group">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							<div class="card w3-round-large">
 								<!-- 글 내용 -->
 								<div class="content">
@@ -158,10 +154,10 @@
 						newGroupList(resData,groupName);
 					}
 				}
-				xhttp.open("POST", "searchGroup.do?groupName="+groupName, true);
-				xhttp.send(); 
+				xhttp.open("POST", "searchGroup.do", true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.send("groupName="+groupName); 
 			}
-
 		}
 		
 		function newGroupList(resData,groupName){
@@ -170,14 +166,14 @@
 			
 			if(resData.length==0){
 				groupListHTML =
-					'<div class="col-md-10" style="text-align:center">'+
+					'<div class="col-md-12" style="text-align:center">'+
 						'<h5>\''+groupName+'\'을 포함한 데이터가 존재하지 않습니다</h5>'+
 					'</div>';
 				
 			} else {
 				for(i=0 ; i < resData.length ; i++){
 					groupListHTML += 
-						'<div class="col-md-10">'+
+						'<div class="col-md-12">'+
 							'<div class="card w3-round-large">'+
 								'<div class="content">'+
 									'<table>'+

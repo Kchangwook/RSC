@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <!-- jQuery Circle-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mpobile_progress_circle-1.0.0.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
 <!-- Custom Scrollbar-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
@@ -55,19 +55,19 @@
 			<!-- 회원관리 메인페이지 -->
 			<div class="memberAdmin-page">
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-12">
 						<h3>회원 관리</h3><br>
-						<div class="memberSearchDiv">
-							<span class="memberSearchSpan"><input id="memberInput" class="w3-input w3-border" type="text" placeholder="회원 ID 또는 닉네임으로 검색" onkeypress="if(event.keyCode==13) {searchMember();}"></span>
-							<button class="searchBtn w3-border" onclick="searchMember()">검색</button>
-						</div>
+					</div>
+					<div class="memberSearchDiv">
+						<span class="memberSearchSpan"><input id="memberInput" class="w3-input w3-border" type="text" placeholder="회원 ID 또는 닉네임으로 검색" onkeypress="if(event.keyCode==13) {searchMember();}"></span>
+						<button class="searchBtn w3-border" onclick="searchMember()">검색</button>
 					</div>
 				</div>
 					
 			<div class="row">
 				<div id="newMemberListDiv">
 					<c:forEach items="${requestScope.allList}" var="member">
-						<div class="col-md-10">
+						<div class="col-md-12">
 							<div class="card w3-round-large">
 								<!-- 글 내용 -->
 								<div class="content">
@@ -173,7 +173,6 @@
 				xhttp.open("POST", "searchMember.do?memberIdName="+memberIdName, true);
 				xhttp.send(); 
 			}
-
 		}
 		
 		function newMemberList(resData,memberIdName){
@@ -189,7 +188,7 @@
 			} else {
 				for(i=0 ; i < resData.length ; i++){
 					memberListHTML +=
-					'<div class="col-md-10">'+
+					'<div class="col-md-12">'+
 					'<div class="card w3-round-large">'+
 					'<div class="content">'+
 					'<table>'+

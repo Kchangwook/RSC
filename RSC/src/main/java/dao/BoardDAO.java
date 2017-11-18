@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -50,5 +51,13 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return list;
 		
 	}//end of searchByFriendId
+	
+	/** 게시글 항목별 오름차순 정렬 */
+	public List<Board> searchAllOrder(Map map){
+		session = getSqlSession();
+		List<Board> list = session.selectList("board.selectAllOrder",map);
+		return list;
+	}
+
 	
 } // end of BoardDAO

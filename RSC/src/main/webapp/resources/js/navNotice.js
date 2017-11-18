@@ -35,7 +35,7 @@ function viewMemberDropdown(resData){
 	console.log(resData);	
 	if(resData.length>0){
 		for(i=0 ; i<resData.length ; i++){
-			memberListHTML += '<p onclick="clickNoticeMember(\''+resData[i].memberId+'\')">'+resData[i].memberId+'-----'+resData[i].memberNick+'</p>';
+			memberListHTML += '<p onclick="clickNoticeMember(\''+resData[i].memberId+'\')">ID : '+resData[i].memberId+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;닉네임 :'+resData[i].memberNick+'</p>';
 		}
 	}
 	document.getElementById("searchMemberDropdown").innerHTML = memberListHTML;

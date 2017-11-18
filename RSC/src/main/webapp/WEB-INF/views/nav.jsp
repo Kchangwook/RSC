@@ -63,7 +63,7 @@
                           </a>
                      </li>
                      <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/board.do">
                              <i class="fa fa-file-text-o"></i><span>게시글 관리</span>
                         </a>
                      </li>
@@ -89,7 +89,7 @@
                           </a>
                      </li>
                      <li>
-                        <a href="#">
+                        <a href="${pageContext.request.contextPath}/admin/board.do">
                              <i class="fa fa-file-text-o"></i><span>게시글 관리</span>
                         </a>
                      </li>
@@ -102,7 +102,7 @@
                         <a href="#alert" onclick="document.getElementById('noticeModal').style.display='block'"><i class="fa fa-bullhorn"></i><span>공지</span></a>
                      </li>
                      <li>
-                        <a href="index.jsp"><i class="fa fa-plus-square"></i><span>관리자 아이디 생성</span></a>
+                        <a href="${pageContext.request.contextPath}/admin/add.do"><i class="fa fa-plus-square"></i><span>관리자 아이디 생성</span></a>
                      </li>
                   </c:when>
                   <c:otherwise> <!-- 비로그인 시 -->

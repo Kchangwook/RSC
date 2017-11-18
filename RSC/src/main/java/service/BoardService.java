@@ -165,5 +165,11 @@ public class BoardService {
 		return boardDAO.searchForAll(id);
 		
 	}//end of getForAll
+	
+	/** 게시글 항목별 정렬 */
+	public List<Board> searchAllOrder(Map map){
+		List<Board> list = boardDAO.searchAllOrder(map);
+		return list;
+	}
 
 } // end of BoardService

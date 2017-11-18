@@ -210,5 +210,10 @@ public class MemberService {
 		return memberDAO.updateLogout(id);
 		
 	}//end of logoutMember
+	
+	/** 관리자 계정 생성 */
+	public boolean addAdmin(Admin admin) {
+		return adminDAO.addAdmin(admin);
+	}
 
 }// end of MemberService

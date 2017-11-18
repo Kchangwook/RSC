@@ -1,8 +1,17 @@
 package controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -13,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import domain.Admin;
+import domain.Board;
 import domain.BoardSingo;
 import domain.Groups;
 import domain.Member;
 import domain.Notice;
+import service.BoardService;
 import service.GroupsService;
 import service.MemberService;
 import service.NoticeService;
@@ -40,6 +52,7 @@ public class AdminController {
 	private MemberService memberService = context.getBean("memberService", MemberService.class);
 	private SingoService singoService = context.getBean("singoService",SingoService.class);
 	private NoticeService noticeService = context.getBean("noticeService", NoticeService.class);
+	private BoardService boardService = context.getBean("boardService", BoardService.class);
 	
 	/** 그룹관리 페이지 */
 	@RequestMapping("group.do")
@@ -171,5 +184,54 @@ public class AdminController {
 		result = noticeService.addFromAdmin(notice, list);
 		return result;
 	}
+	
+	/** 게시글 관리 
+	 * @throws ParseException */
+	@RequestMapping("board.do")
+	public String goAdminBoard(Model model) throws ParseException {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("orderColumn", "board_time");
+		map.put("orderType", "desc");
+		map.put("boardIdContent", "");
+		
+		List<Board> list = boardService.searchAllOrder(map);
 
+		model.addAttribute("list", list);
+		return "adminBoard";
+	}
+	
+	/** 게시글 정렬  */
+	@RequestMapping("boardOrder.do")
+	public @ResponseBody List<Board> searchBoardOrdered(
+			@RequestParam("orderColumn") String orderColumn,
+			@RequestParam("orderType") String orderType,
+			@RequestParam("boardIdContent") String boardIdContent){
+		Map<String, Object> map = new HashMap<>();
+		map.put("orderColumn", orderColumn);
+		map.put("orderType", orderType);
+		map.put("boardIdContent", boardIdContent);
+		
+		List<Board> list = boardService.searchAllOrder(map);
+		
+		return list;
+	}
+	
+	/** 관리자 추가페이지 이동 */
+	@RequestMapping("add.do")
+	public String goAdminAdd() {
+		return "adminAdd";
+	}
+	
+	@RequestMapping("addAdmin.do")
+	public String addAdmin(Admin admin, Model model) {
+		boolean result = memberService.addAdmin(admin);
+		if(result) {
+			model.addAttribute("msg", admin.getAdminId()+" 관리자 계정 생성을 성공하였습니다."); 
+		} else {
+			model.addAttribute("msg", "관리자 계정 생성을 실패하였습니다."); 
+		}
+		model.addAttribute("url", "add.do"); 
+		return "controllerAlert"; 
+	}
 }
