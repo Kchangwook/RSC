@@ -171,22 +171,39 @@ public class BasicController {
 	}// end of mypage
 
 	/** 마이페이지에서 회원 정보 수정 */
-	@RequestMapping("update.do")
-	public String update(Model model, @ModelAttribute("member") Member m, HttpServletRequest request,
-			@RequestParam("memberId") String id, @RequestParam("memberPw") String pwd) {
+	@RequestMapping(value = "update.do", method = RequestMethod.POST)
+	public String update(Model model, @ModelAttribute("member") Member m, HttpServletRequest request) {
 
 		String url = "mypage";
+		
+		String interests[] = request.getParameterValues("memberInterest");
+		String interest = "";
 
-		if (memberService.checkLogin(id, pwd) != 0) {
+		if (memberService.checkLogin(m.getMemberId(), m.getMemberPw()) != 3) {
 			model.addAttribute("msg", "비밀번호가 일치하지 않습니다");
+		} else if (interests == null) {
+			model.addAttribute("msg", "관심사를 하나 이상 선택하시길 바랍니다");
 		} else {
+			/*for (String s : interests)
+				interest += s + ",";*/
+			
+			Member original = memberService.searchById(m.getMemberId());
+			
+			if (m.getMemberNick().equals("")) { // 닉네임에 변경이 없을 경우 예전 닉네임 설정
+				m.setMemberNick(original.getMemberNick());
+			} 
+			if (m.getMemberImg() == null) { // 사진에 변경이 없을 경우 예전 사진 설정
+				m.setMemberImg(original.getMemberImg());
+			}
+			
 			if (memberService.updateMember(m, request))
 				model.addAttribute("msg", "정보수정에 성공했습니다");
 			else
 				model.addAttribute("msg", "정보수정에 실패했습니다.");
 		}
+		//request.setAttribute("mypageMemberId", m.getMemberId());
 
-		return url;
+		return "redirect:mypage.do?mypageMemberId="+m.getMemberId();
 
 	}// end of update
 

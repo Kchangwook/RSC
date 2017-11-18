@@ -177,7 +177,7 @@
 									<td>
 										<input type="text" width = "50px" name="imgSrc" id="imgSrc" placeholder="이미지" disabled="disabled">
 									</td>
-									</tr>
+								</tr>
 								<tr>
 									<td class="tdImgButton">
 									<div class="filebox">

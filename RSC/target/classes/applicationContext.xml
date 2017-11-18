@@ -15,19 +15,19 @@
 	<bean id = "ftpService" class = "ftp.FTPService" />
 	
 	<!-- DB Connection을 가져오는 빈 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@59.187.224.177:7624:xe" />
 		<property name="username" value="kosta" />
 		<property name="password" value="1234" />
-	</bean>
+	</bean> -->
 	
-<!-- 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+ 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="kosta" />
 		<property name="password" value="1234" />
-	</bean> -->
+	</bean>
 
 	<!-- MemberSessionFactory 설정하는 빈 -->
 	<bean id="memberFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
