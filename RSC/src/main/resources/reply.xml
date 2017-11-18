@@ -11,7 +11,7 @@
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="replyContent" column="REPLY_CONTENT" />
-		<result property="replyTime" column="REPLY_FILE" />
+		<result property="replyTime" column="REPLY_TIME" />
 		<result property="replySingoFlag" column="REPLY_SINGO_FLAG" />
 	</resultMap>
 
