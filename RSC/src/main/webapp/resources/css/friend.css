@@ -1,33 +1,58 @@
-.firend-img{
-	width:100px;
-	border-radius: 50px;
-	margin-top:	30px;
+.friend-info{
+	margin-left:320px;
+	width:500px;
+	height:550px;
 }
-.firend-back{
-	width:180px;
-	height:220px;
+.friend-align{
+	margin-left: 140px;
 }
-.friend-out{
-	width:280px;
-	margin-bottom: 40px;
-	margin-right: 20px;
-}
-.friend-content{
-	text-align: center;
+.friend-pfimg{
+	width: 280px;
+	border-radius: 300px;
+	margin-top:40px;
+	margin-left:83px;
 }
 .friend-name{
 	position:relative;
-	margin-top: 30px;
+	color: #a5a5a5;
+	margin-left: 70px;
+	top:20px;
+	font-size: 30pt;
+}
+.friend-interest{
+	position:relative;
+	color: #a5a5a5;
+	font-size: 13pt;
+	margin-left: -130px;
+	top:40px;
+}
+.friend-intercontent{
+	position:relative;
 	color: #b9b9b9;
-	font-size: 20pt;
+	font-size: 12pt;
+	top:45px;
+	left:-75px;
 }
-.friend-edge{
-	margin-top: -50px;
+.friend-add {
+	position:relative;
+	top:80px;
+	left:235px;
+	width:90px;
+	height:35px;
+    background-color: #f7921e; 
+    color: white; 
+    border: 2px solid #f7921e;
+    font-size:12pt;
+    border-radius: 10px;
 }
-.friend-close{
-	color: red;
-	font-size: 16pt;
-	text-decoration: none;
-	cursor: pointer;
-	margin-left: 140px;
+.friend-add:hover {
+    background-color: white;
+    color: #f7921e;
+    border: 2px solid #f7921e;
+}
+.friend-content{
+	align-content: center;
+}
+table,td{
+	text-align: center;
 }

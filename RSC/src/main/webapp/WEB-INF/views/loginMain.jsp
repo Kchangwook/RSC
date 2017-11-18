@@ -248,21 +248,25 @@
 					<div class="clear"></div>
 
 					<!-- 댓글 작성 틀 -->
-					<form action="addReply.do">
-						<div style="float: left; width: 75%;" align="left">
-							<textarea rows="1" style="width: 100%; resize: none; wrap: hard;"
-								placeholder="댓글을 입력하세요" name="replyContent"></textarea>
-						</div>
-						<div style="float: right;" align="right">
-							<input type="submit" value="작성완료"
-								class="btn btn-default btnOrange"> <input type="hidden"
-								name="boardNum" value="${sessionScope.id}">
-						</div>
-					</form>
+					<div style="float: left; width: 75%;" align="left">
+						<textarea id="replyContent" rows="1"
+							style="width: 100%; resize: none; wrap: hard;"
+							placeholder="댓글을 입력하세요" name="replyContent"></textarea>
+					</div>
+					<div style="float: right;" align="right">
+						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+						<input type="hidden" name="memberId" id="memberId" value="">
+					</div>
 					<!-- /댓글 작성 틀 -->
 
 				</div>
 				<!--/글 작성 틀-->
+
+				<!-- 댓글 내용 -->
+				<div id="replyHTML"></div>
+				<!-- /댓글 내용 -->
+
 
 			</div>
 
@@ -300,15 +304,96 @@
 					resData=JSON.parse(resData);
 					console.log(resData);
 					
-					document.getElementById("memberNick").innerText = resData.memberNick;
+					document.getElementById("memberNick").innerText = resData.board.memberNick;
+					document.getElementById("boardContent").innerText = resData.board.boardContent;
+					document.getElementById("boardTime").innerText = new Date(resData.board.boardTime).toUTCString();
+					document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
+					document.getElementById("boardNum").value = resData.board.boardNum;
+					document.getElementById("memberId").value = resData.board.memberId;
+					replyList(resData.reply);
+					
+					/* document.getElementById("memberNick").innerText = resData.memberNick;
 					document.getElementById("boardContent").innerText = resData.boardContent;
 					document.getElementById("boardTime").innerText = new Date(resData.boardTime).toUTCString();
 					document.getElementById("boardCnt").innerText = "조회수 : " + resData.boardCnt;
+					document.getElementById("boardNum").value = resData.boardNum;
+					document.getElementById("memberId").value = resData.memberId;
+					addReply(); */
 					
 				}
 			}
-			xhttp.open("POST", "${pageContext.request.contextPath}/board/searchBoard.do?boardNum="+boardNum, true);
-			xhttp.send(); 
+			
+			xhttp.open("POST", "${pageContext.request.contextPath}/board/searchBoard.do", true);
+	        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("boardNum="+boardNum); 
+			
+		}
+		
+		function addReply(){
+			var memberId = document.getElementById("memberId").value;
+			var replyContent = document.getElementById("replyContent").value;
+			var boardNum = document.getElementById("boardNum").value;
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					console.log(resData);
+					replyList(resData);
+				}
+			}
+			
+			xhttp.open("POST", "${pageContext.request.contextPath}/reply/addReply.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("boardNum="+boardNum +"&memberId="+memberId+"&replyContent="+replyContent); 
+			
+		}
+		
+		function replyList(resData) {
+			console.log(resData);
+			
+			var replyListHTML = '';
+			
+			if(resData.length == 0) {
+				replyListHTML = 
+				'<div class="content padding1">댓글을 등록해 주세요</div>' +
+				'<div align="right"></div>';
+			} else {
+				for(i=0; i < resData.length; i++ ) {
+					replyListHTML +=
+						'<div class="row"> ' +
+					'<div class="col-md-12"> ' +
+						'<div class="w3-round-large padding col-md-12"">' +
+// 							<!-- 글 머리 : 사진, 닉네임 -->
+							'<div class="header" ' +
+							'style="float: left;  width: 35%;"> ' +
+								'<span><img '+
+								'src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> ' +
+								'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
+							'</div>'+
+
+// 							<!-- 글 내용 -->
+							'<div class="content"'+
+								'style="float: right; width: 55%;">'+
+								'<span>'+ resData[i].replyContent +'</span>'+
+							'</div>'+
+							'<div class="clear"></div>'+
+// 							<!-- 글 작성 시간 -->
+							'<div class="footer" align="right">'+
+								'<div class="time-tag">'+
+									'<span><i class="fa fa-clock-o"></i>'+ resData[i].replyTime +'</span>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<br>'+
+// 					<!--/글 작성 틀-->
+				'</div>'
+				}
+			}
+			
+			document.getElementById("replyHTML").innerHTML = replyListHTML;
 		}
 	</script>
 

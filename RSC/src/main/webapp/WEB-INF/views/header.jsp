@@ -190,15 +190,15 @@
 									<td><label><b>관심사</b></label></td>
 								</tr>
 								<tr>
-									<td><input type="checkbox" name="memberInterest" value="exercise">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="cooking">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="movie">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="music">음악<br>
-										<input type="checkbox" name="memberInterest" value="book">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="fashion">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="game">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="trip">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" name="memberInterest" value="etc">기타</td>
+									<td><input type="checkbox" name="memberInterest" value="운동">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="요리">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="영화">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="음악">음악<br>
+										<input type="checkbox" name="memberInterest" value="독서">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="패션">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="게임">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="여행">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="memberInterest" value="기타">기타</td>
 								</tr>
 								<tr>
 									<td><label><b>정보 공개</b></label></td>

@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>friendList</title>
-</head>
+<title>RSC</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
@@ -31,8 +30,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="favicon.png">
+<!-- Tweaks for older IEs-->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend.css">
+</head>
 <body>
 	<!-- 네비게이션 바 include -->
 	<jsp:include page="nav.jsp"/>
@@ -44,39 +49,75 @@
 
 		<!-- 본문 부분 -->
 		<div class="content-page">
-
-			<!-- 그룹관리 메인페이지 -->
-			<div class="groupAdmin-page">
-				<div class="row">
-					<div class="col-md-10">
-						<h3>친구 목록</h3><br>
-					</div>
-				</div>
+		<div class="main-page2">
+			<!-- 회원관리 메인페이지 -->
 					
-			<div class="row friend-edge">
-					<c:forEach items = "${list}" var="item">
-						<div class="col-lg-5 friend-out" onclick = "showFriend('${item.friendId}')">
-							<div class="card w3-round-large firend-back">
+			<div class="row">
+						<div class="col-md-12">
+							<div class="card w3-round-large friend-info">
 								<!-- 글 내용 -->
-								<div class="content friend-content" >
-									<div>
-										<img class = "firend-img" src="${pageContext.request.contextPath}/${item.friendImg}">
-									</div>
-									<div class = "friend-name">
-										<span><b>${item.friendNick}</b></span>
-									</div>
-									<div>
-										<span class = "friend-close" onclick = "friendDelete('${item.memberId}','${item.friendId}')"><b>x</b></span>
+								<div class="content friend-content">
+								<table>
+									<tr>
+									<td><img class = "friend-pfimg" src = "${pageContext.request.contextPath}/${friend.memberImg}"></td>
+									</tr>
+									<tr>
+									<td><span class = "friend-name"><b>${friend.memberNick}</b></span></td>
+									</tr>
+									<tr>
+									<td><span class = "friend-interest"><b>관심사</b></span></td>
+									</tr>
+									<tr>
+									<td><span class = "friend-intercontent"><b>${friend.memberInterest}</b></span></td>
+									</tr>
+									<tr>
+									<td><button class = "friend-add" onclick = "addFriend('${friend.memberId}','${sessionScope.id}')"><b>친구 추가</b></button></td>
+									</tr>
+								</table>
+								</div>
+							</div>
+						</div>
+			</div>
+		
+		<c:forEach items="${list}" var="data" begin = "0" end = "1">
+					<div class="row">
+						<!-- 글 작성 틀 -->
+						<div class="col-md-12">
+							<div class="card w3-round-large">
+								<!-- 글 머리 : 사진, 닉네임 -->
+								<div class="header">
+									<span><img
+										src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+									<span>&nbsp;&nbsp;${data.memberNick}</span>
+								</div>
+
+								<!-- 글 내용 -->
+								<div class="content">
+									<span> <a href="" style="display: block;"
+										data-toggle="modal" data-target="#detailView"
+										onclick="searchBoard(${data.boardNum})">
+											${data.boardContent} </a>
+									</span>
+								</div>
+								<hr>
+
+								<!-- 글 작성 시간 -->
+								<div class="footer">
+									<div class="time-tag">
+										<i class="fa fa-clock-o"></i> ${data.boardTime}
 									</div>
 								</div>
 							</div>
 						</div>
-					</c:forEach>
-			</div>
-		</div>
+						<br>
+						<!--/글 작성 틀-->
+					</div>
+
+				</c:forEach>
 			
 		</div>
 		<!-- 본문 끝 부분 -->
+		</div>
 
 		<footer class="main-footer">
 			<div class="container-fluid">
@@ -95,23 +136,6 @@
 		
 	</div>
 	<!-- Javascript files-->
-	<script type="text/javascript">
-		function friendDelete(member,friend){
-			
-			var con = confirm('정말 삭제하시겠습니까?');
-			
-			if(con){
-				location.href="delete.do?memberId="+member+"&friendId="+friend; 
-			}
-			
-		}
-		
-		function showFriend(friend){
-			
-			location.href = "getFriendInfo.do?friendId="+friend;
-			
-		}
-	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
@@ -119,7 +143,14 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
 	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
+	<script type="text/javascript">
+		function addFriend(friend,member){
+			alert(friend);
+			alert(member);
+		}
+	</script>
 </body>
 </html>

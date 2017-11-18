@@ -22,21 +22,20 @@ public class BoardController {
 	/* 변수 */
 	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	public BoardService boardService = context.getBean("boardService", BoardService.class);
-	public ReplyService replyService = context.getBean("replyService", ReplyService.class);
 	
 	/* 프로퍼티 */
 	public void setService(BoardService service) {
 		this.boardService = service;
 	}
 	
-	/* 게시글 작성 & 불러오기 */
+	/* 게시글 작성 */
 	@RequestMapping("addBoard.do")
 	public String addBoard(Board b, Model data, String memberId) {
 		boardService.addBoard(b);
 		return "redirect:readBoard.do";
 	} // end of addBoard
 	
-	/* 로그인 후 불러오기 */
+	/* 게시글 불러오기 */
 	@RequestMapping("readBoard.do")
 	public String readBoard(HttpServletRequest request) {
 		
@@ -44,13 +43,6 @@ public class BoardController {
 		
 		request.setAttribute("boardList", boardService.selectAllBoard(memberId));
 		return "loginMain";
-	}
-	
-	/* 번호로 글 검색 */
-	@RequestMapping("searchBoard.do")
-	public @ResponseBody Board searchBoard(@RequestParam("boardNum") int boardNum ) {
-		Board board = boardService.searchBoard(boardNum);
-		return board;
-	}
+	} // end of readBoard
 	
 } // end of BoardController
