@@ -7,12 +7,8 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import domain.Board;
 import service.BoardService;
-import service.ReplyService;
 
 /** 게시글 등록을 위한 컨트롤러 */
 @Controller
@@ -20,8 +16,8 @@ import service.ReplyService;
 public class BoardController {
 	
 	/* 변수 */
-	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
-	public BoardService boardService = context.getBean("boardService", BoardService.class);
+	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
+	private BoardService boardService = context.getBean("boardService", BoardService.class);
 	
 	/* 프로퍼티 */
 	public void setService(BoardService service) {
