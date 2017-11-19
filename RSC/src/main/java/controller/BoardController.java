@@ -20,8 +20,8 @@ import service.ReplyService;
 public class BoardController {
 	
 	/* 변수 */
-	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
-	public BoardService boardService = context.getBean("boardService", BoardService.class);
+	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
+	private BoardService boardService = context.getBean("boardService", BoardService.class);
 	
 	/* 프로퍼티 */
 	public void setService(BoardService service) {
