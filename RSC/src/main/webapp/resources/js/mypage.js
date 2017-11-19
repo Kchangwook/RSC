@@ -1,29 +1,28 @@
 //이미지 src보여주기
-function changeSrc() {
+function changeMypageSrc() {
 
-	document.getElementById("imgSrc").value = document.getElementById("memberImg").value;
+	document.getElementById("mypageSrc").value = document.getElementById("mypageImg").value;
 	
 }
 
 // 필수 정보가 모두 입력되었는지 확인
-function checkInfo() {
+function checkMypageInfo() {
 
-	var nick = document.getElementById("nick").value;
-	var pwd = document.getElementById("pwd").value;
-	var pwd_info;
-
+	var pwd = document.getElementById("mypagePw").value;
+	var interest = document.getElementById("mypageInterest").value;
+	
 	if (pwd == "") {
 		alert("비밀번호를 입력하세요");
 		return false;
 	} else {
-		document.getElementById("frm").submit();
+		document.getElementById("frmMypage").submit();
 	}
 
 }
 
-//비밀번호 비일치 시 메세지 팝업
-function getMessage() {
-
+//비밀번호 비일치 시, 정보 수정 실패 시 메세지 팝업
+/*function getMessage() {
+	
 	var msg = document.getElementById("msg").value;
 
 	if (msg != "")
@@ -31,8 +30,8 @@ function getMessage() {
 
 }
 
-window.onload = getMessage();
-
+//window.onload = getMessage();
+*/
 /*//정보수정에서 사용할 아이디
 function getMemberId() {
 
@@ -50,7 +49,7 @@ function checkSameNick(nick) {
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
-			console.log("resData"+resData);
+
 			document.getElementById("mypage_msg").innerText = resData;
 		}
 	}

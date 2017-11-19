@@ -76,5 +76,11 @@
 	<update id = "updateLogout" parameterType = "String">
 		update member set member_logout_time = SYSTIMESTAMP, member_present_login = 0 where member_id = #{memberId}
 	</update>
+	
+	<!-- mypage에서 member테이블 업데이트 -->
+	<update id = "updateMypageInfo" parameterType = "member">
+	update member set member_nick = #{memberNick}, member_img = #{memberImg}, member_interest = #{memberInterest}, member_info_open = #{memberInfoOpen}
+	where member_id = #{memberId}
+	</update>
 
 </mapper>

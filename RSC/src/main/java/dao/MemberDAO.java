@@ -130,7 +130,7 @@ public class MemberDAO extends SqlSessionDaoSupport {
 	/** ID로 member 삭제 */
 	public boolean deleteMemberByID(String memberId) {
 		session = getSqlSession();
-		return session.delete("member.deleteById",memberId)>0 ? true : false;
+		return session.delete("member.deleteById", memberId)>0 ? true : false;
 	}
 	
 	/** member logout정보 수정 */
@@ -139,10 +139,23 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		boolean flag = true;
 		
 		session = getSqlSession();
-		flag = session.update("member.updateLogout",memberId)>0?true:false;
+		flag = session.update("member.updateLogout", memberId)>0?true:false;
 		
 		return flag;
 		
 	}//end of updateLogout
+
+	/** mypage에서 member 정보 수정 함수 */
+	public boolean updateMypageInfo(Member member) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		
+		flag = session.update("member.updateMypageInfo", member)>0?true:false;
+		
+		return flag;
+		
+	}//end of updateMypageInfo
 	
 }//end of MemberDAO

@@ -192,15 +192,10 @@ public class MemberService {
 		
 	}//end of searchMemberById
 	
-	/** member 정보 수정 함수 */
+	/** mypage에서 member 정보 수정 함수 */
 	public boolean updateMember(Member member, HttpServletRequest request) {
 		
-		List<Member> list = null;
-		
-		System.out.println("정보수정");
-		
-		//return memberDAO.updateLoginInfo(id);
-		return true;
+		return memberDAO.updateMypageInfo(member);
 		
 	}//end of updateMember
 	
@@ -210,5 +205,10 @@ public class MemberService {
 		return memberDAO.updateLogout(id);
 		
 	}//end of logoutMember
+	
+	/** 관리자 계정 생성 */
+	public boolean addAdmin(Admin admin) {
+		return adminDAO.addAdmin(admin);
+	}
 
 }// end of MemberService

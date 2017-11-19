@@ -102,11 +102,11 @@ INCREMENT BY 1;
 
 
 ALTER TABLE board
-    ADD CONSTRAINT board_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT board_fk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 ALTER TABLE board
-    ADD CONSTRAINT board_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT board_fkk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- reply TABLE CREATE SQL
@@ -129,11 +129,11 @@ INCREMENT BY 1;
 
 
 ALTER TABLE reply
-    ADD CONSTRAINT reply_fk FOREIGN KEY (board_num) REFERENCES board (board_num);
+    ADD CONSTRAINT reply_fk FOREIGN KEY (board_num) REFERENCES board (board_num) on delete cascade;
 
 
 ALTER TABLE reply
-    ADD CONSTRAINT reply_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT reply_fkk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 
@@ -152,7 +152,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE chat
-    ADD CONSTRAINT chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- admin TABLE CREATE SQL
@@ -186,11 +186,11 @@ CREATE TABLE group_admin
 
 
 ALTER TABLE group_admin
-    ADD CONSTRAINT group_admin_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT group_admin_fk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 ALTER TABLE group_admin
-    ADD CONSTRAINT group_admin_fkk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT group_admin_fkk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- friend TABLE CREATE SQL
@@ -204,11 +204,11 @@ CREATE TABLE friend
 
 
 ALTER TABLE friend
-    ADD CONSTRAINT friend_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT friend_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 ALTER TABLE friend
-    ADD CONSTRAINT friend_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id);
+    ADD CONSTRAINT friend_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- message TABLE CREATE SQL
@@ -231,7 +231,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE message
-    ADD CONSTRAINT message_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT message_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- notice TABLE CREATE SQL
@@ -253,7 +253,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE notice
-    ADD CONSTRAINT notice_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT notice_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- group member TABLE CREATE SQL
@@ -267,11 +267,11 @@ CREATE TABLE group_member
 
 
 ALTER TABLE group_member
-    ADD CONSTRAINT group_member_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT group_member_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 ALTER TABLE group_member
-    ADD CONSTRAINT group_member_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT group_member_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 -- group_delete TABLE CREATE SQL
@@ -287,7 +287,7 @@ CREATE TABLE group_delete
 
 
 ALTER TABLE group_delete
-    ADD CONSTRAINT group_delete_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT group_delete_fk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 -- group_singo TABLE CREATE SQL
@@ -307,7 +307,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE group_singo
-    ADD CONSTRAINT group_singo_fk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT group_singo_fk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 -- board_singo TABLE CREATE SQL
@@ -327,7 +327,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE board_singo
-    ADD CONSTRAINT board_singo_fk FOREIGN KEY (board_num) REFERENCES board (board_num);
+    ADD CONSTRAINT board_singo_fk FOREIGN KEY (board_num) REFERENCES board (board_num) on delete cascade;
 
 
 -- reply_singo TABLE CREATE SQL
@@ -347,7 +347,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE reply_singo
-    ADD CONSTRAINT reply_singo_fk FOREIGN KEY (reply_num) REFERENCES reply (reply_num);
+    ADD CONSTRAINT reply_singo_fk FOREIGN KEY (reply_num) REFERENCES reply (reply_num) on delete cascade;
 
 
 -- friend_request TABLE CREATE SQL
@@ -368,11 +368,11 @@ INCREMENT BY 1;
 
 
 ALTER TABLE friend_request
-    ADD CONSTRAINT friend_request_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT friend_request_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 ALTER TABLE friend_request
-    ADD CONSTRAINT friend_request_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id);
+    ADD CONSTRAINT friend_request_fkk FOREIGN KEY (friend_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- one_random_chat TABLE CREATE SQL
@@ -391,7 +391,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE one_random_chat
-    ADD CONSTRAINT one_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT one_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- group_random_chat TABLE CREATE SQL
@@ -410,7 +410,7 @@ INCREMENT BY 1;
 
 
 ALTER TABLE group_random_chat
-    ADD CONSTRAINT group_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT group_random_chat_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 -- group_join TABLE CREATE SQL
@@ -424,11 +424,11 @@ CREATE TABLE group_join
 
 
 ALTER TABLE group_join
-    ADD CONSTRAINT group_join_fk FOREIGN KEY (member_id) REFERENCES member (member_id);
+    ADD CONSTRAINT group_join_fk FOREIGN KEY (member_id) REFERENCES member (member_id) on delete cascade;
 
 
 ALTER TABLE group_join
-    ADD CONSTRAINT group_join_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num);
+    ADD CONSTRAINT group_join_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
 
 
 --------------------------------------------------------------------------------

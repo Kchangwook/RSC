@@ -21,7 +21,7 @@
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 <!-- jQuery Circle-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mpobile_progress_circle-1.0.0.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
 <!-- Custom Scrollbar-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
@@ -55,7 +55,7 @@
 			<!-- 신고페이지 -->
 			<div class="singoAdmin-page">
 				<div class="row">
-					<div class="col-md-10">	
+					<div class="col-md-12">	
 						<h3>신고</h3><br>
 						<div class="singoSelectDiv">
 							<span class="singoSelectSpan">
@@ -71,7 +71,7 @@
 				</div>
 				
 				<div class="row">
-					<div class="col-md-10">	
+					<div class="col-md-12">	
 						<div id="singoList">
 					
 						</div>

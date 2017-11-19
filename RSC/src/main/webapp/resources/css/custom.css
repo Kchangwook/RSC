@@ -72,7 +72,7 @@ header.header nav.navbar img{
 
 /* 회원가입 모달 */
 /* Full-width input fields */
-div.modal-body input[type=text], input[type=password]{
+div.modal-body input[type=text], div.modal-body input[type=password]{
     padding: 10px 10px;
     margin: 5px 0px;
     border: 1px solid #ccc;
@@ -324,7 +324,7 @@ div.singoAdmin-page table th.tdContent{
 div.singoAdmin-page table th.tdReason{
 	width:30%;
 }
-div.singoAdmin-page table th.tdBack{
+div.singoAdmin-page table th.tdRestore{
 	width:7.5%;	
 }
 div.singoAdmin-page table th.tdDelete{
@@ -338,7 +338,7 @@ div.singoAdmin-page table button{
 	margin: 0;
 	
 }
-div.singoAdmin-page table button.backBtn{
+div.singoAdmin-page table button.restoreBtn{
 	background-color: #47C83E;
 }
 div.singoAdmin-page table button.deleteBtn{
@@ -460,6 +460,102 @@ div#noticeModal.w3-modal .notice-content table tr td button{
 div#noticeModal.w3-modal .notice-content table tr td button#sendAlertBtn{
 	background-color: #F7921E;
 	color:white;
+}
+
+/* 게시글 관리 페이지 */
+div.boardAdmin-page .boardSearchDiv{
+	width:100%;
+	max-height:30%;
+	padding:1%;
+	text-align: center;
+}
+div.boardAdmin-page span.boardSearchSpan{
+	width:60%;
+}
+
+div.boardAdmin-page .searchBtn{
+   	background-color: #F7921E;
+   	color:white;
+   	padding:7px;
+   	
+}
+div.boardAdmin-page #newBoardListDiv table,
+div.boardAdmin-page #newBoardListDiv table tr{
+	width:100%;
+}
+div.boardAdmin-page #newBoardListDiv table.w3-table td, 
+div.boardAdmin-page #newBoardListDiv table.w3-table th{
+	padding : 8px 0;
+	vertical-align: center;
+}
+div.boardAdmin-page #newBoardListDiv table th i.fa-arrow-down,
+div.boardAdmin-page #newBoardListDiv table th i.fa-arrow-up{
+	margin-left:5px;
+	vertical-align: middle;
+	color:#F7921E;
+}
+div.boardAdmin-page #newBoardListDiv table th i.fa-arrows-v{
+	margin-left:3px;
+	vertical-align: middle;
+	color: rgba(247, 146, 30, .5);
+	
+}
+div.boardAdmin-page #newBoardListDiv table tr .tdType,
+div.boardAdmin-page #newBoardListDiv table tr .tdNum,
+div.boardAdmin-page #newBoardListDiv table tr .tdSingo,
+div.boardAdmin-page #newBoardListDiv table tr .tdLike,
+div.boardAdmin-page #newBoardListDiv table tr .tdCount{
+	width:7%;
+}
+div.boardAdmin-page #newBoardListDiv table tr .tdMemberId{
+	width:10%;
+}
+div.boardAdmin-page #newBoardListDiv table tr .tdContent{
+	width:30%;
+}
+div.boardAdmin-page #newBoardListDiv table tr .tdTime{
+	width:25%;
+}
+div.boardAdmin-page #newBoardListDiv table tr .tdNum,
+div.boardAdmin-page #newBoardListDiv table tr .tdTime,
+div.boardAdmin-page #newBoardListDiv table tr .tdLike,
+div.boardAdmin-page #newBoardListDiv table tr .tdCount{
+	cursor: pointer;
+}
+
+/* 관리자 추가 페이지 */
+div.addAdmin-page .addAdminTable{
+	width:100%;
+}
+div.addAdmin-page .addAdminTable form{
+	width:50%;
+}
+div.addAdmin-page .addAdminTable form span.adminLabel{
+	font-size : 1.0em;
+	width:25%;
+	padding:0;
+	margin:10px 0;
+}
+div.addAdmin-page .addAdminTable form span.adminInput{
+	font-size : 1.0em;
+	width:70%;
+	padding:0;
+	margin:10px 0;
+}
+div.addAdmin-page .addAdminTable form p{
+	text-align: right;
+	padding:10px 19px 0 0;
+}
+div.addAdmin-page .addAdminTable form p span#adminMsg{
+	font-size : 1.0em;
+	margin-right: 5%;
+}
+div.addAdmin-page .addAdminTable #adminAddSubmit{
+	vertical-align:middle;
+	background-color: #F7921E;
+	color:white;
+	border:1px solid #ccc;
+	padding:7px;
 }
 
 
