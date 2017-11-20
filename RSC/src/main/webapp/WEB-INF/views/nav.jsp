@@ -38,8 +38,8 @@
                      <li>
                         <a href="${pageContext.request.contextPath}/friend/getList.do"><i class="fa fa-user"></i><span>친구</span></a>
                      </li>
-                     <li>
-                        <a href="#"><i class="fa fa-users"></i><span>그룹</span></a>
+ 					 <li>
+                        <a href="${pageContext.request.contextPath}/basic/group.do"><i class="fa fa-users"></i><span>그룹</span></a>
                      </li>
                      <li>
                         <a href="#"><i class="fa fa-comments"></i><span>채팅</span></a>

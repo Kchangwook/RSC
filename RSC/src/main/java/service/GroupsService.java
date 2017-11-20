@@ -1,9 +1,14 @@
 package service;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.GroupsDAO;
+import domain.GroupAdmin;
+import domain.GroupJoin;
+import domain.GroupMember;
 import domain.Groups;
+import domain.Member;
 
 public class GroupsService {
 	
@@ -38,5 +43,39 @@ public class GroupsService {
 		return list;
 		
 	}//end of searchByPartOfGroupName
+	
+	/** 그룹 관리자와 회원 리스트를 Map으로 반환 */
+	public Map<String, List<Member>> searchGroupAdminMemberByGroupNum(String groupNum){
+		return groupsDAO.searchGroupAdminMemberByGroupNum(groupNum);
+	}
+	
+	public Groups searchGroupByNum(String groupNum) {
+		return groupsDAO.searchGroupByNum(groupNum);
+	}
+	
+	/** 관리자 임명(group_admin 추가, group_member 삭제)*/
+	public boolean addGroupAdmin(GroupAdmin groupAdmin, GroupMember groupMember) {
+		return groupsDAO.addGroupAdmin(groupAdmin, groupMember);
+	}
+	
+	/** 그룹 회원 추방 */
+	public boolean deleteGroupMember(GroupMember groupMember) {
+		return groupsDAO.deleteGroupMember(groupMember);
+	}
+	
+	/** 그룹 가입 희망자 검색 */
+	public List<Member> searchGroupJoinByGroupNum(String groupNum){
+		return groupsDAO.searchGroupJoinByGroupNum(groupNum);
+	}
+	
+	/** 그룹 가입 승인 */
+	public boolean addGroupMember(GroupMember groupMember, GroupJoin groupJoin) {
+		return groupsDAO.addGroupMember(groupMember, groupJoin);
+	}
+	
+	/** 그룹 가입 거절 */
+	public boolean deleteGroupJoin(GroupJoin groupJoin) {
+		return groupsDAO.deleteGroupJoin(groupJoin);
+	}
 
 }
