@@ -89,7 +89,7 @@ public class MemberService {
 			String fileName[] = m.getMemberImg().split("/");
 
 			// ftp에 파일 업로드
-			// ftp.upload("member", fileName[fileName.length-1]);
+			ftp.upload("member", fileName[fileName.length - 1]);
 		}
 
 		// DB에 데이터 추가
@@ -149,10 +149,13 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
-			m.setMemberImg("info/member/" + m.getMemberId() + "_" + file.getOriginalFilename());
+			System.out.println(file.getOriginalFilename());
+
+			if (!file.getOriginalFilename().equals(""))
+				m.setMemberImg("info/member/" + m.getMemberId() + "_" + file.getOriginalFilename());
 
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
@@ -198,7 +201,6 @@ public class MemberService {
 
 	/** mypage에서 member 정보 수정 함수 */
 	public boolean updateMember(Member origin, Member after, MultipartHttpServletRequest request) {
-		;
 
 		// 비밀번호 변경
 		if (!after.getMemberPw().equals("empty"))
@@ -219,15 +221,17 @@ public class MemberService {
 		// 프로필 사진 변경
 		after = this.uploadProfile(request, after, "mypageImg");
 
-		String fileName[] = after.getMemberImg().split("/");
+		System.out.println("after move: " + after.getMemberImg());
 
-		// ftp에 파일 업로드
-		// ftp.upload("member", fileName[fileName.length-1]);
-		
-		System.out.println(after.getMemberImg());
-		
-		if(after.getMemberImg() != null)
+		if (after.getMemberImg() != null) {
+			
+			String fileName[] = after.getMemberImg().split("/");
+
+			// ftp에 파일 업로드
+			ftp.upload("member", fileName[fileName.length - 1]);
+
 			origin.setMemberImg(after.getMemberImg());
+		}
 
 		return this.memberDAO.updateMypageInfo(origin);
 

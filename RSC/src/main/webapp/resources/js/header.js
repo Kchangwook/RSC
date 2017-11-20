@@ -29,7 +29,7 @@ function getMessage() {
 	var msg = document.getElementById("msg").value;
 
 	if (msg != "")
-		alert(msg);
+		alert("로그인에 실패했습니다.");
 
 }
 

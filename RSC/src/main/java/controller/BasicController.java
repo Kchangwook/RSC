@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import domain.Board;
@@ -39,7 +35,7 @@ public class BasicController {
 
 		Map<String, List<Board>> map = boardService.getLists();
 		request.setAttribute("map", map);
-
+		
 		return "index";
 
 	}// end of start
@@ -79,15 +75,17 @@ public class BasicController {
 	 * @throws Exception
 	 */
 	@RequestMapping("login.do")
-	public String login(HttpSession session, Model model, @RequestParam("memberId") String id,
-			@RequestParam("memberPw") String pwd) throws Exception {
+	public String login(HttpServletRequest request) throws Exception {
 
 		String url = "index";
-
+		String id = request.getParameter("loginId");
+		String pwd = request.getParameter("loginPwd");
+		HttpSession session = request.getSession();
+		
 		switch (memberService.checkLogin(id, pwd)) {
 		// 존재하지 않을 때
 		case 0:
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			url = "redirect:start.do?msg=fail";
 			return url;
 		// 마스터 계정일 때
 		case 1:

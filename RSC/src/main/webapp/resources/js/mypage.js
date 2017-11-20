@@ -27,8 +27,6 @@ window.onload = function(){
 
 //이미지 src보여주기
 function changeMypageSrc() {
-
-	alert(document.getElementById("mypageSrc").value);
 	
 	document.getElementById("mypageSrc").value = document
 			.getElementById("mypageImg").value;

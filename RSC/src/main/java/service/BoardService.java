@@ -79,10 +79,10 @@ public class BoardService {
 					count++;
 					
 					// ftp에 존재하는 프로필 파일 다운로드
-//					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
-//						String fileName[] = b.getMemberImg().split("/");
-//						ftp.download("member", fileName[fileName.length - 1], "member");
-//					}
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
 
 					list.add(b);
 				} else if (count == 3)
@@ -111,10 +111,10 @@ public class BoardService {
 					count++;
 					
 					// ftp에 존재하는 프로필 파일 다운로드
-//					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
-//						String fileName[] = b.getMemberImg().split("/");
-//						ftp.download("member", fileName[fileName.length - 1], "member");
-//					}
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
 
 					list.add(b);
 				} else if (count == 3)
@@ -142,10 +142,10 @@ public class BoardService {
 					count++;
 					
 					// ftp에 존재하는 프로필 파일 다운로드
-//					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
-//						String fileName[] = b.getMemberImg().split("/");
-//						ftp.download("member", fileName[fileName.length - 1], "member");
-//					}
+					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+						String fileName[] = b.getMemberImg().split("/");
+						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
 
 					list.add(b);
 				} else if (count == 3)
