@@ -221,8 +221,6 @@ public class MemberService {
 		// 프로필 사진 변경
 		after = this.uploadProfile(request, after, "mypageImg");
 
-		System.out.println("after move: " + after.getMemberImg());
-
 		if (after.getMemberImg() != null) {
 			
 			String fileName[] = after.getMemberImg().split("/");
