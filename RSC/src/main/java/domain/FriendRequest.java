@@ -12,6 +12,12 @@ public class FriendRequest {
 	/* 생성자 */
 	public FriendRequest() {
 	}
+	
+	public FriendRequest(String memberId, String friendId) {
+		super();
+		this.memberId = memberId;
+		this.friendId = friendId;
+	}
 
 	public FriendRequest(int friendRequestNum, String memberId, String friendId, int frinendRequestAccept) {
 		super();

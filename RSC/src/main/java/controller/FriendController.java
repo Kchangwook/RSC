@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import domain.Board;
 import domain.Friend;
+import domain.FriendRequest;
 import domain.Member;
 import service.BoardService;
+import service.FriendRequestService;
 import service.FriendService;
 import service.MemberService;
 
@@ -26,6 +28,7 @@ public class FriendController {
 	private FriendService friendService = context.getBean("friendService",FriendService.class);
 	private MemberService memberService = context.getBean("memberService",MemberService.class);
 	private BoardService boardService = context.getBean("boardService",BoardService.class);
+	private FriendRequestService friendRequestService = context.getBean("friendRequestService",FriendRequestService.class);
 	
 	/** 모든 친구 리스트를 불러오기 */
 	@RequestMapping("getList.do")
@@ -54,6 +57,7 @@ public class FriendController {
 		
 		String url = "";
 		String id = request.getParameter("friendId");
+		String memberId = (String)request.getSession().getAttribute("id");
 		
 		// 회원정보 가져오기
 		Member friend = memberService.searchById(id);
@@ -72,6 +76,13 @@ public class FriendController {
 			url = "friend";
 			request.setAttribute("list", list);
 		}
+		
+		//회원이 친구인지 혹은 친구 요청을 한 상태인지 확인하기
+		if(!friendService.isFriend(new Friend(memberId,id)) 
+				&& !friendRequestService.isFriendRequest(new FriendRequest(memberId,id)))
+			request.setAttribute("notFriend", true);
+		else
+			request.setAttribute("notFriend", false);
 		
 		return url;
 		

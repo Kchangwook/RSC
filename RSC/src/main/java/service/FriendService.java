@@ -65,5 +65,12 @@ public class FriendService {
 		return msg;
 
 	}// end of deleteFriend
+	
+	/** 친구인지 확인하기 */
+	public boolean isFriend(Friend f) {
+		
+		return dao.isFriend(f);
+		
+	}//end of isFriend
 
 }// end of FriendService

@@ -18,6 +18,10 @@
 		where f.member_id = #{memberId} and m.member_id = f.friend_id
 	</select>
 	
+	<select id = "searchFriends" parameterType = "friend" resultMap = "friendResult">
+		select * from friend where member_id = #{memberId} and friend_id = #{friendId}
+	</select>
+		
 	<delete id = "deleteById" parameterType = "friend">
 		delete from friend where member_id = #{memberId} and friend_id = #{friendId}
 	</delete>

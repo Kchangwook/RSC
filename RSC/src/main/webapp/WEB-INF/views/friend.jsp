@@ -70,9 +70,11 @@
 									<tr>
 									<td><span class = "friend-intercontent"><b>${friend.memberInterest}</b></span></td>
 									</tr>
+									<c:if test="${notFriend}">
 									<tr>
 									<td><button class = "friend-add" onclick = "addFriend('${friend.memberId}','${sessionScope.id}')"><b>친구 추가</b></button></td>
 									</tr>
+									</c:if>
 								</table>
 								</div>
 							</div>
@@ -148,8 +150,17 @@
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script type="text/javascript">
 		function addFriend(friend,member){
-			alert(friend);
-			alert(member);
+			var xhttp = new XMLHttpRequest();
+
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					alert(resData);
+				}
+			}
+
+			xhttp.open("GET", "requestFriend.do?memberId=" + member+"&friendId="+friend, true);
+			xhttp.send();
 		}
 	</script>
 </body>
