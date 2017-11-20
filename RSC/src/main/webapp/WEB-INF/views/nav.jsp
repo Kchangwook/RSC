@@ -48,7 +48,7 @@
                         <a href="#"><i class="fa fa-telegram"></i><span>랜덤채팅</span></a>
                      </li>
                      <li>
-                        <a href="${pageContext.request.contextPath}/basic/mypage.do?mypageMemberId=${ sessionScope.id }"><i class="fa fa-edit"></i><span>정보수정</span></a>
+                        <a href="${pageContext.request.contextPath}/basic/mypage.do"><i class="fa fa-edit"></i><span>정보수정</span></a>
                      </li>
                   </c:when>
                   <c:when test="${sessionScope.level eq 'admin'}"> <!-- 관리자 로그인 시 -->

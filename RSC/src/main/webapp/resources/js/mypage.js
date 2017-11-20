@@ -1,49 +1,65 @@
+//화면에 표시하기
+window.onload = function(){
+	
+	var interest = document.getElementById("reqInterest").value;
+	var infoOpen = document.getElementById("reqOpenInfo").value;
+	var reqinterest = interest.split(',');
+	
+	var interests = document.getElementsByName("myInterest");
+	var info = document.getElementsByName("myInfoOpen");
+	
+	var index = 0;
+	
+	for(var i = 0;i<interests.length;i++){
+		
+		if(interests[i].value == reqinterest[index]){
+			interests[i].checked = true;
+			index++;
+		}
+		
+	}
+	
+	for(var i = 0;i<info.length;i++){
+		if(info[i].value == infoOpen)
+			info[i].checked = true;
+	}
+}
+
 //이미지 src보여주기
 function changeMypageSrc() {
 
-	document.getElementById("mypageSrc").value = document.getElementById("mypageImg").value;
+	alert(document.getElementById("mypageSrc").value);
 	
+	document.getElementById("mypageSrc").value = document
+			.getElementById("mypageImg").value;
+
 }
 
 // 필수 정보가 모두 입력되었는지 확인
 function checkMypageInfo() {
 
-	var pwd = document.getElementById("mypagePw").value;
-	var interest = document.getElementById("mypageInterest").value;
-	
-	if (pwd == "") {
-		alert("비밀번호를 입력하세요");
+	var pwd = document.getElementById("myPw").value;
+	var nick = document.getElementById("myNick").value;
+	var interest = document.getElementsByName("myInterest");
+
+	var count = 0;
+
+	for (var i = 0; i < interest.length; i++)
+		if (interest[i].checked)
+			count++;
+
+	if (count == 0) {
+		alert("관심사를 선택하세요");
 		return false;
 	} else {
+		
 		document.getElementById("frmMypage").submit();
 	}
-
 }
-
-//비밀번호 비일치 시, 정보 수정 실패 시 메세지 팝업
-/*function getMessage() {
-	
-	var msg = document.getElementById("msg").value;
-
-	if (msg != "")
-		alert(msg);
-
-}
-
-//window.onload = getMessage();
-*/
-/*//정보수정에서 사용할 아이디
-function getMemberId() {
-
-	memberId = document.getElementById("mypageMemberId").value;
-
-}
-
-window.onload = getMemberId();*/
 
 // 동일한 닉네임이 있는지 확인
 function checkSameNick(nick) {
-	//var nick = document.getElementById("nick").value;
+	// var nick = document.getElementById("nick").value;
 	var xhttp = new XMLHttpRequest();
 
 	xhttp.onreadystatechange = function() {

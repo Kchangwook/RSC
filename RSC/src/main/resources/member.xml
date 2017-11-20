@@ -79,7 +79,7 @@
 	
 	<!-- mypage에서 member테이블 업데이트 -->
 	<update id = "updateMypageInfo" parameterType = "member">
-	update member set member_nick = #{memberNick}, member_img = #{memberImg}, member_interest = #{memberInterest}, member_info_open = #{memberInfoOpen}
+	update member set member_pw = #{memberPw}, member_nick = #{memberNick}, member_img = #{memberImg}, member_interest = #{memberInterest}, member_info_open = #{memberInfoOpen}
 	where member_id = #{memberId}
 	</update>
 

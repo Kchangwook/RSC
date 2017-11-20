@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -86,7 +84,7 @@ public class MemberService {
 
 		// 이미지가 비어있지 않다면
 		if (!m.getMemberImg().equals("resources/img/profile.jpg")) {
-			m = this.uploadProfile(request, m);
+			m = this.uploadProfile(request, m, "memberImg");
 
 			String fileName[] = m.getMemberImg().split("/");
 
@@ -141,9 +139,9 @@ public class MemberService {
 	}
 
 	/** 회원 이미지 업로드 */
-	private Member uploadProfile(MultipartHttpServletRequest request, Member m) {
+	private Member uploadProfile(MultipartHttpServletRequest request, Member m, String mode) {
 
-		MultipartFile file = request.getFile("memberImg");
+		MultipartFile file = request.getFile(mode);
 
 		try {
 			if (file.isEmpty()) { // 파일 유무 검사
@@ -199,9 +197,39 @@ public class MemberService {
 	}// end of searchMemberById
 
 	/** mypage에서 member 정보 수정 함수 */
-	public boolean updateMember(Member member, HttpServletRequest request) {
+	public boolean updateMember(Member origin, Member after, MultipartHttpServletRequest request) {
+		;
 
-		return memberDAO.updateMypageInfo(member);
+		// 비밀번호 변경
+		if (!after.getMemberPw().equals("empty"))
+			origin.setMemberPw(after.getMemberPw());
+
+		// 닉네임 변경
+		if (!after.getMemberNick().equals("empty"))
+			origin.setMemberNick(after.getMemberNick());
+
+		// 정보 공개 여부 변경
+		if (origin.getMemberInfoOpen() != after.getMemberInfoOpen())
+			origin.setMemberInfoOpen(after.getMemberInfoOpen());
+
+		// 관심사 변경
+		if (!origin.getMemberInterest().equals(after.getMemberInterest()))
+			origin.setMemberInterest(after.getMemberInterest());
+
+		// 프로필 사진 변경
+		after = this.uploadProfile(request, after, "mypageImg");
+
+		String fileName[] = after.getMemberImg().split("/");
+
+		// ftp에 파일 업로드
+		// ftp.upload("member", fileName[fileName.length-1]);
+		
+		System.out.println(after.getMemberImg());
+		
+		if(after.getMemberImg() != null)
+			origin.setMemberImg(after.getMemberImg());
+
+		return this.memberDAO.updateMypageInfo(origin);
 
 	}// end of updateMember
 
