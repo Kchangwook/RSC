@@ -50,4 +50,15 @@ public class SingoService {
 	public boolean deleteGroupBySingo(String groupNum) {
 		return singoDAO.deleteGroupBySingo(groupNum);
 	}
-}
+	
+	/* board_singo 테이블에 입력 */
+	public void addBoardSingo(BoardSingo bs) {
+		singoDAO.addBoardSingo(bs);
+	} // end of addBoardSingo
+	
+	/* reply_singo 테이블에 입력 */
+	public void addReplySingo(ReplySingo rs) {
+		singoDAO.addReplySingo(rs);
+	} // end of addReplySingo
+	
+} // end of SingoService

@@ -26,6 +26,18 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 		
 	}//end of addNotice
 	
+	/** 데이터를 추가하는 함수 */
+	public boolean addNotice1(Notice n) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.insert("notice.addSingoNotice",n)>0?true:false;
+		
+		return flag;
+		
+	}//end of addNotice1
+	
 	/** 아이디를 통해 데이터를 가져오는 함수 */
 	public List<Notice> searchById(String id) {
 		

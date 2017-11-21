@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Date;
+
 /** reply 테이블에 담을 정보 class */
 public class Reply {
 
@@ -8,14 +10,14 @@ public class Reply {
 	private int boardNum; // col : board_num
 	private String memberId; // col : member_id
 	private String replyContent; // col : reply_content
-	private String replyTime; // col : reply_time
+	private Date replyTime; // col : reply_time
 	private int replySingoFlag; // col : reply_singo_flag
 	private String memberNick; // col : member_nick
 	
 	/* 생성자 */
 	public Reply() {
 	}
-	public Reply(int replyNum, int boardNum, String memberId, String replyContent, String replyTime, int replySingoFlag,
+	public Reply(int replyNum, int boardNum, String memberId, String replyContent, Date replyTime, int replySingoFlag,
 			String memberNick) {
 		super();
 		this.replyNum = replyNum;
@@ -57,10 +59,10 @@ public class Reply {
 		this.replyContent = replyContent;
 	}
 	
-	public String getReplyTime() {
+	public Date getReplyTime() {
 		return replyTime;
 	}
-	public void setReplyTime(String replyTime) {
+	public void setReplyTime(Date replyTime) {
 		this.replyTime = replyTime;
 	}
 	

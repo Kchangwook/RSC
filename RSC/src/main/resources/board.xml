@@ -88,6 +88,18 @@
 		order by ${orderColumn} ${orderType} 
 	</select>
 	
+	<!-- 게시글 좋아요 -->
+	<update id="plusLike" parameterType="int" >
+		update board
+		set board_like = board_like + 1
+		where board_num = #{boardNum}
+	</update>
 	
-
+	<!-- 게시글 좋아요 취소 -->
+	<update id="minusLike" parameterType="int" >
+		update board
+		set board_like = board_like - 1
+		where board_num = #{boardNum}
+	</update>
+	
 </mapper>

@@ -28,4 +28,9 @@ public class ReplyDAO extends SqlSessionDaoSupport{
 		return getSqlSession().selectList("selectReplyByboardNum", boardNum);
 	}
 	
+	/* 댓글 번호로 검색 후 객체로 반환 */
+	public Reply searchReply1(int replyNum) {
+		return getSqlSession().selectOne("selectReplyByReplyNum", replyNum);
+	}
+	
 } // end of ReplyDAO

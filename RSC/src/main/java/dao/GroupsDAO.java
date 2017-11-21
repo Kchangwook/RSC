@@ -99,4 +99,16 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		boolean flag = session.delete("group.deleteGroupJoin",groupJoin) > 0 ? true : false ;
 		return flag;
 	}
+	
+	/** id를 통해 알아온 groupNum 리스트로 groups 데이터 가져오는 함수 */
+	public List<Groups> searchGroupbyId(String id) {
+		
+		List<Groups> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("group.searchGroupbyId", id);
+		
+		return list;
+		
+	}//end of searchGroupbyId
 }

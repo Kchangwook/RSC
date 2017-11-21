@@ -59,6 +59,19 @@
 		where g.group_num=gs.group_num
 	</select>
 	
+	<!-- board_singo 테이블에 추가 -->
+	<insert id="addBoardSingo" parameterType="boardSingo">
+		insert into board_singo(board_singo_num, board_num, board_singo_reason)
+		values(board_singo_SEQ.NEXTVAL, #{boardNum}, #{boardSingoReason})
+	</insert>
+	
+	<!-- board table의 board_singo_flag를 1로 update(신고 상태) -->
+	<update id="updateBoardSingo" parameterType="int">
+		update board
+		set board_singo_flag = 1
+		where board_num = #{boardNum}
+	</update>
+	
 	<!-- board table의 board_singo_flage를 0으로 update(신고 이전 상태) -->
 	<update id="updateBoardSingoFlag" parameterType="String">
 		update board 
@@ -75,6 +88,19 @@
 		delete board
 		where board_num = #{boardNum}
 	</delete>
+	
+	<!-- reply_singo 테이블에 추가 -->
+	<insert id="addReplySingo" parameterType="ReplySingo">
+		insert into reply_singo(reply_singo_num, reply_num, reply_singo_reason)
+		values(reply_singo_SEQ.NEXTVAL, #{replyNum}, #{replySingoReason})
+	</insert>
+	
+	<!-- reply table의 reply_singo_flag를 1로 update(신고 상태) -->
+	<update id="updateReplySingo" parameterType="int">
+		update reply
+		set reply_singo_flag = 1
+		where reply_num = #{replyNum}
+	</update>
 	
 	<!-- reply table의 singo_flag를 0으로(신고 이전 상태)-->
 	<update id="updateReplySingoFlag" parameterType="String">

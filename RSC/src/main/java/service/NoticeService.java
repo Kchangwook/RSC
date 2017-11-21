@@ -30,6 +30,17 @@ public class NoticeService {
 		
 	}//end of addNotice
 	
+	/** notice 추가하는 함수 */
+	public boolean addNotice1(Notice n) {
+		
+		boolean flag = true;
+		
+		flag = noticeDAO.addNotice1(n);
+		
+		return flag;
+		
+	}//end of addNotice1
+	
 	/** 아이디를 통해 notice 데이터를 가져오는 함수 */
 	public List<Notice> searchById(String id) {
 		
