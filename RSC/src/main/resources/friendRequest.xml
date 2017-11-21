@@ -17,8 +17,16 @@
 		VALUES(friend_request_SEQ.NEXTVAL, #{memberId}, #{friendId}, 0)
 	</insert>
 	
-	<select id = "searchRequest" parameterType = "friendRequest">
+	<select id = "searchRequest" parameterType = "friendRequest" resultMap = "friendRequestResult">
 		select * from friend_request where member_id = #{memberId} and friend_id = #{friendId}
 	</select>
 
+	<delete id = "deleteByNum" parameterType = "int">
+		delete from friend_request where friend_request_num = #{friendRequestNum}
+	</delete>
+	
+	<select id = "searchByNum" parameterType = "int" resultMap = "friendRequestResult">
+		select * from friend_request where friend_request_num = #{friendRequestNum}
+	</select>
+	
 </mapper>

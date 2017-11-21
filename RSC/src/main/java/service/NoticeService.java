@@ -73,5 +73,12 @@ public class NoticeService {
 		}
 		return flag;
 	}
+	
+	/** FriendRequest관련 notice 추가 */
+	public boolean addFriendRequest(Notice n) {
+		
+		return noticeDAO.addFriendRequest(n);
+		
+	}//end of addFriendRequest
 
 }//end of NoticeService

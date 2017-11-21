@@ -7,7 +7,7 @@ public class FriendRequest {
 	private int friendRequestNum; // col : friend_request_num
 	private String memberId; // col : member_id
 	private String friendId; // col : friend_id
-	private int frinendRequestAccept; // col : friend_request_accept
+	private int friendRequestAccept; // col : friend_request_accept
 	
 	/* 생성자 */
 	public FriendRequest() {
@@ -24,7 +24,7 @@ public class FriendRequest {
 		this.friendRequestNum = friendRequestNum;
 		this.memberId = memberId;
 		this.friendId = friendId;
-		this.frinendRequestAccept = frinendRequestAccept;
+		this.friendRequestAccept = frinendRequestAccept;
 	}
 	
 	/* Getter, Setter */
@@ -50,10 +50,10 @@ public class FriendRequest {
 	}
 
 	public int getFrinendRequestAccept() {
-		return frinendRequestAccept;
+		return friendRequestAccept;
 	}
 	public void setFrinendRequestAccept(int frinendRequestAccept) {
-		this.frinendRequestAccept = frinendRequestAccept;
+		this.friendRequestAccept = frinendRequestAccept;
 	}
 	
 	// toString
@@ -67,7 +67,7 @@ public class FriendRequest {
 		builder.append(", friendId=");
 		builder.append(friendId);
 		builder.append(", frinendRequestAccept=");
-		builder.append(frinendRequestAccept);
+		builder.append(friendRequestAccept);
 		builder.append("]");
 		return builder.toString();
 	}

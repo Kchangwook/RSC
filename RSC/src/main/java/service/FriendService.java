@@ -72,5 +72,17 @@ public class FriendService {
 		return dao.isFriend(f);
 		
 	}//end of isFriend
+	
+	/** 친구 추가하기 */
+	public boolean addFriend(Friend f) {
+		
+		dao.addFriend(f);
+		
+		String memberId = f.getFriendId();
+		f.setFriendId(f.getMemberId());
+		f.setMemberId(memberId);
+		return dao.addFriend(f);
+		
+	}//end of addFriend
 
 }// end of FriendService

@@ -50,4 +50,16 @@ public class FriendDAO extends SqlSessionDaoSupport{
 		
 	}//end of isFriend
 	
+	/** 친구를 추가하는 함수 */
+	public boolean addFriend(Friend f) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.insert("friend.addFriend",f)>0?true:false;
+		
+		return flag;
+		
+	}//end of addFriend
+	
 }//end of FriendDAO

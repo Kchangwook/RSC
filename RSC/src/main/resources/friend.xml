@@ -25,5 +25,9 @@
 	<delete id = "deleteById" parameterType = "friend">
 		delete from friend where member_id = #{memberId} and friend_id = #{friendId}
 	</delete>
+	
+	<insert id = "addFriend" parameterType = "friend">
+		insert into friend(member_id,friend_id) values(#{memberId},#{friendId})
+	</insert>
 
 </mapper>
