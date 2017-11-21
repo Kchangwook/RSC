@@ -66,6 +66,11 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		List<Board> list = session.selectList("board.selectAllOrder",map);
 		return list;
 	}
+	/** 그룹번호로 게시글 가져오기 */
+	public List<Board> searchByGroupNum(String groupNum){
+		session = getSqlSession();
+		return session.selectList("board.selectByGroupNum",groupNum);
+	}
 	
 	/** 게시글 좋아요 */
 	public Board plusLike(int boardNum) {

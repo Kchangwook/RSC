@@ -37,6 +37,13 @@
 		<result property="groupNum" column="group_num" />
 		<result property="memberId" column="member_id" />
 	</resultMap>
+	
+	<resultMap id="groupDeleteResult" type="groupDelete">
+		<result property="groupNum" column="group_num" />
+		<result property="groupDelYes" column="group_del_yes" />
+		<result property="groupDelNo" column="group_del_no" />
+		<result property="groupDelAll" column="group_del_all" />
+	</resultMap>
 
 	<!-- groups 테이블 내의 모든 데이터를 가져오기 -->
 	<select id="selectAll" resultMap="groupResult">
@@ -106,9 +113,64 @@
 		where group_num=#{groupNum} and member_id=#{memberId}
 	</delete>
 	
-	<!-- id 통해서 groupNum 알아온 후 groups 리스트 가져오기 -->
-	<select id="searchGroupbyId" resultMap="groupResult">
-		select g.group_num, g.group_name, g.group_img, g.group_info, g.group_info_open, g.group_interest, g.group_singo_cnt 
-		from groups g, group_member m where g.group_num = m.group_num and m.member_id = #{memberId}
+		<!-- 그룹 관리자 인지 판단 -->
+	<select id="selectGroupAdminByGroupNumMemberId" parameterType="map" resultMap="groupAdminResult">
+		select * from group_admin where group_num=#{groupNum} and member_id=#{memberId}
 	</select>
+	
+	<!-- 그룹 회원인지 판단 -->
+	<select id="selectGroupMemberByGroupNumMemberId" parameterType="map" resultMap="groupMemberResult">
+		select * from group_member where group_num=#{groupNum} and member_id=#{memberId}
+	</select>
+	
+	<!-- 그룹 가입 요청 -->
+	<insert id="insertGroupJoin" parameterType="groupJoin">
+		insert into group_join values (#{groupNum}, #{memberId})
+	</insert>
+	
+	<!-- 그룹 삭제 투표 추가(group_delete table) -->
+	<insert id="insertGroupDelete" parameterType="groupDelete">
+		insert into group_delete values	(#{groupNum}, 0, 0, #{groupDelAll})
+	</insert>
+	
+	<!-- 그룹 삭제 찬성 update -->
+	<update id="updateGroupDeleteAgree" parameterType="int">
+		update group_delete
+		set group_del_yes = group_del_yes+1
+		where group_num=#{groupNum}
+	</update>
+	
+	<!-- 그룹 삭제 반대 update -->
+	<update id="updateGroupDeleteDisAgree" parameterType="int">
+		update group_delete
+		set group_del_yes = group_del_no+1
+		where group_num=#{groupNum}
+	</update>
+	
+	<!-- 그룹 삭제 투표 검색 / 삭제 투표 결과 검색 -->
+	<select id="selectGroupDeleteByGroupNum" parameterType="int" resultMap="groupDeleteResult">
+		select * from group_delete where group_num=#{groupNum}
+	</select>
+	
+	<!-- 그룹 삭제 투표 삭제 -->
+	<delete id="deleteGroupDelete" parameterType="int">
+		delete group_delete
+		where group_num=#{groupNum}
+	</delete>
+	
+	<!-- id 통해서 groupNum 알아온 후 관리자인 groups 리스트 가져오기 -->
+	<select id="searchAdminGroupbyId" resultMap="groupResult">
+		select g.group_num, g.group_name, g.group_img, g.group_info, g.group_info_open, g.group_interest, g.group_singo_cnt 
+		from groups g, group_admin ga
+		where g.group_num=ga.group_num and ga.member_id=#{memberId}
+	</select>
+	
+	<!-- id 통해서 groupNum 알아온 후 회원인 groups 리스트 가져오기 -->
+	<select id="searchMemberGroupbyId" resultMap="groupResult">
+		select g.group_num, g.group_name, g.group_img, g.group_info, g.group_info_open, g.group_interest, g.group_singo_cnt 
+		from groups g, group_member gm
+		where g.group_num=gm.group_num and gm.member_id=#{memberId}
+	</select>
+	
+	
 </mapper>

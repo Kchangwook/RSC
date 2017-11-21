@@ -612,6 +612,68 @@ div.groupJoin .col-md-2 .footer span.reject{
 	float:right;
 }
 
+/* 그룹 메인 페이지 */
+.group-info table.group-info-table{
+	width:100%;
+	height:100%;
+}
+.group-info table.group-info-table tr{
+	width:100%;
+}
+.group-info table.group-info-table td.group-info-img{
+	padding:3%;
+	width:20%;
+}
+.group-info table.group-info-table td.group-info-name,
+.group-info table.group-info-table td.group-info-info,
+.group-info table.group-info-table td.group-info-interest,
+.group-info table.group-info-table td.group-info-btn{
+	width:80%;
+	padding:1%;
+}
+.group-info table.group-info-table td.group-info-name{
+	font-size: large;
+}
+.group-info table.group-info-table td.group-info-btn{
+	text-align: right;
+}
+
+.group-info .group-info-img-span{
+	height:150px;
+	width:150px;
+	overflow: hidden;
+	border-radius: 75px;
+}
+
+div.group-main .group-boardList .header .group-boardList-img-span{
+	height:50px;
+	width:50px;
+	overflow: hidden;
+	border-radius: 25px;
+}
+
+div.group-main .card .header{
+	padding :1% 5%;
+	display: table;
+}
+div.group-main .group-boardList .card .header span{
+	display:table-cell;
+	vertical-align: middle;
+}
+div.group-main .group-boardList .card .header img{
+	margin:0;
+}
+div.group-main  .card .content{
+	padding :1% 5%;
+}
+div.group-main .card .footer{
+	padding :1% 5%;
+}
+div.group-main .group-boardList .card hr{
+	margin : 3px;
+}
+
+
 
 /* 로그인 후 페이지 */
 

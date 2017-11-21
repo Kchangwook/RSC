@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Board;
 import domain.GroupAdmin;
+import domain.GroupDelete;
 import domain.GroupJoin;
 import domain.GroupMember;
 import domain.Groups;
 import domain.Member;
+import domain.Notice;
 import service.BoardService;
 import service.GroupsService;
+import service.NoticeService;
 
 @RequestMapping("group")
 @Controller
@@ -30,15 +34,17 @@ public class GroupController {
 	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	private GroupsService groupsService = context.getBean("groupsService", GroupsService.class);
 	private BoardService boardService = context.getBean("boardService",BoardService.class);
+	private NoticeService noticeService = context.getBean("noticeService",NoticeService.class);
 	
 	/** 그룹의 관리자, 회원 리스트 search*/
 	@RequestMapping("groupMember.do")
 	public String searchGroupMember(@RequestParam("groupNum") String groupNum, Model model){
 		
-		Map<String, List<Member>> map = groupsService.searchGroupAdminMemberByGroupNum(groupNum);
-		Groups group = groupsService.searchGroupByNum(groupNum);
+		Map<String, List<Member>> map = new HashMap<>();
+		map.put("groupAdmin", groupsService.searchGroupAdminByGroupNum(groupNum));
+		map.put("groupMember", groupsService.searchGroupMemberByGroupNum(groupNum));
 		
-		model.addAttribute("group",group);
+		model.addAttribute("groupInfo", groupsService.searchGroupByNum(groupNum));
 		model.addAttribute("groupMember", map);
 		return "groupMember";
 	}
@@ -81,6 +87,84 @@ public class GroupController {
 	public String deleteGroupJoin(GroupJoin groupJoin) {
 		boolean result = groupsService.deleteGroupJoin(groupJoin);
 		return "redirect:groupJoin.do?groupNum="+groupJoin.getGroupNum();
+	}
+	
+	/** 그룹 삭제 요청 notice 전송, group 삭제 투표 추가 */
+	@RequestMapping("deleteGroupNotice.do")
+	public @ResponseBody boolean addNoticeDeleteGroup(@RequestParam("groupNum") String groupNum,
+													  @RequestParam("groupName") String groupName) {
+		boolean resultNotice = true;
+		boolean resultgroupDelete = true;
+
+		Notice notice = new Notice();
+		notice.setNoticeContent("["+groupName+"] 그룹에 대한 삭제 투표가 진행 중 입니다.");
+		notice.setNoticeType(1);
+		notice.setNoticeTarget(Integer.parseInt(groupNum));
+		
+		List<Member> groupAdminList = groupsService.searchGroupAdminByGroupNum(groupNum);
+		for (int i = 0; i < groupAdminList.size() ; i++) {
+			notice.setMemberId(groupAdminList.get(i).getMemberId().trim());
+			System.out.println(groupAdminList.get(i).getMemberId().trim());
+			if(!noticeService.addNotice(notice)) {
+				resultNotice = false;
+			}
+		}
+		
+		resultgroupDelete = groupsService.addGroupDelete(
+				new GroupDelete(Integer.parseInt(groupNum.trim()),0,0,groupAdminList.size()));
+		
+		return (resultNotice && resultgroupDelete);
+	}
+	
+	/** 그룹 가입 요청 */
+	@RequestMapping("joinGroup.do")
+	public @ResponseBody boolean addGroupJoin(GroupJoin groupJoin) {
+		boolean result = groupsService.addGroupJoin(groupJoin);
+		return true;
+	}
+	
+	/** 그룹 삭제 실행 */
+	@RequestMapping(value="voteGroupDelete.do", produces="application/json; charset=utf8")
+	public @ResponseBody String updateGroupDelete(@RequestParam("groupNum") int groupNum,
+												  @RequestParam("confirmFlag") boolean confirmFlag,
+												  @RequestParam("noticeNum") int noticeNum) {
+		
+		boolean result = true;
+		
+		result = noticeService.deleteByNoticeNum(noticeNum);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		if(confirmFlag) {
+			result = groupsService.updateGroupDeleteAgree(groupNum);
+			sb.append("찬성 하셨습니다.\n\n");
+		} else {
+			result = groupsService.updateGroupDeleteDisAgree(groupNum);
+			sb.append("반대 하셨습니다.\n\n");
+		}
+		
+		GroupDelete groupDelete = groupsService.searchGroupDeleteByGroupNum(groupNum);
+		
+		int delAll = groupDelete.getGroupDelAll();
+		int delYes = groupDelete.getGroupDelYes();
+		int delNo = groupDelete.getGroupDelNo();
+		
+		double agree = (double)delYes/(double)delAll;
+		double disAgree = (double)delNo/(double)delAll;
+		
+		if( agree > 0.5 ) {
+			result = groupsService.deleteGroupDelete(groupNum); // group_delete 테이블에서 삭제
+			sb.append("찬성 표가 과반을 넘어 그룹을 삭제합니다.\n\n");
+			sb.append("투표 결과 : ( 찬성 "+delYes+"표/ 전체 "+delAll+"표 )");
+			// 그룹 삭제도 해야함
+		} else if ( disAgree > 0.5 ) {
+			result = groupsService.deleteGroupDelete(groupNum); // group_delete 테이블에서 삭제
+			sb.append("반대 표가 과반을 넘어 그룹 삭제 투표를 종료합니다.\n\n");
+			sb.append("투표 결과 : ( 반대 "+delNo+"표 / 전체 "+delAll+"표 )");
+		} else {
+			sb.append("현재 투표 결과 : ( 찬성 "+delYes+"표/ 반대 "+delNo+"표 / 전체 "+delAll+"표 )");
+		}
+		return sb.toString();
 	}
 	
 	/** 가입한 그룹 목록 불러오기 */

@@ -177,6 +177,11 @@ public class BoardService {
 		return list;
 	}
 	
+	/** 그룹 번호로 게시글 검색 */
+	public List<Board> searchByGroupNum(String groupNum){
+		return boardDAO.searchByGroupNum(groupNum);
+	}
+	
 	/** 게시글 좋아요 */
 	public Board plusLike(int boardNum) {
 		return boardDAO.plusLike(boardNum);

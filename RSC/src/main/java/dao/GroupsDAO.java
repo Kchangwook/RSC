@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import domain.GroupAdmin;
+import domain.GroupDelete;
 import domain.GroupJoin;
 import domain.GroupMember;
 import domain.Groups;
@@ -45,15 +46,6 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		return list;
 		
 	}//end of searchByPartOfGroupName
-	
-	/** 그룹 관리자와 회원 리스트를 Map으로 반환 */
-	public Map<String, List<Member>> searchGroupAdminMemberByGroupNum(String groupNum){
-		session = getSqlSession();
-		Map<String, List<Member>> map = new HashMap<>();
-		map.put("groupAdmin", session.selectList("group.selectGroupAdminByGroupNum",groupNum));
-		map.put("groupMember", session.selectList("group.selectGroupMemberByGroupNum",groupNum));
-		return map;
-	}
 	
 	// 그룹 번호로 그룹 검색
 	public Groups searchGroupByNum(String groupNum) {
@@ -100,13 +92,79 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		return flag;
 	}
 	
+	/** 그룹 관리자/회원/방문자 판단 */
+	public String getLevelForGroup(Map map) {
+		session = getSqlSession();
+		String level = "visitor";
+		
+		if(session.selectOne("group.selectGroupAdminByGroupNumMemberId",map) != null ) {
+			level = "admin";
+		} else if (session.selectOne("group.selectGroupMemberByGroupNumMemberId", map) != null ) {
+			level = "member";
+		} 
+		return level;
+	}
+	
+	/** 그룹 관리자를 리스트로 반환 */
+	public List<Member> searchGroupAdminByGroupNum(String groupNum){
+		session = getSqlSession();
+		List<Member> list = session.selectList("group.selectGroupAdminByGroupNum",groupNum);
+		return list;
+	}
+	/** 그룹 회원을 리스트로 반환*/
+	public List<Member> searchGroupMemberByGroupNum(String groupNum){
+		session = getSqlSession();
+		List<Member> list = session.selectList("group.selectGroupMemberByGroupNum",groupNum);
+		return list;
+	}
+	
+	/** 그룹 가입 추가 */
+	public boolean addGroupJoin(GroupJoin groupJoin) {
+		session = getSqlSession();
+		return session.insert("group.insertGroupJoin",groupJoin) > 0 ? true : false ;
+	}
+	
+	/** 그룹 삭제 투표 추가 (group_delete table) */
+	public boolean addGroupDelete(GroupDelete groupDelete) {
+		session = getSqlSession();
+		return session.insert("group.insertGroupDelete",groupDelete) > 0 ? true : false ;
+	}
+	
+	/** 그룹 삭제 투표 찬성 update */
+	public boolean updateGroupDeleteAgree(int groupNum) {
+		session = getSqlSession();
+		return session.update("group.updateGroupDeleteAgree",groupNum) > 0 ? true : false ;
+	}
+	
+	/** 그룹 삭제 투표 반대 update */
+	public boolean updateGroupDeleteDisAgree(int groupNum) {
+		session = getSqlSession();
+		return session.update("group.updateGroupDeleteDisAgree",groupNum) > 0 ? true : false ;
+	}
+	
+	/** 그룹 삭제 투표 검색 */
+	public GroupDelete searchGroupDeleteByGroupNum(int groupNum) {
+		session = getSqlSession();
+		return session.selectOne("group.selectGroupDeleteByGroupNum",groupNum);
+	}
+	
+	/** 그룹 삭제 투표 delete*/
+	public boolean deleteGroupDelete(int groupNum) {
+		session = getSqlSession();
+		return session.update("group.deleteGroupDelete",groupNum) > 0 ? true : false ;
+	}
+	
 	/** id를 통해 알아온 groupNum 리스트로 groups 데이터 가져오는 함수 */
 	public List<Groups> searchGroupbyId(String id) {
 		
-		List<Groups> list = null;
-		
 		session = getSqlSession();
-		list = session.selectList("group.searchGroupbyId", id);
+		
+		List<Groups> list = session.selectList("group.searchAdminGroupbyId", id); // 관리자인 그룹
+		List<Groups> listMember = session.selectList("group.searchMemberGroupbyId", id); // 회원인 그룹
+		
+		for (int i = 0; i < listMember.size() ; i++) {
+			list.add(listMember.get(i));
+		}
 		
 		return list;
 		

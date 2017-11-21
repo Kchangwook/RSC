@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +10,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import domain.Board;
 import domain.Member;
 import service.BoardService;
+import service.GroupsService;
 import service.MemberService;
 
 /** 기본 기능을 위한 컨트롤러 */
@@ -27,6 +31,7 @@ public class BasicController {
 	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	private MemberService memberService = context.getBean("memberService", MemberService.class);
 	private BoardService boardService = context.getBean("boardService", BoardService.class);
+	private GroupsService groupsService = context.getBean("groupsService", GroupsService.class);
 
 	/* 서블릿 */
 	/** 시작 페이지 이동 */
@@ -197,5 +202,23 @@ public class BasicController {
 		return "redirect:mypage.do";
 
 	}// end of update
+	
+	/** 그룹 메인 페이지 ( 관리자,회원 판단 / 그룹 정보 및 게시글 전달 ) */
+	@RequestMapping("group.do")
+	public String goGroup(Model model, HttpServletRequest request,@RequestParam("groupNum") String groupNum) {
+		// 세션으로 부터 그룹의 관리자/회원/방문자 판단
+		HttpSession session = request.getSession();
+		String id = String.valueOf(session.getAttribute("id")).trim();
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("groupNum", groupNum);
+		map.put("memberId", id);
+		String level = groupsService.getLevelForGroup(map);
+		
+		model.addAttribute("groupLevel",level);
+		model.addAttribute("groupInfo", groupsService.searchGroupByNum(groupNum));
+		model.addAttribute("groupBoardList",boardService.searchByGroupNum(groupNum));
+		return "groupMain";
+	}
 
 }// end of StartController

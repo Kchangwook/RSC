@@ -20,6 +20,7 @@
 		<typeAlias type="domain.GroupAdmin" alias = "groupAdmin"/>
 		<typeAlias type="domain.GroupMember" alias = "groupMember"/>
 		<typeAlias type="domain.GroupJoin" alias = "groupJoin"/>
+		<typeAlias type="domain.GroupDelete" alias = "groupDelete"/>
 	</typeAliases>
 
 </configuration>

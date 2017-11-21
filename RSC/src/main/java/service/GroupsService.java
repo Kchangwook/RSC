@@ -5,6 +5,7 @@ import java.util.Map;
 
 import dao.GroupsDAO;
 import domain.GroupAdmin;
+import domain.GroupDelete;
 import domain.GroupJoin;
 import domain.GroupMember;
 import domain.Groups;
@@ -50,11 +51,6 @@ public class GroupsService {
 		
 	}//end of searchByPartOfGroupName
 	
-	/** 그룹 관리자와 회원 리스트를 Map으로 반환 */
-	public Map<String, List<Member>> searchGroupAdminMemberByGroupNum(String groupNum){
-		return groupsDAO.searchGroupAdminMemberByGroupNum(groupNum);
-	}
-	
 	public Groups searchGroupByNum(String groupNum) {
 		return groupsDAO.searchGroupByNum(groupNum);
 	}
@@ -82,6 +78,50 @@ public class GroupsService {
 	/** 그룹 가입 거절 */
 	public boolean deleteGroupJoin(GroupJoin groupJoin) {
 		return groupsDAO.deleteGroupJoin(groupJoin);
+	}
+	
+	/** 그룹 관리자/회원/방문자 판단 */
+	public String getLevelForGroup(Map map) {
+		return groupsDAO.getLevelForGroup(map);
+	}
+	
+	/** 그룹 관리자를 리스트로 반환 */
+	public List<Member> searchGroupAdminByGroupNum(String groupNum){
+		return groupsDAO.searchGroupAdminByGroupNum(groupNum);
+	}
+	/** 그룹 회원을 리스트로 반환*/
+	public List<Member> searchGroupMemberByGroupNum(String groupNum){
+		return groupsDAO.searchGroupMemberByGroupNum(groupNum);
+	}
+	
+	/** 그룹 가입 요청 추가 */
+	public boolean addGroupJoin(GroupJoin groupJoin) {
+		return groupsDAO.addGroupJoin(groupJoin);
+	}
+	
+	/** 그룹 삭제 투표 추가 */
+	public boolean addGroupDelete(GroupDelete groupDelete) {
+		return groupsDAO.addGroupDelete(groupDelete);
+	}
+	
+	/** 그룹 삭제 투표 찬성 update */
+	public boolean updateGroupDeleteAgree(int groupNum) {
+		return groupsDAO.updateGroupDeleteAgree(groupNum) ;
+	}
+	
+	/** 그룹 삭제 투표 반대 update */
+	public boolean updateGroupDeleteDisAgree(int groupNum) {
+		return groupsDAO.updateGroupDeleteDisAgree(groupNum);
+	}
+	
+	/** 그룹 삭제 투표 검색 */
+	public GroupDelete searchGroupDeleteByGroupNum(int groupNum) {
+		return groupsDAO.searchGroupDeleteByGroupNum(groupNum);
+	}
+	
+	/** 그룹 삭제 투표 delete*/
+	public boolean deleteGroupDelete(int groupNum) {
+		return groupsDAO.deleteGroupDelete(groupNum) ;
 	}
 	
 	/** id를 통해 알아온 groupNum 리스트로 groups 데이터 가져오는 함수 */
