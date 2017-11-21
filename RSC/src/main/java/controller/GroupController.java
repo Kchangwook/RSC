@@ -103,6 +103,14 @@ public class GroupController {
 		
 		return "redirect:groupList.do";
 	}
+	
+	/** 그룹 추가 */
+	@RequestMapping("addGroup.do")
+	public String addGroup(String memberId) {
+		
+		
+		return "redirect:groupList.do";
+	}
 }
 
 

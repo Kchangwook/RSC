@@ -49,7 +49,11 @@
 			<div class="groupAdmin-page">
 				<div class="row">
 					<div class="col-md-10">
-						<h3>그룹 목록</h3><br>
+						<h3>그룹 목록</h3>
+					</div>
+					<div class="col-md-10" align='right'>
+						<input type="button" class="btn btn-default btnOrange nav-link" data-toggle="modal" onclick = "clearContent()" data-target="#addGroupModal" value="그룹 새로 만들기">
+						
 					</div>
 				</div>
 					
@@ -85,8 +89,8 @@
 		</div>
 			
 		</div>
+		
 		<!-- 본문 끝 부분 -->
-
 		<footer class="main-footer">
 			<div class="container-fluid">
 				<div class="row">
@@ -103,22 +107,103 @@
 		</footer>
 		
 	</div>
+
+	<!-- 그룹 생성 모달 -->
+	<div class="modal fade" id="addGroupModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content ">
+				<div class="modal-header mod-head">
+					<h4>그룹 생성</h4>
+				</div>
+				<form action="addGroup.do" name="frmAddGroup" id="frmAddGroup"
+					method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<div class="container">
+							<table>
+								<tr>
+									<td colspan='2'><input type="text" width="50px"
+										name="groupSrc" id="groupSrc" placeholder="이미지"
+										disabled="disabled">
+									</td>
+								</tr>
+								<tr>
+									<td colspan='2' class="tdImgButton">
+										<div class="filebox">
+											<label for="groupImg">선택</label> <input type="file"
+												name="groupImg" id="groupImg" accept="image/*"
+												onchange="changeSrc()">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan='2'><input type="text" name="groupName"
+										id="groupName" onblur="checkSameGroupName(this.value)" placeholder="그룹명">
+									</td>
+								</tr>
+								<tr>
+									<td colspan='2'><input type="text" name="groupInfo"
+										id="groupInfo" placeholder="그룹 설명">
+									</td>
+								</tr>
+								<tr>
+									<td colspan='2'><label><b>관심사</b></label></td>
+								</tr>
+								<tr>
+									<td colspan='2'><input type="checkbox"
+										name="groupInterest" value="운동">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="요리">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="영화">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="음악">음악<br>
+										<input type="checkbox" name="groupInterest" value="독서">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="패션">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="게임">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="여행">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="groupInterest" value="기타">기타</td>
+								</tr>
+								<tr>
+									<td colspan='2'><label><b>정보 공개</b></label></td>
+								</tr>
+								<tr>
+									<td class="tdRadio"><input type="radio"
+										name="groupInfoOpen" value="1" checked>허용</td>
+									<td class="tdRadio"><input type="radio"
+										name="groupInfoOpen" value="0">허용하지 않음</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<span id="join_msg"
+							style="width: 100%; color: red; text-align: left;"></span> <input
+							type="button" class="btn btn-default btnOrange"
+							onclick="checkInfo()" value="만들기">
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<!-- Javascript files-->
 	<script type="text/javascript">
-		function deleteGroup(groupNum, memberId){
-			
+		function deleteGroup(groupNum, memberId) {
+
 			var con = confirm('정말 탈퇴하시겠습니까?');
-			
-			if(con){
-				location.href="exitGroup.do?groupNum="+groupNum+"&memberId="+memberId; 
+
+			if (con) {
+				location.href = "exitGroup.do?groupNum=" + groupNum
+						+ "&memberId=" + memberId;
 			}
-			
+
 		}
-		
-		function showGroup(groupNum){
-			
-			location.href = "getGroupInfo.do?groupNum="+groupNum;
-			
+
+		function showGroup(groupNum) {
+
+			location.href = "getGroupInfo.do?groupNum=" + groupNum;
+
+		}
+
+		function addGroup(memberId) {
+			location.href = "addGroup.do?memberId=" + memberId;
 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
