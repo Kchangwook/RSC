@@ -45,6 +45,11 @@ public class BoardService {
 	public Board searchBoard(int boardNum) {
 		return boardDAO.searchBoard(boardNum);
 	}
+	
+	/** 번호로 게시글 검색하는 함수 */
+	public Board searchBoard1(int boardNum) {
+		return boardDAO.searchBoard1(boardNum);
+	}
 
 	/** 게시글을 시간 순서대로 가져오는 함수 */
 	public Map<String, List<Board>> getLists() {
@@ -171,5 +176,15 @@ public class BoardService {
 		List<Board> list = boardDAO.searchAllOrder(map);
 		return list;
 	}
+	
+	/** 게시글 좋아요 */
+	public Board plusLike(int boardNum) {
+		return boardDAO.plusLike(boardNum);
+	} // end of plusLike
+	
+	/** 게시글 좋아요 취소 */
+	public Board minusLike(int boardNum) {
+		return boardDAO.minusLike(boardNum);
+	} // end of minusLike
 
 } // end of BoardService

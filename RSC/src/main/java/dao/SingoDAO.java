@@ -63,5 +63,19 @@ public class SingoDAO extends SqlSessionDaoSupport{
 		session = getSqlSession();
 		return session.delete("singo.deleteGroupBySingo",groupNum)>0 ? true : false;
 	}
+	
+	/* board_singo 테이블에 등록 */
+	public void addBoardSingo(BoardSingo bs) {
+		session = getSqlSession();
+		session.insert("singo.addBoardSingo", bs);
+		session.update("singo.updateBoardSingo", bs.getBoardNum());
+	} // end of addBoardSingo
+	
+	/* reply_singo 테이블에 등록 */
+	public void addReplySingo(ReplySingo rs) {
+		session = getSqlSession();
+		session.insert("singo.addReplySingo", rs);
+		session.update("singo.updateReplySingo", rs.getReplyNum());
+	} // end of addReplySingo			
 
-}
+} // end of SingoDAO

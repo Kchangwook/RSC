@@ -2,6 +2,8 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!-- 배열 또는 List, null 등에 데이터가 저장 되었는지 확인하기 위한 length() 사용을 위한 선언 -->
 <!DOCTYPE html>
 <html>
@@ -122,8 +124,10 @@
 
 
 
-				<!-- 로그인 후 글 불러오기 -->
-				<c:forEach items="${requestScope.boardList}" var="data">
+				<!-- 로그인 후 게시글 불러오기 -->
+				<c:forEach items="${requestScope.boardList}" var="data"
+					varStatus="status">
+
 					<div class="row">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-12">
@@ -134,31 +138,45 @@
 										src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
 									<span>&nbsp;&nbsp;${data.memberNick}</span>
 								</div>
-
-								<!-- 글 내용 -->
-								<div class="content">
-									<span> <a href="" style="display: block;"
-										data-toggle="modal" data-target="#detailView"
-										onclick="searchBoard(${data.boardNum})">
-											${data.boardContent} </a>
-									</span>
-								</div>
+								
+								<c:choose>
+									<c:when test="${data.boardSingoFlag eq 0}">
+										<!-- 글 내용 -->
+										<div class="content">
+											<span> <a href="" style="display: block;"
+												data-toggle="modal" data-target="#detailView"
+												onclick="searchBoard(${data.boardNum})">
+													${data.boardContent} </a>
+											</span>
+										</div>
+									</c:when>
+									
+									<c:when test="${data.boardSingoFlag eq 1}">
+										<!-- 글 내용 -->
+										<div class="content">
+											<span> 본 게시글은 신고가 되었습니다 </span>
+										</div>
+									</c:when>
+								</c:choose>
 								<hr>
 
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> ${data.boardTime}
+										<i class="fa fa-clock-o"></i>
+										<fmt:formatDate value="${data.boardTime }"
+											pattern="yyyy년 M월 d일 H시 m분 s초" />
+
 									</div>
 								</div>
 							</div>
 						</div>
 						<br>
-						<!--/글 작성 틀-->
+						<!-- /글 작성 틀 -->
 					</div>
 
 				</c:forEach>
-				<!-- /로그인 후 글 불러오기 -->
+				<!-- /로그인 후 게시글 불러오기 -->
 
 
 			</div>
@@ -219,29 +237,59 @@
 					</div>
 					<!-- 좋아요 카운트 수 -->
 					<div class="likeCnt" align="right">
-						<span id=boardLike>0</span>
+						<span id=boardLike></span>
 					</div>
 					<!-- /좋아요 카운트 수 -->
 
 					<div class="clear"></div>
 
-					<!-- 신고하기 버튼 -->
-					<div class="singoBtn" align="left">
-						<form class="form-inline" action="singo.do">
-							<input type="submit" class="btn btn-default btnOrange"
-								value="신고하기"> <input type="hidden" name="boardNum"
-								value="${sessionScope.id}">
-						</form>
+					<!-- 글 신고하기 버튼 -->
+					<div id="viewSingo" class="singoBtn" align="left">
+						<a class="btn btn-default btnOrange" href="" data-toggle="modal"
+							data-target="#singo" > 신고하기 </a>
 					</div>
-					<!-- /신고하기 버튼-->
+					<!-- /글 신고하기 버튼-->
+
+					<!-- 글 신고하기 상세내용 -->
+					<div class="modal fade" id="singo" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="col-md-12 padding">
+									<div>신고 사유 :</div>
+										<div class="clear"></div>
+											<div>
+											<form name="singo"
+												action="${pageContext.request.contextPath}/singo/addBoardSingo.do">
+												<textarea id="boardSingoReason" method="post" rows="1"
+													style="width: 100%; resize: none; wrap: hard;"
+													placeholder="이유가 뭐니" name="boardSingoReason"></textarea>
+												<br> <input type="hidden" name="boardNum" id="boardNum"
+													value="">
+												<div align="right">
+													<input type=submit class="btn btn-default btnOrange close"
+														value=신고하기>
+												</div>
+											</form>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /글 신고하기 상세내용 -->
 
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
-						<form class="form-inline1" action="like.do">
-							<input class="btn btn-default btnOrange" type="submit"
-								width="75%" value="좋아요"> <input type="hidden"
-								name="boardNum" value="${sessionScope.id}">
-						</form>
+						<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"
+							onclick="plusLike()"> </i>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+					</div>
+					<!-- /좋아요 버튼 -->
+					
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<i class="fa fa-thumbs-down btn btn-default btnOrange" style="float: right;"
+							onclick="minusLike()"> </i>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
 					</div>
 					<!-- /좋아요 버튼 -->
 
@@ -273,19 +321,43 @@
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
+	
+	<!-- 댓글 신고하기 상세내용 -->
+	<div class="modal fade" id="replySingo" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="col-md-12 padding">
+					<div>신고 사유 :</div>
+						<div class="clear"></div>
+							<div>
+							<form name="replySingo" method="post" 
+								action="${pageContext.request.contextPath}/singo/addReplySingo.do" >
+								<textarea id="replySingoReason" rows="1"
+									style="width: 100%; resize: none; wrap: hard;"
+									placeholder="이유가 뭐야" name="replySingoReason"></textarea>
+								<br> <input type="hidden" name="replyNum" id="replyNum"
+									value="">
+								<div align="right">
+									<input type=submit class="btn btn-default btnOrange close"
+										value=신고하기>
+								</div>
+							</form>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /댓글 신고하기 상세내용 -->
+
+
 
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js">
-		
-	</script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script> --%>
 	<script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js">
-		
-	</script>
+		src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
 	<script
@@ -296,6 +368,8 @@
 
 	<!-- 모달 비동기 스크립트 -->
 	<script>
+	
+// 	<!-- 게시글 상세보기(모달) -->
 		function searchBoard(boardNum) {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
@@ -308,10 +382,13 @@
 					document.getElementById("boardContent").innerText = resData.board.boardContent;
 					document.getElementById("boardTime").innerText = new Date(resData.board.boardTime).toUTCString();
 					document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
+					document.getElementById("boardLike").innerText = resData.board.boardLike;
 					document.getElementById("boardNum").value = resData.board.boardNum;
 					document.getElementById("memberId").value = resData.board.memberId;
 					replyList(resData.reply);
+
 					
+										
 					/* document.getElementById("memberNick").innerText = resData.memberNick;
 					document.getElementById("boardContent").innerText = resData.boardContent;
 					document.getElementById("boardTime").innerText = new Date(resData.boardTime).toUTCString();
@@ -329,6 +406,7 @@
 			
 		}
 		
+//		<!-- 댓글 입력하기 -->
 		function addReply(){
 			var memberId = document.getElementById("memberId").value;
 			var replyContent = document.getElementById("replyContent").value;
@@ -341,6 +419,8 @@
 					resData=JSON.parse(resData);
 					console.log(resData);
 					replyList(resData);
+					
+					document.getElementById("replyContent").value = "";
 				}
 			}
 			
@@ -350,10 +430,12 @@
 			
 		}
 		
+// 		<!-- 댓글 리스트 가져오기 -->
 		function replyList(resData) {
 			console.log(resData);
 			
 			var replyListHTML = '';
+			var replySingoFlagHTML = '';
 			
 			if(resData.length == 0) {
 				replyListHTML = 
@@ -361,42 +443,124 @@
 				'<div align="right"></div>';
 			} else {
 				for(i=0; i < resData.length; i++ ) {
+					if(resData[i].replySingoFlag == 0) {
+						replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
+												'<a class="btn btn-default btnOrange" style="float: right; href="" data-toggle="modal"'+
+												'data-target="#replySingo" onclick="replyNumber(\''+resData[i].replyNum+'\')"> 신고하기 </a>'+
+											 '</div>'+
+											 '<div class="content1" style="float: right; width: 35%;">' +
+												 '<span>'+ resData[i].replyContent +'</span>'+
+											 '</div>' +
+											 
+											'</div>';
+					} else {
+						replySingoFlagHTML = '<div class="content1" style="float: right; width: 55%;">'+
+												'<span >'+ '본 댓글은 신고가 되었습니다' +'</span>'+
+											 '</div>';
+						
+					}
 					replyListHTML +=
 						'<div class="row"> ' +
-					'<div class="col-md-12"> ' +
-						'<div class="w3-round-large padding col-md-12"">' +
-// 							<!-- 글 머리 : 사진, 닉네임 -->
-							'<div class="header" ' +
-							'style="float: left;  width: 35%;"> ' +
-								'<span><img '+
-								'src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> ' +
-								'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
-							'</div>'+
-
-// 							<!-- 글 내용 -->
-							'<div class="content"'+
-								'style="float: right; width: 55%;">'+
-								'<span>'+ resData[i].replyContent +'</span>'+
-							'</div>'+
-							'<div class="clear"></div>'+
-// 							<!-- 글 작성 시간 -->
-							'<div class="footer" align="right">'+
-								'<div class="time-tag">'+
-									'<span><i class="fa fa-clock-o"></i>'+ resData[i].replyTime +'</span>'+
+							'<div class="col-md-12"> ' +
+								'<div class="w3-round-large padding col-md-12">' +
+// 									<!-- 글 머리 : 사진, 닉네임 -->
+									'<div class="header1" ' +
+										'style="float: left; width: 25%;"> ' +
+										'<span><img '+
+												'src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> ' +
+												'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
+									'</div>'+
+									
+// 									<!-- 댓글 내용 -->
+									replySingoFlagHTML +
+									
+									'<div class="clear"></div>'+
+									
+// 									<!-- 글 작성 시간 -->
+									'<div class="footer" align="right">'+
+										'<div class="time-tag">'+
+											'<span><i class="fa fa-clock-o"></i>'+ new Date(resData[i].replyTime).toUTCString() +'</span>'+
+										'</div>'+
+									'</div>'+
 								'</div>'+
 							'</div>'+
-						'</div>'+
-					'</div>'+
-					'<br>'+
-// 					<!--/글 작성 틀-->
-				'</div>'
+						'<br>'+
+// 						<!--/글 작성 틀-->
+					'</div>'
 				}
+				
 			}
 			
 			document.getElementById("replyHTML").innerHTML = replyListHTML;
 		}
+		
+// 		<!-- 신고하기 -->
+		function replySingo(){
+			var replyNum = document.getElementById("replyNum").value;
+			var replySingoReason = document.getElementById("replySingoReason").value;
+			document.getElementById("replySingoReason").value = "";
+			
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					
+				}
+			}
+			
+			xhttp.open("POST", "${pageContext.request.contextPath}/singo/addReplySingo.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("replyNum="+replyNum+"&replySingoReason="+replySingoReason); 
+			
+		}
+		
+// 		<!-- 좋아요 -->
+		function plusLike() {
+			var boardNum = document.getElementById("boardNum").value; 
+			console.log(boardNum)
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					
+					document.getElementById("boardLike").innerText = resData.boardLike;
+					
+				}
+			}
+			
+			xhttp.open("POST", "${pageContext.request.contextPath}/like/plusLike.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("boardNum="+boardNum); 
+		}
+		
+// 		<!-- 좋아요 취소 -->
+		function minusLike() {
+			var boardNum = document.getElementById("boardNum").value; 
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData=JSON.parse(resData);
+					
+					document.getElementById("boardLike").innerText = resData.boardLike;
+					
+				}
+			}
+			
+			xhttp.open("POST", "${pageContext.request.contextPath}/like/minusLike.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("boardNum="+boardNum); 
+		}
+		
+		function replyNumber(replyNum){
+			document.getElementById("replyNum").value = replyNum;
+			document.getElementById("replySingo").style.display='';
+		}
+		
 	</script>
 
-
+	<!-- <fmt:formatDate value="${data.boardTime }" pattern="yyyy년 M월 d일 H시 m분 s초"/> -->
 </body>
 </html>

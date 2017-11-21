@@ -16,7 +16,8 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	
 	/* 게시글 등록 */
 	public void addBoard(Board b) {
-		getSqlSession().insert("addBoard", b);
+		session = getSqlSession();
+		session.insert("addBoard", b);
 	}
 	
 	/* 게시글 아이디로 검색 후 리스트로 반환 */
@@ -26,8 +27,15 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	
 	/* 게시글 번호로 검색 후 객체로 반환 & 조회수 증가*/
 	public Board searchBoard(int boardNum) {
-		getSqlSession().update("addReadNum", boardNum);
-		return getSqlSession().selectOne("selectBoardByNum", boardNum);
+		session = getSqlSession();
+		session.update("addReadNum", boardNum);
+		return session.selectOne("selectBoardByNum", boardNum);
+	}
+	
+	/* 게시글 번호로 검색 */
+	public Board searchBoard1(int boardNum) {
+		session = getSqlSession();
+		return session.selectOne("selectBoardByNum", boardNum);
 	}
 	
 	/** 게시글 시간 순서대로 가져오기 */
@@ -58,6 +66,17 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		List<Board> list = session.selectList("board.selectAllOrder",map);
 		return list;
 	}
-
 	
+	/** 게시글 좋아요 */
+	public Board plusLike(int boardNum) {
+		getSqlSession().update("board.plusLike", boardNum);
+		return getSqlSession().selectOne("selectBoardByNum", boardNum);
+	} // end of plusLike
+	
+	/** 게시글 좋아요 취소 */
+	public Board minusLike(int boardNum) {
+		getSqlSession().update("board.minusLike", boardNum);
+		return getSqlSession().selectOne("selectBoardByNum", boardNum);
+	} // end of minusLike
+		
 } // end of BoardDAO

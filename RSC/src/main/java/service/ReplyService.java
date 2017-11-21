@@ -27,4 +27,9 @@ public class ReplyService {
 		return replyDAO.searchReply(boardNum);
 	}
 	
+	/** 댓글 번호로 검색하는 함수 */
+	public Reply searchReply1(int replyNum) {
+		return replyDAO.searchReply1(replyNum);
+	}
+	
 } // end of ReplyService

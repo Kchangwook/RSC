@@ -42,5 +42,11 @@
 		from reply 
 		where member_id = #{memberId} and reply_num = #{replyNum}
 	</delete>
+	
+	<!-- 댓글 번호로 검색 -->
+	<select id="selectReplyByReplyNum" parameterType="int" resultMap="replyResult">
+		select * from reply
+		where reply_num = #{replyNum}
+	</select>
 
 </mapper>
