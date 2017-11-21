@@ -60,8 +60,8 @@
 		where member_id = #{memberId} and board_num = #{boardNum}
 	</delete>
 	
-	<!-- 시간 순서대로 게시글 가져오기 -->
-	<select id = "selectOrderByTime" resultMap = "boardResult">
+	<!-- 조회수대로 게시글 가져오기 -->
+	<select id = "selectOrderByCount" resultMap = "boardResult">
 		select b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from board b,Member m 
 		where b.member_id = m.member_id order by board_cnt desc
@@ -112,6 +112,9 @@
 	
 	<!-- 내가 쓴 게시글 들만 가져오기 -->
 	<select id="getMine" parameterType = "String" resultMap = "boardResult">
-		select * from board where member_id = #{memberId} and group_num = 0 order by board_time desc
+		select  b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		from board b, member m 
+		where b.member_id = #{memberId} and group_num = 0 and m.member_id = #{memberId} 
+		order by board_time desc
 	</select>
 </mapper> 

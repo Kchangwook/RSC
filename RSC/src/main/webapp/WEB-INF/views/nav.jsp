@@ -16,9 +16,16 @@
          <div
             class="sidenav-header d-flex align-items-center justify-content-center">
             <div class="sidenav-header-inner text-center">
+            	<c:if test="${not empty sessionScope.id}">
+               <a href="${pageContext.request.contextPath}/board/readBoard.do">
+               <img src="${pageContext.request.contextPath}/resources/img/logo.png">&nbsp;&nbsp;&nbsp;
+               <h2 class="h5 text-uppercase">Relation Social Community</h2></a>
+               </c:if>
+               <c:if test="${empty sessionScope.id}">
                <a href="${pageContext.request.contextPath}/index.html">
                <img src="${pageContext.request.contextPath}/resources/img/logo.png">&nbsp;&nbsp;&nbsp;
                <h2 class="h5 text-uppercase">Relation Social Community</h2></a>
+               </c:if>
             </div>
             <div class="sidenav-header-logo">
                <a href="${pageContext.request.contextPath}/index.html" class="brand-small text-center">

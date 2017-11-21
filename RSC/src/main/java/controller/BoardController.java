@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import domain.Board;
+import domain.Member;
 import service.BoardService;
+import service.MemberService;
 import service.ReplyService;
 
 /** 게시글 등록을 위한 컨트롤러 */
@@ -23,6 +25,7 @@ public class BoardController {
 	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	private BoardService boardService = context.getBean("boardService", BoardService.class);
 	private ReplyService replyService = context.getBean("replyService", ReplyService.class);
+	private MemberService memberService = context.getBean("memberService",MemberService.class);
 	
 	/* 프로퍼티 */
 	public void setService(BoardService service) {
@@ -52,7 +55,11 @@ public class BoardController {
 		
 		String memberId = (String)request.getSession().getAttribute("id");
 		
+		Member m = memberService.searchById(memberId);
+		request.setAttribute("member", m);
+		
 		List<Board> list = boardService.getMine(memberId);
+		request.setAttribute("list", list);
 		
 		return "myBoard";
 		

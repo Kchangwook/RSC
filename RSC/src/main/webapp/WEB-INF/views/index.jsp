@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,13 +69,20 @@
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">${item.boardContent}</div>
+								<div class="content">
+									<span>
+										<a href="#" style="display: block;"data-toggle="modal" data-target="#detailView" onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+									</span>
+								</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i>${item.boardTime}
+										<i class="fa fa-clock-o"></i>
+										<fmt:formatDate value="${item.boardTime }"
+											pattern="yyyy년 M월 d일 H시 m분 s초" />
+
 									</div>
 								</div>
 							</div>
@@ -96,13 +105,20 @@
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">${item.boardContent}</div>
+								<div class="content">
+									<span>
+										<a href="#" style="display: block;"data-toggle="modal" data-target="#detailView" onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+									</span>
+								</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> ${item.boardTime}
+										<i class="fa fa-clock-o"></i>
+										<fmt:formatDate value="${item.boardTime }"
+											pattern="yyyy년 M월 d일 H시 m분 s초" />
+
 									</div>
 								</div>
 							</div>
@@ -125,13 +141,20 @@
 								</div>
 	
 								<!-- 글 내용 -->
-								<div class="content">${item.boardContent}</div>
+								<div class="content">
+									<span>
+										<a href="#" style="display: block;"data-toggle="modal" data-target="#detailView" onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+									</span>
+								</div>
 								<hr>
 	
 								<!-- 글 작성 시간 -->
 								<div class="footer">
 									<div class="time-tag">
-										<i class="fa fa-clock-o"></i> ${item.boardTime}
+										<i class="fa fa-clock-o"></i>
+										<fmt:formatDate value="${item.boardTime }"
+											pattern="yyyy년 M월 d일 H시 m분 s초" />
+
 									</div>
 								</div>
 							</div>
@@ -161,6 +184,98 @@
 		</footer>
 		
 	</div>
+	
+		<!-- 글 상세보기 모달 -->
+	<div class="modal fade" id="detailView" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 글 작성 틀 -->
+				<div class="col-md-12 padding">
+					<!-- 글 머리 : 사진, 닉네임 -->
+					<div class="header padding" style="float: left; width: 45%;">
+						<span><img
+							src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+					</div>
+
+					<!-- 글 조회수 -->
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="boardCnt"></span>
+					</div>
+
+					<div class="clear"></div>
+
+					<!-- 글 내용 -->
+					<div class="content col-md-12 padding">
+						<span id="boardContent"> </span>
+					</div>
+					<hr>
+
+					<!-- 좋아요 카운트 수 -->
+					<div class="likeCnt" align="right">
+						<span id=boardLike></span>
+					</div>
+					<!-- /좋아요 카운트 수 -->
+
+					<div class="clear"></div>
+					
+					<!-- 글 작성 시간 -->
+					<div class="footer">
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
+						</div>
+					</div>
+					
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"></i>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+					</div>
+					<!-- /좋아요 버튼 -->
+					
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<i class="fa fa-thumbs-down btn btn-default btnOrange" style="float: right;"></i>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+					</div>
+					<!-- /좋아요 버튼 -->
+
+					<div class="clear"></div>
+
+			</div>
+
+		</div>
+	</div>
+	<!-- /글 상세보기 모달 -->
+	
+	<!-- 댓글 신고하기 상세내용 -->
+	<div class="modal fade" id="replySingo" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="col-md-12 padding">
+					<div>신고 사유 :</div>
+						<div class="clear"></div>
+							<div>
+							<form name="replySingo" method="post" 
+								action="${pageContext.request.contextPath}/singo/addReplySingo.do" >
+								<textarea id="replySingoReason" rows="1"
+									style="width: 100%; resize: none; wrap: hard;"
+									placeholder="이유가 뭐야" name="replySingoReason"></textarea>
+								<br> <input type="hidden" name="replyNum" id="replyNum"
+									value="">
+								<div align="right">
+									<input type=submit class="btn btn-default btnOrange close"
+										value=신고하기>
+								</div>
+							</form>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /댓글 신고하기 상세내용 -->
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
@@ -172,6 +287,7 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
 
 </body>
 </html>

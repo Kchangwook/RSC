@@ -38,11 +38,11 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return session.selectOne("selectBoardByNum", boardNum);
 	}
 	
-	/** 게시글 시간 순서대로 가져오기 */
+	/** 게시글 시간 조회수대로 가져오기 */
 	public List<Board> searchOrderByTime(){
 		
 		session = getSqlSession();
-		List<Board> list = session.selectList("board.selectOrderByTime");
+		List<Board> list = session.selectList("board.selectOrderByCount");
 		
 		return list;
 		
