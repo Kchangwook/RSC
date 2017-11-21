@@ -32,4 +32,18 @@ public class FriendRequestService {
 		
 	}//end of isFriendRequest
 	
+	/** 친구 요청을 삭제하는 함수 */
+	public boolean deleteByNum(int requestNum) {
+		
+		return dao.deleteByNum(requestNum);
+		
+	}//end of deleteByFriend
+	
+	/** 요청 번호로 request 찾기 */
+	public FriendRequest searchByNum(int requestNum) {
+		
+		return dao.searchByNum(requestNum);
+		
+	}//end of searchByNum
+	
 }//end of FriendRequestService

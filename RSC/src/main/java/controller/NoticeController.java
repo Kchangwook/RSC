@@ -24,6 +24,7 @@ public class NoticeController {
 	/** 아이디를 통해 notice 데이터를 가져오는 기능 */
 	@RequestMapping(value="searchById.do",produces = "application/json; charset=utf8")
 	public @ResponseBody String searchById(@RequestParam("memberId") String memberId) {
+
 		List<Notice> list = new ArrayList<>();
 		
 		StringBuffer sb = new StringBuffer();

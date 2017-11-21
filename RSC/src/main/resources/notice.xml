@@ -32,5 +32,10 @@
 	<insert id="addFromAdmin2" parameterType="notice">
 		insert into notice (notice_num, member_id, notice_content, notice_type, notice_target) values (notice_seq.nextval, #{memberId}, #{noticeContent}, #{noticeType}, null)
 	</insert>
+	
+	<!-- friendRequest 삽입 -->
+	<insert id = "addFriendRequest" parameterType = "notice">
+		insert into notice values(notice_seq.nextval,#{memberId},#{noticeContent},#{noticeType},friend_request_SEQ.currval)
+	</insert>
 
 </mapper>

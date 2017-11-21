@@ -76,7 +76,7 @@
 							class="icon-bars"> </i>
 						</a>
 					</div>
-
+					<input type = "hidden" id = "address" value = "${pageContext.request.contextPath}">
 					<!-- 회원 또는 그룹 검색 -->
 					<ul	class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 						<li class="nav-item dropdown">
@@ -114,9 +114,7 @@
 										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }">
 									</i>
 								</a> <!-- 알림 목록 -->
-									<ul aria-labelledby="notifications" class="dropdown-menu"
-										id="viewAlert">
-
+									<ul aria-labelledby="notifications" class="dropdown-menu" id="viewAlert">
 									</ul>
 								</li>
 

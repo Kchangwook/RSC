@@ -8,18 +8,24 @@ public class Notice {
 	private String memberId; // col : member_id
 	private String noticeContent; // col : notice_content
 	private int noticeType; // col : notice_type
-	private String noticeTarget; // col : notice_target
+	private int noticeTarget; // col : notice_target
 	
 	/* 생성자 */
 	public Notice() {
 	}
-	public Notice(int noticeNum, String memberId, String noticeContent, int noticeType, String noticeTarget) {
+	public Notice(int noticeNum, String memberId, String noticeContent, int noticeType, int noticeTarget) {
 		super();
 		this.noticeNum = noticeNum;
 		this.memberId = memberId;
 		this.noticeContent = noticeContent;
 		this.noticeType = noticeType;
 		this.noticeTarget = noticeTarget;
+	}
+	public Notice(String memberId, String noticeContent, int noticeType) {
+		super();
+		this.memberId = memberId;
+		this.noticeContent = noticeContent;
+		this.noticeType = noticeType;
 	}
 	
 	/* Getter, Setter */
@@ -51,10 +57,10 @@ public class Notice {
 		this.noticeType = noticeType;
 	}
 	
-	public String getNoticeTarget() {
+	public int getNoticeTarget() {
 		return noticeTarget;
 	}
-	public void setNoticeTarget(String noticeTarget) {
+	public void setNoticeTarget(int noticeTarget) {
 		this.noticeTarget = noticeTarget;
 	}
 	

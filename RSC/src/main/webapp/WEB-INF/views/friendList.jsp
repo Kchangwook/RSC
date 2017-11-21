@@ -55,12 +55,12 @@
 					
 			<div class="row friend-edge">
 					<c:forEach items = "${list}" var="item">
-						<div class="col-lg-5 friend-out" onclick = "showFriend('${item.friendId}')">
+						<div class="col-lg-5 friend-out">
 							<div class="card w3-round-large firend-back">
 								<!-- 글 내용 -->
 								<div class="content friend-content" >
 									<div>
-										<img class = "firend-img" src="${pageContext.request.contextPath}/${item.friendImg}">
+										<img class = "firend-img" src="${pageContext.request.contextPath}/${item.friendImg}" onclick = "showFriend('${item.friendId}')">
 									</div>
 									<div class = "friend-name">
 										<span><b>${item.friendNick}</b></span>

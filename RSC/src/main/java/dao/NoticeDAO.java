@@ -58,5 +58,18 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 		flag = session.insert("notice.addFromAdmin2",n)>0 ? true : false ;
 		
 		return flag;
-	}
-}
+	}//end of addFromAdmin
+	
+	/** 친구 요청 데이터 추가 */
+	public boolean addFriendRequest(Notice n) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.insert("notice.addFriendRequest",n)>0?true:false;
+		
+		return flag;
+		
+	}//end of addFriendRequest
+	
+}//end of NoticeDAO

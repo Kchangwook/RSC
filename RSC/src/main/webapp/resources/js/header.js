@@ -102,6 +102,7 @@ function checkSameId() {
 //회원 또는 그룹 검색
 function searchMemberAndGroup(searchValue) {
 	var alertHtml = '';
+	var address = document.getElementById("address").value;
 
 	if (searchValue == '') {
 		alertHtml += '<li>'
@@ -117,7 +118,6 @@ function searchMemberAndGroup(searchValue) {
 			if (this.readyState == 4 && this.status == 200) {
 				var resData = this.responseText;
 				resData = JSON.parse(resData);
-				
 
 				if (resData.length == 0) {
 					alertHtml += '<li>'
@@ -129,7 +129,7 @@ function searchMemberAndGroup(searchValue) {
 					for (i = 0; i < resData.length; i++) {
 						if (resData[i].memberNick != null) {
 							alertHtml += '<li>'
-									+ '<a onClick="moveToMember(' + resData[i].memberId + ')" class="dropdown-item d-flex">'
+									+ '<a href="'+address+'/friend/getFriendInfo.do?friendId=' + resData[i].memberId + '" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
 									+ '<span>' + resData[i].memberNick
 									+ '</span>' + '</div>' + '</a>'
@@ -156,6 +156,8 @@ function searchMemberAndGroup(searchValue) {
 // 검색한 회원으로 이동
 function moveToMember(memberId) {
 	
+	alert('알림');
+	location.href = 'friend/getFriendInfo.do?friendId='+memberId;
 }
 
 // 검색한 그룹으로 이동
@@ -174,8 +176,8 @@ window.onload = getMemberId();
 
 // 종모양 클릭하면 알림 모달 팝업
 function viewAlertList() {
-	console.log(memberId);
 	var alertHtml = '';
+	var address = document.getElementById("address").value;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -201,8 +203,8 @@ function viewAlertList() {
 					} else if (resData[i].noticeType == 2) { // 친구요청
 						alertHtml += '<li>' + '<a onClick="addFriendNotice(\''
 								+ resData[i].noticeTarget + '\',\''
-								+ resData[i].noticeContent
-								+ '\')" class="dropdownitem d-flex">'
+								+ resData[i].noticeNum
+								+ '\',this)" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
 								+ '</div>' + '</a>' + '</li>';
@@ -221,7 +223,7 @@ function viewAlertList() {
 		}
 	};
 
-	xhttp.open("POST", "../notice/searchById.do?memberId=" + memberId, true);
+	xhttp.open("POST", address+"/notice/searchById.do?memberId=" + memberId, true);
 	xhttp.send();
 }
 
@@ -236,13 +238,22 @@ function deleteGroupNotice(groupNum, noticeContent) {
 }
 
 // notice_type 2, 친구요청 팝업창_실제 기능은 없고 팝업창만 있음
-function addFriendNotice(friendId, noticeContent) {
+function addFriendNotice(requestNum, noticeNum, notice) {
+	
+	var accept = confirm("친구 요청을 수락하시겠습니까?");
+	var address = document.getElementById("address").value; 
+	var xhttp = new XMLHttpRequest();
 
-	if (confirm(noticeContent) == true) {
-		document.form.submit;
-	} else {
-		return;
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			if(resData == 'success')
+				notice.parentNode.removeChild(notice);
+		}
 	}
+
+	xhttp.open("GET", address+"/notice/friendResult.do?result="+accept+"&requestNum="+requestNum+"&noticeNum="+noticeNum, true);
+	xhttp.send();
 
 }
 

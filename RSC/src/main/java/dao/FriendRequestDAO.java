@@ -36,4 +36,24 @@ public class FriendRequestDAO extends SqlSessionDaoSupport{
 		
 	}//end of isFriendRequest
 	
+	/** FriendId를 통해 Request 삭제 */
+	public boolean deleteByNum(int requestNum) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.delete("friendRequest.deleteByNum",requestNum)>0?true:false;
+		
+		return flag;
+		
+	}//end of deleteByFriend
+	
+	/** requestNum을 통해 request 찾기 */
+	public FriendRequest searchByNum(int requestNum) {
+		
+		session = getSqlSession();
+		return session.selectOne("friendRequest.searchByNum",requestNum);
+		
+	}//end of requestNum
+	
 }//end of FriendRequestDAO

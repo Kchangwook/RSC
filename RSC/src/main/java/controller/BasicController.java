@@ -91,11 +91,13 @@ public class BasicController {
 		case 1:
 			session.setAttribute("level", "master");
 			session.setAttribute("id", "master");
+			url = "redirect:../admin/board.do";
 			break;
 		// 관리자 계정일 때
 		case 2:
 			session.setAttribute("level", "admin");
 			session.setAttribute("id", id);
+			url = "redirect:../admin/board.do";
 			break;
 		// 일반 회원일 때
 		case 3:
@@ -158,6 +160,7 @@ public class BasicController {
 	@RequestMapping(value = "update.do", method = RequestMethod.POST)
 	public String update(MultipartHttpServletRequest request) {
 		
+		//파라미터 값 받아오기
 		String id = (String)request.getSession().getAttribute("id");
 		String pwd = request.getParameter("myPw");
 		String nick = request.getParameter("myNick");
@@ -180,13 +183,15 @@ public class BasicController {
 				interest += interests[i] + ",";
 		}
 		
+		//원래 정보 가져오기
 		Member origin = memberService.searchById(id);
+		
+		//수정 정보 객체 만들기
 		Member after = new Member(id,pwd,nick,interest,infoOpen,0);
 		after.setMemberInterest(interest);
 		after.setMemberImg(request.getParameter("mypageSrc"));
 		
-		System.out.println(request.getParameter("mypageSrc"));
-		
+		//정보 수정
 		memberService.updateMember(origin, after, request);
 
 		return "redirect:mypage.do";
