@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.ApplicationContext;
@@ -7,6 +9,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import domain.Board;
 import service.BoardService;
 import service.ReplyService;
@@ -42,5 +45,17 @@ public class BoardController {
 		request.setAttribute("boardList", boardService.selectAllBoard(memberId));
 		return "loginMain";
 	} // end of readBoard
+	
+	/** 내가 작성한 게시글 불러오기 */
+	@RequestMapping("myBoards.do")
+	public String myBoards(HttpServletRequest request) {
+		
+		String memberId = (String)request.getSession().getAttribute("id");
+		
+		List<Board> list = boardService.getMine(memberId);
+		
+		return "myBoard";
+		
+	}//end of myBoards
 	
 } // end of BoardController

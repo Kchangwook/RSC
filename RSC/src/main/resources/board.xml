@@ -102,4 +102,8 @@
 		where board_num = #{boardNum}
 	</update>
 	
-</mapper>
+	<!-- 내가 쓴 게시글 들만 가져오기 -->
+	<select id="getMine" parameterType = "String" resultMap = "boardResult">
+		select * from board where member_id = #{memberId} and group_num = 0 order by boardTime desc
+	</select>
+</mapper> 

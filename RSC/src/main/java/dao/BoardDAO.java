@@ -79,4 +79,16 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return getSqlSession().selectOne("selectBoardByNum", boardNum);
 	} // end of minusLike
 	
+	/** 내가 쓴 게시글들만 가져오기 */
+	public List<Board> getMine(String memberId){
+		
+		List<Board> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("board.getMine",memberId);
+		
+		return list;
+		
+	}//end of getMine
+	
 } // end of BoardDAO

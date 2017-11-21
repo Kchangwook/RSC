@@ -187,4 +187,11 @@ public class BoardService {
 		return boardDAO.minusLike(boardNum);
 	} // end of minusLike
 	
+	/** 내가 쓴 게시글들 가져오기 */
+	public List<Board> getMine(String memberId){
+		
+		return boardDAO.getMine(memberId);
+		
+	}//end of getMine
+	
 } // end of BoardService
