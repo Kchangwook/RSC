@@ -102,6 +102,4 @@
 		where board_num = #{boardNum}
 	</update>
 	
-	
-
 </mapper>

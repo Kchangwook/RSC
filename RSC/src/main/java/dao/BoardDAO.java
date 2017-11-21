@@ -78,5 +78,5 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		getSqlSession().update("board.minusLike", boardNum);
 		return getSqlSession().selectOne("selectBoardByNum", boardNum);
 	} // end of minusLike
-		
+	
 } // end of BoardDAO

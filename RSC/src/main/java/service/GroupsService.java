@@ -9,13 +9,19 @@ import domain.GroupJoin;
 import domain.GroupMember;
 import domain.Groups;
 import domain.Member;
+import ftp.FTPService;
 
 public class GroupsService {
 	
 	private GroupsDAO groupsDAO;
+	private FTPService ftp;
 	
 	public void setGroupsDAO(GroupsDAO groupsDAO) {
 		this.groupsDAO = groupsDAO;
+	}
+	
+	public void setFTPService(FTPService ftp) {
+		this.ftp = ftp;
 	}
 	
 	// 모든 그룹 반환하는 메서드
@@ -77,5 +83,25 @@ public class GroupsService {
 	public boolean deleteGroupJoin(GroupJoin groupJoin) {
 		return groupsDAO.deleteGroupJoin(groupJoin);
 	}
+	
+	/** id를 통해 알아온 groupNum 리스트로 groups 데이터 가져오는 함수 */
+	public List<Groups> searchGroupbyId(String id) {
+		
+		List<Groups> list = groupsDAO.searchGroupbyId(id);
+		
+		try {
+			// ftp에 파일 업로드
+			for (Groups g : list) {
+				if (!g.getGroupImg().equals("resources/img/profile.jpg")) {
+					String fileName[] = g.getGroupImg().split("/");
+					ftp.download("member", fileName[fileName.length - 1], "member");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}//end of searchGroupbyId
 
 }

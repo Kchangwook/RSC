@@ -192,10 +192,5 @@ public class BasicController {
 		return "redirect:mypage.do";
 
 	}// end of update
-	
-	@RequestMapping("group.do")
-	public String goGroup() {
-		return "group";
-	}
 
 }// end of StartController

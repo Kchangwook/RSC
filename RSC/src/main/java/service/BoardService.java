@@ -186,5 +186,5 @@ public class BoardService {
 	public Board minusLike(int boardNum) {
 		return boardDAO.minusLike(boardNum);
 	} // end of minusLike
-
+	
 } // end of BoardService

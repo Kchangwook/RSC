@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import domain.Board;
 import domain.GroupAdmin;
 import domain.GroupJoin;
 import domain.GroupMember;
 import domain.Groups;
 import domain.Member;
+import service.BoardService;
 import service.GroupsService;
 
 @RequestMapping("group")
@@ -25,7 +29,7 @@ public class GroupController {
 	
 	ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	private GroupsService groupsService = context.getBean("groupsService", GroupsService.class);
-	
+	private BoardService boardService = context.getBean("boardService",BoardService.class);
 	
 	/** 그룹의 관리자, 회원 리스트 search*/
 	@RequestMapping("groupMember.do")
@@ -77,6 +81,27 @@ public class GroupController {
 	public String deleteGroupJoin(GroupJoin groupJoin) {
 		boolean result = groupsService.deleteGroupJoin(groupJoin);
 		return "redirect:groupJoin.do?groupNum="+groupJoin.getGroupNum();
+	}
+	
+	/** 가입한 그룹 목록 불러오기 */
+	@RequestMapping("groupList.do")
+	public String getGroupList(HttpServletRequest request) {
+		String id = (String)request.getSession().getAttribute("id");
+		List<Groups> list = groupsService.searchGroupbyId(id);
+		
+		request.setAttribute("list", list);
+		
+		return "groupList";
+	}
+	
+	/** 그룹 회원 탈퇴 */
+	@RequestMapping("exitGroup.do")
+	public String deleteGroupMemberSelf(int groupNum, String memberId) {
+		GroupMember groupMember = new GroupMember(groupNum, memberId);
+		boolean result = groupsService.deleteGroupMember(groupMember);
+		System.out.println(groupMember);
+		
+		return "redirect:groupList.do";
 	}
 }
 
