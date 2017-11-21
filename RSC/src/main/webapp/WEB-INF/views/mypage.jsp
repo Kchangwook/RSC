@@ -58,23 +58,25 @@
 		<div align="center">
 					<h4>회원 정보 수정</h4>
 				</div>
+				<input type = "hidden" name = "reqInterest" id = "reqInterest" value = "${member.memberInterest}">
+				<input type = "hidden" name = "reqOpenInfo" id = "reqOpenInfo" value = "${member.memberInfoOpen}">
 				<form action="update.do" name = "frmMypage" id = "frmMypage" method="POST" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="container">
 							<table>
 								<tr>
-									<td colspan='2'><input type="text" name = "memberId" id="mypageId" readonly value="${ sessionScope.id }"></td>
+									<td colspan='2'><input type="text" name = "myId" id="myId" readonly value="${ sessionScope.id }"></td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="password" name = "memberPw" id="mypagePw" placeholder="비밀번호"></td>
+									<td colspan='2'><input type="password" name = "myPw" id="myPw" placeholder="비밀번호"></td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="text" name="memberNick" id="mypageNick"
-										onblur="checkSameNick(this.value)" placeholder="${ sessionScope.nick }"></td>
+									<td colspan='2'><input type="text" name="myNick" id="myNick"
+										onblur="checkSameNick(this.value)" placeholder="${ member.memberNick }"></td>
 								</tr>
 								<tr>
 									<td colspan='2'>
-										<input type="text" width = "50%" name="mypageSrc" id="mypageSrc" placeholder="${ requestScope.member.memberImg }" disabled="disabled">
+										<input type="text" width = "50%" name="mypageSrc" id="mypageSrc" value="${ requestScope.member.memberImg }" disabled="disabled">
 									</td>
 									<%-- <td rowspan='2'>
 										<input type="text" width = "30%" name="mypageSrc" id="mypageSrc" placeholder="${ requestScope.member.memberImg }" disabled="disabled">
@@ -92,88 +94,24 @@
 									<td colspan='2'><label><b>관심사</b></label></td>
 								</tr>
 								<tr>
-									<td colspan='2'>
-									
-									<c:choose>
-											<c:when test="${requestScope.interest.exercise eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="exercise" checked>운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="exercise">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.cooking eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="cooking" checked>요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="cooking">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.movie eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="movie" checked>영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="movie">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.music eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="music" checked>음악&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="music">음악&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.book eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="book" checked>독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="book">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.fashion eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="fashion" checked>패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="fashion">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.game eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="game" checked>게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="game">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.trip eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="trip" checked>여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="trip">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
-									<c:choose>
-											<c:when test="${requestScope.interest.etc eq true }">
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="etc" checked>기타&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:when><c:otherwise>
-												<input type="checkbox" id="mypageInterest" name="memberInterest" value="etc">기타&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											</c:otherwise>
-									</c:choose>
+									<td colspan = '2'>
+										<input type="checkbox" name="myInterest" value="운동">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="요리">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="영화">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="음악">음악<br>
+										<input type="checkbox" name="myInterest" value="독서">독서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="패션">패션&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="게임">게임&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="여행">여행&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="checkbox" name="myInterest" value="기타">기타</td>
 								</tr>
 								<tr>
 									<td colspan='2'><label><b>정보 공개</b></label></td>
 								</tr>
 								<tr>
-									<c:if test="${requestScope.member.memberInfoOpen eq 1 }">
-										<td id="tdRadio"><input type="radio" name="memberInfoOpen"
-											value="1" checked>허용</td>
-										<td id="tdRadio"><input type="radio" name="memberInfoOpen"
-											value="0">허용하지 않음</td>
-									</c:if>
-									<c:if test="${requestScope.member.memberInfoOpen eq 0 }">
-										<td id="tdRadio"><input type="radio" name="memberInfoOpen"
-											value="1">허용</td>
-										<td id="tdRadio"><input type="radio" name="memberInfoOpen"
-											value="0" checked>허용하지 않음</td>
-									</c:if>
+									<td class="tdRadio">
+									<input type="radio" name="myInfoOpen"value="1" checked>허용&nbsp;&nbsp;
+									<input type="radio" name="myInfoOpen"value="0">허용하지 않음</td>
 								</tr>
 							</table>
 						</div>

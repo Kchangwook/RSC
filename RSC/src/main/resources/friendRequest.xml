@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="board">
+<mapper namespace="friendRequest">
 	
 	<resultMap id="friendRequestResult" type="friendRequest">
 		<result property="friendRequestNum" column="FRIEND_REQUEST_NUM" />
@@ -13,7 +13,12 @@
 	</resultMap>
 
 	<insert id="addRequest" parameterType = "friendRequest">
-		insert into friendrequest values(friend_request_SEQ.nextval,#{memberId},#{friendId},0);
+		INSERT INTO friend_request(friend_request_num, member_id, friend_id, friend_request_accept) 
+		VALUES(friend_request_SEQ.NEXTVAL, #{memberId}, #{friendId}, 0)
 	</insert>
+	
+	<select id = "searchRequest" parameterType = "friendRequest">
+		select * from friend_request where member_id = #{memberId} and friend_id = #{friendId}
+	</select>
 
 </mapper>

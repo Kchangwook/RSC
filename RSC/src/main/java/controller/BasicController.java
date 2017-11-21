@@ -1,6 +1,5 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import domain.Board;
@@ -39,7 +35,7 @@ public class BasicController {
 
 		Map<String, List<Board>> map = boardService.getLists();
 		request.setAttribute("map", map);
-
+		
 		return "index";
 
 	}// end of start
@@ -48,20 +44,23 @@ public class BasicController {
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
 	public String join(MultipartHttpServletRequest request) {
 
+		// 관심사 정렬
 		String interests[] = request.getParameterValues("memberInterest");
 		String interest = "";
 
-		for (int i = 0;i<interest.length();i++) {
-			if(i == interest.length()-1)
+		for (int i = 0; i < interests.length; i++) {
+			if (i == interest.length() - 1)
 				interest += interests[i];
 			else
 				interest += interests[i] + ",";
 		}
 
+		// 입력받은 데이터를 토대로 새로운 멤버 객체 생성
 		Member m = new Member(request.getParameter("memberId"), request.getParameter("memberPw"),
 				request.getParameter("memberNick"), interest, Integer.parseInt(request.getParameter("memberInfoOpen")),
 				0);
 
+		// 멤버 추가
 		if (memberService.addMember(m, request))
 			request.setAttribute("msg", "가입에 성공했습니다.");
 		else
@@ -76,15 +75,17 @@ public class BasicController {
 	 * @throws Exception
 	 */
 	@RequestMapping("login.do")
-	public String login(HttpSession session, Model model, @RequestParam("memberId") String id,
-			@RequestParam("memberPw") String pwd) throws Exception {
+	public String login(HttpServletRequest request) throws Exception {
 
 		String url = "index";
-
+		String id = request.getParameter("loginId");
+		String pwd = request.getParameter("loginPwd");
+		HttpSession session = request.getSession();
+		
 		switch (memberService.checkLogin(id, pwd)) {
 		// 존재하지 않을 때
 		case 0:
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			url = "redirect:start.do?msg=fail";
 			return url;
 		// 마스터 계정일 때
 		case 1:
@@ -131,7 +132,7 @@ public class BasicController {
 				session.invalidate();
 				session = null;
 			}
-		}else {
+		} else {
 			session.invalidate();
 			session = null;
 		}
@@ -142,73 +143,59 @@ public class BasicController {
 
 	/** 마이페이지로 이동 */
 	@RequestMapping("mypage.do")
-	public String mypage(Model model, @RequestParam("mypageMemberId") String memberId) {
-
-		String url = "mypage";
-
-		Member member = memberService.searchById(memberId);
-
-		model.addAttribute("member", member);
-
-		Map map = new HashMap();
-
-		map.put("exercise", false);
-		map.put("cooking", false);
-		map.put("movie", false);
-		map.put("music", false);
-		map.put("book", false);
-		map.put("fashion", false);
-		map.put("game", false);
-		map.put("trip", false);
-		map.put("etc", false);
-
-		String[] interest = member.getMemberInterest().split(",");
-
-		for (int i = 0; i < interest.length; i++) {
-			map.replace(interest[i], true);
-		}
-
-		model.addAttribute("interest", map);
-
-		return url;
+	public String mypage(HttpServletRequest request) {
+		
+		String id = (String)request.getSession().getAttribute("id");
+		
+		Member member = memberService.searchById(id);
+		request.setAttribute("member", member);
+		
+		return "mypage";
 
 	}// end of mypage
 
 	/** 마이페이지에서 회원 정보 수정 */
 	@RequestMapping(value = "update.do", method = RequestMethod.POST)
-	public String update(Model model, @ModelAttribute("member") Member m, HttpServletRequest request) {
-
-		String url = "mypage";
+	public String update(MultipartHttpServletRequest request) {
 		
-		String interests[] = request.getParameterValues("memberInterest");
+		String id = (String)request.getSession().getAttribute("id");
+		String pwd = request.getParameter("myPw");
+		String nick = request.getParameter("myNick");
+		int infoOpen = Integer.parseInt(request.getParameter("myInfoOpen"));
+		
+		if(pwd.equals(""))
+			pwd = "empty";
+		
+		if(nick.equals(""))
+			nick = "empty";
+
+		// 관심사 정렬
+		String interests[] = request.getParameterValues("myInterest");
 		String interest = "";
-
-		if (memberService.checkLogin(m.getMemberId(), m.getMemberPw()) != 3) {
-			model.addAttribute("msg", "비밀번호가 일치하지 않습니다");
-		} else if (interests == null) {
-			model.addAttribute("msg", "관심사를 하나 이상 선택하시길 바랍니다");
-		} else {
-			/*for (String s : interests)
-				interest += s + ",";*/
-			
-			Member original = memberService.searchById(m.getMemberId());
-			
-			if (m.getMemberNick().equals("")) { // 닉네임에 변경이 없을 경우 예전 닉네임 설정
-				m.setMemberNick(original.getMemberNick());
-			} 
-			if (m.getMemberImg() == null) { // 사진에 변경이 없을 경우 예전 사진 설정
-				m.setMemberImg(original.getMemberImg());
-			}
-			
-			if (memberService.updateMember(m, request))
-				model.addAttribute("msg", "정보수정에 성공했습니다");
+		
+		for (int i = 0; i < interests.length; i++) {
+			if (i == interest.length() - 1)
+				interest += interests[i];
 			else
-				model.addAttribute("msg", "정보수정에 실패했습니다.");
+				interest += interests[i] + ",";
 		}
-		//request.setAttribute("mypageMemberId", m.getMemberId());
+		
+		Member origin = memberService.searchById(id);
+		Member after = new Member(id,pwd,nick,interest,infoOpen,0);
+		after.setMemberInterest(interest);
+		after.setMemberImg(request.getParameter("mypageSrc"));
+		
+		System.out.println(request.getParameter("mypageSrc"));
+		
+		memberService.updateMember(origin, after, request);
 
-		return "redirect:mypage.do?mypageMemberId="+m.getMemberId();
+		return "redirect:mypage.do";
 
 	}// end of update
+	
+	@RequestMapping("group.do")
+	public String goGroup() {
+		return "group";
+	}
 
 }// end of StartController

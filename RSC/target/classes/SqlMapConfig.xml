@@ -17,6 +17,9 @@
 		<typeAlias type = "domain.Reply" alias = "reply" />
 		<typeAlias type = "domain.Friend" alias = "friend"/>
 		<typeAlias type="domain.FriendRequest" alias = "friendRequest"/>
+		<typeAlias type="domain.GroupAdmin" alias = "groupAdmin"/>
+		<typeAlias type="domain.GroupMember" alias = "groupMember"/>
+		<typeAlias type="domain.GroupJoin" alias = "groupJoin"/>
 	</typeAliases>
 
 </configuration>

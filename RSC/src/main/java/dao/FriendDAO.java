@@ -38,4 +38,16 @@ public class FriendDAO extends SqlSessionDaoSupport{
 		
 	}//end of deleteFriend
 	
+	/** 친구 존재 여부를 찾는 함수 */
+	public boolean isFriend(Friend f) {
+	
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.selectOne("friend.searchFriends",f) != null?true:false;
+		
+		return flag;
+		
+	}//end of isFriend
+	
 }//end of FriendDAO

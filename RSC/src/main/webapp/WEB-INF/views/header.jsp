@@ -58,6 +58,9 @@
 	#searchMemberAndGroup {
 		width : 100%;
 	}
+	.searchIcon{
+		width:3%;	
+	}
 
 </style>
 </head>
@@ -65,7 +68,7 @@
 	<header class="header">
 		<nav class="navbar">
 			<div class="container-fluid">
-				<input type = "hidden" id = "msg" value = "${msg }">
+				<input type = "hidden" id = "msg" value = "${param.msg}">
 				<div class="navbar-holder d-flex align-items-center justify-content-between">
 					<div class="navbar-header">
 						<!-- header 목록 버튼 -->
@@ -77,12 +80,7 @@
 					<!-- 회원 또는 그룹 검색 -->
 					<ul	class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 						<li class="nav-item dropdown">
-						<input id="notifications" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"
-							class="w3-input w3-round-large nav-link" type="text"
-								onInput="searchMemberAndGroup(this.value)"
-								placeholder="회원 또는 그룹 검색">
-
+						<input id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="w3-input w3-round-large nav-link" type="text" onInput="searchMemberAndGroup(this.value)"placeholder="회원 또는 그룹 검색">
 							<ul aria-labelledby="notifications" class="dropdown-menu round-large" id="searchMemberAndGroup" >
 								<li><a rel="nofollow" href="#" class="dropdown-item d-flex">
 										<span>검색어를 입력하세요</span>
@@ -232,8 +230,8 @@
 				<div class="modal-body">
   						<div class="container">
   							<table>
-  								<tr><td><input type="text" id = "loginId" name="memberId" placeholder = "아이디"></td></tr>
-  								<tr><td><input type="password" id = "loginPwd" name="memberPw" placeholder = "비밀번호"></td></tr>
+  								<tr><td><input type="text" id = "loginId" name="loginId" placeholder = "아이디"></td></tr>
+  								<tr><td><input type="password" id = "loginPwd" name="loginPwd" placeholder = "비밀번호"></td></tr>
   							</table>
   						</div>
 				</div>

@@ -31,7 +31,7 @@
 <!-- Custom stylesheet - for your changes-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <!-- Favicon-->
-<link rel="shortcut icon" href="favicon.png">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.png">
 <!-- Tweaks for older IEs-->
 <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.js"></script>

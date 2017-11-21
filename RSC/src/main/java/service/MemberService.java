@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -33,6 +31,7 @@ public class MemberService {
 	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
 	}
+
 	public void setFTPService(FTPService ftp) {
 		this.ftp = ftp;
 	}
@@ -75,22 +74,27 @@ public class MemberService {
 	public boolean addMember(Member m, MultipartHttpServletRequest request) {
 
 		boolean flag = true;
-		
+
+		System.out.println(m.getMemberImg());
+		System.out.println(m.getMemberId());
+
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
-		if (m.getMemberImg().equals(""))
+		if (m.getMemberImg().equals("empty"))
 			m.setMemberImg("resources/img/profile.jpg");
-		
-		//내 컴퓨터 내로 이미지 업로드
-		m = this.uploadProfile(request, m);
-		
-		String fileName[] = m.getMemberImg().split("/");
 
-		//ftp에 파일 업로드
-		ftp.upload("member", fileName[fileName.length-1]);
+		// 이미지가 비어있지 않다면
+		if (!m.getMemberImg().equals("resources/img/profile.jpg")) {
+			m = this.uploadProfile(request, m, "memberImg");
 
-		//DB에 데이터 추가
+			String fileName[] = m.getMemberImg().split("/");
+
+			// ftp에 파일 업로드
+			ftp.upload("member", fileName[fileName.length - 1]);
+		}
+
+		// DB에 데이터 추가
 		flag = memberDAO.addMember(m);
-				
+
 		return flag;
 
 	}// end of addMember
@@ -135,9 +139,9 @@ public class MemberService {
 	}
 
 	/** 회원 이미지 업로드 */
-	private Member uploadProfile(MultipartHttpServletRequest request, Member m) {
-		
-		MultipartFile file = request.getFile("memberImg");
+	private Member uploadProfile(MultipartHttpServletRequest request, Member m, String mode) {
+
+		MultipartFile file = request.getFile(mode);
 
 		try {
 			if (file.isEmpty()) { // 파일 유무 검사
@@ -145,15 +149,18 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
+			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
+					+ file.getOriginalFilename()));
 
-			file.transferTo(new File("C:/Users/Kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId()+"_"+file.getOriginalFilename()));
+			System.out.println(file.getOriginalFilename());
 
-			m.setMemberImg("info/member/"+m.getMemberId()+"_"+file.getOriginalFilename());
-			
+			if (!file.getOriginalFilename().equals(""))
+				m.setMemberImg("info/member/" + m.getMemberId() + "_" + file.getOriginalFilename());
+
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
 		}
-		
+
 		return m;
 
 	}// end of uploadProfile
@@ -164,48 +171,77 @@ public class MemberService {
 		return memberDAO.getNick(id);
 
 	}// end of getNick
-	
+
 	/** 일부 membrNick을 통해 member 데이터를 가져오는 함수 */
 	public List<Member> searchByPartOfMemberNick(String memberNick) {
-		
+
 		List<Member> list = null;
-		
+
 		list = memberDAO.searchByPartOfMemberNick(memberNick);
-		
+
 		return list;
-		
-	}//end of searchByPartOfMemberNick
-	
+
+	}// end of searchByPartOfMemberNick
+
 	/** ID로 member 삭제 */
 	public boolean deleteMemberByID(String memberId) {
 		return memberDAO.deleteMemberByID(memberId);
 	}
-	
+
 	/** 아이디를 통해 데이터를 가져오는 함수 */
 	public Member searchById(String id) {
-		
+
 		Member m = null;
-		
+
 		m = memberDAO.searchById(id);
-		
+
 		return m;
-		
-	}//end of searchMemberById
-	
+
+	}// end of searchMemberById
+
 	/** mypage에서 member 정보 수정 함수 */
-	public boolean updateMember(Member member, HttpServletRequest request) {
-		
-		return memberDAO.updateMypageInfo(member);
-		
-	}//end of updateMember
-	
+	public boolean updateMember(Member origin, Member after, MultipartHttpServletRequest request) {
+
+		// 비밀번호 변경
+		if (!after.getMemberPw().equals("empty"))
+			origin.setMemberPw(after.getMemberPw());
+
+		// 닉네임 변경
+		if (!after.getMemberNick().equals("empty"))
+			origin.setMemberNick(after.getMemberNick());
+
+		// 정보 공개 여부 변경
+		if (origin.getMemberInfoOpen() != after.getMemberInfoOpen())
+			origin.setMemberInfoOpen(after.getMemberInfoOpen());
+
+		// 관심사 변경
+		if (!origin.getMemberInterest().equals(after.getMemberInterest()))
+			origin.setMemberInterest(after.getMemberInterest());
+
+		// 프로필 사진 변경
+		after = this.uploadProfile(request, after, "mypageImg");
+
+		if (after.getMemberImg() != null) {
+			
+			String fileName[] = after.getMemberImg().split("/");
+
+			// ftp에 파일 업로드
+			ftp.upload("member", fileName[fileName.length - 1]);
+
+			origin.setMemberImg(after.getMemberImg());
+		}
+
+		return this.memberDAO.updateMypageInfo(origin);
+
+	}// end of updateMember
+
 	/** member 로그아웃 함수 */
 	public boolean logoutMember(String id) {
-		
+
 		return memberDAO.updateLogout(id);
-		
-	}//end of logoutMember
-	
+
+	}// end of logoutMember
+
 	/** 관리자 계정 생성 */
 	public boolean addAdmin(Admin admin) {
 		return adminDAO.addAdmin(admin);

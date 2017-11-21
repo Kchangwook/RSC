@@ -14,6 +14,29 @@
 		<result property="groupInterest" column="group_interest"/>
 		<result property="groupSingoCnt" column="group_singo_cnt"/>
 	</resultMap>
+	
+	<resultMap id="groupMemberListResult" type="member">
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="memberImg" column="MEMBER_IMG" />
+		<result property="memberInterest" column="MEMBER_INTEREST" />
+		<result property="memberPresentLogin" column="MEMBER_PRESENT_LOGIN" />
+	</resultMap>
+	
+	<resultMap  id="groupAdminResult" type="groupAdmin">
+		<result property="groupNum" column="group_num" />
+		<result property="memberId" column="member_id" />
+	</resultMap>
+	
+	<resultMap  id="groupMemberResult" type="groupMember">
+		<result property="groupNum" column="group_num" />
+		<result property="memberId" column="member_id" />
+	</resultMap>
+	
+	<resultMap id="groupJoinResult" type="groupJoin" >
+		<result property="groupNum" column="group_num" />
+		<result property="memberId" column="member_id" />
+	</resultMap>
 
 	<!-- groups 테이블 내의 모든 데이터를 가져오기 -->
 	<select id="selectAll" resultMap="groupResult">
@@ -34,5 +57,53 @@
 	<select id = "selectByPartOfGroupName" parameterType = "String" resultMap = "groupResult">
 	select * from groups where group_name like '%'||#{groupName}||'%' And group_info_open=1
 	</select>
+	
+	<!-- 그룹 관리자 리스트 가져오기 -->
+	<select id="selectGroupAdminByGroupNum" parameterType="String" resultMap="groupMemberListResult">
+	select m.member_id, m.member_nick, m.member_img, m.member_interest, m.member_present_login
+	from member m, group_admin ga
+	where ga.group_num=#{groupNum} and ga.member_id=m.member_id
+	</select>
+	
+	<!-- 그룹 회원 리스트 가져오기 -->
+	<select id="selectGroupMemberByGroupNum" parameterType="String" resultMap="groupMemberListResult">
+	select m.member_id, m.member_nick, m.member_img, m.member_interest, m.member_present_login
+	from member m, group_member gm
+	where gm.group_num=#{groupNum} and gm.member_id=m.member_id
+	</select>
+	
+	<!-- 그룹번호로 그룹 검색 (171120 이용진)-->
+	<select id="selectGroupByNum" parameterType="String" resultMap="groupResult">
+		select * from groups where group_num=#{groupNum}
+	</select>
+	
+	<!-- 관리자 임명(group_admin table에 추가) -->
+	<insert id="insertGroupAdmin" parameterType="groupAdmin">
+		insert into group_admin values (#{memberId},#{groupNum})
+	</insert>
+	
+	<!-- 관리자 임명/그룹 회원 추방(group_member table 에서 삭제) -->
+	<delete id="deleteGroupMember" parameterType="groupMember">
+		delete group_member
+		where group_num=#{groupNum} and member_id=#{memberId} 
+	</delete>
+	
+	<!-- 그룹 가입 희망자 검색 -->
+	<select id="selectGroupJoin" parameterType="String" resultMap="groupMemberListResult">
+	select m.member_id, m.member_nick, m.member_img, m.member_interest, m.member_present_login
+	from member m, group_join gj
+	where gj.group_num=#{groupNum} and gj.member_id=m.member_id
+	</select>
+	
+	<!-- 그룹 가입 승인 (group_member table에 추가) -->
+	<insert id="insertGroupMember" parameterType="groupMember">
+		insert into group_member values (#{groupNum},#{memberId})
+	</insert>
+	
+	<!-- 그룹 가입 승인 / 거절(group_join에서 삭제) -->
+	<delete id="deleteGroupJoin" parameterType="groupJoin">
+		delete group_join
+		where group_num=#{groupNum} and member_id=#{memberId}
+	</delete>
 	
 </mapper>

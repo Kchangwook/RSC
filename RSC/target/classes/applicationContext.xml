@@ -14,20 +14,21 @@
 	<!-- FTPService -->
 	<bean id = "ftpService" class = "ftp.FTPService" />
 	
+
 	 <!-- DB Connection을 가져오는 빈 -->
 	 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@59.187.224.177:7624:xe" />
 		<property name="username" value="kosta" />
 		<property name="password" value="1234" />
-	</bean>
+	</bean> 
 	
  	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="kosta" />
 		<property name="password" value="1234" />
-	</bean> -->
+	</bean>  -->
 
 	<!-- MemberSessionFactory 설정하는 빈 -->
 	<bean id="memberFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -90,6 +91,18 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="friend.xml" />
+	</bean>
+	
+	<!-- FriendRequestSessionFactory -->
+	<bean id = "friendRequestFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="friendRequest.xml" />
+	</bean>
+	
+	<!-- FriendRequestDAO -->
+	<bean id = "friendRequestDAO" class = "dao.FriendRequestDAO">
+		<property name = "sqlSessionFactory" ref = "friendRequestFactory"/>
 	</bean>
 	
 	<!-- FriendDAO -->
@@ -174,6 +187,11 @@
 	<bean id = "friendService" class = "service.FriendService">
 		<property name = "FriendDAO" ref = "friendDAO"/>
 		<property name = "FTPService" ref = "ftpService"/>
+	</bean>
+	
+	<!-- FriendService -->
+	<bean id = "friendRequestService" class = "service.FriendRequestService">
+		<property name = "FriendRequestDAO" ref = "friendRequestDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->
