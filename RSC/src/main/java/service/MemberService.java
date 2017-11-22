@@ -75,17 +75,14 @@ public class MemberService {
 
 		boolean flag = true;
 
-		System.out.println(m.getMemberImg());
-		System.out.println(m.getMemberId());
-
 		// 이미지가 존재하지 않으면 기본 이미지로 설정
 		if (m.getMemberImg().equals("empty"))
 			m.setMemberImg("resources/img/profile.jpg");
+		
+		m = this.uploadProfile(request, m, "memberImg");
 
 		// 이미지가 비어있지 않다면
 		if (!m.getMemberImg().equals("resources/img/profile.jpg")) {
-			m = this.uploadProfile(request, m, "memberImg");
-
 			String fileName[] = m.getMemberImg().split("/");
 
 			// ftp에 파일 업로드
@@ -143,16 +140,16 @@ public class MemberService {
 
 		MultipartFile file = request.getFile(mode);
 
+		System.out.println("fileName: " + file.getOriginalFilename());
+
 		try {
 			if (file.isEmpty()) { // 파일 유무 검사
 			} else if (file.getSize() > (5 * 1024 * 1024)) {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
 					+ file.getOriginalFilename()));
-
-			System.out.println(file.getOriginalFilename());
 
 			if (!file.getOriginalFilename().equals(""))
 				m.setMemberImg("info/member/" + m.getMemberId() + "_" + file.getOriginalFilename());
@@ -222,7 +219,7 @@ public class MemberService {
 		after = this.uploadProfile(request, after, "mypageImg");
 
 		if (after.getMemberImg() != null) {
-			
+
 			String fileName[] = after.getMemberImg().split("/");
 
 			// ftp에 파일 업로드

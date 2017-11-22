@@ -139,6 +139,8 @@ public class Board {
 		builder.append(boardCnt);
 		builder.append(", memberNick=");
 		builder.append(memberNick);
+		builder.append(", memberImg=");
+		builder.append(memberImg);
 		builder.append("]");
 		return builder.toString();
 	}

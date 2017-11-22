@@ -58,7 +58,7 @@
 				<!-- 일간 TOP -->
 				일간 TOP
 				<div class="row">
-					<c:forEach var = "item" items = "${map.day}" begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.day}">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
@@ -94,7 +94,7 @@
 				<!-- 주간 TOP -->
 				주간 TOP
 				<div class="row">
-					<c:forEach var = "item" items = "${map.week}" begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.week}">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
@@ -130,7 +130,7 @@
 				<!-- 월간 TOP -->
 				월간 TOP
 				<div class="row">
-					<c:forEach var = "item" items = "${map.month}" begin="0" end="2" step="1">
+					<c:forEach var = "item" items = "${map.month}">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-4">
 							<div class="card w3-round-large">
@@ -231,13 +231,6 @@
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
 						<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"></i>
-						<input type="hidden" name="boardNum" id="boardNum" value="">
-					</div>
-					<!-- /좋아요 버튼 -->
-					
-					<!-- 좋아요 버튼 -->
-					<div class="likeBtn" align="right">
-						<i class="fa fa-thumbs-down btn btn-default btnOrange" style="float: right;"></i>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
 					</div>
 					<!-- /좋아요 버튼 -->

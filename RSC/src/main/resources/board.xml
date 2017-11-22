@@ -26,14 +26,14 @@
 	
 	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬(Nick으로 반환) -->
 	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult">
-		select b.board_num, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		select m.member_img, b.board_num, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from member m, board b
 		where m.member_id = b.member_id and m.member_id=#{memberId} order by b.board_time desc
 	</select>
 	
 	<!-- 번호로 게시글 검색 -->
 	<select id="selectBoardByNum" parameterType="int" resultMap="boardResult">
-		select b.board_num, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		select b.board_num,m.member_img, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from member m, board b
 		where m.member_id = b.member_id and b.board_num = #{boardNum}
 	</select>
@@ -64,7 +64,7 @@
 	<select id = "selectOrderByCount" resultMap = "boardResult">
 		select b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from board b,Member m 
-		where b.member_id = m.member_id order by board_cnt desc
+		where b.member_id = m.member_id and board_singo_flag = 0 order by board_cnt desc
 	</select>
 	
 	<!-- 게시글 조회수 증가 -->
@@ -117,4 +117,11 @@
 		where b.member_id = #{memberId} and group_num = 0 and m.member_id = #{memberId} 
 		order by board_time desc
 	</select>
+	
+	<!-- 게시글 번호로 게시글 삭제하기 -->
+	<delete id = "deleteByNum" parameterType = "int">
+		delete 
+		from board 
+		where board_num = #{boardNum}
+	</delete>
 </mapper> 

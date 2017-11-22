@@ -44,8 +44,9 @@ public class BoardController {
 	public String readBoard(HttpServletRequest request) {
 		
 		String memberId = (String)request.getSession().getAttribute("id");
+		List<Board> list = boardService.selectAllBoard(memberId);
 		
-		request.setAttribute("boardList", boardService.selectAllBoard(memberId));
+		request.setAttribute("boardList", list);
 		return "loginMain";
 	} // end of readBoard
 	

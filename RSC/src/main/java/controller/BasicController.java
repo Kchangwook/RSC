@@ -48,7 +48,7 @@ public class BasicController {
 	/** 회원 가입 */
 	@RequestMapping(value = "join.do", method = RequestMethod.POST)
 	public String join(MultipartHttpServletRequest request) {
-
+		
 		// 관심사 정렬
 		String interests[] = request.getParameterValues("memberInterest");
 		String interest = "";
@@ -59,7 +59,7 @@ public class BasicController {
 			else
 				interest += interests[i] + ",";
 		}
-
+		
 		// 입력받은 데이터를 토대로 새로운 멤버 객체 생성
 		Member m = new Member(request.getParameter("memberId"), request.getParameter("memberPw"),
 				request.getParameter("memberNick"), interest, Integer.parseInt(request.getParameter("memberInfoOpen")),
@@ -108,10 +108,14 @@ public class BasicController {
 		case 3:
 			session.setAttribute("level", "member");
 			session.setAttribute("id", id);
-			// 닉네임 가져온 후 세션에 추가
-			String nick = memberService.getNick(id);
-
+			
+			// 닉네임과 이미지를 가져온 후 세션에 추가
+			Member m = memberService.searchById(id);
+			String nick = m.getMemberNick();
+			String imgSrc = m.getMemberImg();
 			session.setAttribute("nick", nick);
+			session.setAttribute("imgSrc", imgSrc);
+			
 			url = "redirect:../board/readBoard.do";
 			memberService.updateLoginInfo(id);
 			break;

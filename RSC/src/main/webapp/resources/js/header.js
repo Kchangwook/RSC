@@ -61,7 +61,7 @@ function checkInfo() {
 	} else if(count == 0){
 		alert("관심사를 선택하세요");
 		return false;
-	}{
+	} else{
 		document.getElementById("frm").submit();
 	}
 

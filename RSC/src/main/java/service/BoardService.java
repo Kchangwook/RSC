@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import dao.BoardDAO;
+import dao.ReplyDAO;
 import domain.Board;
 import ftp.FTPService;
 
@@ -18,6 +19,7 @@ public class BoardService {
 
 	/* 변수 */
 	private BoardDAO boardDAO;
+	private ReplyDAO replyDAO;
 	private FTPService ftp;
 
 	/* 프로퍼티 */
@@ -27,6 +29,9 @@ public class BoardService {
 
 	public void setBoardDAO(BoardDAO boardDAO) {
 		this.boardDAO = boardDAO;
+	}
+	public void setReplyDAO(ReplyDAO replyDAO) {
+		this.replyDAO = replyDAO;
 	}
 
 	/* 함수 */
@@ -56,7 +61,7 @@ public class BoardService {
 
 		Map<String, List<Board>> map = new HashMap<>();
 
-		List<Board> all = boardDAO.searchOrderByTime();
+		List<Board> all = boardDAO.searchOrderByCount();
 
 		List<Board> day = getDays(all);
 		List<Board> week = getWeeks(all);
@@ -79,19 +84,21 @@ public class BoardService {
 		Date date = new Date();
 		date.setDate(date.getDate() - 1);
 		try {
-			for (Board b : all)
+			for (Board b : all) {
+				
 				if (date.before(b.getBoardTime()) && count < 3) {
 					count++;
-					
 					// ftp에 존재하는 프로필 파일 다운로드
 					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
 						String fileName[] = b.getMemberImg().split("/");
 						ftp.download("member", fileName[fileName.length - 1], "member");
 					}
 
+					
 					list.add(b);
 				} else if (count == 3)
 					break;
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,5 +205,12 @@ public class BoardService {
 		return boardDAO.getMine(memberId);
 		
 	}//end of getMine
+	
+	/** 게시글 번호에 해당하는 게시글 삭제하기 */
+	public boolean deleteByNum(int boardNum) {
+		
+		return boardDAO.deleteByNum(boardNum) && replyDAO.deleteByBoard(boardNum);
+		
+	}//end of deleteByNum
 	
 } // end of BoardService

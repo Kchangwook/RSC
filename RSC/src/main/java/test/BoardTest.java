@@ -25,7 +25,7 @@ public class BoardTest {
 	/** 모든 게시글을 시간 순서대로 가져오기 */
 	public void getAllByTime() {
 		
-		List<Board> list = dao.searchOrderByTime();	
+		List<Board> list = dao.searchOrderByCount();	
 		
 		assertThat(list.size(),is(4));
 		

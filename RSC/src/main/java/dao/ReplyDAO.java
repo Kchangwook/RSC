@@ -33,4 +33,16 @@ public class ReplyDAO extends SqlSessionDaoSupport{
 		return getSqlSession().selectOne("selectReplyByReplyNum", replyNum);
 	}
 	
+	/** 게시글 번호에 해당하는 댓글 삭제 */
+	public boolean deleteByBoard(int boardNum) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.delete("reply.deleteByBoard",boardNum)>0?true:false;
+		
+		return flag;
+		
+	}//end of deleteByBoard
+	
 } // end of ReplyDAO
