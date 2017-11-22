@@ -673,6 +673,15 @@ div.group-main .group-boardList .card hr{
 	margin : 3px;
 }
 
+/* 친구 리스트, 그룹 리스트 페이지 */
+div.friend-edge .friend-out .firend-back .list-img{
+	margin-top:8%;	
+	height: 100px;
+	width : 100px;
+	overflow : hidden;
+	border-radius: 50px;
+}
+
 
 
 /* 로그인 후 페이지 */

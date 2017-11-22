@@ -51,7 +51,9 @@
 								<div class="content friend-content" >
 									<div onclick = "showGroup('${item.groupNum}')">
 										<div>
-											<img class = "firend-img" src="${pageContext.request.contextPath}/${item.groupImg}">
+											<span class="list-img imgSpan">
+												<img class = "imgTag" src="${pageContext.request.contextPath}/${item.groupImg}">
+											</span>
 										</div>
 										<div class = "friend-name">
 											<span><b>${item.groupName}</b></span>
@@ -168,6 +170,7 @@
 		</div>
 	</div>
 	<!-- Javascript files-->
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script type="text/javascript">
 		function deleteGroup(groupNum, memberId) {
 
@@ -199,5 +202,7 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
+	
+	
 </body>
 </html>
