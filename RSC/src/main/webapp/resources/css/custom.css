@@ -673,9 +673,10 @@ div.group-main .group-boardList .card hr{
 	margin : 3px;
 }
 
-/* 친구 리스트, 그룹 리스트 페이지 */
+/* 그룹 리스트 페이지 */
 div.friend-edge .friend-out .firend-back .list-img{
-	margin-top:8%;	
+	margin-top:30px;
+	margin-bottom: -10px;
 	height: 100px;
 	width : 100px;
 	overflow : hidden;

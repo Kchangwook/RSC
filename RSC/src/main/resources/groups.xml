@@ -172,5 +172,13 @@
 		where g.group_num=gm.group_num and gm.member_id=#{memberId}
 	</select>
 	
+	<!-- 존재하는 그룹 이름이 있는지 확인 -->
+	<select id="checkSameGroupName" parameterType="String" resultMap="groupResult">
+		select * from groups where group_name=#{groupName} and group_num>0
+	</select>
 	
+	<!-- 그룹 생성 -->
+	<insert id="addGroup" parameterType = "groups">
+	insert into groups values(groups_SEQ.NEXTVAL, #{groupName}, #{groupImg}, #{groupInfo}, #{groupInfoOpen}, #{groupInterest}, 0)
+	</insert>
 </mapper>

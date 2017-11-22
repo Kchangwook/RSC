@@ -26,6 +26,15 @@ public class Groups {
 		this.groupInterest = groupInterest;
 		this.groupSingoCnt = groupSingoCnt;
 	}
+	public Groups(String groupName, String groupInfo, int groupInfoOpen,
+			String groupInterest) {
+		super();
+		this.groupName = groupName;
+		this.groupImg = "empty";
+		this.groupInfo = groupInfo;
+		this.groupInfoOpen = groupInfoOpen;
+		this.groupInterest = groupInterest;
+	}
 	
 	/* Getter, Setter */
 	public int getGroupNum() {

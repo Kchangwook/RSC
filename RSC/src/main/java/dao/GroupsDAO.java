@@ -169,4 +169,42 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		return list;
 		
 	}//end of searchGroupbyId
+	
+	/** 존재하는 그룹 이름이 있는지 확인 */
+	public Groups checkSameGroupName(String groupName) {
+		session = getSqlSession();
+		
+		return session.selectOne("group.checkSameGroupName", groupName);
+	}// end of checkSameGroupName
+
+	/** 그룹 생성 */
+	public boolean addGroup(Groups g) {
+		
+		boolean flag = true;
+
+		session = getSqlSession();
+		flag = session.insert("group.addGroup", g) > 0 ? true : false;
+		
+		return flag;
+	}//end of addGroup
+	
+	/** 그룹 생성 후 관리자 지정 */
+	public boolean addGroupAdminFirst(GroupAdmin ga) {
+
+		boolean flag = true;
+
+		session = getSqlSession();
+		flag = session.insert("group.insertGroupAdmin", ga) > 0 ? true : false;
+		
+		return flag;
+	}//end of addGroupAdminFirst
+
+	/** 그룹 관리자 임명(group_admin 추가, group_member 삭제) */
+	public boolean addGroupAdmin(GroupAdmin groupAdmin) {
+		session = getSqlSession();
+		boolean flag = true;
+		flag = session.insert("group.insertGroupAdmin",groupAdmin) > 0 ? true : false ;
+		
+		return flag;
+	}
 }

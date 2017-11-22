@@ -16,6 +16,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
+<style>
+#groupButton {
+	visibility:hidden;
+}
+</style>
 </head>
 <body>
 	<!-- 네비게이션 바 include -->
@@ -33,7 +38,10 @@
 			<div class="groupAdmin-page">
 				<div class="row">
 					<div class="col-md-10">
-						<h3>친구 목록</h3><br>
+						<h3>친구 목록</h3>
+						<div class="col-md-10" align='right'>
+							<input id="groupButton" class="btn btn-default btnOrange nav-link">
+						</div>
 					</div>
 				</div>
 					

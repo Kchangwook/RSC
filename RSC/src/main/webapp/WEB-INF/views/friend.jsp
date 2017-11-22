@@ -1,40 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>RSC</title>
-<meta name="description" content="">
+<meta charset="utf-8">
+<title>friend</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="all,follow">
-<!-- Bootstrap CSS-->
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
-<!-- Font Awesome CSS-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
-<!-- Custom icon font-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
-<!-- Google fonts - Roboto -->
-<link rel="stylesheet"
-	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-<!-- jQuery Circle-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/grasp_mobile_progress_circle-1.0.0.min.css">
-<!-- Custom Scrollbar-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
-<!-- theme stylesheet-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css"
-	id="theme-stylesheet">
-<!-- Custom stylesheet - for your changes-->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css" id="theme-stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
-<!-- Favicon-->
-<link rel="shortcut icon" href="favicon.png">
-<!-- Tweaks for older IEs-->
-<!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
-
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel = "stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend.css">
 </head>

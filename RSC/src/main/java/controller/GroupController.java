@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import domain.Board;
 import domain.GroupAdmin;
@@ -189,12 +191,46 @@ public class GroupController {
 	}
 	
 	/** 그룹 추가 */
-	@RequestMapping("addGroup.do")
-	public String addGroup(String memberId) {
+	@RequestMapping(value = "addGroup.do", method = RequestMethod.POST)
+	public String addGroup(MultipartHttpServletRequest request) {
+		System.out.println("request.getAttribute(\"groupImg\")" + request.getParameter("groupImg"));
+		System.out.println("request.getAttribute(\"groupSrc\")" + request.getParameter("groupSrc"));
+		System.out.println("request.getAttribute(\"ok\")" + request.getParameter("ok"));
 		
+		// 관심사 정렬
+		String interests[] = request.getParameterValues("groupInterest");
+		String interest = "";
+		String id = (String)request.getSession().getAttribute("id");
+
+		for (int i = 0; i < interests.length; i++) {
+			if (i == interest.length() - 1)
+				interest += interests[i];
+			else
+				interest += interests[i] + ",";
+		}
+
+		// 입력받은 데이터를 토대로 새로운 그룹 객체 생성
+		Groups g = new Groups(request.getParameter("groupName"), request.getParameter("groupInfo"),
+				Integer.parseInt(request.getParameter("groupInfoOpen")), interest);
+
+		// 그룹 추가
+		if(groupsService.addGroup(g, request) && groupsService.addGroupAdminFirst(g, id)) {
+			request.setAttribute("msg", "그룹 생성에 성공했습니다.");
+		}
+		else
+			request.setAttribute("msg", "그룹 생성에 실패했습니다.");
 		
 		return "redirect:groupList.do";
 	}
+	
+	/** 존재하는 그룹 이름이 있는지 확인 */
+	@RequestMapping(value = "checkSameGroupName.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String checkSameGroupName(@RequestParam("groupName") String name) {
+		if(groupsService.checkSameGroupName(name))
+			return "그룹명이 존재합니다.";
+		else
+			return "";
+	}//end of checkGroupName
 }
 
 

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>friendList</title>
+<title>groupList</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
@@ -16,6 +16,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
+<style>
+#tdRadio{
+		width: 5px;
+	}
+</style>
 </head>
 <body>
 	<!-- 네비게이션 바 include -->
@@ -34,10 +39,9 @@
 				<div class="row">
 					<div class="col-md-10">
 						<h3>그룹 목록</h3>
-					</div>
-					<div class="col-md-10" align='right'>
-						<input type="button" class="btn btn-default btnOrange nav-link" data-toggle="modal" onclick = "clearContent()" data-target="#addGroupModal" value="그룹 새로 만들기">
-						
+						<div class="col-md-10" align='right'>
+							<input type="button" class="btn btn-default btnOrange nav-link" data-toggle="modal" onclick = "clearGroupContent()" data-target="#addGroupModal" value="그룹 새로 만들기">
+						</div>
 					</div>
 				</div>
 					
@@ -49,18 +53,18 @@
 							<div class="card w3-round-large firend-back">
 								<!-- 글 내용 -->
 								<div class="content friend-content" >
-									<div onclick = "showGroup('${item.groupNum}')">
+									<div>
 										<div>
 											<span class="list-img imgSpan">
-												<img class = "imgTag" src="${pageContext.request.contextPath}/${item.groupImg}">
+												<img class = "imgTag" src="${pageContext.request.contextPath}/${item.groupImg}" onclick = "showGroup('${item.groupNum}')">
 											</span>
 										</div>
 										<div class = "friend-name">
 											<span><b>${item.groupName}</b></span>
 										</div>
-									</div>
-									<div>
-										<span class = "friend-close" onclick = "deleteGroup('${item.groupNum}','${sessionScope.id}')"><b>x</b></span>
+										<div>
+											<span class = "friend-close" onclick = "deleteGroup('${item.groupNum}','${sessionScope.id}')"><b>x</b></span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -107,35 +111,36 @@
 						<div class="container">
 							<table>
 								<tr>
-									<td colspan='2'><input type="text" width="50px"
+									<td colspan="2"><input type="text"
 										name="groupSrc" id="groupSrc" placeholder="이미지"
 										disabled="disabled">
+										<input type="hidden" value="왜안돼..." id="ok"> 
 									</td>
 								</tr>
 								<tr>
-									<td colspan='2' class="tdImgButton">
+									<td colspan="2" class="tdImgButton">
 										<div class="filebox">
 											<label for="groupImg">선택</label> <input type="file"
 												name="groupImg" id="groupImg" accept="image/*"
-												onchange="changeSrc()">
+												onchange="changeGroupSrc()">
 										</div>
 									</td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="text" name="groupName"
+									<td colspan="2"><input type="text" name="groupName"
 										id="groupName" onblur="checkSameGroupName(this.value)" placeholder="그룹명">
 									</td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="text" name="groupInfo"
+									<td colspan="2"><input type="text" name="groupInfo"
 										id="groupInfo" placeholder="그룹 설명">
 									</td>
 								</tr>
 								<tr>
-									<td colspan='2'><label><b>관심사</b></label></td>
+									<td colspan="2"><label><b>관심사</b></label></td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="checkbox"
+									<td colspan="2"><input type="checkbox"
 										name="groupInterest" value="운동">운동&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<input type="checkbox" name="groupInterest" value="요리">요리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<input type="checkbox" name="groupInterest" value="영화">영화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -147,7 +152,7 @@
 										<input type="checkbox" name="groupInterest" value="기타">기타</td>
 								</tr>
 								<tr>
-									<td colspan='2'><label><b>정보 공개</b></label></td>
+									<td colspan="2"><label><b>정보 공개</b></label></td>
 								</tr>
 								<tr>
 									<td class="tdRadio"><input type="radio"
@@ -159,10 +164,10 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<span id="join_msg"
+						<span id="addGroup_msg"
 							style="width: 100%; color: red; text-align: left;"></span> <input
 							type="button" class="btn btn-default btnOrange"
-							onclick="checkInfo()" value="만들기">
+							onclick="checkGroupInfo()" value="만들기">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
@@ -172,6 +177,7 @@
 	<!-- Javascript files-->
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script type="text/javascript">
+		// 그룹 탈퇴
 		function deleteGroup(groupNum, memberId) {
 
 			var con = confirm('정말 탈퇴하시겠습니까?');
@@ -183,14 +189,75 @@
 
 		}
 
+		// 그룹 상세보기
 		function showGroup(groupNum) {
 
 			location.href = "${pageContext.request.contextPath}/basic/group.do?groupNum=" + groupNum;
 
 		}
+		
+		//이미지 src보여주기
+		function changeGroupSrc() {
 
-		function addGroup(memberId) {
-			location.href = "addGroup.do?memberId=" + memberId;
+			document.getElementById("groupSrc").value = document.getElementById("groupImg").value;
+		}
+		
+		// 내용 초기화
+		function clearGroupContent() {
+
+			document.getElementById("groupSrc").value = "";
+			document.getElementById("groupName").value = "";
+			document.getElementById("groupInfo").value = "";
+			document.getElementById("addGroup_msg").innerText = "";
+
+			var interest = document.getElementsByName("groupInterest");
+
+			for (var i = 0; i < interest.length; i++)
+				interest[i].checked = false;
+
+			var radios = document.getElementsByName("groupInfoOpen");
+			radios[0].checked = true;
+			radios[1].checked = false;
+
+		}
+
+		// 필수 정보가 모두 입력되었는지 확인
+		function checkGroupInfo() {
+
+			var name = document.getElementById("groupName").value;
+			var interest = document.getElementsByName("groupInterest");
+			
+			var count = 0;
+			
+			for(var i = 0;i<interest.length;i++)
+				if(interest[i].checked)
+					count++;
+			
+			if (name == "") {
+				alert("그룹명을 입력하세요");
+				return false;
+			} else if(count == 0){
+				alert("관심사를 하나 이상 선택하세요");
+				return false;
+			}{
+				document.getElementById("frmAddGroup").submit();
+			}
+		}
+
+		// 동일한 그룹명이 있는지 확인
+		function checkSameGroupName() {
+			var name = document.getElementById("groupName").value;
+			var xhttp = new XMLHttpRequest();
+
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					document.getElementById("addGroup_msg").innerText = resData;
+				}
+			}
+
+			xhttp.open("GET", "${pageContext.request.contextPath}/group/checkSameGroupName.do?groupName=" + name, true);
+			xhttp.send();
 		}
 	</script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>

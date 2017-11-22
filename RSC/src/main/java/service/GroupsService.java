@@ -1,7 +1,12 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import dao.GroupsDAO;
 import domain.GroupAdmin;
@@ -134,7 +139,7 @@ public class GroupsService {
 			for (Groups g : list) {
 				if (!g.getGroupImg().equals("resources/img/profile.jpg")) {
 					String fileName[] = g.getGroupImg().split("/");
-					ftp.download("member", fileName[fileName.length - 1], "member");
+					ftp.download("group", fileName[fileName.length - 1], "group");
 				}
 			}
 		}catch(Exception e) {
@@ -144,4 +149,78 @@ public class GroupsService {
 		return list;
 	}//end of searchGroupbyId
 
+	/** 존재하는 그룹 이름이 있는지 확인 */
+	public boolean checkSameGroupName(String name) {
+		Groups g = groupsDAO.checkSameGroupName(name);
+		
+		// 같은 그룹명이 없을 시
+		if (g == null)
+			return false;
+		// 같은 닉네임이 있을 시
+		else
+			return true;
+	}
+	
+	/** 그룹 생성 */
+	public boolean addGroup(Groups g, MultipartHttpServletRequest request) {
+		
+		boolean flag = true;
+		System.out.println("g.getGroupImg()" + g.getGroupImg());
+		
+		// 이미지가 존재하지 않으면 기본 이미지로 설정
+		if (g.getGroupImg().equals("empty"))
+			g.setGroupImg("resources/img/group.jpg");
+
+		// 이미지가 비어있지 않다면
+		if (!g.getGroupImg().equals("resources/img/group.jpg")) {
+			g = this.uploadProfile(request, g, "groupImg");
+
+			String fileName[] = g.getGroupImg().split("/");
+
+			// ftp에 파일 업로드
+			ftp.upload("group", fileName[fileName.length - 1]);
+		}
+
+		// DB에 데이터 추가
+		flag = groupsDAO.addGroup(g);
+		
+		return flag;
+	}//end of addGroup
+	
+	/** 그룹 생성 후 관리자 지정 */
+	public boolean addGroupAdminFirst(Groups g, String id) {
+		boolean flag = true;
+		
+		Groups newg = groupsDAO.checkSameGroupName(g.getGroupName());
+		
+		flag = groupsDAO.addGroupAdminFirst(new GroupAdmin(id, newg.getGroupNum()));
+		
+		return flag;
+	}
+	
+	/** 그룹 이미지 업로드 */
+	private Groups uploadProfile(MultipartHttpServletRequest request, Groups g, String mode) {
+		MultipartFile file = request.getFile(mode);
+		
+		try {
+			if (file.isEmpty()) { // 파일 유무 검사
+			} else if (file.getSize() > (5 * 1024 * 1024)) {
+				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
+			}
+
+			file.transferTo(new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/member/" + g.getGroupNum() + "_"
+					+ file.getOriginalFilename()));
+
+			System.out.println(file.getOriginalFilename());
+
+			if (!file.getOriginalFilename().equals(""))
+				g.setGroupImg("info/group/" + g.getGroupNum() + "_" + file.getOriginalFilename());
+
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
+		return g;
+		
+	}// end of uploadProfile
 }
