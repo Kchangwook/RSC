@@ -128,7 +128,7 @@
 				<c:forEach items="${requestScope.boardList}" var="data"
 					varStatus="status">
 
-					<div class="row">
+					<div class="row boardView">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-12">
 							<div class="card w3-round-large">

@@ -47,26 +47,8 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-.board-modify{
-	margin-left: 85%;
-	cursor: pointer;
-	color:#a5a5a5
-}
-.board-delete{
-	cursor: pointer;
-	color:#a5a5a5
-}
-.modifybtn{
-	width:80px;
-	height:30px;
-	margin-left:95px;
-}
-.cancelbtn{
-	width:70px;
-	height:30px;
-}
-</style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/my-board.css">
 </head>
 
 <body>
@@ -114,7 +96,7 @@
 				<c:forEach items="${requestScope.list}" var="data"
 					varStatus="status">
 
-					<div class="row">
+					<div class="row boardView">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-12">
 							<div class="card w3-round-large">

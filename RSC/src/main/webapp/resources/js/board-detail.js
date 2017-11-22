@@ -366,7 +366,7 @@ function moreBoardView(cnt){
 	
 }
 
-<!-- 댓글 더 보기 -->
+//<!-- 댓글 더 보기 -->
 function moreReplyView(cnt){
 	
 	var replyView = document.getElementsByClassName("replyView");

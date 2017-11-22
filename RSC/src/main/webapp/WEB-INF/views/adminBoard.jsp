@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -36,6 +37,8 @@
 <link rel="shortcut icon" href="favicon.png">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/my-board.css">
 </head>
 
 <body>
@@ -95,7 +98,11 @@
 										</td>
 										<td>${data.boardNum}</td>
 										<td>${data.memberId}</td>
-										<td>${data.boardContent}</td>
+										<td><span> <a href="" style="display: block;"
+												data-toggle="modal" data-target="#detailView"
+												onclick="searchBoard(${data.boardNum})">
+													${data.boardContent} </a>
+											</span></td>
 										<td>
 											<fmt:formatDate value="${data.boardTime}" pattern="yyyy년 M월 d일 H시 m분" />
 										</td>
@@ -138,7 +145,71 @@
 	<input type="hidden" id="hiddenLike" value="none">
 	<input type="hidden" id="hiddenCount" value="none">
 	
+	<!-- 글 상세보기 모달 -->
+	<div class="modal fade" id="detailView" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 글 작성 틀 -->
+				<input type = "hidden" name = "boardNum" id = "boardNum">
+				<input type = "hidden" name = "memberId" id = "memberId">
+				<div class="col-md-12 padding">
+					<!-- 글 머리 : 사진, 닉네임 -->
+					<div class="header padding" style="float: left; width: 45%;">
+						<span><img id ="profImg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+					</div>
 
+					<!-- 글 조회수 -->
+					<div class="cnt padding" style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="boardCnt"></span>
+						<span>/</span>
+						<span class = "board-delete" onclick = "deleteBoard()">삭제</span>
+					</div>
+
+					<div class="clear"></div>
+
+					<!-- 글 내용 -->
+					<div class="content col-md-12 padding">
+						<span id="boardContent"> </span>
+					</div>
+					<hr>
+
+					
+					<!-- 좋아요 카운트 수 -->
+					<div class="likeCnt" align="right">
+						<span id=boardLike></span>
+					</div>
+					<!-- /좋아요 카운트 수 -->
+
+					<div class="clear"></div>
+
+					<!-- 글 작성 시간 -->
+					<div class="footer">
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
+						</div>
+					</div>
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"></i>
+					</div>
+					<!-- /좋아요 버튼 -->
+
+					<div class="clear"></div>
+
+				<!-- 댓글 내용 -->
+				<div id="replyHTML"></div>
+				<!-- /댓글 내용 -->
+				<button class="btn btn-default btnOrange" onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글 더보기</button>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	<!-- /글 상세보기 모달 -->
+
+	<!-- /댓글 신고하기 상세내용 -->
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
@@ -149,126 +220,7 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
 	<script	src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
-	
-	<script>
-	var orderArr = ["Num","Time","Like","Count"];
-	var orderColumn = "board_time";
-	var orderType = "desc";
-	var boardIdContent = "";
-	
-	function searchBoardList(){
-		boardIdContent = document.getElementById("boardSearchInput").value;
-		if(boardIdContent==''){
-			alert("검색어를 입력해주세요");
-		} else {
-			getNewBoardList();
-		}
-	}
-	
-	function orderBoardList(className){
-		
-		switch(className){
-		case 'tdNum':
-			setOrder(orderArr[0]);
-			orderColumn="board_num";
-			break;
-		case 'tdTime':
-			setOrder(orderArr[1]);
-			orderColumn="board_time";
-			break;
-		case 'tdLike':
-			setOrder(orderArr[2]);
-			orderColumn="board_like";
-			break;
-		case 'tdCount':
-			setOrder(orderArr[3]);
-			orderColumn="board_cnt"
-			break;
-		}
-		getNewBoardList();
-	}
-	
-	function setOrder(column){
-		if(document.getElementById("hidden"+column).value=="desc"){
-			orderAsc(column);
-			orderType="asc";
-		} else if (document.getElementById("hidden"+column).value=="asc") {
-			orderDesc(column);
-			orderType="desc";
-		} else {
-			orderDesc(column);
-			orderType="desc";
-		}
-	}
-	
-	function orderDesc(column){
-		for(i=0 ; i<orderArr.length ; i++){
-			if(orderArr[i]==column){
-				document.getElementById("icon"+orderArr[i]).className="fa fa-arrow-down";
-				document.getElementById("hidden"+orderArr[i]).value = "desc";
-			}
-			else {
-				document.getElementById("icon"+orderArr[i]).className="fa fa-arrows-v";
-				document.getElementById("hidden"+orderArr[i]).value = "none";
-			}
-		}
-	}
-	
-	function orderAsc(column){
-		for(i=0 ; i<orderArr.length ; i++){
-			if(orderArr[i]==column){
-				document.getElementById("icon"+orderArr[i]).className="fa fa-arrow-up";
-				document.getElementById("hidden"+orderArr[i]).value = "asc";
-			}
-			else {
-				document.getElementById("icon"+orderArr[i]).className="fa fa-arrows-v";
-				document.getElementById("hidden"+orderArr[i]).value = "none";
-			}
-		}
-	}
-	
-	function getNewBoardList(){
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var resData = this.responseText;
-				resData=JSON.parse(resData);
-				printNewBoardList(resData);
-			}
-		}
-		xhttp.open("POST", "boardOrder.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send("orderColumn="+orderColumn+"&orderType="+orderType+"&boardIdContent="+boardIdContent); 
-	}
-	
-	function printNewBoardList(resData){
-		var newBoardHTML = "";
-		for (i=0 ; i<resData.length ; i++){
-			newBoardHTML += 
-				'<tr>'+
-					'<td>'+(resData[i].groupNum=="0"?"개인":"그룹")+'</td>'+
-					'<td>'+resData[i].boardNum+'</td>'+
-					'<td>'+resData[i].memberId+'</td>'+
-					'<td>'+resData[i].boardContent+'</td>'+
-					'<td>'+
-						new Date(resData[i].boardTime).getFullYear()+'년 '+
-						(new Date(resData[i].boardTime).getMonth()+1)+'월 '+
-						new Date(resData[i].boardTime).getDate()+'일 '+
-						new Date(resData[i].boardTime).getHours()+'시 '+
-						new Date(resData[i].boardTime).getMinutes()+'분'+
-					'</td>'+
-					'<td>'+(resData[i].boardSingoFlag=="0"?"":"O")+'</td>'+
-					'<td>'+resData[i].boardLike+'</td>'+
-					'<td>'+resData[i].boardCnt+'</td>'+
-				'</tr>';
-		}
-		document.getElementById("boardBody").innerHTML = newBoardHTML;
-	}
-	
-
-	
-
-	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/admin-board.js"></script>
 
 </body>
 </html>
