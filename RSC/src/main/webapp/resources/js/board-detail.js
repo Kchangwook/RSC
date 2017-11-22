@@ -76,6 +76,7 @@ function deleteBoard(boardNum) {
 }
 
 function searchBoard(boardNum) {
+	var address = document.getElementById("address").value;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -106,7 +107,7 @@ function searchBoard(boardNum) {
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/board/searchBoard.do", true);
+	xhttp.open("POST", address+"/board/searchBoard.do", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum); 
 	
@@ -114,6 +115,7 @@ function searchBoard(boardNum) {
 
 //<!-- 댓글 입력하기 -->
 function addReply(){
+	var address = document.getElementById("address").value;
 	var memberId = document.getElementById("memberId").value;
 	var replyContent = document.getElementById("replyContent").value;
 	var boardNum = document.getElementById("boardNum").value;
@@ -130,7 +132,7 @@ function addReply(){
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/reply/addReply.do", true);
+	xhttp.open("POST", address+"/reply/addReply.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum +"&memberId="+memberId+"&replyContent="+replyContent); 
 	
@@ -202,6 +204,7 @@ function replyList(resData) {
 
 //	<!-- 신고하기 -->
 function replySingo(){
+	var address = document.getElementById("address").value;
 	var replyNum = document.getElementById("replyNum").value;
 	var replySingoReason = document.getElementById("replySingoReason").value;
 	document.getElementById("replySingoReason").value = "";
@@ -215,7 +218,7 @@ function replySingo(){
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/singo/addReplySingo.do", true);
+	xhttp.open("POST", address+"/singo/addReplySingo.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("replyNum="+replyNum+"&replySingoReason="+replySingoReason); 
 	
@@ -223,6 +226,7 @@ function replySingo(){
 
 //	<!-- 좋아요 목록 ->
 function like() {
+	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
 	var memberId = document.getElementById("memberId").value;
 	var likeHTML = '';
@@ -245,7 +249,7 @@ function like() {
 		document.getElementById("like").innerHTML = likeHTML;
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/like/like.do", true);
+	xhttp.open("POST", address+"/like/like.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum+"&memberId="+memberId); 
 }
@@ -253,6 +257,7 @@ function like() {
 
 //	<!-- 좋아요 등록 -->
 function addLike() {
+	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
 	var memberId = document.getElementById("memberId").value;
 	var likeHTML = '';
@@ -277,13 +282,14 @@ function addLike() {
 		document.getElementById("like").innerHTML = likeHTML;
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/like/addLike.do", true);
+	xhttp.open("POST", address+"/like/addLike.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum+"&memberId="+memberId); 
 }
 
 //	<!-- 좋아요 삭제 -->
 function delLike() {
+	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
 	var memberId = document.getElementById("memberId").value;
 
@@ -297,7 +303,7 @@ function delLike() {
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/like/delLike.do", true);
+	xhttp.open("POST", address+"/like/delLike.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum+"&memberId="+memberId); 
 }
@@ -306,6 +312,7 @@ function delLike() {
 
 //	<!-- 좋아요 -->
 function plusLike() {
+	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
 	var memberId = document.getElementById("memberId").value;
 	
@@ -321,13 +328,14 @@ function plusLike() {
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/like/plusLike.do", true);
+	xhttp.open("POST", address+"/like/plusLike.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum+"&memberId="+memberId); 
 }
 
 //	<!-- 좋아요 취소 -->
 function minusLike() {
+	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
 	var memberId = document.getElementById("memberId").value;
 	
@@ -342,7 +350,7 @@ function minusLike() {
 		}
 	}
 	
-	xhttp.open("POST", "${pageContext.request.contextPath}/like/minusLike.do", true);
+	xhttp.open("POST", address+"/like/minusLike.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum+"&memberId="+memberId); 
 }
