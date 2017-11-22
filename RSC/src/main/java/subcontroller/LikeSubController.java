@@ -34,6 +34,4 @@ public class LikeSubController {
 		
 	} // end of minusLike
 	
-	
-	
 } // end of LikeSubController

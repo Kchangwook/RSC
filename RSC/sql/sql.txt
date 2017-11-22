@@ -20,6 +20,7 @@ DROP TABLE one_random_chat CASCADE CONSTRAINTS;
 DROP TABLE group_random_chat CASCADE CONSTRAINTS;
 DROP TABLE group_join CASCADE CONSTRAINTS;
 DROP TABLE group_admin CASCADE CONSTRAINTS;
+DROP TABLE likes CASCADE CONSTRAINTS;
 
 
 -- DROP SEQUENCE SQL
@@ -429,6 +430,14 @@ ALTER TABLE group_join
 
 ALTER TABLE group_join
     ADD CONSTRAINT group_join_fkk FOREIGN KEY (group_num) REFERENCES groups (group_num) on delete cascade;
+
+
+ -- likes TABLE CREATE SQL   
+CREATE TABLE likes
+(
+	member_id           VARCHAR2(50)     NOT NULL, 
+    board_num           INT      		 NOT NULL 
+); 
 
 
 --------------------------------------------------------------------------------
