@@ -52,7 +52,9 @@
 								<!-- 글 내용 -->
 								<div class="content friend-content" >
 									<div>
-										<img class = "firend-img" src="${pageContext.request.contextPath}/${item.friendImg}" onclick = "showFriend('${item.friendId}')">
+										<span class="list-img imgSpan">
+											<img class = "imgTag" src="${pageContext.request.contextPath}/${item.friendImg}" onclick = "showFriend('${item.friendId}')">
+										</span>
 									</div>
 									<div class = "friend-name">
 										<span><b>${item.friendNick}</b></span>
@@ -104,9 +106,9 @@
 			
 		}
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
 	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>

@@ -173,6 +173,7 @@
 	<bean id="boardService" class="service.BoardService">
 		<property name="boardDAO" ref="boardDAO" />
 		<property name = "FTPService" ref = "ftpService"/>
+		<property name = "replyDAO" ref = "replyDAO"/>
 	</bean>
 
 	<!-- noticeService -->

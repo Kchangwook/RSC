@@ -44,8 +44,9 @@ public class BoardController {
 	public String readBoard(HttpServletRequest request) {
 		
 		String memberId = (String)request.getSession().getAttribute("id");
+		List<Board> list = boardService.selectAllBoard(memberId);
 		
-		request.setAttribute("boardList", boardService.selectAllBoard(memberId));
+		request.setAttribute("boardList", list);
 		return "loginMain";
 	} // end of readBoard
 	
@@ -64,5 +65,30 @@ public class BoardController {
 		return "myBoard";
 		
 	}//end of myBoards
+	
+	/** 게시글 수정하기 */
+	@RequestMapping("modifyBoard.do")
+	public String modifyBoard(HttpServletRequest request) {
+		
+		String msg = "";
+		
+		//파라미터 설정
+		int boardNum = Integer.parseInt(request.getParameter("modifyNum"));
+		String boardContent = request.getParameter("modifyContent");
+		
+		//객체 생성
+		Board b = new Board();
+		b.setBoardNum(boardNum);
+		b.setBoardContent(boardContent);
+		
+		//내용 수정 성공 여부
+		if(boardService.updateContent(b))
+			msg = "수정에 성공했습니다.";
+		else
+			msg = "수정에 실패했습니다.";
+		
+		return "redirect:myBoards.do";
+		
+	}//end of modifyBoard
 	
 } // end of BoardController

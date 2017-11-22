@@ -39,7 +39,7 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	}
 	
 	/** 게시글 시간 조회수대로 가져오기 */
-	public List<Board> searchOrderByTime(){
+	public List<Board> searchOrderByCount(){
 		
 		session = getSqlSession();
 		List<Board> list = session.selectList("board.selectOrderByCount");
@@ -95,5 +95,35 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return list;
 		
 	}//end of getMine
+	
+	/** 게시글 삭제하기 */
+	public boolean deleteByNum(int boardNum) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.delete("board.deleteByNum",boardNum)>0?true:false;
+		
+		return flag;
+		
+	}//end of deleteByNum
+	
+	/** 게시글 수정하기 */
+	public boolean updateContent(Board b) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.update("board.updateContent",b)>0?true:false;
+		
+		return flag;
+		
+	}//end of updateContent
+	
+	/** 그룹에 게시글 추가 */
+	public boolean addGroupBoard(Board board) {
+		session = getSqlSession();
+		return session.insert("board.addGroupBoard",board) > 0 ? true : false ;
+	}
 	
 } // end of BoardDAO

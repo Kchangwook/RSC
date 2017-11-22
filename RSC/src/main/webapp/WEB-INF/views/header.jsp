@@ -95,7 +95,7 @@
 							<c:when test="${sessionScope.id ne null}">
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
-									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link"> <img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
+									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link"> <img src="${pageContext.request.contextPath}/${imgSrc}">
 									<c:choose>
 										<c:when test="${sessionScope.nick eq null}">
 											${sessionScope.id}
@@ -112,6 +112,7 @@
 								<a id="notifications" rel="nofollow" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
 									<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
 										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }">
+										<input type = "hidden" id = "sessionId" value = "${ sessionScope.id }">
 									</i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu" id="viewAlert">

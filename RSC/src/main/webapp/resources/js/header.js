@@ -61,7 +61,7 @@ function checkInfo() {
 	} else if(count == 0){
 		alert("관심사를 선택하세요");
 		return false;
-	}{
+	} else{
 		document.getElementById("frm").submit();
 	}
 
@@ -131,14 +131,14 @@ function searchMemberAndGroup(searchValue) {
 							alertHtml += '<li>'
 									+ '<a href="'+address+'/friend/getFriendInfo.do?friendId=' + resData[i].memberId + '" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
-									+ '<span>' + resData[i].memberNick
+									+ '<span>[회원] ' + resData[i].memberNick
 									+ '</span>' + '</div>' + '</a>'
 									+ '</li>';
 						} else {
 							alertHtml += '<li>'
 									+ '<a onClick="moveToGroup(' + resData[i].groupNum + ')" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
-									+ '<span>' + resData[i].groupName
+									+ '<span>[그룹] ' + resData[i].groupName
 									+ '</span>' + '</div>' + '</a>'
 									+ '</li>';
 						}
@@ -160,9 +160,9 @@ function moveToMember(memberId) {
 	location.href = 'friend/getFriendInfo.do?friendId='+memberId;
 }
 
-// 검색한 그룹으로 이동
 function moveToGroup(groupNum) {
-	
+	var address = document.getElementById("address").value;
+	location.href= address+'/basic/group.do?groupNum='+groupNum;
 }
 
 // 알림에서 사용할 아이디

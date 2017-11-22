@@ -18,8 +18,8 @@
 	<!-- 게시글 번호를 통한 댓글 검색 & 시간순 정렬(내림차순) -->
 	<select id="selectReplyByboardNum" parameterType="int" resultMap="replyResult">
 		select r.reply_num, m.member_nick, r.reply_content, r.reply_time, r.reply_singo_flag
-		from board b, reply r, member m
-		where b.board_num = r.board_num and m.member_id = b.member_id and b.board_num = #{boardNum} order by r.reply_time
+		from reply r, member m
+		where r.board_num=#{boardNum} and r.member_id = m.member_id order by r.reply_time
 	</select>
 	
 	<!-- 댓글 추가 -->
@@ -48,5 +48,12 @@
 		select * from reply
 		where reply_num = #{replyNum}
 	</select>
+	
+	<!-- 개시글에 해당하는 댓글 삭제하기 -->
+	<delete id = "deleteByBoard" parameterType = "int">
+		delete
+		from reply
+		where board_num = #{boardNum}
+	</delete>
 
 </mapper>

@@ -3,6 +3,8 @@ package subcontroller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +38,29 @@ public class BoardSubController {
 	
 	/* 게시글과 댓글 불러오기 */
 	@RequestMapping("searchBoard.do")
-	public @ResponseBody Map searchBoard(@RequestParam("boardNum") int boardNum ) {
-		Map map = new HashMap<>();
-		map.put("board", boardService.searchBoard(boardNum));
+	public @ResponseBody Map<String,Object> searchBoard(@RequestParam("boardNum") int boardNum ) {
+		Map<String,Object> map = new HashMap<>();
+		
+		Board b = boardService.searchBoard(boardNum);
+		
+		map.put("board", b);
 		map.put("reply", replyService.selectReply(boardNum));
 		return map;
 	} // end of searchBoard
+	
+	/** 게시글 삭제하기 */
+	@RequestMapping(value = "deleteBoard.do",produces = "application/json; charset=utf8")
+	public String deleteBoard(HttpServletRequest request) {
+		
+		String msg = "삭제 성공했습니다.";
+		
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		
+		if(!boardService.deleteByNum(boardNum))
+			msg = "삭제 실패했습니다.";
+		
+		return msg;
+		
+	}//end of deleteBoard
 	
 } // end of BoardSubController
