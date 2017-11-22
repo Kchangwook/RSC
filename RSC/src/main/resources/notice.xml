@@ -15,7 +15,7 @@
 	
 	<!-- notice 데이터 삽입 -->
 	<insert id="add" parameterType="notice">
-		insert into notice(notice_num, member_id, notice_content, notice_type, notice_target) values (#{noticeNum}, #{memberId}, #{noticeContent}, #{noticeType}, #{noticeTarget})
+		insert into notice(notice_num, member_id, notice_content, notice_type, notice_target) values (notice_seq.nextval, #{memberId}, #{noticeContent}, #{noticeType}, #{noticeTarget})
 	</insert>
 	
 	<!-- 아이디를 통한 notice 검색 -->
