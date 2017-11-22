@@ -63,12 +63,14 @@
 											<tr>
 												<td class="group-info-btn">
 													<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}">
-														<button>회원 보기</button>
+														<button class="groupAdminBtn">회원 보기</button>
 													</a>
 													<a href="${pageContext.request.contextPath}/group/groupJoin.do?groupNum=${requestScope.groupInfo.groupNum}">
-														<button>가입 승인</button>
+														<button class="groupAdminBtn">가입 승인</button>
 													</a>
-													<button onclick="groupDelete('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}')">그룹 삭제</button>
+													<button class="groupAdminBtn" onclick="groupDelete('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}')">
+														그룹 삭제
+													</button>
 												</td>
 											</tr>
 										</c:when>
@@ -130,10 +132,18 @@
 	
 									<!-- 글 내용 -->
 									<div class="content">
-										<span> 
-											<a href="#" style="display:block;" data-toggle="modal" data-target="#groupBoardDetail" onclick="searchGroupBoard('${data.boardNum}')">
-												${data.boardContent}
-											</a>
+										<span>
+											<c:choose>
+												<c:when test="${data.boardSingoFlag eq 0}">
+													<a href="#" style="display:block;" data-toggle="modal" data-target="#groupBoardDetail" onclick="searchBoard('${data.boardNum}')">
+														${data.boardContent}
+													</a>
+												</c:when>
+												<c:otherwise>
+													신고된 게시글 입니다.
+												</c:otherwise>
+											</c:choose> 
+
 										</span>
 									</div>
 									<hr>
@@ -183,7 +193,7 @@
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
 						<span>
-							<img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
+							<img id="profImg" src="${pageContext.request.contextPath}/resources/img/profile.jpg">
 						</span>
 						&nbsp;&nbsp;&nbsp;
 						<span id="memberNick"></span>
@@ -318,49 +328,8 @@
 	
 	<!-- Javascript files-->
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
-	<script>
-	function groupDelete(groupNum, groupName){
-		if(confirm("확인 버튼을 누르실 경우 \n["+groupName+"] 그룹에 대한 삭제 요청 투표가 진행됩니다.\n계속 하시겠습니까?")){
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					resData = JSON.parse(resData);
-					if(resData==true){
-						alert("투표 전송을 성공하였습니다.");
-					} else {
-						alert("투표 전송 중 오류가 발생하였습니다.");
-					}
-				}
-			}
-			xhttp.open("POST", "${pageContext.request.contextPath}/group/deleteGroupNotice.do", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("groupNum="+groupNum+"&groupName="+groupName);
-		} else {
-			return false;
-		}
-	}
-	
-	function joinGroup(groupNum, groupName, memberId){
-		if(confirm("'"+groupName+"' 그룹에 가입을 요청하시겠습니까?")){
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					resData = JSON.parse(resData);
-					if(resData==true){
-						alert("가입 요청을 성공하였습니다.");
-					} else {
-						alert("가입 요청을 실패하였습니다.");
-					}
-				}
-			}
-			xhttp.open("POST", "${pageContext.request.contextPath}/group/joinGroup.do", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("groupNum="+groupNum+"&memberId="+memberId); 
-		}
-	}
-	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
 </body>
 </html>
 

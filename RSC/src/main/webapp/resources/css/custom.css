@@ -693,6 +693,14 @@ div.group-main .group-board .footer input[type=submit]{
 	border-radius: 3px;
 }
 
+button.groupAdminBtn{
+	border : 1px solid #ccc;
+	background-color: white;
+	color : #F7921E;
+	padding : 3px;
+	border-radius: 3px;
+}
+
 /* 친구 리스트, 그룹 리스트 페이지 */
 div.friend-edge .friend-out .firend-back .list-img{
 	margin-top:8%;	

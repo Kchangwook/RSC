@@ -58,17 +58,33 @@
 											${requestScope.groupInfo.groupInterest}
 										</td>
 									</tr>
-									<tr>
-										<td class="group-info-btn">
-											<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}">
-												<button>회원 보기</button>
-											</a>
-											<a href="${pageContext.request.contextPath}/group/groupJoin.do?groupNum=${requestScope.groupInfo.groupNum}">
-												<button>가입 승인</button>
-											</a>
-											<button>그룹 삭제</button>
-										</td>
-									</tr>
+									<c:choose>
+										<c:when test="${requestScope.groupLevel eq 'admin'}">
+											<tr>
+												<td class="group-info-btn">
+													<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}">
+														<button>회원 보기</button>
+													</a>
+													<a href="${pageContext.request.contextPath}/group/groupJoin.do?groupNum=${requestScope.groupInfo.groupNum}">
+														<button>가입 승인</button>
+													</a>
+													<button onclick="groupDelete('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}')">그룹 삭제</button>
+												</td>
+											</tr>
+										</c:when>
+										<c:when test="${requestScope.groupLevel eq 'visitor'}">
+											<tr>
+												<td class="group-info-btn">
+													<button onclick="joinGroup('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}','${sessionScope.id}')">가입 요청</button>
+												</td>
+											</tr>
+										</c:when>
+										<c:otherwise>
+										
+										</c:otherwise>
+									
+									</c:choose>
+
 								</table>
 							</div>
 						</div>
@@ -142,6 +158,7 @@
 		}
 	}
 	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
 
 </body>
 </html>
