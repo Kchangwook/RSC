@@ -108,4 +108,16 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		
 	}//end of deleteByNum
 	
+	/** 게시글 수정하기 */
+	public boolean updateContent(Board b) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.update("board.updateContent",b)>0?true:false;
+		
+		return flag;
+		
+	}//end of updateContent
+	
 } // end of BoardDAO

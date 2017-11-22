@@ -212,8 +212,7 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span><img
-							src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+						<span><img id ="profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 

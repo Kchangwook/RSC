@@ -1,27 +1,7 @@
 //게시글 수정하기
 function modifyContent() {
-	var address = document.getElementById("address").value;
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resData = this.responseText;
-			resData = JSON.parse(resData);
-
-			document.getElementById("modifyNick").innerText = resData.board.memberNick;
-			document.getElementById("modifyContent").innerText = resData.board.boardContent;
-			document.getElementById("modifyTime").innerText = new Date(
-					resData.board.boardTime).toUTCString();
-			document.getElementById("modifyCnt").innerText = "조회수 : "
-					+ resData.board.boardCnt;
-			document.getElementById("modifyImg").src = address+"/"+resData.board.memberImg;
-			document.getElementById("modifyNum").value = resData.board.boardNum;
-
-		}
-	}
-
-	xhttp.open("POST", address + "/board/searchBoard.do", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send("boardNum=" + boardNum);
+	
+	document.getElementById("modFrm").submit();
 
 }
 
@@ -33,7 +13,8 @@ function modifyBoard(boardNum) {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
 			resData = JSON.parse(resData);
-
+			
+			document.getElementById("modifyNum").value = resData.board.boardNum;
 			document.getElementById("modifyNick").innerText = resData.board.memberNick;
 			document.getElementById("modifyContent").innerText = resData.board.boardContent;
 			document.getElementById("modifyTime").innerText = new Date(
@@ -82,8 +63,8 @@ function searchBoard(boardNum) {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
 			resData=JSON.parse(resData);
-			console.log(resData);
 			
+			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
 			document.getElementById("memberNick").innerText = resData.board.memberNick;
 			document.getElementById("boardContent").innerText = resData.board.boardContent;
 			document.getElementById("boardTime").innerText = new Date(resData.board.boardTime).toUTCString();
@@ -140,8 +121,8 @@ function addReply(){
 
 //	<!-- 댓글 리스트 가져오기 -->
 function replyList(resData) {
-	console.log(resData);
 	
+	var address = document.getElementById("address").value;
 	var replyListHTML = '';
 	var replySingoFlagHTML = '';
 	
@@ -175,7 +156,7 @@ function replyList(resData) {
 							'<div class="header1" ' +
 								'style="float: left; width: 25%;"> ' +
 								'<span><img '+
-										'src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span> ' +
+										'src="'+address+'/resources/img/profile.jpg"></span> ' +
 										'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
 							'</div>'+
 							

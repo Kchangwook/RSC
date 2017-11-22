@@ -213,4 +213,11 @@ public class BoardService {
 		
 	}//end of deleteByNum
 	
+	/** 게시글 번호에 해당하는 게시글 수정하기 */
+	public boolean updateContent(Board b) {
+		
+		return boardDAO.updateContent(b);
+		
+	}//end of updateContent
+	
 } // end of BoardService
