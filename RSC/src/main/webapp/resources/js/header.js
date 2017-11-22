@@ -195,7 +195,8 @@ function viewAlertList() {
 						alertHtml += '<li>'
 								+ '<a onClick="deleteGroupNotice(\''
 								+ resData[i].noticeTarget + '\',\''
-								+ resData[i].noticeContent
+								+ resData[i].noticeContent + '\',\''
+								+ resData[i].noticeNum
 								+ '\')" class="dropdownitem d-flex">'
 								+ '<div class="msgbody">' + '<span>'
 								+ resData[i].noticeContent + '</span>'
@@ -228,13 +229,19 @@ function viewAlertList() {
 }
 
 // notice_type 1, 그룹삭제 팝업창_실제 기능은 없고 팝업창만 있음
-function deleteGroupNotice(groupNum, noticeContent) {
-
-	if (confirm(noticeContent) == true) {
-		document.form.submit;
-	} else {
-		return;
+function deleteGroupNotice(groupNum, noticeContent, noticeNum) {
+	var confirmFlag = confirm(noticeContent+"\n\n확인 : 찬성\n취소 : 반대");
+	var address = document.getElementById("address").value;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			alert(resData);
+		}
 	}
+	xhttp.open("POST", address+"/group/voteGroupDelete.do", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("groupNum="+groupNum+"&confirmFlag="+confirmFlag+"&noticeNum="+noticeNum); 
 }
 
 // notice_type 2, 친구요청 팝업창_실제 기능은 없고 팝업창만 있음
