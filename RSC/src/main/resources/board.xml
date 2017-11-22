@@ -130,4 +130,11 @@
 		update board set board_content = #{boardContent} where board_num = #{boardNum}
 	</update>
 	
+	<!-- 그룹 게시글 추가 -->
+	<insert id="addGroupBoard" parameterType="board">
+		insert 
+		into board(group_num, board_num, member_id, board_content, board_time, board_singo_flag, board_like, board_cnt)
+		values(#{groupNum}, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, SYSTIMESTAMP, 0, 0, 0)		
+	</insert>
+	
 </mapper> 

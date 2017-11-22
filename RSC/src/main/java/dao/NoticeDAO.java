@@ -84,4 +84,10 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 		
 	}//end of addFriendRequest
 	
+	/** noticeTarget(group_num)을 통한 notice 테이블 내의 데이터 삭제 (그룹 삭제 투표 취소) */
+	public boolean deleteGroupNoticeByNoticeTarget(int noticeTarget) {
+		session = getSqlSession();
+		return session.delete("notice.deleteGroupNoticeByNoticeTarget", noticeTarget) > 0 ? true : false ;
+	}
+	
 }//end of NoticeDAO

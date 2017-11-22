@@ -92,21 +92,19 @@
 				</div>
 				
 				<!-- 그룹 글 작성 부분 -->
-				<c:if test="${requestScope.groupLeve ne 'visitor' }">
+				<c:if test="${requestScope.groupLevel ne 'visitor' }">
 					<div class="group-board">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card w3-round-large">
-									<form name="write" action="${pageContext.request.contextPath}/board/addBoard.do" method="post" style="width: 100%">
-										<div class="header">
-										
-										</div>
+									<form action="${pageContext.request.contextPath}/group/groupBoard.do" method="post" style="width: 100%">
 										<div class="content">
-											<textarea rows="5" style="width: 100%; resize: none; wrap: hard;" name="boardContent"></textarea>
+											<textarea rows="5" name="boardContent"></textarea>
 										</div>
 										<div class="footer">
 											<input type="hidden" name="memberId" value="${sessionScope.id}">
-											<input type=submit class="btn btn-default btnOrange" value=글쓰기>
+											<input type="hidden" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+											<input type="submit" value=글쓰기>
 										</div>
 									</form>
 								</div>
@@ -133,7 +131,7 @@
 									<!-- 글 내용 -->
 									<div class="content">
 										<span> 
-											<a href="#" style="display:block;" data-toggle="modal" data-target="#detailView" onclick="searchBoard(${data.boardNum})">
+											<a href="#" style="display:block;" data-toggle="modal" data-target="#groupBoardDetail" onclick="searchGroupBoard('${data.boardNum}')">
 												${data.boardContent}
 											</a>
 										</span>
@@ -176,31 +174,168 @@
 		</footer>
 	</div>
 	
+	<!-- 글 상세보기 모달 -->
+	<div class="modal fade" id="groupBoardDetail" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 글 작성 틀 -->
+				<div class="col-md-12 padding">
+					<!-- 글 머리 : 사진, 닉네임 -->
+					<div class="header padding" style="float: left; width: 45%;">
+						<span>
+							<img src="${pageContext.request.contextPath}/resources/img/profile.jpg">
+						</span>
+						&nbsp;&nbsp;&nbsp;
+						<span id="memberNick"></span>
+					</div>
+
+					<!-- 글 조회수 -->
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="boardCnt"></span>
+					</div>
+
+					<div class="clear"></div>
+
+					<!-- 글 내용 -->
+					<div class="content col-md-12 padding">
+						<span id="boardContent"> </span>
+					</div>
+					<hr>
+
+					<!-- 글 작성 시간 -->
+					<div class="footer">
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
+						</div>
+					</div>
+					<!-- 좋아요 카운트 수 -->
+					<div class="likeCnt" align="right">
+						<span id=boardLike></span>
+					</div>
+					<!-- /좋아요 카운트 수 -->
+
+					<div class="clear"></div>
+
+					<!-- 글 신고하기 버튼 -->
+					<div id="viewSingo" class="singoBtn" align="left">
+						<a class="btn btn-default btnOrange" href="" data-toggle="modal"
+							data-target="#singo"> 신고하기 </a>
+					</div>
+					<!-- /글 신고하기 버튼-->
+
+					<!-- 글 신고하기 상세내용 -->
+					<div class="modal fade" id="singo" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="col-md-12 padding">
+									<div>신고 사유 :</div>
+									<div class="clear"></div>
+									<div>
+										<form name="singo"
+											action="${pageContext.request.contextPath}/singo/addBoardSingo.do">
+											<textarea id="boardSingoReason" method="post" rows="1"
+												style="width: 100%; resize: none; wrap: hard;"
+												placeholder="이유가 뭐니" name="boardSingoReason"></textarea>
+											<br> <input type="hidden" name="boardNum" id="boardNum"
+												value="">
+											<div align="right">
+												<input type=submit class="btn btn-default btnOrange close"
+													value=신고하기>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /글 신고하기 상세내용 -->
+
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<div id="like"></div>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+						<input type="hidden" name="memberId" id="memberId" value="">
+					</div>
+					<!-- /좋아요 버튼 -->
+
+					<div class="clear"></div>
+
+					<!-- 댓글 작성 틀 -->
+					<div style="float: left; width: 75%;" align="left">
+						<textarea id="replyContent" rows="1"
+							style="width: 100%; resize: none; wrap: hard;"
+							placeholder="댓글을 입력하세요" name="replyContent"></textarea>
+					</div>
+					<div style="float: right;" align="right">
+						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+						<input type="hidden" name="memberId" id="memberId" value="">
+					</div>
+					<!-- /댓글 작성 틀 -->
+
+				</div>
+				<!--/글 작성 틀-->
+
+				<!-- 댓글 내용 -->
+				<div id="replyHTML"></div>
+				<!-- /댓글 내용 -->
+				<button class="btn btn-default btnOrange"
+					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
+					더보기</button>
+			</div>
+		</div>
+	</div>
+	<!-- /글 상세보기 모달 -->
+	
+	<!-- 댓글 신고하기 상세내용 -->
+	<div class="modal fade" id="replySingo" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="col-md-12 padding">
+					<div>신고 사유 :</div>
+					<div class="clear"></div>
+					<div>
+						<form name="replySingo" method="post"
+							action="${pageContext.request.contextPath}/singo/addReplySingo.do">
+							<textarea id="replySingoReason" rows="1"
+								style="width: 100%; resize: none; wrap: hard;"
+								placeholder="이유가 뭐야" name="replySingoReason"></textarea>
+							<br> <input type="hidden" name="replyNum" id="replyNum"
+								value="">
+							<div align="right">
+								<input type=submit class="btn btn-default btnOrange close"
+									value=신고하기>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /댓글 신고하기 상세내용 -->
+	
 	<!-- Javascript files-->
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script>
 	function groupDelete(groupNum, groupName){
 		if(confirm("확인 버튼을 누르실 경우 \n["+groupName+"] 그룹에 대한 삭제 요청 투표가 진행됩니다.\n계속 하시겠습니까?")){
-			if(confirm("그룹 삭제 요청 투표를 진행합니다")){
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						var resData = this.responseText;
-						resData = JSON.parse(resData);
-						if(resData==true){
-							alert("투표 전송을 성공하였습니다.");
-						} else {
-							alert("투표 전송 중 오류가 발생하였습니다.");
-						}
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData = JSON.parse(resData);
+					if(resData==true){
+						alert("투표 전송을 성공하였습니다.");
+					} else {
+						alert("투표 전송 중 오류가 발생하였습니다.");
 					}
 				}
-				xhttp.open("POST", "${pageContext.request.contextPath}/group/deleteGroupNotice.do", true);
-				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-				xhttp.send("groupNum="+groupNum+"&groupName="+groupName); 
-			} else {
-				alert("그룹 삭제 투표 요청이 취소 되었습니다.");
-				return false;
 			}
+			xhttp.open("POST", "${pageContext.request.contextPath}/group/deleteGroupNotice.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("groupNum="+groupNum+"&groupName="+groupName);
 		} else {
 			return false;
 		}
@@ -225,8 +360,6 @@
 			xhttp.send("groupNum="+groupNum+"&memberId="+memberId); 
 		}
 	}
-	
-	//deleteGroupNotice.do
 	</script>
 </body>
 </html>
