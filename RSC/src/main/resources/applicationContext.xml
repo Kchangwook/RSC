@@ -100,6 +100,13 @@
 		<property name="mapperLocations" value="friendRequest.xml" />
 	</bean>
 	
+	<!-- LikeSessionFactory 설정하는 빈 -->
+	<bean id = "likeFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="like.xml" />
+	</bean>
+	
 	<!-- FriendRequestDAO -->
 	<bean id = "friendRequestDAO" class = "dao.FriendRequestDAO">
 		<property name = "sqlSessionFactory" ref = "friendRequestFactory"/>
@@ -149,6 +156,11 @@
 	<bean id = "replyDAO" class = "dao.ReplyDAO">
 		<property name = "sqlSessionFactory" ref = "replyFactory"/>
 	</bean>
+	
+	<!-- likeDAO -->
+	<bean id = "likeDAO" class = "dao.LikeDAO">
+		<property name = "sqlSessionFactory" ref = "likeFactory"/>
+	</bean>
 
 	<!-- memberService -->
 	<bean id="memberService" class="service.MemberService">
@@ -193,6 +205,11 @@
 	<!-- FriendService -->
 	<bean id = "friendRequestService" class = "service.FriendRequestService">
 		<property name = "FriendRequestDAO" ref = "friendRequestDAO"/>
+	</bean>
+	
+	<!-- LikeService -->
+	<bean id = "likeService" class = "service.LikeService">
+		<property name = "LikeDAO" ref = "likeDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->

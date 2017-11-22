@@ -16,11 +16,12 @@
 		<typeAlias type = "domain.GroupSingo" alias="groupSingo"/>
 		<typeAlias type = "domain.Reply" alias = "reply" />
 		<typeAlias type = "domain.Friend" alias = "friend"/>
-		<typeAlias type="domain.FriendRequest" alias = "friendRequest"/>
-		<typeAlias type="domain.GroupAdmin" alias = "groupAdmin"/>
-		<typeAlias type="domain.GroupMember" alias = "groupMember"/>
-		<typeAlias type="domain.GroupJoin" alias = "groupJoin"/>
-		<typeAlias type="domain.GroupDelete" alias = "groupDelete"/>
+		<typeAlias type = "domain.FriendRequest" alias = "friendRequest"/>
+		<typeAlias type = "domain.GroupAdmin" alias = "groupAdmin"/>
+		<typeAlias type = "domain.GroupMember" alias = "groupMember"/>
+		<typeAlias type = "domain.GroupJoin" alias = "groupJoin"/>
+		<typeAlias type = "domain.GroupDelete" alias = "groupDelete"/>
+		<typeAlias type = "domain.Like" alias = "like"/>
 	</typeAliases>
 
 </configuration>
