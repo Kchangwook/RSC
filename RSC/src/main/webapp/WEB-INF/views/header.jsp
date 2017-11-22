@@ -112,6 +112,7 @@
 								<a id="notifications" rel="nofollow" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
 									<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
 										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }">
+										<input type = "hidden" id = "sessionId" value = "${ sessionScope.id }">
 									</i>
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu" id="viewAlert">

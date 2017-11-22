@@ -44,4 +44,9 @@
 		values (notice_seq.nextval, #{memberId}, #{noticeContent}, 3, null)
 	</insert>
 	
+	<!-- noticeTarget(group_num)을 통한 notice 테이블 내의 데이터 삭제 (그룹 삭제 투표 취소) -->
+	<delete id="deleteGroupNoticeByNoticeTarget" parameterType="int">
+		delete notice where notice_type=1 and notice_target=#{noticeTarget}
+	</delete> 
+	
 </mapper>

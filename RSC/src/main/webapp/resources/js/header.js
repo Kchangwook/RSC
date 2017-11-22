@@ -160,9 +160,9 @@ function moveToMember(memberId) {
 	location.href = 'friend/getFriendInfo.do?friendId='+memberId;
 }
 
-// 검색한 그룹으로 이동
 function moveToGroup(groupNum) {
-	
+	var address = document.getElementById("address").value;
+	location.href= address+'/basic/group.do?groupNum='+groupNum;
 }
 
 // 알림에서 사용할 아이디

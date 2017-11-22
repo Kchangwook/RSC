@@ -220,4 +220,9 @@ public class BoardService {
 		
 	}//end of updateContent
 	
+	/** 그룹에 게시글 추가 */
+	public boolean addGroupBoard(Board board) {
+		return boardDAO.addGroupBoard(board);
+	}
+	
 } // end of BoardService

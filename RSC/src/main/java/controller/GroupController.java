@@ -69,7 +69,7 @@ public class GroupController {
 		Groups group = groupsService.searchGroupByNum(groupNum);
 		List<Member> list = groupsService.searchGroupJoinByGroupNum(groupNum);
 		
-		model.addAttribute("group",group);
+		model.addAttribute("groupInfo",group);
 		model.addAttribute("list",list);
 		
 		return "groupJoin";
@@ -152,19 +152,53 @@ public class GroupController {
 		double agree = (double)delYes/(double)delAll;
 		double disAgree = (double)delNo/(double)delAll;
 		
-		if( agree > 0.5 ) {
+		if( agree >= 0.5 ) {
 			result = groupsService.deleteGroupDelete(groupNum); // group_delete 테이블에서 삭제
+			result = noticeService.deleteGroupNoticeByNoticeTarget(groupNum); // notice 테이블에서 투표 삭제
+			addNoticeToAllGroupMember(""+groupNum, true); // 삭제 메시지 전송
 			sb.append("찬성 표가 과반을 넘어 그룹을 삭제합니다.\n\n");
-			sb.append("투표 결과 : ( 찬성 "+delYes+"표/ 전체 "+delAll+"표 )");
+			sb.append("투표 결과 : ( 찬성 "+delYes+"표 / 전체 "+delAll+"표 )");
 			// 그룹 삭제도 해야함
-		} else if ( disAgree > 0.5 ) {
+		} else if ( disAgree >= 0.5 ) {
 			result = groupsService.deleteGroupDelete(groupNum); // group_delete 테이블에서 삭제
+			result = noticeService.deleteGroupNoticeByNoticeTarget(groupNum); // notice 테이블에서 투표 삭제
+			addNoticeToAllGroupMember(""+groupNum, false); // 삭제 취소 메시지 전송
 			sb.append("반대 표가 과반을 넘어 그룹 삭제 투표를 종료합니다.\n\n");
 			sb.append("투표 결과 : ( 반대 "+delNo+"표 / 전체 "+delAll+"표 )");
 		} else {
-			sb.append("현재 투표 결과 : ( 찬성 "+delYes+"표/ 반대 "+delNo+"표 / 전체 "+delAll+"표 )");
+			sb.append("현재 투표 결과 : ( 찬성 "+delYes+"표 / 반대 "+delNo+"표 / 전체 "+delAll+"표 )");
 		}
 		return sb.toString();
+	}
+	
+	/** 그룹 삭제 투표 결과 notice */
+	public boolean addNoticeToAllGroupMember(String groupNum, boolean flag) {
+		boolean result = true;
+		Groups group = groupsService.searchGroupByNum(groupNum);
+		
+		Notice notice = new Notice();
+		notice.setNoticeType(3);
+		List<Member> listAdmin = groupsService.searchGroupAdminByGroupNum(groupNum);
+		List<Member> listMember = groupsService.searchGroupMemberByGroupNum(groupNum);
+		
+		if(flag) {
+			notice.setNoticeContent("["+group.getGroupName()+"] 그룹이 삭제 되었습니다.");
+			result = noticeService.addFromAdmin(notice, listAdmin);
+			result = noticeService.addFromAdmin(notice, listMember);
+		} else {
+			notice.setNoticeContent("["+group.getGroupName()+"] 그룹의 삭제 투표가 종료 되었습니다.");
+			result = noticeService.addFromAdmin(notice, listAdmin);
+		}
+		return result;
+	}
+	
+	/** 그룹에 게시글 추가 */
+	@RequestMapping("groupBoard.do")
+	public String addGroupBoard(Board board) {
+		System.out.println(board);
+		boolean result = true;
+		result = boardService.addGroupBoard(board);
+		return "redirect:../basic/group.do?groupNum="+board.getGroupNum();
 	}
 	
 	/** 가입한 그룹 목록 불러오기 */
@@ -195,6 +229,8 @@ public class GroupController {
 		
 		return "redirect:groupList.do";
 	}
+	
+	
 }
 
 

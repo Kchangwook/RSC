@@ -120,4 +120,10 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		
 	}//end of updateContent
 	
+	/** 그룹에 게시글 추가 */
+	public boolean addGroupBoard(Board board) {
+		session = getSqlSession();
+		return session.insert("board.addGroupBoard",board) > 0 ? true : false ;
+	}
+	
 } // end of BoardDAO
