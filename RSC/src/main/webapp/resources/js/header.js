@@ -131,14 +131,14 @@ function searchMemberAndGroup(searchValue) {
 							alertHtml += '<li>'
 									+ '<a href="'+address+'/friend/getFriendInfo.do?friendId=' + resData[i].memberId + '" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
-									+ '<span>' + resData[i].memberNick
+									+ '<span>[회원] ' + resData[i].memberNick
 									+ '</span>' + '</div>' + '</a>'
 									+ '</li>';
 						} else {
 							alertHtml += '<li>'
 									+ '<a onClick="moveToGroup(' + resData[i].groupNum + ')" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
-									+ '<span>' + resData[i].groupName
+									+ '<span>[그룹] ' + resData[i].groupName
 									+ '</span>' + '</div>' + '</a>'
 									+ '</li>';
 						}
