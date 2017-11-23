@@ -29,14 +29,19 @@ div.main-page .card{
 
 .main-page .card .content{
 	padding:5%;
+	
 }
 
 .main-page .card .footer{
 	padding:5%;
 }
+div.card .content{
+	font-size: large;
+}
 
-div.footer .time-tag{
+div.card .footer .time-tag{
 	color: #aeaeae;
+	font-size: x-small;
 }
 
 header.header nav.navbar input{
@@ -657,7 +662,6 @@ div.group-main .card .header{
 	display: table;
 }
 div.group-main .group-boardList .card .header span{
-	display:table-cell;
 	vertical-align: middle;
 }
 div.group-main .group-boardList .card .header img{
