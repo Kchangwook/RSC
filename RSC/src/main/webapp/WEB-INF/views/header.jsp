@@ -95,7 +95,10 @@
 							<c:when test="${sessionScope.id ne null}">
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
-									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link"> <img src="${pageContext.request.contextPath}/${imgSrc}">
+									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link">
+									<span class="imgSpan">
+										<img class="imgTag" src="${pageContext.request.contextPath}/${imgSrc}">
+									</span>
 									<c:choose>
 										<c:when test="${sessionScope.nick eq null}">
 											${sessionScope.id}
@@ -243,5 +246,6 @@
     	</div>
   	</div>
 <script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/header.js"></script>
+<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 </body>
 </html>

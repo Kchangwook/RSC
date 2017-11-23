@@ -16,11 +16,14 @@ div.main-page .card{
 .main-page .card .header{
 	padding:5%;
 }
-
-.main-page .card .header img{
+.main-page .card .header span{
+	vertical-align: middle;
+}
+.main-page .card .header .imgSpan{
 	width:50px;
 	height:50px;
 	border-radius: 25px;
+	overflow: hidden;
 }
 
 .main-page .card hr{
@@ -50,6 +53,15 @@ header.header nav.navbar input{
 
 header.header nav.navbar ul{
 	margin-bottom:0;
+}
+header.header nav.navbar span{
+	vertical-align: middle;
+}
+header.header nav.navbar span.imgSpan{
+	width:40px;
+	height: 40px;
+	border-radius: 20px;
+	overflow: hidden;
 }
 
 header.header nav.navbar img{
@@ -733,12 +745,16 @@ div.friend-edge .friend-out .firend-back .list-img{
 
 .main-page2 .card .header{
 	padding:1% 5%;
+	width:100%;
 }
-
-.main-page2 .card .header img{
+.main-page2 .card .header span{
+	vertical-align: middle;
+}
+.main-page2 .card .header .imgSpan{
 	width:50px;
 	height:50px;
 	border-radius: 25px;
+	overflow: hidden;
 }
 
 .main-page2 .card hr{

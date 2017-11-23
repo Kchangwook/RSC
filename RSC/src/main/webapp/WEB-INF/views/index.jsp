@@ -65,7 +65,9 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
+									<span class="imgSpan">
+										<img class="imgTag" src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}
+									</span>
 								</div>
 	
 								<!-- 글 내용 -->
@@ -101,7 +103,8 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
+									<span class="imgSpan">
+									<img class="imgTag" src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
 								</div>
 	
 								<!-- 글 내용 -->
@@ -137,7 +140,8 @@
 	
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
+									<span class="imgSpan">
+									<img class="imgTag" src="${pageContext.request.contextPath}/${item.memberImg}"></span> <span>&nbsp;&nbsp;${item.memberNick}</span>
 								</div>
 	
 								<!-- 글 내용 -->
@@ -256,6 +260,7 @@
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 
 </body>
 </html>

@@ -70,8 +70,8 @@
 
 							<!-- 글 머리 : 사진, 닉네임 -->
 							<div class="header">
-								<span><img
-									src="${pageContext.request.contextPath}/${imgSrc}"></span>
+								<span class="imgSpan">
+								<img class="imgTag"	src="${pageContext.request.contextPath}/${imgSrc}"></span>
 								<span>&nbsp;&nbsp;${sessionScope.nick}</span>
 							</div>
 
@@ -105,7 +105,8 @@
 
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img
+									<span class="imgSpan">
+									<img class="imgTag"
 										src="${pageContext.request.contextPath}/${imgSrc}"></span>
 									<span>&nbsp;&nbsp;${sessionScope.nick}</span>
 								</div>
@@ -134,8 +135,9 @@
 							<div class="card w3-round-large">
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img
-										src="${pageContext.request.contextPath}/${data.memberImg}"></span>
+									<span class="imgSpan">
+										<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}">
+									</span>
 									<span>&nbsp;&nbsp;${data.memberNick}</span>
 								</div>
 
@@ -348,6 +350,7 @@
 
 
 	<!-- Javascript files-->
+	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"></script>
@@ -364,6 +367,7 @@
 
 	<!-- 모달 비동기 스크립트 -->
 	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	
 	
 	<!-- <fmt:formatDate value="${data.boardTime }" pattern="yyyy년 M월 d일 H시 m분 s초"/> -->
 </body>
