@@ -27,7 +27,7 @@ public class FTPService {
 
 		try {
 
-			File uploadfile = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/" + dirName + "/" + fileName);
+			File uploadfile = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/" + dirName + "/" + fileName);
 
 			ftp = new FTPClient();
 			ftp.setControlEncoding("UTF-8");
@@ -120,7 +120,7 @@ public class FTPService {
 		int result = -1;
 		try {
 
-			f = new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/" + dirName, fileName);
+			f = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/" + dirName, fileName);
 
 			client = new FTPClient();
 			client.setControlEncoding("UTF-8");

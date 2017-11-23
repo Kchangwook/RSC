@@ -844,5 +844,9 @@ div.friend-edge .friend-out .firend-back .list-img{
 	border-radius: 25px;
 }
 
-
+/* 댓글 더보기 버튼 */
+.btn-margin {
+	margin-left: 3%;
+	margin-right: 3%;
+}
 

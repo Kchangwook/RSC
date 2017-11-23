@@ -115,6 +115,7 @@ public class BoardService {
 			for (Board b : list) {
 				if(b.getBoardFile().equals("resources/img/profile.jpg")) {
 					String fileName[] = b.getBoardFile().split("/");
+					// ftp 파일 다운로드
 					ftp.download("board", fileName[fileName.length - 1], "board");
 				}
 			}

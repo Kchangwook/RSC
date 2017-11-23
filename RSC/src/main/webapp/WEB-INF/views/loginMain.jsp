@@ -47,6 +47,32 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style type="text/css">
+.filebox1 label { 
+	display: inline-block; 
+	padding: 6px 12px; 
+	color: #999; 
+	font-size: 14px; 
+	line-height: normal; 
+	background-color: #fff; 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+} 
+
+.filebox1 input[type="file"] { /* 파일 필드 숨기기 */ 
+ 	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip:rect(0,0,0,0);
+	border: 0;
+}
+
+</style>
 </head>
 
 <body>
@@ -84,13 +110,17 @@
 										style="width: 100%; resize: none; wrap: hard;"
 										name="boardContent"></textarea>
 									<br> <input type="hidden" name="memberId"
-										value="${sessionScope.id}"> <br>
-									<div class="" align="right">
-										<input type="text" width="100%" name="boardSrc" id="boardSrc"
-											placeholder="이미지" disabled="disabled"> 
-										<input type="file" name="boardFile" id="boardFile" accept="image/*"
+										value="${sessionScope.id}">
+									<div class="filebox1" align="right" style="width: 100%;">
+										<input type="text" width="50%" name="boardSrc" id="boardSrc"
+											placeholder="upload to file" disabled="disabled">
+										
+										<label for="boardFile">파일</label> <input type="file"
+											name="boardFile" id="boardFile" accept="image/*"
 											onchange="changeSrc()"> 
-										<input type=submit class="btn btn-default btnOrange" value=글쓰기>
+											<div class="clear"></div>
+											<input type=submit
+											class="btn btn-default btnOrange" value=글쓰기>
 									</div>
 								</form>
 							</div>
@@ -313,9 +343,9 @@
 				<!--/글 작성 틀-->
 
 				<!-- 댓글 내용 -->
-				<div id="replyHTML"></div>
+				<div id="replyHTML" style="margin-bottom: -2%;"></div>
 				<!-- /댓글 내용 -->
-				<button class="btn btn-default btnOrange"
+				<button class="btn btn-default btnOrange btn-margin" style="margin-bottom: 2%;"
 					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
 					더보기</button>
 

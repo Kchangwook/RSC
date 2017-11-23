@@ -178,7 +178,7 @@ function replyList(resData) {
 //								<!-- 글 작성 시간 -->
 							'<div class="footer" align="right">'+
 								'<div class="time-tag">'+
-									'<span><i class="fa fa-clock-o"></i>'+ new Date(resData[i].replyTime).toUTCString() +'</span>'+
+									'<span style="margin-right:3%;"><i class="fa fa-clock-o"></i>'+ new Date(resData[i].replyTime).toUTCString() +'</span>'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
