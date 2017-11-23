@@ -153,7 +153,7 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span><img id = "profImg"></span>
+						<span class="imgSpan"><img class="imgTag" id = "profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 

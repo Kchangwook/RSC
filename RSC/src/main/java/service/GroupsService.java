@@ -156,7 +156,7 @@ public class GroupsService {
 		// 같은 그룹명이 없을 시
 		if (g == null)
 			return false;
-		// 같은 닉네임이 있을 시
+		// 같은 그룹명이 있을 시
 		else
 			return true;
 	}
@@ -218,4 +218,13 @@ public class GroupsService {
 		return g;
 		
 	}// end of uploadProfile
+	
+	/** 그룹에 관리자 몇 명인지 확인 */
+	public int checkAdminCount(int groupNum) {
+		int count = groupsDAO.checkAdminCount(groupNum);
+		System.out.println("groupsService" + groupNum);
+		System.out.println("groupsService" + count);
+		
+		return count;
+	}//end of checkAdminCount
 }
