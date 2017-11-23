@@ -1,5 +1,7 @@
 package service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -7,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import dao.BoardDAO;
 import dao.ReplyDAO;
@@ -37,13 +41,88 @@ public class BoardService {
 	/* 함수 */
 
 	/** 게시글 입력하는 함수 */
-	public void addBoard(Board b) {
-		boardDAO.addBoard(b);
+	public boolean addBoard(Board b, MultipartHttpServletRequest request) {
+		
+		boolean flag = true;
+
+		System.out.println(request.getParameter("memberId"));
+		
+		System.out.println("1번 : " + b.getMemberId());
+		System.out.println("2번 : " + b.getBoardFile());
+		
+		// 이미지가 있으면
+		if(!request.getFile("boardFile").getOriginalFilename().equals("")) {
+			
+			if (b.getBoardFile() == null)
+				b.setBoardFile("resources/img/profile.jpg");
+			System.out.println("3번 : " + b.getBoardFile());
+			
+			b = this.uploadFile(request, b, "boardFile");
+			
+			System.out.println("5번 : " + b);
+
+			// 이미지가 비어있지 않다면
+			if (!b.getBoardFile().equals("resources/img/profile.jpg")) {
+				String fileName[] = b.getBoardFile().split("/");
+
+				// ftp에 파일 업로드
+				ftp.upload("board", fileName[fileName.length - 1]);
+			}
+			
+		}
+
+		// DB에 데이터 추가
+		flag = boardDAO.addBoard(b);
+		
+		return flag;
 	}
 
+	/** 게시글 파일 업로드 */
+	private Board uploadFile(MultipartHttpServletRequest request, Board b, String mode) {
+		
+		MultipartFile file = request.getFile(mode);
+		
+		System.out.println("4번 fileName: " + file.getOriginalFilename());
+		
+		try {
+			if (file.isEmpty()) { // 파일 유무 검사
+			} else if (file.getSize() > (5 * 1024 * 1024)) {
+				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
+			}
+
+			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
+					+ file.getOriginalFilename()));
+
+			System.out.println(file.getOriginalFilename());
+
+			if (!file.getOriginalFilename().equals(""))
+				b.setBoardFile("info/board/" + b.getMemberId() + "_" + file.getOriginalFilename());
+
+		} catch (IOException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+
+		
+		return b;
+	} // end of uploadFile
+	
 	/** 게시글 불러오는 함수 */
 	public List<Board> selectAllBoard(String memberId) {
-		return boardDAO.selectAll(memberId);
+		
+		List<Board> list = boardDAO.selectAll(memberId);
+		
+		try {
+			for (Board b : list) {
+				if(b.getBoardFile().equals("resources/img/profile.jpg")) {
+					String fileName[] = b.getBoardFile().split("/");
+					ftp.download("board", fileName[fileName.length - 1], "board");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 	/** 번호로 게시글 검색하는 함수 */

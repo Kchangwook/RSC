@@ -587,10 +587,7 @@ div.groupMember .col-md-2 .content,
 div.groupMember .col-md-2 .footer{
 	padding : 10px 10px;
 }
-div.groupMember .col-md-2 .header img{
-	max-height: 60px;
-	border-radius: 30px;
-}
+
 div.groupMember .col-md-2 .footer span.appoint{
 	cursor:pointer;
 	float: left;
@@ -602,6 +599,18 @@ div.groupMember .col-md-2 .footer span.expel{
 div.groupMember .col-md-2 .footer i.fa-level-up{
 	margin-left:-7px;
 	z-index:-1;
+}
+div.groupMember .group-member .header .imgSpan{
+	width:100px;
+	height:100px;
+	border-radius : 50px;
+	overflow: hidden;
+}
+div.groupJoin .group-join .header .imgSpan{
+	width:100px;
+	height:100px;
+	border-radius : 50px;
+	overflow: hidden;
 }
 
 /* 그룹 가입 승인 페이지 */
@@ -616,10 +625,7 @@ div.groupJoin .col-md-2 .content,
 div.groupJoin .col-md-2 .footer{
 	padding : 10px 10px;
 }
-div.groupJoin .col-md-2 .header img{
-	max-height: 60px;
-	border-radius: 30px;
-}
+
 div.groupJoin .col-md-2 .footer span.approve{
 	cursor:pointer;
 	float: left;
@@ -770,10 +776,15 @@ div.friend-edge .friend-out .firend-back .list-img{
 }
 
 /* 글 상세보기 모달 */
-.modal .modal-dialog .modal-content img{
+.modal .modal-dialog .modal-content .header span{
+	vertical-align: middle;
+}
+
+.modal .modal-dialog .modal-content .header .imgSpan{
 	width:50px;
 	height:50px;
 	border-radius: 25px;
+	overflow: hidden;
 }
 
 .modal .modal-dialog .modal-content .col-md-12 .header {

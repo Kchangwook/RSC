@@ -91,14 +91,16 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row group-join">
 					<div class="col-md-12">
 						<h4 style="padding:4%">가입 희망 회원</h4>
 						<c:forEach items="${requestScope.list}" var="data">
 							<div class="col-md-2">
 								<div class="card w3-round-large">
 									<div class="header">
-										<img src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										<span class="imgSpan">
+											<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										</span>
 									</div>
 									<div class="content">
 										<p onclick="memberPage('${data.memberId}')" style="cursor: pointer;">${data.memberNick}</p>

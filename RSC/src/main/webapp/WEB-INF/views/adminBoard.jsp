@@ -210,7 +210,6 @@
 	</div>
 	<!-- /글 상세보기 모달 -->
 
-	<!-- /댓글 신고하기 상세내용 -->
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
