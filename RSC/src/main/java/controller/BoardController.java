@@ -91,4 +91,29 @@ public class BoardController {
 		
 	}//end of modifyBoard
 	
+	/** 그룹 게시글 수정 */
+	@RequestMapping("modifyGroupBoard.do")
+	public String updateGroupBoard(HttpServletRequest request) {
+		
+		String msg = "";
+		
+		//파라미터 설정
+		int boardNum = Integer.parseInt(request.getParameter("modifyNum"));
+		String boardContent = request.getParameter("modifyContent");
+		int groupNum = Integer.parseInt(request.getParameter("groupNum"));
+		
+		//객체 생성
+		Board b = new Board();
+		b.setBoardNum(boardNum);
+		b.setBoardContent(boardContent);
+		
+		//내용 수정 성공 여부
+		if(boardService.updateContent(b))
+			msg = "수정에 성공했습니다.";
+		else
+			msg = "수정에 실패했습니다.";
+		
+		return "redirect:../basic/group.do?groupNum="+groupNum;
+	}
+	
 } // end of BoardController

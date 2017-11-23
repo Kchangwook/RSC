@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>RSC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css" id="theme-stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
@@ -118,16 +118,25 @@
 				<!-- 그룹 글 리스트 출력 부분 -->
 				<div class="group-boardList">
 					<c:forEach items="${requestScope.groupBoardList}" var="data">
-						<div class="row">
+						<div class="row boardView">
 							<!-- 글 작성 틀 -->
 							<div class="col-md-12">
 								<div class="card w3-round-large">
 									<!-- 글 머리 : 사진, 닉네임 -->
 									<div class="header">
-										<span class="group-boardList-img-span imgSpan ">
+										<span class="group-boardList-img-span imgSpan" onclick="memberPage('${data.memberId}')" style="cursor:pointer;">
 											<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}">
 										</span>
-										<span>&nbsp;&nbsp;${data.memberNick}</span>
+										<span onclick="memberPage('${data.memberId}')" style="cursor:pointer;">&nbsp;&nbsp;${data.memberNick}</span>
+										<c:if test="${requestScope.groupLevel eq 'admin'}">
+												<span class = "board-modify"data-toggle="modal" data-target="#modifyView" onclick="modifyBoard(${data.boardNum})">
+													수정
+												</span>
+												<span>&nbsp;/&nbsp;</span>
+												<span class = "board-delete" onclick = "deleteBoard(${data.boardNum})">
+													삭제
+												</span>
+										</c:if>
 									</div>
 	
 									<!-- 글 내용 -->
@@ -160,8 +169,11 @@
 							<br>
 							<!--/글 작성 틀-->
 						</div>
-	
 					</c:forEach>
+					
+					<button class="btn btn-default btnOrange" onclick="moreBoardView(window.cnt = window.cnt + 3);">
+						게시글 더보기
+					</button>
 				</div>
 			</div>
 		<!-- 본문 끝 부분 -->
@@ -326,10 +338,76 @@
 	</div>
 	<!-- /댓글 신고하기 상세내용 -->
 	
+	<!-- 글 수정하기 모달 -->
+	<div class="modal fade" id="modifyView" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 글 작성 틀 -->
+				<form action="${pageContext.request.contextPath}/board/modifyGroupBoard.do" name = "modFrm" id = "modFrm" method = "post">
+				<div class="col-md-12 padding">
+					<!-- 글 머리 : 사진, 닉네임 -->
+					<div class="header padding" style="float: left; width: 45%;">
+						<input type = "hidden" name = "modifyNum" id = "modifyNum">
+						<span>
+							<img id = "modifyImg">
+						</span>
+						<input type = "hidden" id = "modifyNum">
+						&nbsp;&nbsp;&nbsp;<span id="modifyNick"></span>
+					</div>
+
+					<!-- 글 조회수 -->
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="modifyCnt"></span>
+					</div>
+
+					<div class="clear"></div>
+
+					<!-- 글 내용 -->
+					<div class="content col-md-12 padding">
+						<textArea name = "modifyContent" id="modifyContent" rows="5" style = "width: 100%; resize: none; wrap: hard;overflow: hidden"> </textArea>
+					</div>
+					<hr>
+
+					<!-- 글 작성 시간 -->
+					<div class="footer">
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="modifyTime"></span>
+						</div>
+						<div id="modify">
+							<button class = "btn btn-default btnOrange modifybtn" onclick = "modifyContent()">수정하기</button>
+							<button class = "btn btn-default btnOrange cancelbtn" data-dismiss="modal">취소</button>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+
+				</div>
+				<!--/글 작성 틀-->
+				<input type="hidden" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+			</form>
+			</div>
+			
+		</div>
+	</div>
+	<!-- /글 수정하기보기 모달 -->
+	
 	<!-- Javascript files-->
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	
+	<script>
+	function memberPage(friendId){
+		var sessionId = document.getElementById("sessionId").value;
+		if(sessionId==friendId){
+			location.href="${pageContext.request.contextPath}/board/myBoards.do";
+		} else {
+			location.href="${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId="+friendId;
+		}
+	}
+	</script>
 </body>
 </html>
 

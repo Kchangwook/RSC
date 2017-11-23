@@ -672,10 +672,19 @@ div.group-main .card .footer{
 div.group-main .group-boardList .card hr{
 	margin : 3px;
 }
+div.group-boardList .header{
+	width:100%;
+}
 
-<<<<<<< HEAD
+div.group-boardList span.board-modify,div.group-boardList span.board-delete{
+	cursor:pointer;
+}
+div.group-boardList span.board-modify{
+	margin-left:85%;
+}
+
+
 /* 그룹 리스트 페이지 */
-=======
 div.group-main .group-board form{
 	padding : 1% 0;
 }

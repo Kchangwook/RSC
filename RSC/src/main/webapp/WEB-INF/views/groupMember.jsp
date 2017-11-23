@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>RSC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo.ico">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css" id="theme-stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
@@ -100,10 +100,10 @@
 							<div class="col-md-2">
 								<div class="card w3-round-large">
 									<div class="header">
-										<img src="${pageContext.request.contextPath}/${data.memberImg}">
+										<img src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
 									</div>
 									<div class="content">
-										<a href="#관리자의 메인페이지 ${data.memberId}">${data.memberNick}</a>
+										<p onclick="memberPage('${data.memberId}')" style="cursor: pointer;">${data.memberNick}</p>
 									</div>
 									<div class="footer">
 									</div>
@@ -120,12 +120,10 @@
 							<div class="col-md-2">
 								<div class="card w3-round-large">
 									<div class="header">
-										<img src="${pageContext.request.contextPath}/${data.memberImg}">
+										<img src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
 									</div>
 									<div class="content">
-										<a href="#회원의 메인페이지 ${data.memberId}">
-											${data.memberNick}
-										</a>
+										<p onclick="memberPage('${data.memberId}')" style="cursor: pointer;">${data.memberNick}</p>
 									</div>
 		
 									<div class="footer">
@@ -179,6 +177,14 @@
 			location.href="expelMember.do?groupNum="+groupNum+"&memberId="+memberId;
 		} else {
 			return false;
+		}
+	}
+	function memberPage(friendId){
+		var sessionId = document.getElementById("sessionId").value;
+		if(sessionId==friendId){
+			location.href="${pageContext.request.contextPath}/board/myBoards.do";
+		} else {
+			location.href="${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId="+friendId;
 		}
 	}
 	</script>
