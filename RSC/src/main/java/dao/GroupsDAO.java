@@ -207,4 +207,15 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		
 		return flag;
 	}
+	
+	/** 그룹에 관리자 몇 명인지 확인 */
+	public int checkAdminCount(int groupNum) {
+		session = getSqlSession();
+		int count = 0;
+		count=session.selectOne("group.checkAdminCount", groupNum);
+		System.out.println("groupsDAO" + groupNum);
+		System.out.println("groupsDAO" + count);
+		
+		return count;
+	}//end of checkAdminCount
 }

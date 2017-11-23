@@ -16,11 +16,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
-<style>
-#tdRadio{
-		width: 5px;
-	}
-</style>
 </head>
 <body>
 	<!-- 네비게이션 바 include -->
@@ -154,9 +149,9 @@
 									<td colspan="2"><label><b>정보 공개</b></label></td>
 								</tr>
 								<tr>
-									<td class="tdRadio"><input type="radio"
+									<td class="tdRadio" style="width:50%"><input type="radio"
 										name="groupInfoOpen" value="1" checked>허용</td>
-									<td class="tdRadio"><input type="radio"
+									<td class="tdRadio" style="width:50%"><input type="radio"
 										name="groupInfoOpen" value="0">허용하지 않음</td>
 								</tr>
 							</table>
@@ -178,14 +173,30 @@
 	<script type="text/javascript">
 		// 그룹 탈퇴
 		function deleteGroup(groupNum, memberId) {
+			var xhttp = new XMLHttpRequest();
 
-			var con = confirm('정말 탈퇴하시겠습니까?');
-
-			if (con) {
-				location.href = "exitGroup.do?groupNum=" + groupNum
-						+ "&memberId=" + memberId;
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = parseInt(this.responseText);
+					console.log("resData" + resData);
+					
+					// 관리자가 한 명일 경우
+					if (resData == 1) {
+						alert('관리자가 한 명뿐으로 탈퇴할 수 없습니다\n그룹을 삭제해주시기 바랍니다');
+					} else {
+						// 관리자가 여러명일 경우
+						var con = confirm('정말 탈퇴하시겠습니까?');
+			
+						if (con) {
+							location.href = "exitGroup.do?groupNum=" + groupNum
+									+ "&memberId=" + memberId;
+						}
+					}
+				}
 			}
 
+			xhttp.open("GET", "${pageContext.request.contextPath}/group/checkAdminCount.do?groupNum=" + groupNum, true);
+			xhttp.send();
 		}
 
 		// 그룹 상세보기

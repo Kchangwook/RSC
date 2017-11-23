@@ -181,4 +181,10 @@
 	<insert id="addGroup" parameterType = "groups">
 	insert into groups values(groups_SEQ.NEXTVAL, #{groupName}, #{groupImg}, #{groupInfo}, #{groupInfoOpen}, #{groupInterest}, 0)
 	</insert>
+	
+	<!-- 그룹에 관리자 몇 명인지 확인 -->
+	<select id = "checkAdminCount" parameterType = "int" resultType = "int">
+	select count(*) from group_admin where group_num=#{groupNum}
+	</select>
+	
 </mapper>

@@ -266,6 +266,16 @@ public class GroupController {
 			return "";
 	}//end of checkGroupName
 	
+	/** 그룹에 관리자 몇 명인지 확인 */
+	@RequestMapping("checkAdminCount.do")
+	public @ResponseBody int checkAdminCount(@RequestParam("groupNum") int groupNum) {
+		int count = groupsService.checkAdminCount(groupNum);
+		System.out.println("checkAdminCount" + groupNum);
+		System.out.println("checkAdminCount" + count);
+		
+		return count;
+	}//end of checkAdminCount
+	
 }
 
 
