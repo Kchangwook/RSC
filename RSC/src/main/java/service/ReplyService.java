@@ -32,4 +32,11 @@ public class ReplyService {
 		return replyDAO.searchReply1(replyNum);
 	}
 	
+	/** 댓글 번호로 삭제하는 함수 */
+	public boolean deleteByNum(int replyNum) {
+		
+		return replyDAO.deleteByNum(replyNum);
+		
+	}//end of deleteByNum
+	
 } // end of ReplyService
