@@ -30,7 +30,7 @@ public class Groups {
 			String groupInterest) {
 		super();
 		this.groupName = groupName;
-		this.groupImg = "empty";
+		this.groupImg = "resources/img/group.jpg";
 		this.groupInfo = groupInfo;
 		this.groupInfoOpen = groupInfoOpen;
 		this.groupInterest = groupInterest;

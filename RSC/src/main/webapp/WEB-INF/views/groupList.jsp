@@ -114,7 +114,6 @@
 									<td colspan="2"><input type="text"
 										name="groupSrc" id="groupSrc" placeholder="이미지"
 										disabled="disabled">
-										<input type="hidden" value="왜안돼..." id="ok"> 
 									</td>
 								</tr>
 								<tr>

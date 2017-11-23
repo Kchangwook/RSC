@@ -22,7 +22,7 @@ public class Member {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
-		this.memberImg = "empty";
+		this.memberImg = "resources/img/profile.jpg";
 		this.memberNick = memberNick;
 		this.memberInterest = memberInterest;
 		this.memberInfoOpen = memberInfoOpen;

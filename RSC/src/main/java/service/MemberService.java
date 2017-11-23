@@ -75,10 +75,6 @@ public class MemberService {
 
 		boolean flag = true;
 
-		// 이미지가 존재하지 않으면 기본 이미지로 설정
-		if (m.getMemberImg().equals("empty"))
-			m.setMemberImg("resources/img/profile.jpg");
-		
 		m = this.uploadProfile(request, m, "memberImg");
 
 		// 이미지가 비어있지 않다면
@@ -148,7 +144,7 @@ public class MemberService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/member/" + m.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
 			if (!file.getOriginalFilename().equals(""))

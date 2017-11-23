@@ -165,16 +165,12 @@ public class GroupsService {
 	public boolean addGroup(Groups g, MultipartHttpServletRequest request) {
 		
 		boolean flag = true;
-		System.out.println("g.getGroupImg()" + g.getGroupImg());
 		
-		// 이미지가 존재하지 않으면 기본 이미지로 설정
-		if (g.getGroupImg().equals("empty"))
-			g.setGroupImg("resources/img/group.jpg");
-
+		g = this.uploadProfile(request, g, "groupImg");
+		System.out.println(g);
+		
 		// 이미지가 비어있지 않다면
 		if (!g.getGroupImg().equals("resources/img/group.jpg")) {
-			g = this.uploadProfile(request, g, "groupImg");
-
 			String fileName[] = g.getGroupImg().split("/");
 
 			// ftp에 파일 업로드
@@ -208,13 +204,11 @@ public class GroupsService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/member/" + g.getGroupNum() + "_"
+			file.transferTo(new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/group/" + g.getGroupName() + "_"
 					+ file.getOriginalFilename()));
 
-			System.out.println(file.getOriginalFilename());
-
 			if (!file.getOriginalFilename().equals(""))
-				g.setGroupImg("info/group/" + g.getGroupNum() + "_" + file.getOriginalFilename());
+				g.setGroupImg("info/group/" + g.getGroupName() + "_" + file.getOriginalFilename());
 
 		} catch (IOException e) {
 			throw new RuntimeException(e.getMessage());
