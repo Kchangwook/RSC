@@ -786,6 +786,11 @@ div.friend-edge .friend-out .firend-back .list-img{
 	border-radius: 25px;
 	overflow: hidden;
 }
+.modal .modal-dialog .modal-content .header img{
+	width:50px;
+	height:50px;
+	border-radius: 25px;
+}
 
 .modal .modal-dialog .modal-content .col-md-12 .header {
 	padding: 2% 5%;
