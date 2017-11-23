@@ -93,14 +93,16 @@
 				</div>
 					
 					
-				<div class="row">
+				<div class="row group-member">
 					<div class="col-md-12">
 						<h4 style="padding:4%">관리자</h4>
 						<c:forEach items="${requestScope.groupMember.groupAdmin}" var="data">
 							<div class="col-md-2">
 								<div class="card w3-round-large">
 									<div class="header">
-										<img src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										<span class="imgSpan">
+											<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										</span>
 									</div>
 									<div class="content">
 										<p onclick="memberPage('${data.memberId}')" style="cursor: pointer;">${data.memberNick}</p>
@@ -113,14 +115,16 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row group-member">
 					<div class="col-md-12">
 						<h4 style="padding:4%">회원</h4>
 						<c:forEach items="${requestScope.groupMember.groupMember}" var="data">
 							<div class="col-md-2">
 								<div class="card w3-round-large">
 									<div class="header">
-										<img src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										<span class="imgSpan">
+											<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}" onclick="memberPage('${data.memberId}')" style="cursor: pointer;">
+										</span>
 									</div>
 									<div class="content">
 										<p onclick="memberPage('${data.memberId}')" style="cursor: pointer;">${data.memberNick}</p>
@@ -189,6 +193,7 @@
 	}
 	</script>
 	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 
 </body>
 </html>

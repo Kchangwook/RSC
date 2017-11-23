@@ -39,7 +39,11 @@
 								<div class="content friend-content">
 								<table>
 									<tr>
-									<td><img class = "friend-pfimg" src = "${pageContext.request.contextPath}/${friend.memberImg}"></td>
+										<td>
+										<span class="friend-pfimg imgSpan">
+											<img class = "imgTag" src = "${pageContext.request.contextPath}/${friend.memberImg}">
+										</span>
+										</td>
 									</tr>
 									<tr>
 									<td><span class = "friend-name"><b>${friend.memberNick}</b></span></td>
@@ -71,7 +75,7 @@
 							<div class="card w3-round-large">
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img
+									<span class="imgSpan"><img class="imgTag"
 										src="${pageContext.request.contextPath}/${data.memberImg}"></span>
 									<span>&nbsp;&nbsp;${data.memberNick}</span>
 								</div>
@@ -283,8 +287,7 @@
 	<!-- /댓글 신고하기 상세내용 -->
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
 	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
@@ -293,6 +296,7 @@
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script type="text/javascript">
 		function addFriend(friend,member){
 			var xhttp = new XMLHttpRequest();
