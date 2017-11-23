@@ -770,10 +770,15 @@ div.friend-edge .friend-out .firend-back .list-img{
 }
 
 /* 글 상세보기 모달 */
-.modal .modal-dialog .modal-content img{
+.modal .modal-dialog .modal-content .header span{
+	vertical-align: middle;
+}
+
+.modal .modal-dialog .modal-content .header .imgSpan{
 	width:50px;
 	height:50px;
 	border-radius: 25px;
+	overflow: hidden;
 }
 
 .modal .modal-dialog .modal-content .col-md-12 .header {

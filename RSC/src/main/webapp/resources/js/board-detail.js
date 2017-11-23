@@ -5,6 +5,13 @@ function modifyContent() {
 
 }
 
+//이미지 선택하기
+function changeSrc() {
+
+	document.getElementById("boardSrc").value = document.getElementById("boardFile").value;
+	
+}
+
 // <!-- 게시글 상세보기(모달) -->
 function modifyBoard(boardNum) {
 	var address = document.getElementById("address").value;
@@ -64,6 +71,8 @@ function searchBoard(boardNum) {
 			var resData = this.responseText;
 			resData=JSON.parse(resData);
 			
+			var imgURL = address+"/"+resData.board.boardFile;
+			
 			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
 			document.getElementById("memberNick").innerText = resData.board.memberNick;
 			document.getElementById("boardContent").innerText = resData.board.boardContent;
@@ -72,6 +81,7 @@ function searchBoard(boardNum) {
 			document.getElementById("boardLike").innerText = resData.board.boardLike;
 			document.getElementById("boardNum").value = resData.board.boardNum;
 			document.getElementById("memberId").value = resData.board.memberId;
+			document.getElementById("boardFileImg").src = imgURL;
 			replyList(resData.reply);
 			like();
 			moreReplyView(cnt);

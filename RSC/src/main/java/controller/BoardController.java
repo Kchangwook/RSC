@@ -9,6 +9,9 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import domain.Board;
 import domain.Member;
@@ -33,9 +36,26 @@ public class BoardController {
 	}
 	
 	/* 게시글 작성 */
-	@RequestMapping("addBoard.do")
-	public String addBoard(Board b, Model data, String memberId) {
-		boardService.addBoard(b);
+	@RequestMapping(value = "addBoard.do", method = RequestMethod.POST)
+	public String addBoard(@RequestParam Object boardFile, MultipartHttpServletRequest request) { 
+		System.out.println("request.getParameter(\"memberId\")" + request.getParameter("memberId"));
+		System.out.println("니놈뭐냐");
+		System.out.println("boardFile.getClass()" + boardFile.getClass());
+		System.out.println("boardFile.toString()" + boardFile.toString());
+		System.out.println("boardFile.hashCode()" + boardFile.hashCode());
+		System.out.println("니놈뭐냐");
+		System.out.println(request.getFile("boardFile").getOriginalFilename());
+		System.out.println("request.getParameter(\"boardFile\")" + request.getParameter("boardFile"));
+		
+		
+		// 입력받은 데이터를 토대로 새로운 Board 객체 생성
+		Board b = new Board(request.getParameter("memberId"), request.getParameter("boardContent"),
+				request.getParameter("boardFile"));
+
+		System.out.println(b);
+		
+		boardService.addBoard(b, request);
+		
 		return "redirect:readBoard.do";
 	} // end of addBoard
 	
@@ -43,7 +63,7 @@ public class BoardController {
 	@RequestMapping("readBoard.do")
 	public String readBoard(HttpServletRequest request) {
 		
-		String memberId = (String)request.getSession().getAttribute("id");
+		String memberId = (String)request.getSession(false).getAttribute("id");
 		List<Board> list = boardService.selectAllBoard(memberId);
 		
 		request.setAttribute("boardList", list);
@@ -54,7 +74,7 @@ public class BoardController {
 	@RequestMapping("myBoards.do")
 	public String myBoards(HttpServletRequest request) {
 		
-		String memberId = (String)request.getSession().getAttribute("id");
+		String memberId = (String)request.getSession(false).getAttribute("id");
 		
 		Member m = memberService.searchById(memberId);
 		request.setAttribute("member", m);

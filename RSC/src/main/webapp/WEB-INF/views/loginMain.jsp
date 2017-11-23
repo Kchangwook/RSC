@@ -79,18 +79,22 @@
 							<div class="content">
 								<form name="write"
 									action="${pageContext.request.contextPath}/board/addBoard.do"
-									method="post" style="width: 100%">
+									method="post" style="width: 100%" enctype="multipart/form-data">
 									<textarea rows="5"
 										style="width: 100%; resize: none; wrap: hard;"
 										name="boardContent"></textarea>
 									<br> <input type="hidden" name="memberId"
 										value="${sessionScope.id}"> <br>
-									<div align="right">
+									<div class="" align="right">
+										<input type="text" width="100%" name="boardSrc" id="boardSrc"
+											placeholder="이미지" disabled="disabled"> 
+										<input type="file" name="boardFile" id="boardFile" accept="image/*"
+											onchange="changeSrc()"> 
 										<input type=submit class="btn btn-default btnOrange" value=글쓰기>
 									</div>
 								</form>
 							</div>
-
+							<!-- /글 내용 -->
 						</div>
 					</div>
 					<!--/글 작성 틀-->
@@ -147,7 +151,8 @@
 										<div class="content">
 											<span> <a href="" style="display: block;"
 												data-toggle="modal" data-target="#detailView"
-												onclick="searchBoard(${data.boardNum})">
+												onclick="searchBoard(${data.boardNum})"><img style="max-width: 100%"
+													src="${pageContext.request.contextPath}/${data.boardFile}"><br><br>
 													${data.boardContent} </a>
 											</span>
 										</div>
@@ -214,7 +219,7 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span><img id ="profImg"></span>
+						<span class="imgSpan" ><img class="imgTag" id ="profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 
@@ -228,7 +233,7 @@
 
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
-						<span id="boardContent"> </span>
+						<img style="max-width: 100%" id="boardFileImg" src="${pageContext.request.contextPath}/${boardSrc}" > <br><br><span id="boardContent"> </span>
 					</div>
 					<hr>
 
@@ -270,7 +275,7 @@
 											<br> <input type="hidden" name="boardNum" id="boardNum"
 												value="">
 											<div align="right">
-												<input type=submit class="btn btn-default btnOrange close"
+												<input type=submit class="btn btn-default btnOrange"
 													value=신고하기>
 											</div>
 										</form>
@@ -336,7 +341,7 @@
 							<br> <input type="hidden" name="replyNum" id="replyNum"
 								value="">
 							<div align="right">
-								<input type=submit class="btn btn-default btnOrange close"
+								<input type=submit class="btn btn-default btnOrange"
 									value=신고하기>
 							</div>
 						</form>

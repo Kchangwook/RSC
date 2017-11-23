@@ -15,9 +15,14 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	private SqlSession session;
 	
 	/* 게시글 등록 */
-	public void addBoard(Board b) {
+	public boolean addBoard(Board b) {
+		
+		boolean flag = true;
+		
 		session = getSqlSession();
-		session.insert("addBoard", b);
+		flag = session.insert("addBoard", b) > 0 ? true : false;
+		
+		return flag;
 	}
 	
 	/* 게시글 아이디로 검색 후 리스트로 반환 */
