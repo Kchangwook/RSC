@@ -227,25 +227,25 @@ public class GroupController {
 	/** 그룹 추가 */
 	@RequestMapping(value = "addGroup.do", method = RequestMethod.POST)
 	public String addGroup(MultipartHttpServletRequest request) {
-		System.out.println("request.getAttribute(\"groupImg\")" + request.getParameter("groupImg"));
-		System.out.println("request.getAttribute(\"groupSrc\")" + request.getParameter("groupSrc"));
-		System.out.println("request.getAttribute(\"ok\")" + request.getParameter("ok"));
 		
 		// 관심사 정렬
 		String interests[] = request.getParameterValues("groupInterest");
 		String interest = "";
 		String id = (String)request.getSession().getAttribute("id");
-
+		
 		for (int i = 0; i < interests.length; i++) {
-			if (i == interest.length() - 1)
+			if (i == interests.length - 1) 
 				interest += interests[i];
-			else
+			else 
 				interest += interests[i] + ",";
 		}
 
 		// 입력받은 데이터를 토대로 새로운 그룹 객체 생성
 		Groups g = new Groups(request.getParameter("groupName"), request.getParameter("groupInfo"),
 				Integer.parseInt(request.getParameter("groupInfoOpen")), interest);
+		
+		System.out.println(groupsService.addGroup(g, request));
+		System.out.println(groupsService.addGroupAdminFirst(g, id));
 
 		// 그룹 추가
 		if(groupsService.addGroup(g, request) && groupsService.addGroupAdminFirst(g, id)) {
