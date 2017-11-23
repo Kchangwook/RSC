@@ -4,15 +4,19 @@ var orderType = "desc";
 var boardIdContent = "";
 
 // 댓글 삭제
-function replyDelete(replyNum) {
+function replyDelete(replyNum,reply) {
 	var address = document.getElementById("address").value;
+	var replys = reply.parentNode.parentNode.parentNode;
 	if (confirm("댓글을 삭제하시겠습니까?")) {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				var resData = this.responseText;
 				alert(resData);
-				window.location.reload();
+				if(resData == "삭제에 성공했습니다."){
+					replys.parentNode.removeChild(replys);
+				}
+					
 			}
 		}
 		xhttp.open("POST", address + "/reply/deleteReply.do", true);
@@ -271,7 +275,7 @@ function replyList(resData) {
 						+ '<a class="btn btn-default btnOrange" style="float: right; href="" data-toggle="modal"'
 						+ 'data-target="#replySingo" onclick="replyDelete(\''
 						+ resData[i].replyNum
-						+ '\')"> 삭제하기 </a>'
+						+ '\',this)"> 삭제하기 </a>'
 						+ '</div>'
 						+ '<div class="content1" style="float: right; width: 35%;">'
 						+ '<span>'

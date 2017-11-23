@@ -32,7 +32,7 @@ public class ReplySubController {
 	} // end of addReply
 	
 	/** 댓글 번호로 댓글 삭제하기 */
-	@RequestMapping("deleteReply.do")
+	@RequestMapping(value = "deleteReply.do",produces = "application/json; charset=utf8")
 	public String deleteReply(HttpServletRequest request) {
 		
 		String msg = "";
