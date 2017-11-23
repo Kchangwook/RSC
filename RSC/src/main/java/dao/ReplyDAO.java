@@ -45,4 +45,16 @@ public class ReplyDAO extends SqlSessionDaoSupport{
 		
 	}//end of deleteByBoard
 	
+	/** 댓글 번호에 해당하는 댓글 삭제 */
+	public boolean deleteByNum(int replyNum) {
+		
+		boolean flag = true;
+		
+		session = getSqlSession();
+		flag = session.delete("reply.deleteByNum",replyNum)>0?true:false;
+		
+		return flag;
+		
+	}//end deleteByBoard
+	
 } // end of ReplyDAO

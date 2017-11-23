@@ -199,7 +199,8 @@
 					<div class="clear"></div>
 
 				<!-- 댓글 내용 -->
-				<div id="replyHTML"></div>
+				<div id="replyHTML">
+				</div>
 				<!-- /댓글 내용 -->
 				<button class="btn btn-default btnOrange" onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글 더보기</button>
 			</div>

@@ -191,10 +191,10 @@
 			<div class="modal-content">
 				<!-- 글 작성 틀 -->
 				<div class="col-md-12 padding">
+					<input type = "hidden" name = "memberId" id = "memberId">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span><img
-							src="${pageContext.request.contextPath}/resources/img/profile.jpg"></span>
+						<span><img id = "profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 
@@ -241,34 +241,9 @@
 
 		</div>
 	</div>
-	<!-- /글 상세보기 모달 -->
-	
-	<!-- 댓글 신고하기 상세내용 -->
-	<div class="modal fade" id="replySingo" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="col-md-12 padding">
-					<div>신고 사유 :</div>
-						<div class="clear"></div>
-							<div>
-							<form name="replySingo" method="post" 
-								action="${pageContext.request.contextPath}/singo/addReplySingo.do" >
-								<textarea id="replySingoReason" rows="1"
-									style="width: 100%; resize: none; wrap: hard;"
-									placeholder="이유가 뭐야" name="replySingoReason"></textarea>
-								<br> <input type="hidden" name="replyNum" id="replyNum"
-									value="">
-								<div align="right">
-									<input type=submit class="btn btn-default btnOrange close"
-										value=신고하기>
-								</div>
-							</form>
-						</div>
-				</div>
-			</div>
-		</div>
 	</div>
-	<!-- /댓글 신고하기 상세내용 -->
+	<!-- /글 상세보기 모달 -->
+
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script

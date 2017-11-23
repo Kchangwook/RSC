@@ -2,6 +2,8 @@ package subcontroller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,15 +31,20 @@ public class ReplySubController {
 		return list;
 	} // end of addReply
 	
-	
-	/*@RequestMapping("addReply.do")
-	public @ResponseBody List<Reply> addReply(Reply r) {
-		//r 의 데이터 확인
-		if(r.getReplyContent()!=null) {
-			boolean result = replyService.addReply(r);
-		}
-		List<Reply> list = replyService.selectReply(r.getBoardNum());
-		return list;
-	} // end of addReply */
+	/** 댓글 번호로 댓글 삭제하기 */
+	@RequestMapping("deleteReply.do")
+	public String deleteReply(HttpServletRequest request) {
+		
+		String msg = "";
+		int replyNum = Integer.parseInt(request.getParameter("replyNum"));
+		
+		if(replyService.deleteByNum(replyNum))
+			msg = "삭제에 성공했습니다.";
+		else
+			msg = "삭제에 실패했습니다.";
+		
+		return msg;
+		
+	}//end of deleteReply
 	
 } // end of ReplySubController
