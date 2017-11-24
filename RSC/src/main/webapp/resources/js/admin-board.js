@@ -116,7 +116,9 @@ function printNewBoardList(resData) {
 		newBoardHTML += '<tr>' + '<td>'
 				+ (resData[i].groupNum == "0" ? "개인" : "그룹") + '</td>' + '<td>'
 				+ resData[i].boardNum + '</td>' + '<td>' + resData[i].memberId
-				+ '</td>' + '<td>' + resData[i].boardContent + '</td>' + '<td>'
+				+ '</td>' + '<td>' +'<span><a href="#" style="display: block;"data-toggle="modal"' +
+				'data-target="#detailView"onclick="searchBoard('+resData[i].boardNum+')">'
+				+ resData[i].boardContent + '</a></span></td>' + '<td>'
 				+ new Date(resData[i].boardTime).getFullYear() + '년 '
 				+ (new Date(resData[i].boardTime).getMonth() + 1) + '월 '
 				+ new Date(resData[i].boardTime).getDate() + '일 '

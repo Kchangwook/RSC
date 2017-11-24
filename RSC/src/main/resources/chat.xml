@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chat">
+
+	<resultMap id="chatResult" type="chat">
+		<result property="chatNum" column="CHAT_NUM" />
+		<collection property="members" column="{memberId=MEMBER_ID,memberImg=MEMBER_IMG}" javaType="java.util.ArrayList"
+		 ofType="domain.Member" select="getMyCommentListById"/>
+	</resultMap>
+	
+	
+
+</mapper>
