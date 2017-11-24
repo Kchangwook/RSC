@@ -184,6 +184,7 @@
 	<!-- groupsService -->
 	<bean id="groupsService" class="service.GroupsService">
 		<property name="groupsDAO" ref="groupsDAO" />
+		<property name = "FTPService" ref = "ftpService"/>
 	</bean>
 		
 	<!-- SingoService -->

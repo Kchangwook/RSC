@@ -25,9 +25,11 @@ public class FTPService {
 		FileInputStream fis = null;
 		int result = -1;
 
+		System.out.println("fileName: "+fileName);
+		
 		try {
 
-			File uploadfile = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/" + dirName + "/" + fileName);
+			File uploadfile = new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/" + dirName + "/" + fileName);
 
 			ftp = new FTPClient();
 			ftp.setControlEncoding("UTF-8");
@@ -45,8 +47,10 @@ public class FTPService {
 
 		} catch (SocketException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} finally {
 
 			try {
@@ -120,7 +124,7 @@ public class FTPService {
 		int result = -1;
 		try {
 
-			f = new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/" + dirName, fileName);
+			f = new File("C:/Users/user/git/RSC/RSC/src/main/webapp/info/" + dirName, fileName);
 
 			client = new FTPClient();
 			client.setControlEncoding("UTF-8");
