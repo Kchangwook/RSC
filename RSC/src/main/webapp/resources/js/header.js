@@ -1,6 +1,7 @@
 //이미지 src보여주기
 function changeSrc() {
 
+	alert("hello");
 	document.getElementById("imgSrc").value = document.getElementById("memberImg").value;
 	
 }
@@ -14,7 +15,7 @@ function clearContent() {
 
 	var interest = document.getElementsByName("memberInterest");
 
-	for (var i = 0; i < interest.length; i++)
+	for (var i = 0; i < interest.len.gth; i++)
 		interest[i].checked = false;
 
 	var radios = document.getElementsByName("memberInfoOpen");

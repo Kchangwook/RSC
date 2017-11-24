@@ -7,10 +7,31 @@
 
 	<resultMap id="chatResult" type="chat">
 		<result property="chatNum" column="CHAT_NUM" />
-		<collection property="members" column="{memberId=MEMBER_ID,memberImg=MEMBER_IMG}" javaType="java.util.ArrayList"
-		 ofType="domain.Member" select="getMyCommentListById"/>
+		<result property="memberId" column = "MEMBER_ID"/>
 	</resultMap>
 	
+	<resultMap id="memberResult" type="member">
+		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNick" column="MEMBER_NICK" />
+		<result property="memberImg" column="MEMBER_IMG" />
+	</resultMap>
 	
+	<select id = "getMemberByNum" parameterType = "int" resultMap = "memberResult">
+		select m.member_id,m.member_img,m.member_nick 
+		from chat c,member m
+		where c.chat_num = #{chatNum} and c.member_id = m.member_id
+	</select>
+	
+	<select id = "getChatNum" parameterType = "String" resultMap = "chatResult">
+		select chat_num from chat where member_id = #{memberId}
+	</select>
+	
+	<insert id = "makeChatRoom" parameterType = "String">
+		insert into chat values(CHAT_NUM_SEQ.NEXTVAL,#{memberId})
+	</insert>
+	
+	<insert id = "addChatMember" parameterType = "String">
+		insert into chat values(CHAT_NUM_SEQ.CURRVAL,#{memberId})
+	</insert>
 
 </mapper>

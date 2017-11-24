@@ -6,7 +6,7 @@ function modifyContent() {
 }
 
 //이미지 선택하기
-function changeSrc() {
+function changeBoardSrc() {
 
 	document.getElementById("boardSrc").value = document.getElementById("boardFile").value;
 	
@@ -131,8 +131,7 @@ function addReply(){
 
 //	<!-- 댓글 리스트 가져오기 -->
 function replyList(resData) {
-	
-	var address = document.getElementById("address").value;
+
 	var replyListHTML = '';
 	var replySingoFlagHTML = '';
 	

@@ -153,9 +153,20 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		session = getSqlSession();
 		
 		flag = session.update("member.updateMypageInfo", member)>0?true:false;
-		
 		return flag;
 		
 	}//end of updateMypageInfo
+	
+	/** 현재 로그인 중인 친구 찾기 */
+	public List<Member> searchPresentLogin(String memberId){
+		
+		List<Member> list = null;
+		
+		session = getSqlSession();
+		list = session.selectList("member.searchPresentLogin",memberId);
+		
+		return list;
+		
+	}//end of searchPresentLogin
 	
 }//end of MemberDAO

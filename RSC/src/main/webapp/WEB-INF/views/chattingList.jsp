@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,37 +60,49 @@
 	color: #b9b9b9;
 }
 div .chatImg{
-	width:10%;
+	width:100px;
+	height:100px;
 	display: inline-block;
 	margin-left: 20px;
+	margin-top: 20px;
 	border-radius: 100px;
-	margin-top: 15px;
 }
 
 .profImg{
+	border-radius: 100px;
 	width:100px;
 }
 
 .chatModal{
-	width:80%;
+	width:450px;
 }
 .loginPresent{
 	display: inline-block;
-	margin-left: 45%;
+	margin-left: 70px;
 	font-size: initial;
 	cursor: pointer;
 }
 .chatRoom{
-	height:120px;
+	height:140px;
 }
 .chatNicks{
+	display:inline-block;
+	font-size: 25pt;
+	font-weight: bold;
+	color: #b9b9b9;
+	float:right;
+	margin-top: 40px;
+	width:500px;
+}
+.chatMemberProf{
 	display:inline-block;
 	font-size: 18pt;
 	font-weight: bold;
 	color: #b9b9b9;
-	position:relative;
-	top: 15px;
-	margin-left: 30px;
+	margin-left:50px;
+}
+#chatDiv{
+	width:100%;
 }
 </style>
 </head>
@@ -112,36 +124,34 @@ div .chatImg{
 				<div class="row">
 					<div class="col-md-12">
 						<h3>채팅 목록</h3>
-						<button class = "chatMake chatButton" data-toggle="modal" data-target="#chatModal">
+						<button class = "chatMake chatButton" data-toggle="modal" data-target="#chatModal" onclick = "moreMember()">
 								<b>채팅방 만들기</b>
 						</button>
 					</div>
 				</div>
-					
-			<div class="row">
+			<c:forEach var="rooms" items="${requestScope.list}">	
+			<div class="row" style = "margin-bottom: 0px;">
 				<div id="chatDiv">
-					<c:forEach begin = "0" end = "5">
 						<div class="col-md-12">
-							<div class="card w3-round-large chatRoom">
+							<div class="card w3-round-large chatRoom" onclick = "goChat(${rooms.chatNum})">
 								<!-- 글 내용 -->
 								<div class="content">
-									<c:forEach begin = "0" end = "3">
-										<img class = "chatImg" src = "${pageContext.request.contextPath}/resources/img/profile.jpg">
+									<div class = "chatMemberProf">
+									<c:forEach var = "member" items = "${rooms.members}" varStatus = "state" begin = "0" end = "3">
+										<img class = "chatImg" src = "${pageContext.request.contextPath}/${member.memberImg}">
 									</c:forEach>
-									<div class = "chatNicks">
-										<c:forEach begin = "0" end = "3" varStatus="state">
-											<span>김창욱
-											<c:if test = "${not state.last}">,</c:if>
-											<c:if test = "${state.last}">...</c:if>
-											</span>
+									</div>
+									<div class = "chatNicks right">
+										<c:forEach var = "member" items = "${rooms.members}" varStatus = "state" begin = "0" end = "3">
+											<span>${member.memberNick}<c:if test = "${not state.last}">,</c:if><c:if test = "${fn:length(rooms.members)>4}">...</c:if></span>
 										</c:forEach>
 									</div>
 								</div>
 							</div>
 						</div>
-					</c:forEach>
 				</div>
 			</div>
+			</c:forEach>
 		</div>
 			
 		</div>
@@ -172,26 +182,13 @@ div .chatImg{
 				<div class="modal-body">
   						<div class="container">
   							<table>
-  								<c:forEach begin = "0" end = "2">
-  								<tr>
-  									<td>
-  										<div class = "chatImg">
-  											<img class = "profImg" id = "profImg" src = "${pageContext.request.contextPath}/resources/img/profile.jpg">
-  										</div>
-  										<div class = "chatPeople">
-  											김창욱
-  										</div>
-  										<div class = "loginPresent">
-  											<i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>
-  										</div>
-  										<hr>
-  									</td>
-  								</tr>
-  								</c:forEach>
-  								<tr>
-  									<td><button class = "chatButton" style = "width:100%;" onclick = "moreFriends()">친구 더 보기</button></td>
-  								</tr>
+  								<tbody id = "presentLogin">
+  								
+  								</tbody>
   								<tfoot>
+  									<tr>
+  										<td><button class = "chatButton" style = "width:100%;" onclick = "moreFriendsView(window.count = window.count + 2)">친구 더 보기</button></td>
+  									</tr>
   									<tr>
   										<td><button class = "chatButton" style = "width:100%;" onclick = "makeRoom()">채팅방 만들기</button></td>
   									</tr>
@@ -217,16 +214,49 @@ div .chatImg{
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script type="text/javascript">
+	var cnt = 0;
+	
 	//친구 더 보기
-	function moreFriends(){
+	function moreFriendsView(count){
 		
-		var friend = '<tr><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "${pageContext.request.contextPath}/resources/img/profile.jpg">'
-		+'</div><div class = "chatPeople">김창욱</div>'+
-		'<div class = "loginPresent"><i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>'
-		+'</div><hr></td></tr>';
+		var friendView = document.getElementsByClassName("friendView");
+		count = count>= friendView.length? friendView.length:count;
+		
+		for (var i = 0; i < friendView.length; i++) {
+			friendView[i].style.display = 'none';
+		}
+		
+		for (var i = 0; i < cnt; i++) {
+			friendView[i].style.display = '';
+		}
+		
+		console.log("count: "+count);
+		console.log("length: "+friendView.length);
 		
 	}
-	
+
+	//친구 목록 가져오기
+	function friendList(resData){
+		
+		var friendHTML = '';
+		
+		if(resData.length == 0){
+			friendHTML = '<tr><td><div class = "chatPeople">친구가 없습니다</div></td></tr>';
+		}else{
+			for(var i = 0;i<resData.length;i++){
+				
+				friendHTML += '<tr class = "friendView"><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "${pageContext.request.contextPath}/'+resData[i].memberImg+'">'
+					+'</div><div class = "chatPeople">'+resData[i].memberNick+'</div>'+
+					'<div class = "loginPresent"><i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>'
+					+'</div><hr></td></tr>';
+					
+			}
+		}
+		
+		document.getElementById("presentLogin").innerHTML = friendHTML;
+		
+	}
+
 	//채팅방 만들기
 	function makeRoom(){
 		
@@ -274,6 +304,30 @@ div .chatImg{
 			icon.style.color = 'blue';
 		}
 		
+	}	
+	
+	//친구 추가하기
+	function moreMember(){
+		var address = document.getElementById("address").value;
+
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
+				friendList(resData);
+				moreFriendsView(window.count);
+				
+			}
+		}
+		
+		xhttp.open("GET", address+"/member/checkLogin.do", true);
+		xhttp.send(); 
+		
+	}
+	
+	window.onload = function(){
+		window.count = 2;	
 	}
 	</script>
 </body>

@@ -82,5 +82,11 @@
 	update member set member_pw = #{memberPw}, member_nick = #{memberNick}, member_img = #{memberImg}, member_interest = #{memberInterest}, member_info_open = #{memberInfoOpen}
 	where member_id = #{memberId}
 	</update>
+	
+	<select id = "searchPresentLogin" resultMap = "memberResult">
+		select distinct m.member_id,m.member_nick,m.member_img
+		from member m,friend f
+		where f.member_id = #{memberId} and m.member_id = f.friend_id and m.member_present_login = 1
+		</select>
 
 </mapper>

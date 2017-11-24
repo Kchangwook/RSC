@@ -117,7 +117,7 @@
 										
 										<label for="boardFile">파일</label> <input type="file"
 											name="boardFile" id="boardFile" accept="image/*"
-											onchange="changeSrc()"> 
+											onchange="changeBoardSrc()"> 
 											<div class="clear"></div>
 											<input type=submit
 											class="btn btn-default btnOrange" value=글쓰기>

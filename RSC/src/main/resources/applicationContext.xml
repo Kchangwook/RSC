@@ -107,6 +107,18 @@
 		<property name="mapperLocations" value="like.xml" />
 	</bean>
 	
+	<!-- ChatSessionFactory 설정하는 빈 -->
+	<bean id = "chatFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="chat.xml" />
+	</bean>
+	
+	<!-- ChatDAO -->
+	<bean id = "chatDAO" class = "dao.ChatDAO">
+		<property name = "sqlSessionFactory" ref = "chatFactory"/>
+	</bean>
+	
 	<!-- FriendRequestDAO -->
 	<bean id = "friendRequestDAO" class = "dao.FriendRequestDAO">
 		<property name = "sqlSessionFactory" ref = "friendRequestFactory"/>
@@ -160,6 +172,11 @@
 	<!-- likeDAO -->
 	<bean id = "likeDAO" class = "dao.LikeDAO">
 		<property name = "sqlSessionFactory" ref = "likeFactory"/>
+	</bean>
+
+	<!-- chatService -->
+	<bean id="chatService" class="service.ChatService">
+		<property name="chatDAO" ref="chatDAO" />
 	</bean>
 
 	<!-- memberService -->
