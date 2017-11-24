@@ -113,6 +113,13 @@
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="chat.xml" />
 	</bean>
+		
+	<!-- MessageSessionFactory 설정하는 빈 -->
+	<bean id = "MessageFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="message.xml" />
+	</bean>
 	
 	<!-- ChatDAO -->
 	<bean id = "chatDAO" class = "dao.ChatDAO">
@@ -173,6 +180,11 @@
 	<bean id = "likeDAO" class = "dao.LikeDAO">
 		<property name = "sqlSessionFactory" ref = "likeFactory"/>
 	</bean>
+	
+	<!-- messageDAO -->
+	<bean id = "messageDAO" class = "dao.MessageDAO">
+		<property name = "sqlSessionFactory" ref = "MessageFactory"/>
+	</bean>
 
 	<!-- chatService -->
 	<bean id="chatService" class="service.ChatService">
@@ -228,6 +240,11 @@
 	<!-- LikeService -->
 	<bean id = "likeService" class = "service.LikeService">
 		<property name = "LikeDAO" ref = "likeDAO"/>
+	</bean>
+	
+	<!-- MessageService -->
+	<bean id = "messageService" class = "service.MessageService">
+		<property name = "MessageDAO" ref = "messageDAO"/>
 	</bean>
 
 	<!-- 트랜잭션 매니저 빈 -->

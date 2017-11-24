@@ -23,6 +23,7 @@
 		<typeAlias type = "domain.GroupDelete" alias = "groupDelete"/>
 		<typeAlias type = "domain.Like" alias = "like"/>
 		<typeAlias type = "domain.Chat" alias = "chat"/>
+		<typeAlias type = "domain.Message" alias = "message"/>
 	</typeAliases>
 
 </configuration>

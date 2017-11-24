@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="message">
+
+	<resultMap id="messageResult" type="message">
+		<result property="chatNum" column="chat_num" />
+		<result property="messageNum" column="message_num" />
+		<result property="memberId" column="member_id" />
+		<result property="memberNick" column="member_nick" />
+		<result property="memberImg" column="member_img" />
+		<result property="messageSendingTime" column="message_sending_time" />
+		<result property="messageContent" column="message_content" />
+		<result property="messageFile" column="message_file" />
+	</resultMap>
+	
+	<!-- chatNum 으로 message list 가져오기 -->
+	<select id="selectAllMessageByChatNum" parameterType="int" resultMap="messageResult">
+		select msg.chat_num, msg.message_num, msg.member_id, mem.member_nick, mem.member_img, 
+			   msg.message_sending_time, msg.message_content, msg.message_file
+		from message msg, member mem
+		where msg.chat_num=#{chatNum} and msg.member_id=mem.member_id
+		order by msg.message_sending_time asc
+	</select>
+	
+	<!-- message 삽입 (message table 에 추가)  -->
+	<insert id="insertMessage" parameterType="message">
+		insert into message(chat_num, message_num, member_id, message_sending_time, message_content, message_file) 
+		values (#{chatNum}, message_seq.nextval, #{memberId}, SYSTIMESTAMP, #{messageContent}, null)
+	</insert>
+	
+	<!-- 같은 chatNum 중 가장 최근 message의 messageNum 가져오기 -->
+	<select id="selectRecentMessageNumByChatNum" parameterType="int" resultType="int">
+		select max(message_num) from message where chat_num=#{chatNum}
+	</select>
+	
+	<!-- 같은 chatNum 중 최근 message list 가져오기 -->
+	<select id="selectRecentMessage" parameterType="message" resultMap="messageResult">
+		select msg.chat_num, msg.message_num, msg.member_id, mem.member_nick, mem.member_img, 
+			   msg.message_sending_time, msg.message_content, msg.message_file
+		from message msg, member mem
+		where msg.chat_num=#{chatNum} and msg.message_num > #{messageNum} and msg.member_id=mem.member_id
+		order by msg.message_sending_time asc
+	</select>
+	
+
+</mapper>

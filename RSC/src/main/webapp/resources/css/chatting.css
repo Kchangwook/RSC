@@ -1,0 +1,95 @@
+div.chatting-main #chatDiv{
+	width: 70%;
+	height: 500px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background-color: white;
+	float:left;
+}
+div.chatting-main #chatDiv table{
+	width:50%;
+	margin : 10px;
+}
+div.chatting-main #chatDiv table.chatSendTable{
+	float:right;
+	text-align: right;
+}
+div.chatting-main #chatDiv table.chatReceiveTable{
+	float:left;
+	text-align: left;
+}
+div.chatting-main #chatDiv table tr{
+	100%;
+}
+
+/* 이미지 td, 이미지*/
+div.chatting-main #chatDiv table tr td.tdImg{
+	width:60px;
+	vertical-align: top;
+}
+div.chatting-main #chatDiv table tr td.tdImg img{
+	width:50px;
+	height:50px;
+	border : 1px solid #ccc;
+	border-radius: 25px;
+}
+
+/* MemberNick */
+div.chatting-main #chatDiv table tr td.tdNick{
+	font-weight: 700;
+	padding : 5px;
+}
+
+/* Content td, Content p*/
+div.chatting-main #chatDiv table tr td.tdContent{
+}
+
+div.chatting-main #chatDiv table tr td.tdContent p.pSendContent{
+	float : right;
+	background-color : rgba(247,146,30,0.2);
+	border-radius: 5px;
+	padding : 10px;
+}
+div.chatting-main #chatDiv table tr td.tdContent p.pReceiveContent{
+	float:left;
+	border : 1px solid rgba(247,146,30,0.5);
+	border-radius: 5px;
+	padding : 10px;	
+}
+
+/* Time */
+div.chatting-main #chatDiv table tr td.tdTime{
+	font-size: x-small;
+	color : #ccc;
+	padding : 0 2px;
+}
+
+
+
+/* member list div */
+div.chatting-main #chatMemberDiv{
+	margin-left : 2%;
+	width: 20%;
+	height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background-color: white;
+	float:left;
+}
+
+div.chatting-main #chatInput{
+	width:100%;
+	margin-top : 2%;
+	float:left;
+}
+div.chatting-main #chatInput input#chatMsg{
+	width:70%;
+}
+div.chatting-main #chatInput button#chatBtn{
+	background-color:#F7921E;
+	color:white;
+	border : none;
+	padding: 3px 5px;
+}
+
+

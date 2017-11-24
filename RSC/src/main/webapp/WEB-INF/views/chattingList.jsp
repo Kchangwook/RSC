@@ -329,6 +329,10 @@ div .chatImg{
 	window.onload = function(){
 		window.count = 2;	
 	}
+	
+	function goChat(chatNum){
+		location.href="${pageContext.request.contextPath}/chat/chatting.do?chatNum="+chatNum;
+	}
 	</script>
 </body>
 </html>

@@ -1,25 +1,31 @@
 package domain;
 
+import java.util.Date;
+
 /** message 테이블에 담을 정보 class */
 public class Message {
 	
 	/* 변수 */
 	private int chatNum; // col : chat_num
-	private int messageNum; // col : message)num
+	private int messageNum; // col : message_num
 	private String memberId; // col : member_id
-	private String messageSendingTime; //col : message_sending_time
+	private String memberNick; // col : member_nick
+	private String memberImg; // col : member_img
+	private Date messageSendingTime; //col : message_sending_time
 	private String messageContent;// col : message_content
 	private String messageFile; // col : message_file
 	
 	/* 생성자 */
 	public Message() {
 	}
-	public Message(int chatNum, int messageNum, String memberId, String messageSendingTime, String messageContent,
+	public Message(int chatNum, int messageNum, String memberId, String memberNick, String memberImg, Date messageSendingTime, String messageContent,
 			String messageFile) {
 		super();
 		this.chatNum = chatNum;
 		this.messageNum = messageNum;
 		this.memberId = memberId;
+		this.memberNick = memberNick;
+		this.memberImg = memberImg;
 		this.messageSendingTime = messageSendingTime;
 		this.messageContent = messageContent;
 		this.messageFile = messageFile;
@@ -47,10 +53,10 @@ public class Message {
 		this.memberId = memberId;
 	}
 	
-	public String getMessageSendingTime() {
+	public Date getMessageSendingTime() {
 		return messageSendingTime;
 	}
-	public void setMessageSendingTime(String messageSendingTime) {
+	public void setMessageSendingTime(Date messageSendingTime) {
 		this.messageSendingTime = messageSendingTime;
 	}
 	
@@ -68,6 +74,19 @@ public class Message {
 		this.messageFile = messageFile;
 	}
 	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	public String getMemberImg() {
+		return memberImg;
+	}
+	public void setMemberImg(String memberImg) {
+		this.memberImg = memberImg;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {
@@ -78,6 +97,10 @@ public class Message {
 		builder.append(messageNum);
 		builder.append(", memberId=");
 		builder.append(memberId);
+		builder.append(", memberNick=");
+		builder.append(memberNick);
+		builder.append(", memberImg=");
+		builder.append(memberImg);
 		builder.append(", messageSendingTime=");
 		builder.append(messageSendingTime);
 		builder.append(", messageContent=");
