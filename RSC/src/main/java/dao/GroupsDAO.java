@@ -213,8 +213,6 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		session = getSqlSession();
 		int count = 0;
 		count=session.selectOne("group.checkAdminCount", groupNum);
-		System.out.println("groupsDAO" + groupNum);
-		System.out.println("groupsDAO" + count);
 		
 		return count;
 	}//end of checkAdminCount

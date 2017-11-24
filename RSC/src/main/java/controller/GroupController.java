@@ -244,9 +244,6 @@ public class GroupController {
 		Groups g = new Groups(request.getParameter("groupName"), request.getParameter("groupInfo"),
 				Integer.parseInt(request.getParameter("groupInfoOpen")), interest);
 		
-		System.out.println(groupsService.addGroup(g, request));
-		System.out.println(groupsService.addGroupAdminFirst(g, id));
-
 		// 그룹 추가
 		if(groupsService.addGroup(g, request) && groupsService.addGroupAdminFirst(g, id)) {
 			request.setAttribute("msg", "그룹 생성에 성공했습니다.");
@@ -270,8 +267,6 @@ public class GroupController {
 	@RequestMapping("checkAdminCount.do")
 	public @ResponseBody int checkAdminCount(@RequestParam("groupNum") int groupNum) {
 		int count = groupsService.checkAdminCount(groupNum);
-		System.out.println("checkAdminCount" + groupNum);
-		System.out.println("checkAdminCount" + count);
 		
 		return count;
 	}//end of checkAdminCount

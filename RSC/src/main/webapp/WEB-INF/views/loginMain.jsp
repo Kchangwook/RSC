@@ -132,7 +132,7 @@
 
 				<div class="row">
 					<!-- 등록된 글이 없을때 -->
-					<c:if test="${empty boardList || fn:length(boardList) == 0 }">
+					<c:if test= "${empty boardList}">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-12">
 							<div class="card w3-round-large">
@@ -249,7 +249,7 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span class="imgSpan" ><img id ="profImg"></span>
+						<span class="imgSpan" ><img class="imgTag" id ="profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 
@@ -284,37 +284,10 @@
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<a class="btn btn-default btnOrange" href="" data-toggle="modal"
-							data-target="#singo"> 신고하기 </a>
+					 	<button class="btn btn-default btnOrange" onclick="boardSingo()">신고하기</button>
 					</div>
 					<!-- /글 신고하기 버튼-->
 
-					<!-- 글 신고하기 상세내용 -->
-					<div class="modal fade" id="singo" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="col-md-12 padding">
-									<div>신고 사유 :</div>
-									<div class="clear"></div>
-									<div>
-										<form name="singo"
-											action="${pageContext.request.contextPath}/singo/addBoardSingo.do">
-											<textarea id="boardSingoReason" method="post" rows="1"
-												style="width: 100%; resize: none; wrap: hard;"
-												placeholder="이유가 뭐니" name="boardSingoReason"></textarea>
-											<br> <input type="hidden" name="boardNum" id="boardNum"
-												value="">
-											<div align="right">
-												<input type=submit class="btn btn-default btnOrange"
-													value=신고하기>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /글 신고하기 상세내용 -->
 
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
@@ -402,7 +375,9 @@
 
 	<!-- 모달 비동기 스크립트 -->
 	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+
 	
+
 	
 	<!-- <fmt:formatDate value="${data.boardTime }" pattern="yyyy년 M월 d일 H시 m분 s초"/> -->
 </body>

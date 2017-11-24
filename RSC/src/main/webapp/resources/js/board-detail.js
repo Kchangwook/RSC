@@ -143,8 +143,8 @@ function replyList(resData) {
 		for(i=0; i < resData.length; i++ ) {
 			if(resData[i].replySingoFlag == 0) {
 				replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
-										'<a class="btn btn-default btnOrange" style="float: right; href="" data-toggle="modal"'+
-										'data-target="#replySingo" onclick="replyNumber(\''+resData[i].replyNum+'\')"> 신고하기 </a>'+
+										'<a class="btn btn-default btnOrange" style="float: right; href="" '+
+										'onclick="replyNumber(\''+resData[i].replyNum+'\')"> 신고하기 </a>'+
 									 '</div>'+
 									 '<div class="content1" style="float: right; width: 35%;">' +
 										 '<span>'+ resData[i].replyContent +'</span>'+
@@ -192,25 +192,37 @@ function replyList(resData) {
 	document.getElementById("replyHTML").innerHTML = replyListHTML;
 }
 
-//	<!-- 신고하기 -->
+//	<!-- 게시글 신고하기 -->
+function boardSingo() {
+	var address = document.getElementById("address").value;
+    var boardSingoReason = prompt("게시글 신고 이유");
+    var boardNum = document.getElementById("boardNum").value;
+	    if (boardSingoReason=="") {
+	    	alert("신고 이유를 입력해 주세요");
+	    	boardSingo();
+    	} else if (boardSingoReason==null) {
+    		return false;
+    	}  else {
+    		location.href= address+"/singo/addBoardSingo.do?boardNum="+boardNum+"&boardSingoReason="+boardSingoReason;
+    	}
+}
+
+//	<!-- 댓글 신고하기 -->
 function replySingo(){
 	var address = document.getElementById("address").value;
 	var replyNum = document.getElementById("replyNum").value;
-	var replySingoReason = document.getElementById("replySingoReason").value;
+	var replySingoReason = prompt("댓글 신고 이유");
+	
 	document.getElementById("replySingoReason").value = "";
 	
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resData = this.responseText;
-			resData=JSON.parse(resData);
-			
-		}
+	if (replySingoReason=="") {
+    	alert("신고 이유를 입력해 주세요");
+    	replySingo();
+	} else if (replySingoReason==null) {
+		return false;
+	}  else {
+		location.href= address+"/singo/addReplySingo.do?replyNum="+replyNum+"&replySingoReason="+replySingoReason;
 	}
-	
-	xhttp.open("POST", address+"/singo/addReplySingo.do", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send("replyNum="+replyNum+"&replySingoReason="+replySingoReason); 
 	
 }
 
@@ -348,7 +360,7 @@ function minusLike() {
 //	<!-- 댓글 신고하기 클릭시 댓글 번호 넘겨주기 -->
 function replyNumber(replyNum){
 	document.getElementById("replyNum").value = replyNum;
-	document.getElementById("replySingo").style.display='';
+	replySingo();
 }
 
 //	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->

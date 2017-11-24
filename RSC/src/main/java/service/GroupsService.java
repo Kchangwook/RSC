@@ -137,7 +137,7 @@ public class GroupsService {
 		try {
 			// ftp에 파일 업로드
 			for (Groups g : list) {
-				if (!g.getGroupImg().equals("resources/img/profile.jpg")) {
+				if (!g.getGroupImg().equals("resources/img/group.jpg")) {
 					String fileName[] = g.getGroupImg().split("/");
 					ftp.download("group", fileName[fileName.length - 1], "group");
 				}
@@ -167,14 +167,18 @@ public class GroupsService {
 		boolean flag = true;
 		
 		g = this.uploadProfile(request, g, "groupImg");
-		System.out.println(g);
 		
 		// 이미지가 비어있지 않다면
 		if (!g.getGroupImg().equals("resources/img/group.jpg")) {
+			
+			System.out.println("imgName: "+g.getGroupImg());
+			
 			String fileName[] = g.getGroupImg().split("/");
 
 			// ftp에 파일 업로드
-			ftp.upload("group", fileName[fileName.length - 1]);
+			int result = ftp.upload("group", fileName[fileName.length - 1]);
+			
+			System.out.println(result);
 		}
 
 		// DB에 데이터 추가
@@ -205,7 +209,6 @@ public class GroupsService {
 			}
 
 			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/member/" + g.getGroupNum() + "_"
-
 					+ file.getOriginalFilename()));
 
 			if (!file.getOriginalFilename().equals(""))
@@ -222,8 +225,6 @@ public class GroupsService {
 	/** 그룹에 관리자 몇 명인지 확인 */
 	public int checkAdminCount(int groupNum) {
 		int count = groupsDAO.checkAdminCount(groupNum);
-		System.out.println("groupsService" + groupNum);
-		System.out.println("groupsService" + count);
 		
 		return count;
 	}//end of checkAdminCount

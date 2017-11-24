@@ -178,7 +178,6 @@
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					var resData = parseInt(this.responseText);
-					console.log("resData" + resData);
 					
 					// 관리자가 한 명일 경우
 					if (resData == 1) {
