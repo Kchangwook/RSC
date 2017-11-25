@@ -132,6 +132,7 @@ function addReply(){
 //	<!-- 댓글 리스트 가져오기 -->
 function replyList(resData) {
 
+	var address = document.getElementById("address").value;
 	var replyListHTML = '';
 	var replySingoFlagHTML = '';
 	
@@ -165,7 +166,7 @@ function replyList(resData) {
 							'<div class="header1" ' +
 								'style="float: left; width: 25%;"> ' +
 								'<span><img '+
-										'src="'+address+'/resources/img/profile.jpg"></span> ' +
+										'src="'+address+'/'+ resData[i].memberImg+'"></span> ' +
 										'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
 							'</div>'+
 							

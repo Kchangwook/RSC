@@ -34,77 +34,7 @@
 <link rel="shortcut icon" href="favicon.png">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-.chatButton {
-    background-color: #F7921E; 
-    color: white; 
-    border: 2px solid #F7921E;
-    width:120px;
-    height:35px;
-    border-radius: 10px;
-    margin-left: 87%;
-}
-
-.chatButton:hover {
-    background-color: white;
-    color: #F7921E;
-    border: 2px solid #F7921E;
-}
-.chatPeople{
-	display: inline-block;
-	font-size: 14pt;
-	margin-left: 30px;
-	position:relative;
-	top: 5px;
-	font-weight: bold;
-	color: #b9b9b9;
-}
-div .chatImg{
-	width:100px;
-	height:100px;
-	display: inline-block;
-	margin-left: 20px;
-	margin-top: 20px;
-	border-radius: 100px;
-}
-
-.profImg{
-	border-radius: 100px;
-	width:100px;
-}
-
-.chatModal{
-	width:450px;
-}
-.loginPresent{
-	display: inline-block;
-	margin-left: 70px;
-	font-size: initial;
-	cursor: pointer;
-}
-.chatRoom{
-	height:140px;
-}
-.chatNicks{
-	display:inline-block;
-	font-size: 25pt;
-	font-weight: bold;
-	color: #b9b9b9;
-	float:right;
-	margin-top: 40px;
-	width:500px;
-}
-.chatMemberProf{
-	display:inline-block;
-	font-size: 18pt;
-	font-weight: bold;
-	color: #b9b9b9;
-	margin-left:50px;
-}
-#chatDiv{
-	width:100%;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat-list.css">
 </head>
 
 <body>
@@ -134,7 +64,6 @@ div .chatImg{
 				<div id="chatDiv">
 						<div class="col-md-12">
 							<div class="card w3-round-large chatRoom" onclick = "goChat(${rooms.chatNum})">
-								<!-- 글 내용 -->
 								<div class="content">
 									<div class = "chatMemberProf">
 									<c:forEach var = "member" items = "${rooms.members}" varStatus = "state" begin = "0" end = "3">
@@ -213,126 +142,6 @@ div .chatImg{
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
-	<script type="text/javascript">
-	var cnt = 0;
-	
-	//친구 더 보기
-	function moreFriendsView(count){
-		
-		var friendView = document.getElementsByClassName("friendView");
-		count = count>= friendView.length? friendView.length:count;
-		
-		for (var i = 0; i < friendView.length; i++) {
-			friendView[i].style.display = 'none';
-		}
-		
-		for (var i = 0; i < cnt; i++) {
-			friendView[i].style.display = '';
-		}
-		
-		console.log("count: "+count);
-		console.log("length: "+friendView.length);
-		
-	}
-
-	//친구 목록 가져오기
-	function friendList(resData){
-		
-		var friendHTML = '';
-		
-		if(resData.length == 0){
-			friendHTML = '<tr><td><div class = "chatPeople">친구가 없습니다</div></td></tr>';
-		}else{
-			for(var i = 0;i<resData.length;i++){
-				
-				friendHTML += '<tr class = "friendView"><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "${pageContext.request.contextPath}/'+resData[i].memberImg+'">'
-					+'</div><div class = "chatPeople">'+resData[i].memberNick+'</div>'+
-					'<div class = "loginPresent"><i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>'
-					+'</div><hr></td></tr>';
-					
-			}
-		}
-		
-		document.getElementById("presentLogin").innerHTML = friendHTML;
-		
-	}
-
-	//채팅방 만들기
-	function makeRoom(){
-		
-		if(confirm("이 멤버로 채팅방을 만드시겠습니까?")){
-			//변수 초기화
-			var people = document.getElementsByName("loginPresent");
-			var roomPeople = new Array;
-			var index = 0;
-			
-			for(var i = 0;i<people.length;i++){
-				if(people[i].style.color == 'blue'){
-					roomPeople[index] = people[i].parentNode.parentNode.childNodes[3].innerText;
-					index++;
-				}
-			}
-			
-			//비동기 통신
- 			var xhttp = new XMLHttpRequest();
-
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					alert(resData);
-					location.reload();
-				}
-			}
-
-			xhttp.open("POST", "makeRoom.do", true);
-			xhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
-			xhttp.send(JSON.stringify({"people": roomPeople})); 
-			
-		}
-		
-	}
-	
-	//채팅 맴버 선택
-	function selectPeople(icon){
-		
-		var color = icon.style.color;
-		
-		if(color == 'blue'){
-			icon.style.color = 'green';
-		}
-		else if(color == 'green'){
-			icon.style.color = 'blue';
-		}
-		
-	}	
-	
-	//친구 추가하기
-	function moreMember(){
-		var address = document.getElementById("address").value;
-
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				var resData = this.responseText;
-				resData = JSON.parse(resData);
-				friendList(resData);
-				moreFriendsView(window.count);
-				
-			}
-		}
-		
-		xhttp.open("GET", address+"/member/checkLogin.do", true);
-		xhttp.send(); 
-		
-	}
-	
-	window.onload = function(){
-		window.count = 2;	
-	}
-	
-	function goChat(chatNum){
-		location.href="${pageContext.request.contextPath}/chat/chatting.do?chatNum="+chatNum;
-	}
-	</script>
+	<script src="${pageContext.request.contextPath}/resources/js/chat-list.js"></script>
 </body>
 </html>

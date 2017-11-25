@@ -90,7 +90,7 @@ public class BoardService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
 			System.out.println(file.getOriginalFilename());
@@ -110,11 +110,11 @@ public class BoardService {
 	public List<Board> selectAllBoard(String memberId) {
 		
 		List<Board> list = boardDAO.selectAll(memberId);
-		
-		try {
+			try {
 			for (Board b : list) {
 				if(!b.getBoardFile().equals("resources/img/profile.jpg")) {
 					String fileName[] = b.getBoardFile().split("/");
+					
 					// ftp 파일 다운로드
 					ftp.download("board", fileName[fileName.length - 1], "board");
 				}
