@@ -73,4 +73,15 @@ public class ChatService {
 		
 	}//end of memberIds
 	
+	
+	/** 채팅방 나가기 */
+	public boolean deleteChat(Chat chat) {
+		return chatDAO.deleteChat(chat);
+	}
+	
+	/** 현재 채팅방에 추가로 친구 초대하기 */
+	public boolean addChatMemberInvited(Chat chat) {
+		return chatDAO.addChatMemberInvited(chat);
+	}
+	
 }//end of ChatService

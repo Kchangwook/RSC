@@ -5,6 +5,7 @@ div.chatting-main #chatDiv{
 	overflow-x: hidden;
 	background-color: white;
 	float:left;
+	border-radius: 10px;
 }
 div.chatting-main #chatDiv table{
 	width:50%;
@@ -46,12 +47,14 @@ div.chatting-main #chatDiv table tr td.tdContent{
 
 div.chatting-main #chatDiv table tr td.tdContent p.pSendContent{
 	float : right;
+	text-align : left;
 	background-color : rgba(247,146,30,0.2);
 	border-radius: 5px;
 	padding : 10px;
 }
 div.chatting-main #chatDiv table tr td.tdContent p.pReceiveContent{
 	float:left;
+	text-align : left;
 	border : 1px solid rgba(247,146,30,0.5);
 	border-radius: 5px;
 	padding : 10px;	
@@ -65,31 +68,132 @@ div.chatting-main #chatDiv table tr td.tdTime{
 }
 
 
-
-/* member list div */
+/* 채팅 참가자 목록 */
 div.chatting-main #chatMemberDiv{
-	margin-left : 2%;
+	margin-left : 1%;
 	width: 20%;
-	height: 500px;
+	max-height: 500px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	background-color: white;
 	float:left;
+	border-radius: 10px;
+	padding:10px;
 }
 
-div.chatting-main #chatInput{
+div.chatting-main #chatMemberDiv .chatMemberTitle{
+	width:50%;
+	float: left;
+}
+
+
+div.chatting-main #chatMemberDiv table#chatMemberTable,
+div.chatting-main #chatMemberDiv table#chatMemberTable tr{
 	width:100%;
-	margin-top : 2%;
+}
+div.chatting-main #chatMemberDiv table#chatMemberTable tr:hover{
+	cursor : pointer;
+	background-color: rgba(247,146,30,0.2);
+	border-radius: 5px;
+}
+div.chatting-main #chatMemberDiv table#chatMemberTable tr td.chatMembertdImg{
+	width:50px;
+	height:50px;
+	padding:5px;
+}
+div.chatting-main #chatMemberDiv table#chatMemberTable tr td.chatMembertdImg img{
+	width:40px;
+	height:40px;
+	border-radius: 20px;
+	border : 1px solid #ccc;
+}
+div.chatting-main #chatMemberDiv table#chatMemberTable tr td.chatMembertdNick{
+	font-size: small;
+}
+
+/* 초대하기/나가기 버튼 */
+div.chatting-main #chatMemberDiv .chatMemberInOut{
+	width:40%;
+	float: right;
+	text-align: right;
+}
+div.chatting-main #chatMemberDiv .chatMemberInOut button{
+	font-size : small;
+	border : none;
+	background-color: transparent;
+	color : #aaa;
+}
+div.chatting-main #chatMemberDiv .chatMemberInOut button:hover{
+	color:#F7921E;
+}
+
+/* 채팅 입력, 버튼 */
+div.chatting-main #chatInput{
+	width:70%;
+	margin-top : 1%;
+	border-radius: 10px;
+	border : 1px solid #eee;
+	background-color : white;
+	padding : 10px 15px;
 	float:left;
 }
 div.chatting-main #chatInput input#chatMsg{
-	width:70%;
+	width:90%;
+	border:none;
+	outline: none;
 }
 div.chatting-main #chatInput button#chatBtn{
-	background-color:#F7921E;
-	color:white;
+	float : right;
+	background-color : transparent;
+	color : #aaa;
 	border : none;
-	padding: 3px 5px;
+}
+div.chatting-main #chatInput button#chatBtn:hover{
+	float : right;
+	background-color : transparent;
+	color : #F7921E;
+	border : none;
+}
+
+/* 친구 초대 모달 */
+div#friendListModal div#friendListDIv{
+	max-height: 300px;
+	overflow: auto;
+}
+
+div#friendListModal table#friendListTable tr{
+	height:40px;
+	padding : 0 10px;
+}
+div#friendListModal table#friendListTable tr:hover {
+	background-color: rgba(247,146,30,0.2);
+	cursor: pointer;
+}
+div#friendListModal table#friendListTable tr td.tdCheck{
+	width:10%;
+}
+div#friendListModal table#friendListTable tr td.tdImg{
+	width:10%;
+}
+div#friendListModal table#friendListTable tr td.tdImg img{
+	width : 30px;
+	height : 30px;
+	border-radius: 15px;
+	margin : 0;
+}
+
+div#friendListModal div.modal-footer button{
+	font-size : small;
+	border : 1px solid #F7921E;
+	border-radius : 10px;
+	background-color: white;
+	padding : 10px;
+	color : #aaa;
+}
+
+div#friendListModal div.modal-footer button:hover{
+	background-color: #F7921E;
+	color:white;
 }
 
 

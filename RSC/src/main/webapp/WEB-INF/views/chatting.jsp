@@ -83,20 +83,56 @@
 						
 						<!-- 채팅 참가자 목록 -->
 						<div id="chatMemberDiv">
-						
+							<div class="chatMemberTitle">
+								<h5 style="font-weight:800;">채팅 참가자</h5>
+							</div>
+							<div class="chatMemberInOut">
+								<!-- 초대하기/나가기 버튼 -->
+								<button onclick="inviteFriend()" data-toggle="modal" data-target="#friendListModal" title="초대하기">
+									<i class="fa fa-user-plus"></i>
+								</button>
+								<button onclick="goOutChat('${requestScope.chatNum}','${sessionScope.id}')" title="나가기">
+									<i class="fa fa-sign-out"></i>
+								</button>
+							</div>
+							<table id="chatMemberTable">
+								<c:forEach items="${requestScope.memberList}" var="data">
+									<tr onclick="goFriendPage('${data.memberId}','${data.memberNick}')">
+										<td class="chatMembertdImg">
+											<img src="${pageContext.request.contextPath}/${data.memberImg}">
+										</td>
+										<td class="chatMembertdNick">
+											${data.memberNick}
+										</td>
+										<td>
+											<c:choose>
+												<c:when test="${data.memberPresentLogin eq 1 }">
+													<i class="fa fa-circle" style="color:#BCE55C" title="온라인"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="fa fa-circle" style="color:#FF5A5A" title="오프라인"></i>
+												</c:otherwise>
+											</c:choose>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
 						
 						<!-- 채팅 입력 버튼 -->
 						<div id="chatInput">
-							<input id="chatMsg" type="text" placeholder="메시지를 입력하세요.">
-							<button id= "chatBtn" onclick="sendMsg('${sessionScope.id}')">전송</button>
-							<i class="fa fa-refresh" onclick="refresh()" style="color:green; cursor:pointer;"></i>
+							<input id="chatMsg" type="text" placeholder="메시지를 입력하세요." onkeypress="if(event.keyCode==13) {sendMsg();}">
+							<button id= "chatBtn" onclick="sendMsg()" title="전송">
+								<i class="fa fa-paper-plane"></i>
+							</button>
 						</div>
+						<i class="fa fa-refresh" onclick="refresh()" style="color:green; cursor:pointer;"></i>
 					</div>
 				</div>
 			</div>
 		<!-- 본문 끝 부분 -->
 		</div>
+		
 		
 		<!-- footer 마지막 검은 박스 -->
 		<footer class="main-footer">
@@ -115,12 +151,32 @@
 		</footer>
 	</div>
 
-	
+	<!-- 초대하기 모달 -->
+	<div class="modal fade" id="friendListModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4>친구 목록</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div id="friendListDIv">
+						<table id="friendListTable">
+
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" onclick="inviteCheckedFriend('${requestScope.chatNum}')" data-dismiss="modal">초대하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- Javascript files-->
-	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
-	
 	
 	<script>
 		function scrollDown(){
@@ -131,10 +187,10 @@
 		}
 		scrollDown();
 	
-		function sendMsg(sessionId){
+		function sendMsg(){
+			var memberId = document.getElementById("sessionId").value;
 			var chatNum = document.getElementById("chatNum").value;
 			var chatMsg = document.getElementById("chatMsg").value;
-			
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -144,13 +200,10 @@
 			}
 			xhttp.open("POST", "${pageContext.request.contextPath}/chat/sendingMsg.do", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("chatNum="+chatNum+"&memberId="+sessionId+"&messageContent="+chatMsg); 
+			xhttp.send("chatNum="+chatNum+"&memberId="+memberId+"&messageContent="+chatMsg); 
 		}
 		
-		
-		
-		
-		
+		/* 전송한 메시지  */
 		function makeSendMsgBox(message){
 			var chatDiv = document.getElementById("chatDiv");
 			
@@ -207,6 +260,7 @@
 			chatDiv.appendChild(chatSendTable);
 		}
 		
+		/* 받은 메시지  */
 		function makeReceiveMsgBox(message){
 			var chatDiv = document.getElementById("chatDiv");
 			
@@ -266,7 +320,7 @@
 			chatDiv.appendChild(chatReceiveTable);
 		}
 
-		
+		/* 메시지 갱신 */
 		function updateChatTable(){
 			var chatNum = document.getElementById("chatNum").value;
 			var recentMessageNum = document.getElementById("recentMessageNum").value;
@@ -297,9 +351,145 @@
 			xhttp.send("chatNum="+chatNum+"&messageNum="+recentMessageNum);
 		};
 		
+		/* 메시지 갱신 버튼 */
 		function refresh(){
 			updateChatTable();
 		}
+		
+		/* 채팅방 나가기 */
+		function goOutChat(chatNum, memberId, memberNick){
+			if(confirm("채팅방을 나가시겠습니까?\n\n(채팅방을 나갈 경우 대화 내용이 모두 삭제됩니다)")){
+				location.href="${pageContext.request.contextPath}/chat/goOutChat.do?chatNum="+chatNum+"&memberId="+memberId;
+			} else {
+				return false;	
+			}
+		}
+		
+		/* 초대할 친구 목록 가져오기 */
+		function inviteFriend(){
+			var memberId = document.getElementById("sessionId").value;
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var resData = this.responseText;
+					resData = JSON.parse(resData);
+					makeFriendList(resData);
+				}
+			}
+			xhttp.open("POST", "${pageContext.request.contextPath}/chat/getFriendList.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("memberId=" + memberId);
+		};
+		
+		/* 친구초대 modal에 친구 리스트 만들기 */
+		function makeFriendList(friendList){
+			var friendListTable = document.getElementById("friendListTable");
+			friendListTable.innerHTML = "";
+			var alreadyMemberNick = document.getElementsByClassName("chatMembertdNick");
+			
+			for( i=0 ; i<friendList.length ; i++ ){
+				var friendListTr = document.createElement("tr");
+				friendListTr.setAttribute("onclick","check('tr"+friendList[i].memberId+"')");
+				
+				var friendListTdCheckBox = document.createElement("td");
+				var friendListCheckBox = document.createElement("input");
+				friendListCheckBox.setAttribute("type","checkbox");
+				friendListCheckBox.setAttribute("id","tr"+friendList[i].memberId);
+				friendListCheckBox.setAttribute("value",friendList[i].memberId);
+				friendListCheckBox.setAttribute("name","checkedFriendList");
+				
+				for(j=0 ; j<alreadyMemberNick.length ; j++){
+					if(friendList[i].memberNick == alreadyMemberNick[j].textContent.trim()){
+						friendListCheckBox.setAttribute("disabled","disabled");
+					}
+				}
+				
+				friendListTdCheckBox.appendChild(friendListCheckBox);
+				friendListTdCheckBox.className = "tdCheck";
+				
+				var friendListTdImg = document.createElement("td");
+				var friendListImg = document.createElement("img");
+				friendListImg.setAttribute("src","${pageContext.request.contextPath}/"+friendList[i].memberImg);
+				friendListTdImg.appendChild(friendListImg);
+				friendListTdImg.className = "tdImg";
+				
+				var friendListTdNick = document.createElement("td");
+				friendListTdNick.textContent = friendList[i].memberNick;
+				
+				var friendListTdLogin = document.createElement("td");
+				var friendListLoginIcon = document.createElement("i");
+				friendListLoginIcon.className = "fa fa-circle";
+				if(friendListTdLogin==1){
+					friendListLoginIcon.style.color = "#BCE55C";
+				} else {
+					friendListLoginIcon.style.color = "#FF5A5A";
+				}
+				friendListTdLogin.appendChild(friendListLoginIcon);
+				
+				friendListTr.appendChild(friendListTdCheckBox);
+				friendListTr.appendChild(friendListTdImg);
+				friendListTr.appendChild(friendListTdNick);
+				friendListTr.appendChild(friendListTdLogin);
+				
+				friendListTable.appendChild(friendListTr);
+			}
+		}
+		
+		/* 선택된 친구 초대 */
+		function inviteCheckedFriend(chatNum){
+			var checkedFriendCheckBox = document.getElementsByName("checkedFriendList");
+			var checkedFriendArr = [];
+			var checkedFriendStr = "";
+			for(i=0 ; i<checkedFriendCheckBox.length ; i++){
+				if(checkedFriendCheckBox[i].checked){
+					checkedFriendArr.push(checkedFriendCheckBox[i].value);
+				}
+			}
+			
+			if(checkedFriendArr.length != 0){
+				for(i=0 ; i<checkedFriendArr.length ; i++){
+					checkedFriendStr += checkedFriendArr[i];
+					if(i != checkedFriendArr.length-1){
+						checkedFriendStr += ",";
+					}
+				}
+				location.href="${pageContext.request.contextPath}/chat/invite.do?chatNum="+chatNum+"&inviteList="+checkedFriendStr;
+			} else {
+				alert("초대할 친구를 선택해주세요.");
+				inviteFriend();
+			}
+		}
+		
+		/* 친구 선택시 checkbox checked 설정/취소 */
+		function check(trFriendId){
+			if(!document.getElementById(trFriendId).disabled){
+				if(!document.getElementById(trFriendId).checked){
+					document.getElementById(trFriendId).checked = "checked";
+				} else {
+					document.getElementById(trFriendId).checked = "";
+				}
+			}
+		};
+		
+		/* 마이/친구 페이지로 이동 */
+		function goFriendPage(memberId, memberNick){
+			var myId = document.getElementById("sessionId").value;
+			if(memberId==myId){
+				if(confirm("마이페이지로 이동하시겠습니까?")){
+					location.href = "${pageContext.request.contextPath}/board/myBoards.do";
+				} else {
+					return false;
+				}
+			} else {
+				if(confirm(memberNick+"님의 페이지로 이동하시겠습니까?")){
+					location.href = "${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId="+memberId;
+				} else {
+					return false;
+				}
+			}
+		}
+
+
 		
 
 		

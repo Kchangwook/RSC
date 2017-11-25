@@ -246,5 +246,18 @@ public class MemberService {
 		return memberDAO.searchPresentLogin(memberId);
 		
 	}//end of searchPresentLogin
+	
+	
+	/** chatNum으로 채팅방 멤버 검색 */
+	public List<Member> searchChatMemberByChatNum(int chatNum){
+		
+		return memberDAO.searchChatMemberByChatNum(chatNum);
+		
+	}
+	
+	/** 전체 친구의 회원정보 검색 */
+	public List<Member> searchFriendMemberById(String memberId){
+		return memberDAO.searchFriendMemberById(memberId);
+	}
 
 }// end of MemberService

@@ -33,5 +33,14 @@
 	<insert id = "addChatMember" parameterType = "String">
 		insert into chat values(CHAT_NUM_SEQ.CURRVAL,#{memberId})
 	</insert>
+		
+	<insert id="addChatMemberInvited" parameterType="chat">
+		insert into chat values (#{chatNum}, #{memberId})
+	</insert>
+	
+	<!-- 채팅방 나가기 -->
+	<delete id="deleteChat" parameterType="chat">
+		delete chat where chat_num=#{chatNum} and member_id=#{memberId}
+	</delete>
 
 </mapper>

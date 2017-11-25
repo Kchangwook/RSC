@@ -87,6 +87,22 @@
 		select distinct m.member_id,m.member_nick,m.member_img
 		from member m,friend f
 		where f.member_id = #{memberId} and m.member_id = f.friend_id and m.member_present_login = 1
-		</select>
+	</select>
+		
+	<!-- chatNum으로 채팅방 member list 가져오기 -->
+	<select id="selectChatMemberByChatNum" parameterType="int" resultMap="memberResult">
+		select m.member_id, m.member_nick, m.member_img, m.member_login_time, m.member_logout_time, m.member_present_login
+		from member m, chat c
+		where c.chat_num=#{chatNum} and c.member_id=m.member_id
+	</select>
+	
+	<!-- 전체 친구의 회원정보 가져오기 -->
+	<select id="selectFriendMemberById" parameterType="String" resultMap="memberResult">
+		select m.member_id, m.member_nick, m.member_img, m.member_login_time, m.member_logout_time, m.member_present_login
+		from member m,friend f
+		where f.member_id = #{memberId} and m.member_id = f.friend_id
+		order by m.member_present_login desc
+	</select>
+		
 
 </mapper>

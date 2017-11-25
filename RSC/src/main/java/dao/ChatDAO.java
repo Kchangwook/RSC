@@ -63,4 +63,22 @@ public class ChatDAO extends SqlSessionDaoSupport{
 		
 	}//end of addMember
 	
+	
+	/** 채팅방 나가기 */
+	public boolean deleteChat(Chat chat) {
+		boolean flag = true;
+		session = getSqlSession();
+		flag = session.delete("chat.deleteChat",chat) > 0 ? true : false ;
+		
+		return flag;
+	}
+	
+	/** 현재 채팅방에 추가로 친구 초대하기 */
+	public boolean addChatMemberInvited(Chat chat) {
+		boolean flag = true;
+		session = getSqlSession();
+		flag = session.insert("chat.addChatMemberInvited",chat) > 0 ? true : false ;
+		return flag;
+	}
+	
 }//end of ChatDAO

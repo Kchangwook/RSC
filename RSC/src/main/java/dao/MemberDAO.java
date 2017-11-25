@@ -169,4 +169,19 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		
 	}//end of searchPresentLogin
 	
+	/** chatNum으로 채팅방 멤버 검색 */
+	public List<Member> searchChatMemberByChatNum(int chatNum){
+		List<Member> list = null;
+		session = getSqlSession();
+		list = session.selectList("member.selectChatMemberByChatNum",chatNum);
+		return list;
+	}
+	
+	/** 전체 친구의 회원정보 검색 */
+	public List<Member> searchFriendMemberById(String memberId){
+		session = getSqlSession();
+		List<Member> list = session.selectList("member.selectFriendMemberById",memberId);
+		return list;
+	}
+	
 }//end of MemberDAO

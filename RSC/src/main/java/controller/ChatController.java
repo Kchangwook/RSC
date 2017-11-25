@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Chat;
+import domain.Member;
 import domain.Message;
 import service.ChatService;
+import service.MemberService;
 import service.MessageService;
 
 /** 채팅 기능을 위한 컨트롤러 */
@@ -27,6 +29,7 @@ public class ChatController {
 	/* 변수 */
 	private ApplicationContext context = new GenericXmlApplicationContext("/applicationContext.xml");
 	private ChatService chatService = context.getBean("chatService",ChatService.class);
+	private MemberService memberService = context.getBean("memberService",MemberService.class);
 	private MessageService messageService = context.getBean("messageService", MessageService.class);
 	
 	/* 함수 */
@@ -54,12 +57,19 @@ public class ChatController {
 	/** 채팅 페이지 이동 */
 	@RequestMapping("chatting.do")
 	public String goChattingPage(@RequestParam("chatNum") int chatNum, Model model) {
-		List<Message> list = messageService.searchAllMessageByChatNum(chatNum);
-		System.out.println(list);
+		List<Message> messagelist = messageService.searchAllMessageByChatNum(chatNum);
+		List<Member> memberList = memberService.searchChatMemberByChatNum(chatNum);
 		
 		model.addAttribute("chatNum",chatNum);
-		model.addAttribute("recentMessageNum",list.get(list.size()-1).getMessageNum());
-		model.addAttribute("messageList",list);
+		
+		if(messagelist.size() > 0) {
+			model.addAttribute("recentMessageNum",messagelist.get(messagelist.size()-1).getMessageNum());
+		} else {
+			model.addAttribute("recentMessageNum",0);
+		}
+		
+		model.addAttribute("messageList",messagelist);
+		model.addAttribute("memberList",memberList);
 		return "chatting";
 	}
 	
@@ -92,6 +102,38 @@ public class ChatController {
 		
 		List<Message> list = messageService.searchRecentMessage(message);
 		return list;
+	}
+	
+	/** 채팅방 나가기 */
+	@RequestMapping("goOutChat.do")
+	public String goOutChat(Chat chat) {
+		boolean result = chatService.deleteChat(chat);
+
+		return "redirect:getList.do";
+	}
+	
+	/** 친구 목록 가져오기 */
+	@RequestMapping("getFriendList.do")
+	public @ResponseBody List<Member> searchFriendList(@RequestParam("memberId") String memberId){
+		List<Member> list = memberService.searchFriendMemberById(memberId);
+		return list;
+	}
+	
+	/** 친구 초대 하기 */
+	@RequestMapping("invite.do")
+	public String addChatMember(@RequestParam("chatNum") int chatNum,
+								@RequestParam("inviteList") String inviteList) {
+		boolean result = true;
+		String[] memberList = inviteList.split(",");
+		Chat chat = new Chat();
+		
+		for (int i = 0; i < memberList.length; i++) {
+			chat.setChatNum(chatNum);
+			chat.setMemberId(memberList[i]);
+			result = chatService.addChatMemberInvited(chat);
+		}
+		
+		return "redirect:chatting.do?chatNum="+chatNum;
 	}
 	
 }//end of ChattingController
