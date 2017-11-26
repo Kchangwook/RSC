@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="groupRandomChat">
+
+	<resultMap id="groupRandomChatResult" type="groupRandomChat">
+		<result property="groupRandomNum" column="GROUP_RANDOM_NUM" />
+		<result property = "memberId" column = "MEMBER_ID"/>
+	</resultMap>
+	
+	<insert id="addGroupRandomChat" parameterType="String">
+		insert into group_random_chat values(group_random_num_seq.nextval,#{memberId})
+	</insert>
+	
+	<delete id = "deleteGroupRandomChat" parameterType = "int">
+		delete from group_random_chat where group_random_num = #{groupRandomNum}
+	</delete>
+	
+	<select id = "getAll" resultMap = "groupRandomChatResult">
+		select * from group_random_chat order by group_random_num desc
+	</select>
+
+</mapper>

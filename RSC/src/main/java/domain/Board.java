@@ -40,7 +40,7 @@ public class Board {
 		super();
 		this.memberId = memberId;
 		this.boardContent = boardContent;
-		this.boardFile = "resources/img/board";
+		this.boardFile = "";
 	}
 	
 	/* Getter, Setter */

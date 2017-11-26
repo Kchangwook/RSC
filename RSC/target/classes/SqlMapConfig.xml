@@ -24,6 +24,8 @@
 		<typeAlias type = "domain.Like" alias = "like"/>
 		<typeAlias type = "domain.Chat" alias = "chat"/>
 		<typeAlias type = "domain.Message" alias = "message"/>
+		<typeAlias type = "domain.OneRandomChat" alias = "oneRandomChat"/>
+		<typeAlias type = "domain.GroupRandomChat" alias = "groupRandomChat"/>
 	</typeAliases>
 
 </configuration>

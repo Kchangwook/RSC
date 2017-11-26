@@ -59,7 +59,7 @@ public class BoardService {
 			System.out.println("5번 : " + b);
 
 			
-			if (!b.getBoardFile().equals("resources/img/board")) {
+			if (!b.getBoardFile().equals(" ")) {
 				String fileName[] = b.getBoardFile().split("/");
 
 				// ftp에 파일 업로드
@@ -118,7 +118,7 @@ public class BoardService {
 				}
 				
 				// ftp에 존재하는 게시판 파일 다운로드 
-				if(!b.getBoardFile().equals("resources/img/board")) {
+				if(!b.getBoardFile().equals(" ")) {
 					String fileName[] = b.getBoardFile().split("/");
 					ftp.download("board", fileName[fileName.length - 1], "board");
 				}
@@ -180,7 +180,7 @@ public class BoardService {
 					}
 					
 					// ftp에 존재하는 게시판 파일 다운로드 
-					if(!b.getBoardFile().equals("resources/img/board")) {
+					if(!b.getBoardFile().equals(" ")) {
 						String fileName[] = b.getBoardFile().split("/");
 						ftp.download("board", fileName[fileName.length - 1], "board");
 					}
@@ -219,7 +219,7 @@ public class BoardService {
 					}
 					
 					// ftp에 존재하는 게시판 파일 다운로드 
-					if(!b.getBoardFile().equals("resources/img/board")) {
+					if(!b.getBoardFile().equals(" ")) {
 						String fileName[] = b.getBoardFile().split("/");
 						ftp.download("board", fileName[fileName.length - 1], "board");
 					}
@@ -256,7 +256,7 @@ public class BoardService {
 					}
 					
 					// ftp에 존재하는 게시판 파일 다운로드 
-					if(!b.getBoardFile().equals("resources/img/board")) {
+					if(!b.getBoardFile().equals(" ")) {
 						String fileName[] = b.getBoardFile().split("/");
 						ftp.download("board", fileName[fileName.length - 1], "board");
 					}

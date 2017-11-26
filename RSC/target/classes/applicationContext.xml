@@ -13,10 +13,9 @@
 	
 	<!-- FTPService -->
 	<bean id = "ftpService" class = "ftp.FTPService" />
-	
 
 	 <!-- DB Connection을 가져오는 빈 -->
-	 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@59.187.224.177:7624:xe" />
 		<property name="username" value="kosta" />
@@ -114,11 +113,35 @@
 		<property name="mapperLocations" value="chat.xml" />
 	</bean>
 		
+	<!-- GroupRandomChatFactory 설정하는 빈 -->
+	<bean id = "GroupRandomChatFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="groupRandomChat.xml" />
+	</bean>
+	
+	<!-- OneRandomChatFactory 설정하는 빈 -->
+	<bean id = "OneRandomChatFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="SqlMapConfig.xml" />
+		<property name="mapperLocations" value="oneRandomChat.xml" />
+	</bean>
+	
 	<!-- MessageSessionFactory 설정하는 빈 -->
 	<bean id = "MessageFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="SqlMapConfig.xml" />
 		<property name="mapperLocations" value="message.xml" />
+	</bean>
+	
+	<!-- OneRandomChatDAO -->
+	<bean id = "oneRandomChatDAO" class = "dao.OneRandomChatDAO">
+		<property name = "sqlSessionFactory" ref = "OneRandomChatFactory"/>
+	</bean>
+	
+	<!-- GroupRandomChatDAO -->
+	<bean id = "groupRandomChatDAO" class = "dao.GroupRandomChatDAO">
+		<property name = "sqlSessionFactory" ref = "GroupRandomChatFactory"/>
 	</bean>
 	
 	<!-- ChatDAO -->
@@ -189,6 +212,12 @@
 	<!-- chatService -->
 	<bean id="chatService" class="service.ChatService">
 		<property name="chatDAO" ref="chatDAO" />
+	</bean>
+
+	<!-- RandomChatService -->
+	<bean id = "randomChatService" class = "service.RandomChatService">
+		<property name = "groupRandomChatDAO" ref = "groupRandomChatDAO"/>
+		<property name = "oneRandomChatDAO" ref = "oneRandomChatDAO"/>
 	</bean>
 
 	<!-- memberService -->
