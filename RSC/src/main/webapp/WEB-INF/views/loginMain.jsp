@@ -48,30 +48,29 @@
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style type="text/css">
-.filebox1 label { 
-	display: inline-block; 
-	padding: 6px 12px; 
-	color: #999; 
-	font-size: 14px; 
-	line-height: normal; 
-	background-color: #fff; 
-	cursor: pointer; 
-	border: 1px solid #ebebeb; 
-	border-bottom-color: #e2e2e2; 
-	border-radius: .25em; 
-} 
+.filebox1 label {
+	display: inline-block;
+	padding: 6px 12px;
+	color: #999;
+	font-size: 14px;
+	line-height: normal;
+	background-color: #fff;
+	cursor: pointer;
+	border: 1px solid #ebebeb;
+	border-bottom-color: #e2e2e2;
+	border-radius: .25em;
+}
 
-.filebox1 input[type="file"] { /* 파일 필드 숨기기 */ 
- 	position: absolute;
+.filebox1 input[type="file"] { /* 파일 필드 숨기기 */
+	position: absolute;
 	width: 1px;
 	height: 1px;
 	padding: 0;
 	margin: -1px;
 	overflow: hidden;
-	clip:rect(0,0,0,0);
+	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
-
 </style>
 </head>
 
@@ -96,9 +95,8 @@
 
 							<!-- 글 머리 : 사진, 닉네임 -->
 							<div class="header">
-								<span class="imgSpan">
-								<img class="imgTag"	src="${pageContext.request.contextPath}/${imgSrc}"></span>
-								<span>&nbsp;&nbsp;${sessionScope.nick}</span>
+								<span class="imgSpan"> <img class="imgTag"
+									src="${pageContext.request.contextPath}/${imgSrc}"></span> <span>&nbsp;&nbsp;${sessionScope.nick}</span>
 							</div>
 
 							<!-- 글 내용 -->
@@ -113,14 +111,12 @@
 										value="${sessionScope.id}">
 									<div class="filebox1" align="right" style="width: 100%;">
 										<input type="text" width="50%" name="boardSrc" id="boardSrc"
-											placeholder="upload to file" disabled="disabled">
-										
-										<label for="boardFile">파일</label> <input type="file"
+											placeholder="" disabled="disabled"> <label
+											for="boardFile">파일</label> <input type="file"
 											name="boardFile" id="boardFile" accept="image/*"
-											onchange="changeBoardSrc()"> 
-											<div class="clear"></div>
-											<input type=submit
-											class="btn btn-default btnOrange" value=글쓰기>
+											onchange="changeBoardSrc()">
+										<div class="clear"></div>
+										<input type=submit class="btn btn-default btnOrange" value=글쓰기>
 									</div>
 								</form>
 							</div>
@@ -132,17 +128,15 @@
 
 				<div class="row">
 					<!-- 등록된 글이 없을때 -->
-					<c:if test= "${empty boardList}">
+					<c:if test="${empty boardList}">
 						<!-- 글 작성 틀 -->
 						<div class="col-md-12">
 							<div class="card w3-round-large">
 
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span class="imgSpan">
-									<img class="imgTag"
-										src="${pageContext.request.contextPath}/${imgSrc}"></span>
-									<span>&nbsp;&nbsp;${sessionScope.nick}</span>
+									<span class="imgSpan"> <img class="imgTag"
+										src="${pageContext.request.contextPath}/${imgSrc}"></span> <span>&nbsp;&nbsp;${sessionScope.nick}</span>
 								</div>
 
 								<!-- 글 내용 -->
@@ -169,10 +163,9 @@
 							<div class="card w3-round-large">
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span class="imgSpan">
-										<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}">
-									</span>
-									<span>&nbsp;&nbsp;${data.memberNick}</span>
+									<span class="imgSpan"> <img class="imgTag"
+										src="${pageContext.request.contextPath}/${data.memberImg}">
+									</span> <span>&nbsp;&nbsp;${data.memberNick}</span>
 								</div>
 
 								<c:choose>
@@ -181,9 +174,13 @@
 										<div class="content">
 											<span> <a href="" style="display: block;"
 												data-toggle="modal" data-target="#detailView"
-												onclick="searchBoard(${data.boardNum})"><img style="max-width: 100%"
-													src="${pageContext.request.contextPath}/${data.boardFile}"><br><br>
-													${data.boardContent} </a>
+												onclick="searchBoard(${data.boardNum})"><img
+													style="max-width: 100%"
+													src="${pageContext.request.contextPath}/${data.boardFile}">
+													<c:if test="${data.boardFile ne 'resources/img/board' }">
+														<br>
+														<br>
+													</c:if> ${data.boardContent} </a>
 											</span>
 										</div>
 									</c:when>
@@ -249,7 +246,7 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span class="imgSpan" ><img class="imgTag" id ="profImg"></span>
+						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
 						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 
@@ -263,7 +260,9 @@
 
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
-						<img style="max-width: 100%" id="boardFileImg" src="${pageContext.request.contextPath}/${boardSrc}" > <br><br><span id="boardContent"> </span>
+						<img style="max-width: 100%" id="boardFileImg"
+							src="${pageContext.request.contextPath}/${boardSrc}"> <span
+							id="br"></span><span id="boardContent"> </span>
 					</div>
 					<hr>
 
@@ -274,26 +273,28 @@
 								id="boardTime"></span>
 						</div>
 					</div>
-					<!-- 좋아요 카운트 수 -->
-					<div class="likeCnt" align="right">
-						<span id=boardLike></span>
-					</div>
-					<!-- /좋아요 카운트 수 -->
 
 					<div class="clear"></div>
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-					 	<button class="btn btn-default btnOrange" onclick="boardSingo()">신고하기</button>
+						<i class="fa fa-exclamation-triangle fa-2x"
+							style="color: orange; margin-left: 3%" onclick="boardSingo()"></i>
 					</div>
 					<!-- /글 신고하기 버튼-->
 
 
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
-						<div id="like"></div>
+						<!-- 좋아요 카운트 -->
+						<div id=boardLike class="likeCnt" align="right"></div>
+						<!-- /좋아요 카운트 -->
+						<div id="like">
+							<!-- <span id=boardLike></span> -->
+						</div>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /좋아요 버튼 -->
 
@@ -308,7 +309,7 @@
 					<div style="float: right;" align="right">
 						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId" value="${sessionScope.id}">
 					</div>
 					<!-- /댓글 작성 틀 -->
 
@@ -318,7 +319,8 @@
 				<!-- 댓글 내용 -->
 				<div id="replyHTML" style="margin-bottom: -2%;"></div>
 				<!-- /댓글 내용 -->
-				<button class="btn btn-default btnOrange btn-margin" style="margin-bottom: 2%;"
+				<button class="btn btn-default btnOrange btn-margin"
+					style="margin-bottom: 2%;"
 					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
 					더보기</button>
 
@@ -344,8 +346,7 @@
 							<br> <input type="hidden" name="replyNum" id="replyNum"
 								value="">
 							<div align="right">
-								<input type=submit class="btn btn-default btnOrange"
-									value=신고하기>
+								<input type=submit class="btn btn-default btnOrange" value=신고하기>
 							</div>
 						</form>
 					</div>
@@ -358,7 +359,8 @@
 
 
 	<!-- Javascript files-->
-	<script type="text/javascript" src = "${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"></script>
@@ -374,11 +376,12 @@
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 
 	<!-- 모달 비동기 스크립트 -->
-	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
 
-	
 
-	
+
+
 	<!-- <fmt:formatDate value="${data.boardTime }" pattern="yyyy년 M월 d일 H시 m분 s초"/> -->
 </body>
 </html>

@@ -12,7 +12,7 @@ function changeBoardSrc() {
 	
 }
 
-// <!-- 게시글 상세보기(모달) -->
+//<!-- 게시글 상세보기(모달) -->
 function modifyBoard(boardNum) {
 	var address = document.getElementById("address").value;
 	var xhttp = new XMLHttpRequest();
@@ -21,11 +21,16 @@ function modifyBoard(boardNum) {
 			var resData = this.responseText;
 			resData = JSON.parse(resData);
 			
+			var time = new Date(resData.board.boardTime).getFullYear() + '년 '
+							+ (new Date(resData.board.boardTime).getMonth() + 1) + '월 '
+							+ new Date(resData.board.boardTime).getDate() + '일 '
+							+ new Date(resData.board.boardTime).getHours() + '시 '
+							+ new Date(resData.board.boardTime).getMinutes() + '분';
+			
 			document.getElementById("modifyNum").value = resData.board.boardNum;
 			document.getElementById("modifyNick").innerText = resData.board.memberNick;
 			document.getElementById("modifyContent").innerText = resData.board.boardContent;
-			document.getElementById("modifyTime").innerText = new Date(
-					resData.board.boardTime).toUTCString();
+			document.getElementById("modifyTime").innerText = time;
 			document.getElementById("modifyCnt").innerText = "조회수 : "
 					+ resData.board.boardCnt;
 			document.getElementById("modifyImg").src = address+"/"+resData.board.memberImg;
@@ -71,17 +76,25 @@ function searchBoard(boardNum) {
 			var resData = this.responseText;
 			resData=JSON.parse(resData);
 			
-			var imgURL = address+"/"+resData.board.boardFile;
-			
+			var time = new Date(resData.board.boardTime).getFullYear() + '년 '
+							+ (new Date(resData.board.boardTime).getMonth() + 1) + '월 '
+							+ new Date(resData.board.boardTime).getDate() + '일 '
+							+ new Date(resData.board.boardTime).getHours() + '시 '
+							+ new Date(resData.board.boardTime).getMinutes() + '분';
+				
 			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
 			document.getElementById("memberNick").innerText = resData.board.memberNick;
 			document.getElementById("boardContent").innerText = resData.board.boardContent;
-			document.getElementById("boardTime").innerText = new Date(resData.board.boardTime).toUTCString();
+			document.getElementById("boardTime").innerText = time;
 			document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
 			document.getElementById("boardLike").innerText = resData.board.boardLike;
 			document.getElementById("boardNum").value = resData.board.boardNum;
-			document.getElementById("memberId").value = resData.board.memberId;
-			document.getElementById("boardFileImg").src = imgURL;
+			document.getElementById("boardFileImg").src = address+"/"+resData.board.boardFile;
+			
+			if(resData.board.boardFile != 'resources/img/board') {
+			document.getElementById("br").innerHTML = '<br><br>';
+			} 
+			
 			replyList(resData.reply);
 			like();
 			moreReplyView(cnt);
@@ -129,7 +142,7 @@ function addReply(){
 	
 }
 
-//	<!-- 댓글 리스트 가져오기 -->
+//<!-- 댓글 리스트 가져오기 -->
 function replyList(resData) {
 
 	var address = document.getElementById("address").value;
@@ -144,13 +157,11 @@ function replyList(resData) {
 		for(i=0; i < resData.length; i++ ) {
 			if(resData[i].replySingoFlag == 0) {
 				replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
-										'<a class="btn btn-default btnOrange" style="float: right; href="" '+
-										'onclick="replyNumber(\''+resData[i].replyNum+'\')"> 신고하기 </a>'+
+										'<i class="fa fa-exclamation-triangle" style="float: right; color:orange;" href="" '+
+										'onclick="replyNumber(\''+resData[i].replyNum+'\')"> </i>'+
 									 '</div>'+
 									 '<div class="content1" style="float: right; width: 35%;">' +
 										 '<span>'+ resData[i].replyContent +'</span>'+
-									 '</div>' +
-									 
 									'</div>';
 			} else {
 				replySingoFlagHTML = '<div class="content1" style="float: right; width: 55%;">'+
@@ -158,6 +169,11 @@ function replyList(resData) {
 									 '</div>';
 				
 			}
+			var time = new Date(resData[i].replyTime).getFullYear() + '년 '
+							+ (new Date(resData[i].replyTime).getMonth() + 1) + '월 '
+							+ new Date(resData[i].replyTime).getDate() + '일 '
+							+ new Date(resData[i].replyTime).getHours() + '시 '
+							+ new Date(resData[i].replyTime).getMinutes() + '분';
 			replyListHTML +=
 				'<div class="row replyView"> ' +
 					'<div class="col-md-12"> ' +
@@ -165,8 +181,7 @@ function replyList(resData) {
 //								<!-- 글 머리 : 사진, 닉네임 -->
 							'<div class="header1" ' +
 								'style="float: left; width: 25%;"> ' +
-								'<span><img '+
-										'src="'+address+'/'+ resData[i].memberImg+'"></span> ' +
+								'<span><img src="'+address+'/'+ resData[i].memberImg +'"></span> ' +
 										'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
 							'</div>'+
 							
@@ -178,7 +193,7 @@ function replyList(resData) {
 //								<!-- 글 작성 시간 -->
 							'<div class="footer" align="right">'+
 								'<div class="time-tag">'+
-									'<span style="margin-right:3%;"><i class="fa fa-clock-o"></i>'+ new Date(resData[i].replyTime).toUTCString() +'</span>'+
+									'<span style="margin-right:3%;"><i class="fa fa-clock-o"></i>&nbsp;&nbsp;'+ time +'</span>'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
@@ -227,7 +242,7 @@ function replySingo(){
 	
 }
 
-//	<!-- 좋아요 목록 ->
+//<!-- 좋아요 목록 ->
 function like() {
 	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 
@@ -242,10 +257,10 @@ function like() {
 			console.log(resData);
 			
 			if(resData == true) {
-				likeHTML = '<i class="fa fa-thumbs-down btn btn-default btnOrange" style="float: right;"'+
+				likeHTML = '<i class="fa fa-heart fa-2x" style="float: right; color:orange;"'+
 									'onclick="addLike()"> </i>';
 			} else {
-				likeHTML = '<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"'+
+				likeHTML = '<i class="fa fa-heart-o fa-2x" style="float: right; color:orange;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
@@ -258,7 +273,7 @@ function like() {
 }
 
 
-//	<!-- 좋아요 등록 -->
+//<!-- 좋아요 등록 -->
 function addLike() {
 	var address = document.getElementById("address").value;
 	var boardNum = document.getElementById("boardNum").value; 

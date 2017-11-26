@@ -37,20 +37,10 @@ public class BoardController {
 	
 	/* 게시글 작성 */
 	@RequestMapping(value = "addBoard.do", method = RequestMethod.POST)
-	public String addBoard(@RequestParam Object boardFile, MultipartHttpServletRequest request) { 
-		System.out.println("request.getParameter(\"memberId\")" + request.getParameter("memberId"));
-		System.out.println("니놈뭐냐");
-		System.out.println("boardFile.getClass()" + boardFile.getClass());
-		System.out.println("boardFile.toString()" + boardFile.toString());
-		System.out.println("boardFile.hashCode()" + boardFile.hashCode());
-		System.out.println("니놈뭐냐");
-		System.out.println(request.getFile("boardFile").getOriginalFilename());
-		System.out.println("request.getParameter(\"boardFile\")" + request.getParameter("boardFile"));
-		
+	public String addBoard(MultipartHttpServletRequest request) { 
 		
 		// 입력받은 데이터를 토대로 새로운 Board 객체 생성
-		Board b = new Board(request.getParameter("memberId"), request.getParameter("boardContent"),
-				request.getParameter("boardFile"));
+		Board b = new Board(request.getParameter("memberId"), request.getParameter("boardContent"));
 
 		System.out.println(b);
 		

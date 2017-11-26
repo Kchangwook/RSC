@@ -45,35 +45,32 @@ public class BoardService {
 		
 		boolean flag = true;
 
-		System.out.println(request.getParameter("memberId"));
-		
 		System.out.println("1번 : " + b.getMemberId());
 		System.out.println("2번 : " + b.getBoardFile());
+		System.out.println(request.getFile("boardFile").getOriginalFilename());
 		
-		// 이미지가 있으면
+		// 등록한 파일이 있으면
 		if(!request.getFile("boardFile").getOriginalFilename().equals("")) {
-			
-			if (b.getBoardFile() == null)
-				b.setBoardFile("resources/img/profile.jpg");
-			System.out.println("3번 : " + b.getBoardFile());
 			
 			b = this.uploadFile(request, b, "boardFile");
 			
+			System.out.println("3번 : " + b.getBoardFile());
+			
 			System.out.println("5번 : " + b);
 
-			// 이미지가 비어있지 않다면
-			if (!b.getBoardFile().equals("resources/img/profile.jpg")) {
+			
+			if (!b.getBoardFile().equals("resources/img/board")) {
 				String fileName[] = b.getBoardFile().split("/");
 
 				// ftp에 파일 업로드
 				ftp.upload("board", fileName[fileName.length - 1]);
-			}
+			} 
 			
-		}
-
+		} 
+		
 		// DB에 데이터 추가
 		flag = boardDAO.addBoard(b);
-		
+
 		return flag;
 	}
 
@@ -90,7 +87,7 @@ public class BoardService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kchan/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
 			System.out.println(file.getOriginalFilename());
@@ -110,12 +107,19 @@ public class BoardService {
 	public List<Board> selectAllBoard(String memberId) {
 		
 		List<Board> list = boardDAO.selectAll(memberId);
-			try {
+		
+		try {
 			for (Board b : list) {
-				if(!b.getBoardFile().equals("resources/img/profile.jpg")) {
-					String fileName[] = b.getBoardFile().split("/");
+				// ftp에 존재하는 프로필 파일 다운로드
+				if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+					String fileName[] = b.getMemberImg().split("/");
+					ftp.download("member", fileName[fileName.length - 1], "member");
 					
-					// ftp 파일 다운로드
+				}
+				
+				// ftp에 존재하는 게시판 파일 다운로드 
+				if(!b.getBoardFile().equals("resources/img/board")) {
+					String fileName[] = b.getBoardFile().split("/");
 					ftp.download("board", fileName[fileName.length - 1], "board");
 				}
 			}
@@ -168,12 +172,18 @@ public class BoardService {
 				
 				if (date.before(b.getBoardTime()) && count < 3) {
 					count++;
+					
 					// ftp에 존재하는 프로필 파일 다운로드
 					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
 						String fileName[] = b.getMemberImg().split("/");
 						ftp.download("member", fileName[fileName.length - 1], "member");
 					}
-
+					
+					// ftp에 존재하는 게시판 파일 다운로드 
+					if(!b.getBoardFile().equals("resources/img/board")) {
+						String fileName[] = b.getBoardFile().split("/");
+						ftp.download("board", fileName[fileName.length - 1], "board");
+					}
 					
 					list.add(b);
 				} else if (count == 3)
@@ -207,6 +217,12 @@ public class BoardService {
 						String fileName[] = b.getMemberImg().split("/");
 						ftp.download("member", fileName[fileName.length - 1], "member");
 					}
+					
+					// ftp에 존재하는 게시판 파일 다운로드 
+					if(!b.getBoardFile().equals("resources/img/board")) {
+						String fileName[] = b.getBoardFile().split("/");
+						ftp.download("board", fileName[fileName.length - 1], "board");
+					}
 
 					list.add(b);
 				} else if (count == 3)
@@ -237,6 +253,12 @@ public class BoardService {
 					if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
 						String fileName[] = b.getMemberImg().split("/");
 						ftp.download("member", fileName[fileName.length - 1], "member");
+					}
+					
+					// ftp에 존재하는 게시판 파일 다운로드 
+					if(!b.getBoardFile().equals("resources/img/board")) {
+						String fileName[] = b.getBoardFile().split("/");
+						ftp.download("board", fileName[fileName.length - 1], "board");
 					}
 
 					list.add(b);

@@ -40,12 +40,7 @@ public class Board {
 		super();
 		this.memberId = memberId;
 		this.boardContent = boardContent;
-	}
-	public Board(String memberId, String boardContent, String boardFile) {
-		super();
-		this.memberId = memberId;
-		this.boardContent = boardContent;
-		this.boardFile = boardFile;
+		this.boardFile = "resources/img/board";
 	}
 	
 	/* Getter, Setter */
