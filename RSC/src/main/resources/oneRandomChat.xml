@@ -11,7 +11,7 @@
 	</resultMap>
 
 	<insert id="addOneRandomChat" parameterType="String">
-		insert into one_random_chat values(one_random_num_seq.nextval,#{memberId})
+		insert into one_random_chat values(one_random_chat_seq.nextval,#{memberId})
 	</insert>
 	
 	<delete id = "deleteOneRandomChat" parameterType = "int">

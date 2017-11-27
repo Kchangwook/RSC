@@ -19,7 +19,7 @@ public class GroupRandomChatDAO extends SqlSessionDaoSupport {
 		boolean flag = true;
 
 		session = getSqlSession();
-		flag = session.insert("groupRandomChat.addgroupRandomChat", memberId) > 0 ? true : false;
+		flag = session.insert("groupRandomChat.addGroupRandomChat", memberId) > 0 ? true : false;
 
 		return flag;
 
@@ -31,7 +31,7 @@ public class GroupRandomChatDAO extends SqlSessionDaoSupport {
 		boolean flag = true;
 
 		session = getSqlSession();
-		flag = session.delete("groupRandomChat.deletegroupRandomChat", num) > 0 ? true : false;
+		flag = session.delete("groupRandomChat.deleteGroupRandomChat", num) > 0 ? true : false;
 
 		return flag;
 
