@@ -111,5 +111,6 @@
 	}
 	
 	function goChat(chatNum){
-		location.href="${pageContext.request.contextPath}/chat/chatting.do?chatNum="+chatNum;
+		var address = document.getElementById("address").value;
+		location.href = address+"/chat/chatting.do?chatNum="+chatNum;
 	}
