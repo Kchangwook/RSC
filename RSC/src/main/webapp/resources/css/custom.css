@@ -731,8 +731,13 @@ button.groupAdminBtn{
 	border : 1px solid #ccc;
 	background-color: white;
 	color : #F7921E;
-	padding : 3px;
+	padding : 3px 5px;
 	border-radius: 3px;
+	margin-right: 10px;
+}
+button.groupAdminBtn:hover{
+	background-color: #F7921E;
+	color:white;
 }
 
 /* 친구 리스트, 그룹 리스트 페이지 */

@@ -50,11 +50,13 @@
 									</tr>
 									<tr>
 										<td class="group-info-info">
+											<label>그룹 정보</label><br>
 											${requestScope.groupInfo.groupInfo}
 										</td>
 									</tr>
 									<tr>
 										<td class="group-info-interest">
+											<label>관심사</label><br>
 											${requestScope.groupInfo.groupInterest}
 										</td>
 									</tr>

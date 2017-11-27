@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import dao.GroupsDAO;
+import domain.Board;
 import domain.GroupAdmin;
 import domain.GroupDelete;
 import domain.GroupJoin;
@@ -32,6 +33,19 @@ public class GroupsService {
 	
 	// 모든 그룹 반환하는 메서드
 	public List<Groups> searchAllGroups(){
+		List<Groups> list = groupsDAO.searchAllGroups();
+				
+		try {
+			for (Groups g : list) {
+				// ftp에 존재하는 프로필 파일 다운로드
+				if (!g.getGroupImg().equals("resources/img/group.jpg")) {
+					String fileName[] = g.getGroupImg().split("/");
+					ftp.download("group", fileName[fileName.length - 1], "group");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return groupsDAO.searchAllGroups();
 	}
 	
