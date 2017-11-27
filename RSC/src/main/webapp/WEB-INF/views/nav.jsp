@@ -46,7 +46,7 @@
 					</c:if>
 				</div>
 				<div class="sidenav-header-logo">
-					<a href="${pageContext.request.contextPath}/index.html"
+					<a href="${pageContext.request.contextPath}/board/readBoard.do"
 						class="brand-small text-center"> <img
 						src="${pageContext.request.contextPath}/resources/img/logo.png"><br>
 						RSC

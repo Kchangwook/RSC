@@ -190,9 +190,7 @@
 						<p>KOSTA 161 RSC &copy; 2017</p>
 					</div>
 					<div class="col-sm-6 text-right">
-						<p>
-							마지막 문장
-						</p>
+						<!-- <p>마지막 문장</p> -->
 					</div>
 				</div>
 			</div>
