@@ -208,7 +208,7 @@ public class GroupsService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/member/" + g.getGroupNum() + "_"
+			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/group/" + g.getGroupNum() + "_"
 					+ file.getOriginalFilename()));
 
 			if (!file.getOriginalFilename().equals(""))
@@ -228,4 +228,39 @@ public class GroupsService {
 		
 		return count;
 	}//end of checkAdminCount
+	
+	/** 그룹 정보 수정 */
+	public boolean updateGroup(Groups originGroup, Groups updatedGroup, MultipartHttpServletRequest request) {
+		// 이름 수정
+		if( !originGroup.getGroupName().equals( updatedGroup.getGroupName() )) {
+			originGroup.setGroupName( updatedGroup.getGroupName() );
+		}
+		// 정보 수정
+		if(!originGroup.getGroupInfo().equals( updatedGroup.getGroupInfo() )) {
+			originGroup.setGroupInfo( updatedGroup.getGroupInfo() );
+		}
+		// 정보 공개 수정
+		if(originGroup.getGroupInfoOpen() != updatedGroup.getGroupInfoOpen() ) {
+			originGroup.setGroupInfoOpen( updatedGroup.getGroupInfoOpen() );
+		}
+		// 관심사 수정
+		if(!originGroup.getGroupInterest().equals( updatedGroup.getGroupInterest() )) {
+			originGroup.setGroupInterest( updatedGroup.getGroupInterest() );
+		}
+		
+		updatedGroup = this.uploadProfile(request, updatedGroup, "groupImg");
+		
+		if (updatedGroup.getGroupImg() != null) {
+
+			String fileName[] = updatedGroup.getGroupImg().split("/");
+
+			// ftp에 파일 업로드
+			ftp.upload("group", fileName[fileName.length - 1]);
+
+			originGroup.setGroupImg(updatedGroup.getGroupImg());
+		}
+		
+		
+		return this.groupsDAO.updateGroup(originGroup);
+	}
 }

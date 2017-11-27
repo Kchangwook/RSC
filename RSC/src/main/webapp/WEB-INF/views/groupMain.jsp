@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.default.css" id="theme-stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 </head>
 <body>
 	<!-- 네비게이션 바 include -->
@@ -60,9 +59,12 @@
 										</td>
 									</tr>
 									<c:choose>
-										<c:when test="${requestScope.groupLevel eq 'admin'}">
+										<c:when test="${requestScope.groupLevel eq 'admin' or sessionScope.level eq 'master' or sessionScope.level eq 'admin'}">
 											<tr>
 												<td class="group-info-btn">
+													<a href="${pageContext.request.contextPath}/group/groupUpdate.do?groupNum=${requestScope.groupInfo.groupNum}">
+														<button class="groupAdminBtn">정보 수정</button>
+													</a>
 													<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}">
 														<button class="groupAdminBtn">회원 보기</button>
 													</a>
@@ -129,7 +131,7 @@
 											<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}">
 										</span>
 										<span onclick="memberPage('${data.memberId}')" style="cursor:pointer;">&nbsp;&nbsp;${data.memberNick}</span>
-										<c:if test="${requestScope.groupLevel eq 'admin'}">
+										<c:if test="${requestScope.groupLevel eq 'admin' or sessionScope.level eq 'master' or sessionScope.level eq 'admin'}">
 												<span class = "board-modify"data-toggle="modal" data-target="#modifyView" onclick="modifyBoard(${data.boardNum})">
 													수정
 												</span>

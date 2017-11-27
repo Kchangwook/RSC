@@ -69,8 +69,8 @@
 								<div class="content">
 									<table>
 										<tr>
-											<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>
-											<td class="groupName" colspan="3"><a href="#">${group.groupName}</a></td>
+											<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/${group.groupImg}"></td>
+											<td class="groupName" colspan="3"><a href="${pageContext.request.contextPath}/basic/group.do?groupNum=${group.groupNum}">${group.groupName}</a></td>
 											<td class="groupDelBtn"><span onclick="groupDelete('${group.groupNum}','${group.groupName}')">그룹삭제</span></td></tr>
 										<tr>
 											<td colspan="3">정보 : ${group.groupInfo}</td>
@@ -178,8 +178,8 @@
 								'<div class="content">'+
 									'<table>'+
 										'<tr>'+
-											'<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>'+
-											'<td class="groupName" colspan="3">'+resData[i].groupName+'</td>'+
+											'<td class="groupImg" rowspan="3"><img src="${pageContext.request.contextPath}/'+resData[i].groupImg+'"></td>'+
+											'<td class="groupName" colspan="3"><a href="${pageContext.request.contextPath}/basic/group.do?groupNum='+resData[i].groupNum+'">'+resData[i].groupName+'</a></td>'+
 											'<td class="groupDelBtn"><span onclick="groupDelete("'+resData[i].groupNum+'","'+resData[i].groupName+')">그룹삭제</span></td>'+
 										'</tr>'+
 										'<tr>'+

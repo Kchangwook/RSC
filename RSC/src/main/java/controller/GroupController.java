@@ -271,6 +271,56 @@ public class GroupController {
 		return count;
 	}//end of checkAdminCount
 	
+	/** 그룹 수정 페이지 */
+	@RequestMapping("groupUpdate.do")
+	public String goGroupUpdate(@RequestParam("groupNum") String groupNum, Model model) {
+		Groups group = groupsService.searchGroupByNum(groupNum);
+		model.addAttribute("groupInfo",group);
+		
+		return "groupUpdate";
+	}
+	
+	/** 그룹 수정 */
+	@RequestMapping(value="groupInfoUpdate.do", method = RequestMethod.POST)
+	public String groupInfoUpdate(MultipartHttpServletRequest request) {
+		
+		System.out.println("여기");
+		
+		// 파라미터 값 설정
+		String groupNum = request.getParameter("groupNum").trim();
+		String groupName = request.getParameter("groupName").trim();
+		String groupInfo = request.getParameter("groupInfo").trim();
+		int groupInfoOpen = Integer.parseInt(request.getParameter("groupInfoOpen").trim());
+		
+		// 관심사 정렬
+		String groupInterests[] = request.getParameterValues("groupInterest");
+		String groupInterest = "";
+		
+		for (int i = 0; i < groupInterests.length; i++) {
+			if (i == groupInterest.length() - 1)
+				groupInterest += groupInterests[i];
+			else
+				groupInterest += groupInterests[i] + ",";
+		}
+		
+		// 원래 그룹 정보
+		Groups originGroupInfo = groupsService.searchGroupByNum(groupNum);
+		
+		// 갱신 그룹 정보
+		Groups updatedGroupInfo = new Groups();
+		updatedGroupInfo.setGroupName(groupName);
+		updatedGroupInfo.setGroupInfo(groupInfo);
+		updatedGroupInfo.setGroupInfoOpen(groupInfoOpen);
+		updatedGroupInfo.setGroupInterest(groupInterest);
+		updatedGroupInfo.setGroupImg(request.getParameter("groupImgSrc"));
+		
+		System.out.println(originGroupInfo);
+		System.out.println(updatedGroupInfo);
+		
+		groupsService.updateGroup(originGroupInfo, updatedGroupInfo, request);
+		
+		return "redirect:groupUpdate.do?groupNum="+groupNum;
+	}
 }
 
 
