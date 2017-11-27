@@ -11,7 +11,7 @@
 	</resultMap>
 	
 	<insert id="addGroupRandomChat" parameterType="String">
-		insert into group_random_chat values(group_random_num_seq.nextval,#{memberId})
+		insert into group_random_chat values(group_random_chat_seq.nextval,#{memberId})
 	</insert>
 	
 	<delete id = "deleteGroupRandomChat" parameterType = "int">

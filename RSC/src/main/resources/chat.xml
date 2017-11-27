@@ -27,11 +27,11 @@
 	</select>
 	
 	<insert id = "makeChatRoom" parameterType = "String">
-		insert into chat values(CHAT_NUM_SEQ.NEXTVAL,#{memberId})
+		insert into chat values(CHAT_SEQ.NEXTVAL,#{memberId})
 	</insert>
 	
 	<insert id = "addChatMember" parameterType = "String">
-		insert into chat values(CHAT_NUM_SEQ.CURRVAL,#{memberId})
+		insert into chat values(CHAT_SEQ.CURRVAL,#{memberId})
 	</insert>
 		
 	<insert id="addChatMemberInvited" parameterType="chat">
