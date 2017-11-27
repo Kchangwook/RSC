@@ -17,6 +17,7 @@ public class Board {
 	private int boardCnt; // col : board_cnt
 	private String memberNick; // col : member_nick 
 	private String memberImg; // col : member_img
+	private int cnt; // 게시글을 불러올 개수를 담을 변수
 
 	/* 생성자 */
 	public Board() {
@@ -40,7 +41,12 @@ public class Board {
 		super();
 		this.memberId = memberId;
 		this.boardContent = boardContent;
-		this.boardFile = "";
+		this.boardFile = " ";
+	}
+	public Board(String memberId, int cnt) {
+		super();
+		this.memberId = memberId;
+		this.cnt = cnt;
 	}
 	
 	/* Getter, Setter */
@@ -121,6 +127,13 @@ public class Board {
 		return memberImg;
 	}
 	
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {
@@ -147,6 +160,8 @@ public class Board {
 		builder.append(memberNick);
 		builder.append(", memberImg=");
 		builder.append(memberImg);
+		builder.append(", cnt=");
+		builder.append(cnt);
 		builder.append("]");
 		return builder.toString();
 	}

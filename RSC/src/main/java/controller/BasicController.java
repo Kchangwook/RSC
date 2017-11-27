@@ -116,7 +116,7 @@ public class BasicController {
 			session.setAttribute("nick", nick);
 			session.setAttribute("imgSrc", imgSrc);
 			
-			url = "redirect:../board/readBoard.do";
+			url = "redirect:../board/readBoard.do?cnt=1";
 			memberService.updateLoginInfo(id);
 			break;
 		default:

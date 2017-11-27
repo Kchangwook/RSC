@@ -45,6 +45,148 @@ function modifyBoard(boardNum) {
 
 }
 
+//게시글 더 불러오기
+function moreBoard(cnt) {
+	
+	var address = document.getElementById("address").value;
+	var memberId = document.getElementById("memberId").value;
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			resData = JSON.parse(resData);
+			
+			for(i=0; i < resData.length; i++) {
+				append(resData[i]);
+			}
+		}
+	}
+
+	xhttp.open("POST", address + "/board/readMoreBoard.do", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("memberId="+memberId +"&cnt="+cnt);
+
+	
+}
+
+// 게시글 더 보기 append
+function append(resData) {
+	console.log(resData);
+	var moreView = document.getElementById("moreView");
+	var address = document.getElementById("address").value;
+	
+	var time = new Date(resData.boardTime).getFullYear() + '년 '
+					+ (new Date(resData.boardTime).getMonth() + 1) + '월 '
+					+ new Date(resData.boardTime).getDate() + '일 '
+					+ new Date(resData.boardTime).getHours() + '시 '
+					+ new Date(resData.boardTime).getMinutes() + '분';
+	
+	var div1 = document.createElement("div");
+	div1.className = "row boardView";
+	
+	var div2 = document.createElement("div");
+	div2.className = "col-md-12";
+	
+	var div3 = document.createElement("div");
+	div3.className = "card w3-round-large";
+	
+	var div4 = document.createElement("div");
+	div4.className = "header";
+	
+	var span1 = document.createElement("span");
+	span1.className = "imgSpan"
+		
+	var img1 = document.createElement("img");
+	img1.className = "imgTag";
+	img1.setAttribute("src", address+"/"+resData.memberImg);
+	img1.setAttribute("style","width:50px; height:50px;");
+	
+	var span2 = document.createElement("span");
+	span2.innerHTML = resData.memberNick;
+	
+	span1.appendChild(img1);
+	
+	div4.appendChild(span1);
+	
+	div4.appendChild(span2);
+
+	console.log(resData.boardFile==" ");
+	
+	var div5 = document.createElement("div");
+	div5.className = "content";
+	
+	var span3 = document.createElement("span");
+	
+	var a1 = document.createElement("a");
+	a1.setAttribute("href","");
+	a1.setAttribute("style","display: block; font-size:14px;");
+	a1.setAttribute("data-toggle","modal");
+	a1.setAttribute("data-target","#detailView");
+	a1.setAttribute("onclick","searchBoard("+resData.boardNum+")");
+	
+	var img2 = document.createElement("img");
+	img2.setAttribute("style","max-width:100%;");
+	img2.setAttribute("src", address+"/"+resData.boardFile);
+	
+	var br1 = document.createElement("br");
+	var br2 = document.createElement("br");
+	
+	var text = document.createTextNode(resData.boardContent);
+	
+	if(resData.boardSingoFlag == 0) {
+		div5.appendChild(span3);
+		span3.appendChild(a1);
+		a1.appendChild(text);
+		
+		if(resData.boardFile !=" ") {
+			a1.appendChild(img2);
+			a1.appendChild(br1);
+			a1.appendChild(br2);
+			a1.appendChild(text);
+			} 
+			
+			
+		} else if(resData.boardSingoFlag == 1) {
+		var span4 = document.createElement("span");
+		span4.textContent = "본 게시물은 신고가 되었습니다"
+			
+		div5.appendChild(span4);
+	}
+	
+		
+	var hr1 = document.createElement("hr");
+		
+	
+	var div7 = document.createElement("div");
+	div7.className = "footer";
+	
+	var i1 = document.createElement("i");
+	i1.className = "fa fa-clock-o"
+		
+	var div8 = document.createElement("div");
+	div8.className = "time-tag";
+	div8.appendChild(i1);
+	i1.textContent = time;
+	
+
+	div7.appendChild(div8);
+	
+	div8.appendChild(i1);
+	
+	div3.appendChild(div4);
+	div3.appendChild(div5);
+	div3.appendChild(hr1);
+	div3.appendChild(div7);
+	
+	div2.appendChild(div3);
+	
+	div1.appendChild(div2);
+	
+	moreView.appendChild(div1);
+
+}
+
 //게시글 삭제하기
 function deleteBoard(boardNum) {
 	var address = document.getElementById("address").value;
@@ -289,11 +431,11 @@ function addLike() {
 			
 			if(resData != true) {
 				plusLike();
-				likeHTML = '<i class="fa fa-thumbs-down btn btn-default btnOrange" style="float: right;"'+
+				likeHTML = '<i class="fa fa-heart fa-2x" style="float: right; color:orange;"'+
 									'onclick="addLike()"> </i>';
 			} else {
 				minusLike();
-				likeHTML = '<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"'+
+				likeHTML = '<i class="fa fa-heart-o fa-2x" style="float: right; color:orange;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
@@ -382,25 +524,8 @@ function replyNumber(replyNum){
 //	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->
 window.onload = function(){
 	window.cnt = 3;
-	moreBoardView(cnt);
 	moreReplyView(cnt);
 	/* 더보기 버튼 클릭 이벤트 누를때마다 window.cnt +=3 */
-}
-
-//	<!-- 게시글 더 보기 -->
-function moreBoardView(cnt){
-	
-	var boardView = document.getElementsByClassName("boardView");
-	cnt = cnt >= boardView.length ? boardView.length : cnt;	
-	
-	for (var i = 0; i < boardView.length; i++) {
-		boardView[i].style.display = 'none';
-	}
-	
-	for (var i = 0; i < cnt; i++) {
-		boardView[i].style.display = '';
-	}
-	
 }
 
 //<!-- 댓글 더 보기 -->

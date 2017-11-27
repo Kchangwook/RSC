@@ -27,7 +27,14 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	
 	/* 게시글 아이디로 검색 후 리스트로 반환 */
 	public List<Board> selectAll(String memberId) {
-		return getSqlSession().selectList("selectBoardByIdDesc", memberId);
+		session = getSqlSession();
+		return session.selectList("selectBoardByIdDesc", memberId);
+	}
+	
+	/* 게시글 일부만 검색 */
+	public List<Board> selectMoreBoard(Board b) {
+		session = getSqlSession();
+		return session.selectList("selectMoreBoard", b);
 	}
 	
 	/* 게시글 번호로 검색 후 객체로 반환 & 조회수 증가*/

@@ -83,7 +83,7 @@
 						<c:choose>
 							<c:when test="${sessionScope.id ne null}">
 								<!-- 회원 또는 그룹 검색 -->
-								<li class="nav-item dropdown"><input id="notifications"
+								<li class="nav-item dropdown"><input style="width:500px" id="notifications"
 									data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="false" class="w3-input w3-round-large nav-link"
 									type="text" onInput="searchMemberAndGroup(this.value)"
@@ -97,7 +97,7 @@
 								</li>&nbsp;&nbsp;&nbsp;
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
-									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link">
+									<a href="${pageContext.request.contextPath}/board/readBoard.do?cnt=1" class="nav-link">
 									<span class="imgSpan">
 										<img class="imgTag" src="${pageContext.request.contextPath}/${imgSrc}">
 									</span>
