@@ -71,8 +71,6 @@ public class BoardController {
 		
 		List<Board> list = boardService.getMine(memberId);
 		request.setAttribute("list", list);
-		System.out.println(memberId);
-		System.out.println(list);
 		
 		return "myBoard";
 		
