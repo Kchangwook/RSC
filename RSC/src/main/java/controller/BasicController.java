@@ -54,7 +54,7 @@ public class BasicController {
 		String interest = "";
 
 		for (int i = 0; i < interests.length; i++) {
-			if (i == interest.length() - 1)
+			if (i == interests.length - 1)
 				interest += interests[i];
 			else
 				interest += interests[i] + ",";

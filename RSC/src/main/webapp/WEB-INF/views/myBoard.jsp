@@ -76,13 +76,13 @@
 
 								<!-- 글 머리 : 사진, 닉네임 -->
 								<div class="header">
-									<span><img
+									<span class="imgSpan"><img class="imgTag"
 										src="${pageContext.request.contextPath}/${member.memberImg}"></span>
 									<span>&nbsp;&nbsp;${sessionScope.nick}</span>
 								</div>
 
 								<!-- 글 내용 -->
-								<div class="content">글을 등록해 주세요</div>
+								<div class="content">등록된 글이 없습니다. 메인화면에서 글을 작성해주세요</div>
 								<div align="right"></div>
 								<hr>
 

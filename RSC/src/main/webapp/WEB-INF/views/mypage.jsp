@@ -39,11 +39,6 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.js"></script><![endif]-->
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-	#tdRadio{
-		width: 50%;
-	}
-</style>
 </head>
 
 <body>
@@ -110,8 +105,8 @@
 								</tr>
 								<tr>
 									<td class="tdRadio">
-									<input type="radio" name="myInfoOpen"value="1" checked>허용&nbsp;&nbsp;
-									<input type="radio" name="myInfoOpen"value="0">허용하지 않음</td>
+									<input type="radio" name="myInfoOpen" width="50%" value="1" checked>허용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="myInfoOpen" width="50%" value="0">허용하지 않음</td>
 								</tr>
 							</table>
 						</div>

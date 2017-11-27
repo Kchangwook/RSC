@@ -116,9 +116,9 @@
 	
 	<!-- 내가 쓴 게시글 들만 가져오기 -->
 	<select id="getMine" parameterType = "String" resultMap = "boardResult">
-		select  b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		select b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
 		from board b, member m 
-		where b.member_id = #{memberId} and group_num = 0 and m.member_id = #{memberId} 
+		where b.member_id = #{memberId}and b.member_id = m.member_id
 		order by board_time desc
 	</select>
 	
