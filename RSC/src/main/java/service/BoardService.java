@@ -103,10 +103,10 @@ public class BoardService {
 		return b;
 	} // end of uploadFile
 	
-	/** 게시글 불러오는 함수 */
-	public List<Board> selectAllBoard(String memberId) {
+	/** 게시글 일부만 불러오는 함수 */
+	public List<Board> selectMoreBoard(Board board) {
 		
-		List<Board> list = boardDAO.selectAll(memberId);
+		List<Board> list = boardDAO.selectMoreBoard(board);
 		
 		try {
 			for (Board b : list) {
@@ -128,7 +128,8 @@ public class BoardService {
 		}
 		
 		return list;
-	}
+		
+	} // end of selectMoreBoard
 
 	/** 번호로 게시글 검색하는 함수 */
 	public Board searchBoard(int boardNum) {

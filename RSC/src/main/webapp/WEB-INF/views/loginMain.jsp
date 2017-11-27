@@ -15,7 +15,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
 <!-- Bootstrap CSS-->
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo.ico">
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/resources/img/logo.ico">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.css">
 <!-- Font Awesome CSS-->
@@ -143,8 +144,6 @@
 								<!-- 글 내용 -->
 								<div class="content">글을 등록해 주세요</div>
 								<div align="right"></div>
-								<hr>
-
 							</div>
 						</div>
 						<!--/글 작성 틀-->
@@ -155,65 +154,66 @@
 
 
 				<!-- 로그인 후 게시글 불러오기 -->
-				<c:forEach items="${requestScope.boardList}" var="data"
-					varStatus="status">
+				<div id="moreView">
+					<c:forEach items="${requestScope.boardList}" var="data">
 
-					<div class="row boardView">
-						<!-- 글 작성 틀 -->
-						<div class="col-md-12">
-							<div class="card w3-round-large">
-								<!-- 글 머리 : 사진, 닉네임 -->
-								<div class="header">
-									<span class="imgSpan"> <img class="imgTag"
-										src="${pageContext.request.contextPath}/${data.memberImg}">
-									</span> <span>&nbsp;&nbsp;${data.memberNick}</span>
-								</div>
+						<div class="row boardView">
+							<!-- 글 작성 틀 -->
+							<div class="col-md-12">
+								<div class="card w3-round-large">
+									<!-- 글 머리 : 사진, 닉네임 -->
+									<div class="header">
+										<span class="imgSpan"> <img class="imgTag"
+											src="${pageContext.request.contextPath}/${data.memberImg}">
+										</span> <span>&nbsp;&nbsp;${data.memberNick}</span>
+									</div>
 
-								<c:choose>
-									<c:when test="${data.boardSingoFlag eq 0}">
-										<!-- 글 내용 -->
-										<div class="content">
-											<span> <a href="" style="display: block;"
-												data-toggle="modal" data-target="#detailView"
-												onclick="searchBoard(${data.boardNum})"><img
-													style="max-width: 100%"
-													src="${pageContext.request.contextPath}/${data.boardFile}">
-													<c:if test="${data.boardFile ne 'resources/img/board' }">
-														<br>
-														<br>
-													</c:if> ${data.boardContent} </a>
-											</span>
+									<c:choose>
+										<c:when test="${data.boardSingoFlag eq 0}">
+											<!-- 글 내용 -->
+											<div class="content">
+												<span> <a href="" style="display: block;"
+													data-toggle="modal" data-target="#detailView"
+													onclick="searchBoard(${data.boardNum})"><img
+														style="max-width: 100%"
+														src="${pageContext.request.contextPath}/${data.boardFile}">
+														<c:if test="${data.boardFile ne ' '}">
+															<br>
+															<br>
+														</c:if> ${data.boardContent} </a>
+												</span>
+											</div>
+										</c:when>
+
+										<c:when test="${data.boardSingoFlag eq 1}">
+											<!-- 글 내용 -->
+											<div class="content">
+												<span> 본 게시글은 신고가 되었습니다 </span>
+											</div>
+										</c:when>
+									</c:choose>
+									<hr>
+
+									<!-- 글 작성 시간 -->
+									<div class="footer">
+										<div class="time-tag">
+											<i class="fa fa-clock-o"></i>
+											<fmt:formatDate value="${data.boardTime }"
+												pattern="yyyy년 M월 d일 H시 m분" />
 										</div>
-									</c:when>
-
-									<c:when test="${data.boardSingoFlag eq 1}">
-										<!-- 글 내용 -->
-										<div class="content">
-											<span> 본 게시글은 신고가 되었습니다 </span>
-										</div>
-									</c:when>
-								</c:choose>
-								<hr>
-
-								<!-- 글 작성 시간 -->
-								<div class="footer">
-									<div class="time-tag">
-										<i class="fa fa-clock-o"></i>
-										<fmt:formatDate value="${data.boardTime }"
-											pattern="yyyy년 M월 d일 H시 m분 s초" />
-
 									</div>
 								</div>
 							</div>
+							<br>
+							<!-- /글 작성 틀 -->
 						</div>
-						<br>
-						<!-- /글 작성 틀 -->
-					</div>
 
-				</c:forEach>
-				<button class="btn btn-default btnOrange"
-					onclick="moreBoardView(window.cnt = window.cnt + 3);">게시글
-					더보기</button>
+					</c:forEach>
+				</div>
+				<c:if test="${not empty boardList}">
+					<button class="btn btn-default btnOrange"
+						onclick="moreBoard(window.cnt = window.cnt + 3);">게시글 더보기</button>
+				</c:if>
 				<!-- /로그인 후 게시글 불러오기 -->
 
 
@@ -310,7 +310,8 @@
 					<div style="float: right;" align="right">
 						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="${sessionScope.id}">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /댓글 작성 틀 -->
 

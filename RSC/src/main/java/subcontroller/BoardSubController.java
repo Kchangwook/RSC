@@ -1,6 +1,7 @@
 package subcontroller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +34,9 @@ public class BoardSubController {
 		Board board = boardService.searchBoard(boardNum);
 		System.out.println(board);
 		return board;
-	} // end of searchBoard
-*/	
+	} // end of searchBoard */	
 	
-	/* 게시글과 댓글 불러오기 */
+	/** 게시글과 댓글 불러오기 */
 	@RequestMapping("searchBoard.do")
 	public @ResponseBody Map<String,Object> searchBoard(@RequestParam("boardNum") int boardNum ) {
 		Map<String,Object> map = new HashMap<>();
@@ -45,8 +45,22 @@ public class BoardSubController {
 		
 		map.put("board", b);
 		map.put("reply", replyService.selectReply(boardNum));
+		
 		return map;
 	} // end of searchBoard
+	
+	/** 게시글 더 불러오기 */ 
+	@RequestMapping("readMoreBoard.do")
+	public @ResponseBody List<Board> readMoreBoard(@RequestParam("memberId") String memberId,
+											@RequestParam("cnt") int cnt) {
+		
+		Board b = new Board(memberId, cnt);
+		
+		List list = boardService.selectMoreBoard(b);
+		
+		return list;
+		
+	} // end of readMoreBoard
 	
 	/** 게시글 삭제하기 */
 	@RequestMapping(value = "deleteBoard.do",produces = "application/json; charset=utf8")

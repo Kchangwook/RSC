@@ -35,7 +35,7 @@ public class BoardController {
 		this.boardService = service;
 	}
 	
-	/* 게시글 작성 */
+	/** 게시글 작성 */
 	@RequestMapping(value = "addBoard.do", method = RequestMethod.POST)
 	public String addBoard(MultipartHttpServletRequest request) { 
 		
@@ -46,18 +46,25 @@ public class BoardController {
 		
 		boardService.addBoard(b, request);
 		
-		return "redirect:readBoard.do";
+		return "redirect:readBoard.do?cnt=1";
+		
 	} // end of addBoard
 	
-	/* 게시글 불러오기 */
+	/** 게시글 불러오기 */
 	@RequestMapping("readBoard.do")
 	public String readBoard(HttpServletRequest request) {
 		
 		String memberId = (String)request.getSession(false).getAttribute("id");
-		List<Board> list = boardService.selectAllBoard(memberId);
+		int cnt = Integer.parseInt(request.getParameter("cnt").trim());
+		
+		Board b = new Board(memberId, cnt);
+		
+		List<Board> list = boardService.selectMoreBoard(b);
 		
 		request.setAttribute("boardList", list);
+		
 		return "loginMain";
+		
 	} // end of readBoard
 	
 	/** 내가 작성한 게시글 불러오기 */

@@ -97,7 +97,7 @@
 								</li>&nbsp;&nbsp;&nbsp;
 								<!-- 로그인 사용자  -->
 								<li id="loginInfo" class="nav-item">
-									<a href="${pageContext.request.contextPath}/board/readBoard.do" class="nav-link">
+									<a href="${pageContext.request.contextPath}/board/readBoard.do?cnt=1" class="nav-link">
 									<span class="imgSpan">
 										<img class="imgTag" src="${pageContext.request.contextPath}/${imgSrc}">
 									</span>

@@ -33,7 +33,7 @@
 				class="sidenav-header d-flex align-items-center justify-content-center">
 				<div class="sidenav-header-inner text-center">
 					<c:if test="${not empty sessionScope.id}">
-						<a href="${pageContext.request.contextPath}/board/readBoard.do">
+						<a href="${pageContext.request.contextPath}/board/readBoard.do?cnt=1">
 							<img
 							src="${pageContext.request.contextPath}/resources/img/logo.png">&nbsp;&nbsp;&nbsp;
 							<h2 class="h5 text-uppercase">Relation Social Community</h2>

@@ -35,6 +35,18 @@
 		order by board_time desc
 	</select>
 	
+	<!-- 게시글 3개씩 불러오기 -->
+	<select id="selectMoreBoard" parameterType="board" resultMap="boardResult">
+		select * from (select rownum rnum , board_num, member_nick, member_img, member_id, board_content, board_file, board_time, board_like, board_cnt, board_singo_flag  
+		from (select  b.board_num, m.member_nick, m.member_img, b.member_id, b.board_content, b.board_file, b.board_time, b.board_like, b.board_cnt, b.board_singo_flag 
+		from  board b, member m
+		where (b.member_id = #{memberId}  and b.member_id = m.member_id) or
+		(b.member_id in (select friend_id from friend where member_id = #{memberId} ) and b.member_id = m.member_id) or
+		(b.group_num in (select group_num from group_member where member_id = #{memberId} ) and b.member_id = m.member_id) or
+		b.group_num in (select group_num from group_admin where member_id = #{memberId} ) and b.member_id = m.member_id order by b.board_time desc
+		)) where rnum between #{cnt} and #{cnt}+2
+	</select>
+	
 	<!-- 번호로 게시글 검색 -->
 	<select id="selectBoardByNum" parameterType="int" resultMap="boardResult">
 		select b.board_num,m.member_img, m.member_id, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
@@ -140,5 +152,16 @@
 		into board(group_num, board_num, member_id, board_content, board_file, board_time, board_singo_flag, board_like, board_cnt)
 		values(#{groupNum}, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, 'resources/img/board', SYSTIMESTAMP, 0, 0, 0)		
 	</insert>
+	
+	<!-- 게시글 갯수 확인 -->
+	<select id="boardCount" parameterType="String" resultType="int">
+		select count(*) from (select m.member_nick, m.member_img, b.group_num, b.member_id, b.board_content, b.board_file, b.board_time, b.board_like, b.board_cnt, b.board_singo_flag
+		from  board b, member m 
+		where (b.member_id = #{memberId} and b.member_id = m.member_id) or
+		(b.member_id in (select friend_id from friend where member_id = #{memberId}) and b.member_id = m.member_id) or
+		(b.group_num in (select group_num from group_member where member_id = #{memberId}) and b.member_id = m.member_id) or
+		(b.group_num in (select group_num from group_admin where member_id = #{memberId}) and b.member_id = m.member_id) 
+		order by board_time desc)
+	</select>
 	
 </mapper> 
