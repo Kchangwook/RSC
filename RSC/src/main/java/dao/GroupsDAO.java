@@ -216,4 +216,10 @@ public class GroupsDAO extends SqlSessionDaoSupport{
 		
 		return count;
 	}//end of checkAdminCount
+	
+	/** 그룹 정보 수정 */
+	public boolean updateGroup(Groups group) {
+		session = getSqlSession();
+		return session.update("group.updateGroup",group) > 0 ? true : false ;
+	}
 }

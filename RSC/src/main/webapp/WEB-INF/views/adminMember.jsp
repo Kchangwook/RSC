@@ -73,8 +73,8 @@
 								<div class="content">
 									<table>
 										<tr>
-											<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>
-											<td class="memberName" colspan="3"><a href="#">${member.memberNick}</a></td>
+											<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/${member.memberImg}"></td>
+											<td class="memberName" colspan="3"><a href="${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId=${member.memberId}">${member.memberNick}</a></td>
 											<td colspan="3"><b>ID</b> : ${member.memberId}</a></td>
 											<td class="memberDelBtn"><span onclick="memberDelete('${member.memberId}','${member.memberNick}')">계정삭제</span></td></tr>
 										<tr>
@@ -193,8 +193,8 @@
 					'<div class="content">'+
 					'<table>'+
 					'<tr>'+
-					'<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/resources/img/profile.jpg"></td>'+
-					'<td class="memberName" colspan="3"><a href="#">'+resData[i].memberNick+'</a></td>'+
+					'<td class="memberImg" rowspan="3"><img src="${pageContext.request.contextPath}/'+resData[i].memberImg+'"></td>'+
+					'<td class="memberName" colspan="3"><a href="${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId='+resData[i].memberId+'">'+resData[i].memberNick+'</a></td>'+
 					'<td colspan="3"><b>ID</b> : '+resData[i].memberId+'</a></td>'+
 					'<td class="memberDelBtn"><span onclick="memberDelete(\''+resData[i].memberId+'\',\''+resData[i].memberNick+'\')">계정삭제</span></td>'+
 					'</tr>'+

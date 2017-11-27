@@ -187,4 +187,11 @@
 	select count(*) from group_admin where group_num=#{groupNum}
 	</select>
 	
+	<!-- 그룹 정보 수정 -->
+	<update id="updateGroup" parameterType="groups">
+		update groups
+		set group_name=#{groupName}, group_img=#{groupImg}, group_info=#{groupInfo}, group_info_open=#{groupInfoOpen}, group_interest=#{groupInterest}
+		where group_num=#{groupNum}
+	</update>
+	
 </mapper>
