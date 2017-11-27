@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 <style>
 #groupButton {
 	visibility:hidden;

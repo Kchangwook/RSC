@@ -104,8 +104,8 @@ function checkSameId() {
 function searchMemberAndGroup(searchValue) {
 	var alertHtml = '';
 	var address = document.getElementById("address").value;
-
-	if (searchValue == '') {
+	
+	if (searchValue == '' || searchValue.split(" ")[0] == '') {
 		alertHtml += '<li>'
 				+ '<a rel="nofollow" href="#" class="dropdown-item d-flex">'
 				+ '<div class="search-body">'

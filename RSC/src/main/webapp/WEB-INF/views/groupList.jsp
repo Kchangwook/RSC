@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/custom.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href = "${pageContext.request.contextPath}/resources/css/friend-list.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/chat-list.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontastic.css">
 </head>
 <body>
 	<!-- 네비게이션 바 include -->
@@ -32,11 +34,9 @@
 			<!-- 그룹관리 메인페이지 -->
 			<div class="groupAdmin-page">
 				<div class="row">
-					<div class="col-md-10">
+					<div class="col-md-12">
 						<h3>그룹 목록</h3>
-						<div class="col-md-10" align='right'>
-							<input type="button" class="btn btn-default btnOrange nav-link" data-toggle="modal" onclick = "clearGroupContent()" data-target="#addGroupModal" value="그룹 새로 만들기">
-						</div>
+							<button class="chatButton" data-toggle="modal" onclick = "clearGroupContent()" data-target="#addGroupModal"><b>새그룹 만들기</b></button>
 					</div>
 				</div>
 					

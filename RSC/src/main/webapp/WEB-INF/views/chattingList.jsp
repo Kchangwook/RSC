@@ -52,7 +52,7 @@
 
 			<!-- 그룹관리 메인페이지 -->
 			<div class="groupAdmin-page">
-				<div class="row">
+				<div class="row" style = "margin-bottom: 0px;">
 					<div class="col-md-12">
 						<h3>채팅 목록</h3>
 						<button class = "chatMake chatButton" data-toggle="modal" data-target="#chatModal" onclick = "moreMember()">
