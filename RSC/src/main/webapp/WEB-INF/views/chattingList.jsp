@@ -118,7 +118,7 @@
   										<td><button class = "chatButton" style = "width:100%;" onclick = "moreFriendsView(window.count = window.count + 2)">친구 더 보기</button></td>
   									</tr>
   									<tr>
-  										<td><button class = "chatButton" style = "width:100%;" onclick = "makeRoom()">채팅방 만들기</button></td>
+  										<td><button class = "chatButton" style = "width:100%;" onclick = "makeRoom('${sessionScope.id}')">채팅방 만들기</button></td>
   									</tr>
   								</tfoot>
   							</table>

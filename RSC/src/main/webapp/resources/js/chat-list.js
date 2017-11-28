@@ -26,7 +26,7 @@
 			for(var i = 0;i<resData.length;i++){
 				
 				friendHTML += '<tr class = "friendView"><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "'+address+'/'+resData[i].memberImg+'">'
-					+'</div><div class = "chatPeople">'+resData[i].memberNick+'</div>'+
+					+'</div><div class = "chatPeople">'+resData[i].memberNick+'</div>'+'<div style="display:none;">'+resData[i].memberId+'</div>'+
 					'<div class = "loginPresent"><i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>'
 					+'</div><hr></td></tr>';
 					
@@ -38,7 +38,7 @@
 	}
 
 	//채팅방 만들기
-	function makeRoom(){
+	function makeRoom(myNick){
 		
 		if(confirm("이 멤버로 채팅방을 만드시겠습니까?")){
 			//변수 초기화
@@ -46,9 +46,13 @@
 			var roomPeople = new Array;
 			var index = 0;
 			
+			// 자신의 닉네임
+			roomPeople[0] = myNick;
+			
+			// 선택된 친구들의 닉네임
 			for(var i = 0;i<people.length;i++){
 				if(people[i].style.color == 'blue'){
-					roomPeople[index] = people[i].parentNode.parentNode.childNodes[1].innerText;
+					roomPeople[index+1] = people[i].parentNode.parentNode.childNodes[2].innerText;
 					index++;
 				}
 			}

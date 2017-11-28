@@ -57,6 +57,7 @@ public class ChatService {
 	public boolean makeChatRoom(List<String> memberIds) {
 		
 		boolean flag = true;
+		System.out.println(memberIds);
 		
 		for(int i = 0;i<memberIds.size();i++) {
 			
