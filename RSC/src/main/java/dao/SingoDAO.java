@@ -77,5 +77,11 @@ public class SingoDAO extends SqlSessionDaoSupport{
 		session.insert("singo.addReplySingo", rs);
 		session.update("singo.updateReplySingo", rs.getReplyNum());
 	} // end of addReplySingo			
+	
+	/** 그룹 신고 */
+	public boolean addGroupSingo(GroupSingo groupSingo) {
+		session = getSqlSession();
+		return session.insert("singo.addGroupSingo", groupSingo) > 0 ? true : false ;
+	}
 
 } // end of SingoDAO

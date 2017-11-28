@@ -860,3 +860,7 @@ div.friend-edge .friend-out .firend-back .list-img{
 	margin-right: 3%;
 }
 
+/*헤더 알림*/
+header.header nav.navbar ul#viewAlert a{
+	white-space: normal;
+}

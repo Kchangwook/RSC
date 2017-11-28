@@ -61,4 +61,9 @@ public class SingoService {
 		singoDAO.addReplySingo(rs);
 	} // end of addReplySingo
 	
+	/** 그룹 신고 */
+	public boolean addGroupSingo(GroupSingo groupSingo) {
+		return singoDAO.addGroupSingo(groupSingo);
+	}
+	
 } // end of SingoService

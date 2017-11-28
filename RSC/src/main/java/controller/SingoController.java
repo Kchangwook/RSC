@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Board;
 import domain.BoardSingo;
+import domain.GroupSingo;
 import domain.Notice;
 import domain.Reply;
 import domain.ReplySingo;
@@ -122,7 +123,11 @@ public class SingoController {
 		return "redirect:../basic/group.do?groupNum="+groupNum;
 	} // end of addReplySingo
 	
-	
-	
+	/** 그룹 신고 */
+	@RequestMapping("groupSingo.do")
+	public @ResponseBody boolean addGroupSingo(GroupSingo groupSingo) {
+		boolean result = singoService.addGroupSingo(groupSingo);
+		return result;
+	}
 	
 } // end of SingoController

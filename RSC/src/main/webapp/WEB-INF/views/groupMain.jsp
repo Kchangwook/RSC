@@ -82,16 +82,25 @@
 										<c:when test="${requestScope.groupLevel eq 'visitor'}">
 											<tr>
 												<td class="group-info-btn">
-													<button onclick="joinGroup('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}','${sessionScope.id}')">가입 요청</button>
+													<button class="groupAdminBtn" onclick="joinGroup('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}','${sessionScope.id}')">
+														가입 요청
+													</button>
+													<button class="groupAdminBtn" onclick="singoGroup('${requestScope.groupInfo.groupNum}')">
+														그룹 신고
+													</button>
 												</td>
 											</tr>
 										</c:when>
 										<c:otherwise>
-										
+											<tr>
+												<td class="group-info-btn">
+													<button class="groupAdminBtn" onclick="singoGroup('${requestScope.groupInfo.groupNum}')">
+														그룹 신고
+													</button>
+												</td>
+											</tr>
 										</c:otherwise>
-									
 									</c:choose>
-
 								</table>
 							</div>
 						</div>

@@ -136,5 +136,10 @@
 		where group_num = #{groupNum}
 	</delete>
 	
+	<!-- 그룹 신고 추가 -->
+	<insert id="addGroupSingo" parameterType="groupSingo">
+		insert into group_singo values(group_singo_seq.nextval, #{groupNum}, #{groupSingoReason})
+	</insert>
+	
 
 </mapper>

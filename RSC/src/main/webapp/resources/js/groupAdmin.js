@@ -41,3 +41,28 @@ function joinGroup(groupNum, groupName, memberId){
 		xhttp.send("groupNum="+groupNum+"&memberId="+memberId); 
 	}
 }
+
+function singoGroup(groupNum){
+	var address=document.getElementById("address").value;
+	var reason = prompt("신고 사유를 입력해 주세요.");
+	if(reason=='' || reason==' '){
+		alert("신고 사유를 입력해 주세요.");
+		singoGroup(groupNum);
+	} else {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var resData = this.responseText;
+				resData = JSON.parse(resData);
+				if(resData==true){
+					alert("투표 전송을 성공하였습니다.");
+				} else {
+					alert("투표 전송 중 오류가 발생하였습니다.");
+				}
+			}
+		}
+		xhttp.open("POST", address+"/group/deleteGroupNotice.do", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("groupNum="+groupNum+"&groupSingoReason="+reason);
+	}
+}
