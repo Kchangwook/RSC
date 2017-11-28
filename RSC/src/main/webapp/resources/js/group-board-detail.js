@@ -361,13 +361,17 @@ function boardSingo() {
 	var address = document.getElementById("address").value;
     var boardSingoReason = prompt("게시글 신고 이유");
     var boardNum = document.getElementById("boardNum").value;
+    var groupNum = document.getElementById("groupNum").value;
+    var groupName = document.getElementById("groupName").value;
+    
 	    if (boardSingoReason=="") {
 	    	alert("신고 이유를 입력해 주세요");
 	    	boardSingo();
     	} else if (boardSingoReason==null) {
     		return false;
     	}  else {
-    		location.href= address+"/singo/addBoardSingo.do?boardNum="+boardNum+"&boardSingoReason="+boardSingoReason;
+    		location.href= address+"/singo/addGroupBoardSingo.do?boardNum="+boardNum+"&boardSingoReason="+boardSingoReason
+    							+"&groupNum="+groupNum+"&groupName="+groupName;
     	}
 }
 
@@ -376,7 +380,9 @@ function replySingo(){
 	var address = document.getElementById("address").value;
 	var replyNum = document.getElementById("replyNum").value;
 	var replySingoReason = prompt("댓글 신고 이유");
-	
+    var groupNum = document.getElementById("groupNum").value;
+    var groupName = document.getElementById("groupName").value;
+    
 	document.getElementById("replySingoReason").value = "";
 	
 	if (replySingoReason=="") {
@@ -385,7 +391,8 @@ function replySingo(){
 	} else if (replySingoReason==null) {
 		return false;
 	}  else {
-		location.href= address+"/singo/addReplySingo.do?replyNum="+replyNum+"&replySingoReason="+replySingoReason;
+		location.href= address+"/singo/addGroupReplySingo.do?replyNum="+replyNum+"&replySingoReason="+replySingoReason
+							+"&groupNum="+groupNum+"&groupName="+groupName;;
 	}
 	
 }

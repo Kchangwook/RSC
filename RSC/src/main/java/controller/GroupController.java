@@ -196,11 +196,17 @@ public class GroupController {
 	
 	/** 그룹에 게시글 추가 */
 	@RequestMapping("groupBoard.do")
-	public String addGroupBoard(Board board) {
-		System.out.println(board);
-		boolean result = true;
-		result = boardService.addGroupBoard(board);
-		return "redirect:../basic/group.do?groupNum="+board.getGroupNum();
+	public String addGroupBoard(MultipartHttpServletRequest request) { 
+		
+		// 입력받은 데이터를 토대로 새로운 Board 객체 생성
+		int groupNum = Integer.parseInt(request.getParameter("groupNum").trim());
+		String memberId = request.getParameter("memberId").trim();
+		String boardContent = request.getParameter("boardContent").trim();
+		
+		Board b = new Board(groupNum, memberId, boardContent);
+		
+		boardService.addBoard(b, request);
+		return "redirect:../basic/group.do?groupNum="+groupNum;
 	}
 	
 	/** 가입한 그룹 목록 불러오기 */

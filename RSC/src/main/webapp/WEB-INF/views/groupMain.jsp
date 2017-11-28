@@ -104,13 +104,19 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="card w3-round-large">
-									<form action="${pageContext.request.contextPath}/group/groupBoard.do" method="post" style="width: 100%">
+									<form action="${pageContext.request.contextPath}/group/groupBoard.do" method="post" style="width: 100%" enctype="multipart/form-data">
 										<div class="content">
-											<textarea rows="5" name="boardContent"></textarea>
+											<textarea rows="5" name="boardContent" style="resize: none;"></textarea>
 										</div>
 										<div class="footer">
+					
 											<input type="hidden" name="memberId" value="${sessionScope.id}">
 											<input type="hidden" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+					
+											<input type="text" width="50%" name="boardSrc" id="boardSrc" placeholder="" disabled="disabled">
+											<label for="boardFile">파일&nbsp;&nbsp;</label>
+											<input type="file" name="boardFile" id="boardFile" accept="image/*" onchange="changeBoardSrc()" style="display: none;">
+					
 											<input type="submit" value=글쓰기>
 										</div>
 									</form>
@@ -150,7 +156,11 @@
 											<c:choose>
 												<c:when test="${data.boardSingoFlag eq 0}">
 													<a href="#" style="display:block;" data-toggle="modal" data-target="#groupBoardDetail" onclick="searchBoard('${data.boardNum}')">
-														${data.boardContent}
+														<c:if test="${data.boardFile ne ' '}">
+															<img style="max-width: 100%; height:300px;" src="${pageContext.request.contextPath}/${data.boardFile}">
+															<br><br>
+														</c:if>
+														${data.boardContent} 
 													</a>
 												</c:when>
 												<c:otherwise>
@@ -207,11 +217,8 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span class="imgSpan">
-							<img class="imgTag" id="profImg" src="${pageContext.request.contextPath}/resources/img/profile.jpg">
-						</span>
-						&nbsp;&nbsp;&nbsp;
-						<span id="memberNick"></span>
+						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
 					</div>
 
 					<!-- 글 조회수 -->
@@ -224,7 +231,9 @@
 
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
-						<span id="boardContent"> </span>
+						<img style="max-width: 100%" id="boardFileImg"
+							src="${pageContext.request.contextPath}/${boardSrc}"> <span
+							id="br"></span><span id="boardContent"> </span>
 					</div>
 					<hr>
 
@@ -235,53 +244,28 @@
 								id="boardTime"></span>
 						</div>
 					</div>
-					<!-- 좋아요 카운트 수 -->
-					<div class="likeCnt" align="right">
-						<span id=boardLike></span>
-					</div>
-					<!-- /좋아요 카운트 수 -->
 
 					<div class="clear"></div>
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<a class="btn btn-default btnOrange" href="" data-toggle="modal"
-							data-target="#singo"> 신고하기 </a>
+						<i class="fa fa-exclamation-triangle fa-2x" title="신고하기"
+							style="color: orange; margin-left: 3%; cursor: pointer;" onclick="boardSingo()"></i>
 					</div>
 					<!-- /글 신고하기 버튼-->
 
-					<!-- 글 신고하기 상세내용 -->
-					<div class="modal fade" id="singo" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="col-md-12 padding">
-									<div>신고 사유 :</div>
-									<div class="clear"></div>
-									<div>
-										<form name="singo"
-											action="${pageContext.request.contextPath}/singo/addBoardSingo.do">
-											<textarea id="boardSingoReason" method="post" rows="1"
-												style="width: 100%; resize: none; wrap: hard;"
-												placeholder="이유가 뭐니" name="boardSingoReason"></textarea>
-											<br> <input type="hidden" name="boardNum" id="boardNum"
-												value="">
-											<div align="right">
-												<input type=submit class="btn btn-default btnOrange close"
-													value=신고하기>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /글 신고하기 상세내용 -->
 
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
-						<div id="like"></div>
+						<!-- 좋아요 카운트 -->
+						<div id=boardLike class="likeCnt" align="right"></div>
+						<!-- /좋아요 카운트 -->
+						<div id="like">
+							<!-- <span id=boardLike></span> -->
+						</div>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /좋아요 버튼 -->
 
@@ -296,7 +280,8 @@
 					<div style="float: right;" align="right">
 						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /댓글 작성 틀 -->
 
@@ -304,12 +289,15 @@
 				<!--/글 작성 틀-->
 
 				<!-- 댓글 내용 -->
-				<div id="replyHTML"></div>
+				<div id="replyHTML" style="margin-bottom: -2%;"></div>
 				<!-- /댓글 내용 -->
-				<button class="btn btn-default btnOrange"
+				<button class="btn btn-default btnOrange btn-margin"
+					style="margin-bottom: 2%;"
 					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
 					더보기</button>
+
 			</div>
+
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
@@ -388,7 +376,8 @@
 
 				</div>
 				<!--/글 작성 틀-->
-				<input type="hidden" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+				<input type="hidden" id="groupNum" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+				<input type="hidden" id="groupName" name="groupName" value="${requestScope.groupInfo.groupName}">
 			</form>
 			</div>
 			
@@ -397,9 +386,17 @@
 	<!-- /글 수정하기보기 모달 -->
 	
 	<!-- Javascript files-->
-	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
+	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/group-board-detail.js"></script>
 	
 	<script>
 	function memberPage(friendId){

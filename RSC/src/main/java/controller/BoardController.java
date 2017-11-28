@@ -40,7 +40,7 @@ public class BoardController {
 	public String addBoard(MultipartHttpServletRequest request) { 
 		
 		// 입력받은 데이터를 토대로 새로운 Board 객체 생성
-		Board b = new Board(request.getParameter("memberId"), request.getParameter("boardContent"));
+		Board b = new Board(0,request.getParameter("memberId"), request.getParameter("boardContent"));
 
 		System.out.println(b);
 		
