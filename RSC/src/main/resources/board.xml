@@ -59,7 +59,7 @@
 		insert 
 		into board(group_num, board_num, member_id, board_content, board_file, board_time, 
 					board_singo_flag, board_like, board_cnt)
-		VALUES(0, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, #{boardFile}, SYSTIMESTAMP, 0, 0, 0)
+		VALUES(#{groupNum}, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, #{boardFile}, SYSTIMESTAMP, 0, 0, 0)
 	</insert>
 	
 	<!-- 게시글 수정 -->

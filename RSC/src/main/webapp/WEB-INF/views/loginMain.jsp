@@ -175,7 +175,7 @@
 												<span> <a href="" style="display: block;"
 													data-toggle="modal" data-target="#detailView"
 													onclick="searchBoard(${data.boardNum})"><img
-														style="max-width: 100%"
+														style="max-width: 100%; height:300px;"
 														src="${pageContext.request.contextPath}/${data.boardFile}">
 														<c:if test="${data.boardFile ne ' '}">
 															<br>

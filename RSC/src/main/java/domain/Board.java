@@ -43,6 +43,13 @@ public class Board {
 		this.boardContent = boardContent;
 		this.boardFile = " ";
 	}
+	public Board(int groupNum, String memberId, String boardContent) {
+		super();
+		this.groupNum = groupNum;
+		this.memberId = memberId;
+		this.boardContent = boardContent;
+		this.boardFile = " ";
+	}
 	public Board(String memberId, int cnt) {
 		super();
 		this.memberId = memberId;

@@ -51,11 +51,13 @@
 									</tr>
 									<tr>
 										<td class="group-info-info">
+											<label>그룹 정보</label><br>
 											${requestScope.groupInfo.groupInfo}
 										</td>
 									</tr>
 									<tr>
 										<td class="group-info-interest">
+											<label>관심사</label><br>
 											${requestScope.groupInfo.groupInterest}
 										</td>
 									</tr>
@@ -192,6 +194,14 @@
 		}
 	}
 	</script>
+	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.js"> </script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery.cookie/jquery.cookie.js"> </script>
+	<script src="${pageContext.request.contextPath}/resources/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery-validation/jquery.validate.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
 

@@ -126,7 +126,7 @@ function append(resData) {
 	a1.setAttribute("onclick","searchBoard("+resData.boardNum+")");
 	
 	var img2 = document.createElement("img");
-	img2.setAttribute("style","max-width:100%;");
+	img2.setAttribute("style","max-width:100%;height:300px;");
 	img2.setAttribute("src", address+"/"+resData.boardFile);
 	
 	var br1 = document.createElement("br");
