@@ -55,13 +55,13 @@ function singoGroup(groupNum){
 				var resData = this.responseText;
 				resData = JSON.parse(resData);
 				if(resData==true){
-					alert("투표 전송을 성공하였습니다.");
+					alert("신고가 성공적으로 접수 되었습니다.");
 				} else {
-					alert("투표 전송 중 오류가 발생하였습니다.");
+					alert("신고 접수에 실패 하였습니다. 다시 시도해주세요.");
 				}
 			}
 		}
-		xhttp.open("POST", address+"/group/deleteGroupNotice.do", true);
+		xhttp.open("POST", address+"/singo/groupSingo.do", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send("groupNum="+groupNum+"&groupSingoReason="+reason);
 	}

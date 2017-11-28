@@ -16,6 +16,7 @@
 	<resultMap id="replySingoResult" type="replySingo">
 		<result property="replySingoNum" column="REPLY_SINGO_NUM" />
 		<result property="replyNum" column="REPLY_NUM" />
+		<result property="boardNum" column="board_num" />
 		<result property="memberId" column="MEMBER_ID" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="replySingoReason" column="REPLY_SINGO_REASON" />
@@ -41,7 +42,8 @@
 	
 	<select id="selectAllReplySingo" resultMap="replySingoResult">
 		select rs.reply_singo_num as reply_singo_num, 
-			   r.reply_num as reply_num, 
+			   r.reply_num as reply_num,
+			   r.board_num as board_num,
 			   r.member_id as member_id, 
 			   r.reply_content as reply_content, 
 			   rs.reply_singo_reason as reply_singo_reason
@@ -140,6 +142,13 @@
 	<insert id="addGroupSingo" parameterType="groupSingo">
 		insert into group_singo values(group_singo_seq.nextval, #{groupNum}, #{groupSingoReason})
 	</insert>
+	
+		<!-- groups table의 singo_cnt를 1 감소(신고 이전 상태) -->
+	<update id="updateGroupsSingoCntPlus" parameterType="int">
+		update groups 
+		set group_singo_cnt = (group_singo_cnt + 1) 
+		where group_num = #{groupNum}
+	</update>
 	
 
 </mapper>

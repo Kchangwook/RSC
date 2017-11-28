@@ -127,6 +127,7 @@ public class SingoController {
 	@RequestMapping("groupSingo.do")
 	public @ResponseBody boolean addGroupSingo(GroupSingo groupSingo) {
 		boolean result = singoService.addGroupSingo(groupSingo);
+		result = singoService.updateGroupsSingoCntPlus(groupSingo.getGroupNum());
 		return result;
 	}
 	
