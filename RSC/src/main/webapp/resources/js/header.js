@@ -24,6 +24,29 @@ function clearContent() {
 
 }
 
+//공백 및 특수문자 검증
+function check() {
+	
+	var pattern =  /(^[a-zA-Z0-9]+$)/;
+	var tmp = document.frm.memberId.value.replace(/\s|　/gi, '');
+	
+	if(!pattern.test(frm.id.value) || tmp == '' ) {
+		alert("아이디에 특수문자 및 공백을 입력할 수 없습니다");
+		frm.id.focus();
+		return false;
+	} else if(tmp == '' ){
+		alert("비밀번호에 공백을 입력할 수 없습니다");
+		frm.pwd.focus();
+		return false;
+	} else if(!pattern.test(frm.nick.value) || tmp == '' ){
+		alert("닉네임에 특수문자 및 공백을 입력할 수 없습니다");
+		frm.nick.focus();
+		return false;
+	} else {
+		checkInfo();
+	}
+}
+
 // 로그인 실패시 메세지 팝업
 function getMessage() {
 

@@ -165,14 +165,15 @@
 						<div class="container">
 							<table>
 								<tr>
-									<td><input type="text" name="memberId" id="id"
+									<td><input type="text" name="memberId" id="id" value="<? $id ?>" 
 										onblur="checkSameId()" placeholder="아이디"></td>
 								</tr>
 								<tr>
-									<td><input type="password" id = "pwd" name="memberPw" placeholder="비밀번호"></td>
+									<td><input type="password" name="memberPw" id = "pwd" value="<? $pwd ?>"
+									 placeholder="비밀번호"></td>
 								</tr>
 								<tr>
-									<td><input type="text" name="memberNick" id="nick"
+									<td><input type="text" name="memberNick" id="nick" value="<? $nick ?>"
 										onblur="checkSameNick()" placeholder="닉네임"></td>
 								</tr>
 								<tr>
@@ -216,7 +217,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="join_msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()" value="회원가입">
+						<input type="button" class="btn btn-default btnOrange" onclick="check()" value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
