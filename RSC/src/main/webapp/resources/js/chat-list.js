@@ -48,7 +48,7 @@
 			
 			for(var i = 0;i<people.length;i++){
 				if(people[i].style.color == 'blue'){
-					roomPeople[index] = people[i].parentNode.parentNode.childNodes[3].innerText;
+					roomPeople[index] = people[i].parentNode.parentNode.childNodes[1].innerText;
 					index++;
 				}
 			}
@@ -95,7 +95,6 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var resData = this.responseText;
 				resData = JSON.parse(resData);
-				console.log(resData);
 				friendList(resData);
 				moreFriendsView(window.count);
 				
