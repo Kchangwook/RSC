@@ -406,11 +406,11 @@ function like() {
 			
 			if(resData == true) {
 				likeHTML = '<i class="fa fa-heart fa-2x" title="좋아요 취소" '+
-								'style="float: right; color: #F7921E; cursor:pointer;"'+
+								'style="float: right; color: #F00; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			} else {
 				likeHTML = '<i class="fa fa-heart-o fa-2x" title="좋아요" '+
-								'style="float: right; color: #F7921E; cursor:pointer;"'+
+								'style="float: right; color: #CCC; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
@@ -440,12 +440,12 @@ function addLike() {
 			if(resData != true) {
 				plusLike();
 				likeHTML = '<i class="fa fa-heart fa-2x" title="좋아요 취소" '+
-								'style="float: right; color: #F7921E; cursor:pointer;"'+
+								'style="float: right; color: #F00; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			} else {
 				minusLike();
 				likeHTML = '<i class="fa fa-heart-o fa-2x" title="좋아요" '+
-								' style="float: right; color: #F7921E; cursor:pointer;"'+
+								' style="float: right; color: #CCC; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
