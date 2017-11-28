@@ -335,17 +335,21 @@ div.singoAdmin-page table th.tdNum{
 div.singoAdmin-page table th.MemberId{
 	width:10%
 }
+div.singoAdmin-page table th.MemberNick{
+	width:10%
+}
 div.singoAdmin-page table th.tdContent{
-	width:35%;
+	width:30%;
+	overflow: hidden;
 }
 div.singoAdmin-page table th.tdReason{
 	width:30%;
 }
 div.singoAdmin-page table th.tdRestore{
-	width:7.5%;	
+	width:5%;	
 }
 div.singoAdmin-page table th.tdDelete{
-	width:7.5%;
+	width:5%;
 }
 div.singoAdmin-page table button{
 	border:none;
@@ -860,3 +864,7 @@ div.friend-edge .friend-out .firend-back .list-img{
 	margin-right: 3%;
 }
 
+/*헤더 알림*/
+header.header nav.navbar ul#viewAlert a{
+	white-space: normal;
+}

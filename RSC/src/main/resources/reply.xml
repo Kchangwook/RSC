@@ -18,7 +18,7 @@
 
 	<!-- 게시글 번호를 통한 댓글 검색 & 시간순 정렬(내림차순) -->
 	<select id="selectReplyByboardNum" parameterType="int" resultMap="replyResult">
-		select r.reply_num, m.member_nick, r.reply_content, r.reply_time, r.reply_singo_flag,m.member_img
+		select r.reply_num, r.board_num, m.member_nick, r.reply_content, r.reply_time, r.reply_singo_flag,m.member_img
 		from reply r, member m
 		where r.board_num=#{boardNum} and r.member_id = m.member_id order by r.reply_time
 	</select>

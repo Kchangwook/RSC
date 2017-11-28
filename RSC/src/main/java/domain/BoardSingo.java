@@ -7,6 +7,7 @@ public class BoardSingo {
 	private int boardSingoNum; // col : board_singo_num
 	private int boardNum; // col : board_num
 	private String memberId;
+	private String memberNick;
 	private String boardContent; //col:board_content (board table)
 	private String boardSingoReason; // col : board_singo_reason
 
@@ -20,11 +21,12 @@ public class BoardSingo {
 		this.boardSingoReason = boardSingoReason;
 	}
 	
-	public BoardSingo(int boardSingoNum, int boardNum, String memberId, String boardContent, String boardSingoReason) {
+	public BoardSingo(int boardSingoNum, int boardNum, String memberId, String memberNick, String boardContent, String boardSingoReason) {
 		super();
 		this.boardSingoNum = boardSingoNum;
 		this.boardNum = boardNum;
 		this.memberId = memberId;
+		this.memberNick = memberNick;
 		this.boardContent = boardContent;
 		this.boardSingoReason = boardSingoReason;
 	}
@@ -63,6 +65,13 @@ public class BoardSingo {
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
 	}
 	
 	/* toString */

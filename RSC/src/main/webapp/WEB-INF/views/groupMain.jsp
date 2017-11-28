@@ -82,16 +82,25 @@
 										<c:when test="${requestScope.groupLevel eq 'visitor'}">
 											<tr>
 												<td class="group-info-btn">
-													<button onclick="joinGroup('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}','${sessionScope.id}')">가입 요청</button>
+													<button class="groupAdminBtn" onclick="joinGroup('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}','${sessionScope.id}')">
+														가입 요청
+													</button>
+													<button class="groupAdminBtn" onclick="singoGroup('${requestScope.groupInfo.groupNum}')">
+														그룹 신고
+													</button>
 												</td>
 											</tr>
 										</c:when>
 										<c:otherwise>
-										
+											<tr>
+												<td class="group-info-btn">
+													<button class="groupAdminBtn" onclick="singoGroup('${requestScope.groupInfo.groupNum}')">
+														그룹 신고
+													</button>
+												</td>
+											</tr>
 										</c:otherwise>
-									
 									</c:choose>
-
 								</table>
 							</div>
 						</div>
@@ -249,8 +258,8 @@
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<i class="fa fa-exclamation-triangle fa-2x"
-							style="color: orange; margin-left: 3%" onclick="boardSingo()"></i>
+						<i class="fa fa-exclamation-triangle fa-2x" title="신고하기"
+							style="color: orange; margin-left: 3%; cursor: pointer;" onclick="boardSingo()"></i>
 					</div>
 					<!-- /글 신고하기 버튼-->
 
@@ -376,7 +385,8 @@
 
 				</div>
 				<!--/글 작성 틀-->
-				<input type="hidden" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+				<input type="hidden" id="groupNum" name="groupNum" value="${requestScope.groupInfo.groupNum}">
+				<input type="hidden" id="groupName" name="groupName" value="${requestScope.groupInfo.groupName}">
 			</form>
 			</div>
 			
@@ -395,7 +405,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/groupAdmin.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/roundedImage.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/group-board-detail.js"></script>
 	
 	<script>
 	function memberPage(friendId){

@@ -99,6 +99,60 @@
 		</footer>
 		
 	</div>
+	
+	<!-- 글 상세보기 모달 -->
+	<div class="modal fade" id="detailView" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 글 작성 틀 -->
+				<div class="col-md-12 padding">
+					<!-- 글 머리 : 사진, 닉네임 -->
+					<div class="header padding" style="float: left; width: 45%;">
+						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+					</div>
+
+					<!-- 글 조회수 -->
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
+						<span id="boardCnt"></span>
+					</div>
+
+					<div class="clear"></div>
+
+					<!-- 글 내용 -->
+					<div class="content col-md-12 padding">
+						<img style="max-width: 100%" id="boardFileImg"
+							src="${pageContext.request.contextPath}/${boardSrc}"> <span
+							id="br"></span><span id="boardContent"> </span>
+					</div>
+					<hr>
+
+					<!-- 글 작성 시간 -->
+					<div class="footer">
+						<div class="time-tag" style="float: left;">
+							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
+								id="boardTime"></span>
+						</div>
+					</div>
+
+					<div class="clear"></div>
+
+					<div class="clear"></div>
+
+
+				</div>
+				<!--/글 작성 틀-->
+
+				<!-- 댓글 내용 -->
+				<div id="replyHTML" style="margin-bottom: -2%;"></div>
+				<!-- /댓글 내용 -->
+			</div>
+
+		</div>
+	</div>
+	<!-- /글 상세보기 모달 -->
+	
 	<!-- Javascript files-->
 	<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 	<script
@@ -110,6 +164,8 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/singo-board-detail.js"></script>
+	
 	
 	<script>
 	window.onload = function(){
@@ -137,7 +193,8 @@
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
 						'<th class="tdNum">신고 번호</th>'+
-						'<th class="tdMemberId">작성자</th>'+
+						'<th class="tdMemberId">작성자 ID</th>'+
+						'<th class="tdMemberNick">닉네임</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
 						'<th class="tdRestore"></th>'+
@@ -154,7 +211,12 @@
 						'<tr>'+
 							'<td>'+resData[i].boardSingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
-							'<td>'+resData[i].boardContent+'</td>'+
+							'<td>'+resData[i].memberNick+'</td>'+
+							'<td >'+
+								'<a href="#detailView" data-toggle="modal" data-target="#detailView" onclick="searchBoard('+resData[i].boardNum+')">'+
+									resData[i].boardContent+
+								'</a>'+
+							'</td>'+
 							'<td>'+resData[i].boardSingoReason+'</td>'+
 							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'board\',\''+resData[i].boardSingoNum+'\',\''+resData[i].boardNum+'\')">복원</Button></td>'+
 							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'board\',\''+resData[i].boardSingoNum+'\',\''+resData[i].boardNum+'\')">삭제</Button></td>'+
@@ -168,7 +230,8 @@
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
 						'<th class="tdNum">신고 번호</th>'+
-						'<th class="tdMemberId">작성자</th>'+
+						'<th class="tdMemberId">작성자 ID</th>'+
+						'<th class="tdMemberNick">닉네임</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
 						'<th class="tdRestore"></th>'+
@@ -185,7 +248,12 @@
 						'<tr>'+
 							'<td>'+resData[i].replySingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
-							'<td>'+resData[i].replyContent+'</td>'+
+							'<td>'+resData[i].memberNick+'</td>'+
+							'<td >'+
+								'<a href="#detailView" data-toggle="modal" data-target="#detailView" onclick="searchBoard('+resData[i].boardNum+','+resData[i].replyNum+')">'+
+									resData[i].replyContent+
+								'</a>'+
+							'</td>'+
 							'<td>'+resData[i].replySingoReason+'</td>'+
 							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'reply\',\''+resData[i].replySingoNum+'\',\''+resData[i].replyNum+'\')">복원</Button></td>'+
 							'<td><Button class="deleteBtn" onclick="deleteSingoObj(\'reply\',\''+resData[i].replySingoNum+'\',\''+resData[i].replyNum+'\')">삭제</Button></td>'+
@@ -217,7 +285,11 @@
 					singoListHTML +=
 						'<tr>'+
 							'<td>'+resData[i].groupSingoNum+'</td>'+
-							'<td>'+resData[i].groupName+'</td>'+
+							'<td>'+
+								'<a href="${pageContext.request.contextPath}/basic/group.do?groupNum='+resData[i].groupNum+'">'+
+									resData[i].groupName+
+								'</a>'+
+							'</td>'+
 							'<td>'+resData[i].groupSingoReason+'</td>'+
 							'<td>'+(resData[i].groupSingoCnt>=5?"<b style=\"color:red\">"+resData[i].groupSingoCnt+"</b>":resData[i].groupSingoCnt)+'</td>'+
 							'<td><Button class="restoreBtn" onclick="restoreSingoObj(\'group\',\''+resData[i].groupSingoNum+'\',\''+resData[i].groupNum+'\')">복원</Button></td>'+

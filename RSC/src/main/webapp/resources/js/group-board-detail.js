@@ -60,11 +60,6 @@ function moreBoard(cnt) {
 			for(i=0; i < resData.length; i++) {
 				append(resData[i]);
 			}
-			
-			if(resData.length < 3) {
-				alert("더이상 글이 존재하지 않습니다");
-			}
-			
 		}
 	}
 
@@ -249,7 +244,7 @@ function searchBoard(boardNum) {
 			
 			replyList(resData.reply);
 			like();
-			moreReplyView(cnt1);
+			moreReplyView(cnt);
 			
 								
 			/* document.getElementById("memberNick").innerText = resData.memberNick;
@@ -366,13 +361,17 @@ function boardSingo() {
 	var address = document.getElementById("address").value;
     var boardSingoReason = prompt("게시글 신고 이유");
     var boardNum = document.getElementById("boardNum").value;
+    var groupNum = document.getElementById("groupNum").value;
+    var groupName = document.getElementById("groupName").value;
+    
 	    if (boardSingoReason=="") {
 	    	alert("신고 이유를 입력해 주세요");
 	    	boardSingo();
     	} else if (boardSingoReason==null) {
     		return false;
     	}  else {
-    		location.href= address+"/singo/addBoardSingo.do?boardNum="+boardNum+"&boardSingoReason="+boardSingoReason;
+    		location.href= address+"/singo/addGroupBoardSingo.do?boardNum="+boardNum+"&boardSingoReason="+boardSingoReason
+    							+"&groupNum="+groupNum+"&groupName="+groupName;
     	}
 }
 
@@ -381,7 +380,9 @@ function replySingo(){
 	var address = document.getElementById("address").value;
 	var replyNum = document.getElementById("replyNum").value;
 	var replySingoReason = prompt("댓글 신고 이유");
-	
+    var groupNum = document.getElementById("groupNum").value;
+    var groupName = document.getElementById("groupName").value;
+    
 	document.getElementById("replySingoReason").value = "";
 	
 	if (replySingoReason=="") {
@@ -390,7 +391,8 @@ function replySingo(){
 	} else if (replySingoReason==null) {
 		return false;
 	}  else {
-		location.href= address+"/singo/addReplySingo.do?replyNum="+replyNum+"&replySingoReason="+replySingoReason;
+		location.href= address+"/singo/addGroupReplySingo.do?replyNum="+replyNum+"&replySingoReason="+replySingoReason
+							+"&groupNum="+groupNum+"&groupName="+groupName;;
 	}
 	
 }
@@ -538,28 +540,23 @@ function replyNumber(replyNum){
 
 //	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->
 window.onload = function(){
-	window.cnt = 1;
-	window.cnt1 = 3;
+	window.cnt = 3;
+	moreReplyView(cnt);
 	/* 더보기 버튼 클릭 이벤트 누를때마다 window.cnt +=3 */
 }
 
 //<!-- 댓글 더 보기 -->
-function moreReplyView(cnt1){
-	
+function moreReplyView(cnt){
 	
 	var replyView = document.getElementsByClassName("replyView");
-	cnt1 = cnt1 >= replyView.length ? replyView.length : cnt1;	
+	cnt = cnt >= replyView.length ? replyView.length : cnt;	
 	
 	for (var i = 0; i < replyView.length; i++) {
 		replyView[i].style.display = 'none';
 	}
 	
-	for (var i = 0; i < cnt1; i++) {
+	for (var i = 0; i < cnt; i++) {
 		replyView[i].style.display = '';
-	}
-	
-	if(replyView.length <= cnt1) {
-		alert("마지막 댓글입니다");
 	}
 	
 }
