@@ -83,7 +83,7 @@
 								</div>
 
 								<!-- 글 내용 -->
-								<div class="content">등록된 글이 없습니다. 메인화면에서 글을 작성해주세요</div>
+								<div class="content">작성된 글이 없습니다. 메인화면에서 글을 등록 해주세요</div>
 								<div align="right"></div>
 								<hr>
 

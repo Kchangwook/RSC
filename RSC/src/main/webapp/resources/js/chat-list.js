@@ -18,13 +18,14 @@
 	function friendList(resData){
 		
 		var friendHTML = '';
+		var address = document.getElementById("address").value;
 		
 		if(resData.length == 0){
 			friendHTML = '<tr><td><div class = "chatPeople">친구가 없습니다</div></td></tr>';
 		}else{
 			for(var i = 0;i<resData.length;i++){
 				
-				friendHTML += '<tr class = "friendView"><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "${pageContext.request.contextPath}/'+resData[i].memberImg+'">'
+				friendHTML += '<tr class = "friendView"><td><div class = "chatImg"><img class = "profImg" id = "profImg" src = "'+address+'/'+resData[i].memberImg+'">'
 					+'</div><div class = "chatPeople">'+resData[i].memberNick+'</div>'+
 					'<div class = "loginPresent"><i class="fa fa-circle loginPresent" style = "color:green" name = "loginPresent" onclick="selectPeople(this)"></i>'
 					+'</div><hr></td></tr>';
