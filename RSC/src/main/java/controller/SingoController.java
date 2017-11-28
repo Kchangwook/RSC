@@ -42,12 +42,16 @@ public class SingoController {
 		Notice notice = new Notice();
 		
 		notice.setMemberId(board.getMemberId());
-		notice.setNoticeContent(board.getBoardTime() + "에 작성한 글이 신고 되었습니다");
+		notice.setNoticeContent(board.getBoardTime().getYear() + "년 " + 
+                board.getBoardTime().getMonth() + "월 " + 
+                board.getBoardTime().getDay() + "일 " + 
+                board.getBoardTime().getHours() + "시 " +
+                board.getBoardTime().getMinutes() + "분 에 작성한 글이 신고 되었습니다");
 
 		noticeService.addNotice1(notice);
 		singoService.addBoardSingo(bs);
 		
-		return "redirect:../board/readBoard.do";
+		return "redirect:../board/readBoard.do?cnt=1";
 	} // end of addBoardSingo
 
 	/* 댓글 신고 등록 & 게시자에게 알림 주기*/
@@ -59,13 +63,66 @@ public class SingoController {
 		Notice notice = new Notice();
 		
 		notice.setMemberId(reply.getMemberId());
-		notice.setNoticeContent(reply.getReplyTime() + "에 작성한 글이 신고 되었습니다");
+		notice.setNoticeContent(reply.getReplyTime().getYear() + "년 " + 
+				reply.getReplyTime().getMonth() + "월 " + 
+				reply.getReplyTime().getDay() + "일 " + 
+				reply.getReplyTime().getHours() + "시 " +
+				reply.getReplyTime().getMinutes() + "분 에 작성한 댓글이 신고 되었습니다");
 		
 		noticeService.addNotice1(notice);
 		singoService.addReplySingo(rs);
 		
 		
-		return "redirect:../board/readBoard.do";
+		return "redirect:../board/readBoard.do?cnt=1";
 	} // end of addReplySingo
+	
+	/* 그룹 게시글 신고 등록 & 게시자에게 알림 주기 */
+	@RequestMapping("addGroupBoardSingo.do")
+	public String addGroupBoardSingo(BoardSingo bs,
+									@RequestParam("groupNum") int groupNum,
+									@RequestParam("groupName") String groupName) {
+		Board board = boardService.searchBoard1(bs.getBoardNum());
+		
+		Notice notice = new Notice();
+		
+		notice.setMemberId(board.getMemberId());
+		notice.setNoticeContent(board.getBoardTime().getYear() + "년 " + 
+                board.getBoardTime().getMonth() + "월 " + 
+                board.getBoardTime().getDay() + "일 " + 
+                board.getBoardTime().getHours() + "시 " +
+                board.getBoardTime().getMinutes() + "분에 ["+groupName+"]그룹에 작성한 글이 신고 되었습니다");
+
+		noticeService.addNotice1(notice);
+		singoService.addBoardSingo(bs);
+		
+		return "redirect:../basic/group.do?groupNum="+groupNum;
+	} // end of addBoardSingo
+
+	/* 그룹 댓글 신고 등록 & 게시자에게 알림 주기*/
+	@RequestMapping("addGroupReplySingo.do")
+	public String addGroupReplySingo(ReplySingo rs,
+									@RequestParam("groupNum") int groupNum,
+									@RequestParam("groupName") String groupName) {
+		
+		Reply reply = replyService.searchReply1(rs.getReplyNum());
+		
+		Notice notice = new Notice();
+		
+		notice.setMemberId(reply.getMemberId());
+		notice.setNoticeContent(reply.getReplyTime().getYear() + "년 " + 
+				reply.getReplyTime().getMonth() + "월 " + 
+				reply.getReplyTime().getDay() + "일 " + 
+				reply.getReplyTime().getHours() + "시 " +
+				reply.getReplyTime().getMinutes() + "분에 ["+groupName+"]그룹에 작성한 댓글이 신고 되었습니다");
+		
+		noticeService.addNotice1(notice);
+		singoService.addReplySingo(rs);
+		
+		
+		return "redirect:../basic/group.do?groupNum="+groupNum;
+	} // end of addReplySingo
+	
+	
+	
 	
 } // end of SingoController
