@@ -60,6 +60,11 @@ function moreBoard(cnt) {
 			for(i=0; i < resData.length; i++) {
 				append(resData[i]);
 			}
+			
+			if(resData.length < 3) {
+				alert("더이상 글이 존재하지 않습니다");
+			}
+			
 		}
 	}
 
@@ -244,7 +249,7 @@ function searchBoard(boardNum) {
 			
 			replyList(resData.reply);
 			like();
-			moreReplyView(cnt);
+			moreReplyView(cnt1);
 			
 								
 			/* document.getElementById("memberNick").innerText = resData.memberNick;
@@ -533,23 +538,28 @@ function replyNumber(replyNum){
 
 //	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->
 window.onload = function(){
-	window.cnt = 3;
-	moreReplyView(cnt);
+	window.cnt = 1;
+	window.cnt1 = 3;
 	/* 더보기 버튼 클릭 이벤트 누를때마다 window.cnt +=3 */
 }
 
 //<!-- 댓글 더 보기 -->
-function moreReplyView(cnt){
+function moreReplyView(cnt1){
+	
 	
 	var replyView = document.getElementsByClassName("replyView");
-	cnt = cnt >= replyView.length ? replyView.length : cnt;	
+	cnt1 = cnt1 >= replyView.length ? replyView.length : cnt1;	
 	
 	for (var i = 0; i < replyView.length; i++) {
 		replyView[i].style.display = 'none';
 	}
 	
-	for (var i = 0; i < cnt; i++) {
+	for (var i = 0; i < cnt1; i++) {
 		replyView[i].style.display = '';
+	}
+	
+	if(replyView.length <= cnt1) {
+		alert("마지막 댓글입니다");
 	}
 	
 }

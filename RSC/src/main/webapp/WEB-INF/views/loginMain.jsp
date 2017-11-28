@@ -323,7 +323,7 @@
 				<!-- /댓글 내용 -->
 				<button class="btn btn-default btnOrange btn-margin"
 					style="margin-bottom: 2%;"
-					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
+					onclick="moreReplyView(window.cnt1 = window.cnt1 + 3);">댓글
 					더보기</button>
 
 			</div>
