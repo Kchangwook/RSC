@@ -375,7 +375,7 @@
 							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
 								id="modifyTime"></span>
 						</div>
-						<div id="modify">
+						<div id="modify" style="float:right;">
 							<button class = "btn btn-default btnOrange modifybtn" onclick = "modifyContent()">수정하기</button>
 							<button class = "btn btn-default btnOrange cancelbtn" data-dismiss="modal">취소</button>
 						</div>

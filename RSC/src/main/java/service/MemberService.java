@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -194,15 +196,17 @@ public class MemberService {
 
 	/** mypage에서 member 정보 수정 함수 */
 	public boolean updateMember(Member origin, Member after, MultipartHttpServletRequest request) {
-
+		HttpSession session = request.getSession();
+		
 		// 비밀번호 변경
 		if (!after.getMemberPw().equals("empty"))
 			origin.setMemberPw(after.getMemberPw());
 
 		// 닉네임 변경
-		if (!after.getMemberNick().equals("empty"))
+		if (!after.getMemberNick().equals("empty")) {
 			origin.setMemberNick(after.getMemberNick());
-
+			session.setAttribute("nick", after.getMemberNick());
+		}
 		// 정보 공개 여부 변경
 		if (origin.getMemberInfoOpen() != after.getMemberInfoOpen())
 			origin.setMemberInfoOpen(after.getMemberInfoOpen());
@@ -222,6 +226,7 @@ public class MemberService {
 			ftp.upload("member", fileName[fileName.length - 1]);
 
 			origin.setMemberImg(after.getMemberImg());
+			session.setAttribute("imgSrc", after.getMemberImg());
 		}
 
 		return this.memberDAO.updateMypageInfo(origin);

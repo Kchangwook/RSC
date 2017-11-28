@@ -73,7 +73,7 @@
 									</div>
 									<div class = "chatNicks right">
 										<c:forEach var = "member" items = "${rooms.members}" varStatus = "state" begin = "0" end = "3">
-											<span>${member.memberNick}<c:if test = "${not state.last}">,</c:if><c:if test = "${fn:length(rooms.members)>4}">...</c:if></span>
+											<span>${member.memberNick}<c:if test = "${not state.last}">,</c:if><c:if test = "${state.last and fn:length(rooms.members)>4}">, ...</c:if></span>
 										</c:forEach>
 									</div>
 								</div>

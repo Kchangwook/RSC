@@ -85,7 +85,7 @@ public class BasicController {
 		String url = "index";
 		String id = request.getParameter("loginId");
 		String pwd = request.getParameter("loginPwd");
-		HttpSession session = request.getSession();
+		HttpSession session = null;
 		
 		switch (memberService.checkLogin(id, pwd)) {
 		// 존재하지 않을 때
@@ -94,18 +94,24 @@ public class BasicController {
 			return url;
 		// 마스터 계정일 때
 		case 1:
+			session = request.getSession();
+			session.setMaxInactiveInterval(60*60*6);
 			session.setAttribute("level", "master");
 			session.setAttribute("id", "master");
 			url = "redirect:../admin/board.do";
 			break;
 		// 관리자 계정일 때
 		case 2:
+			session = request.getSession();
+			session.setMaxInactiveInterval(60*60*6);
 			session.setAttribute("level", "admin");
 			session.setAttribute("id", id);
 			url = "redirect:../admin/board.do";
 			break;
 		// 일반 회원일 때
 		case 3:
+			session = request.getSession();
+			session.setMaxInactiveInterval(60*60*6);
 			session.setAttribute("level", "member");
 			session.setAttribute("id", id);
 			
