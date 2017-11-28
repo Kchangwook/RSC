@@ -150,7 +150,7 @@
 	<insert id="addGroupBoard" parameterType="board">
 		insert 
 		into board(group_num, board_num, member_id, board_content, board_file, board_time, board_singo_flag, board_like, board_cnt)
-		values(#{groupNum}, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, 'resources/img/board', SYSTIMESTAMP, 0, 0, 0)		
+		values(#{groupNum}, board_SEQ.NEXTVAL, #{memberId}, #{boardContent}, ' ', SYSTIMESTAMP, 0, 0, 0)		
 	</insert>
 	
 	<!-- 게시글 갯수 확인 -->
