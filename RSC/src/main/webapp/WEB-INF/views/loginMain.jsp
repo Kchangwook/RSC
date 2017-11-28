@@ -279,8 +279,8 @@
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<i class="fa fa-exclamation-triangle fa-2x"
-							style="color: orange; margin-left: 3%" onclick="boardSingo()"></i>
+						<i class="fa fa-exclamation-triangle fa-2x" title="신고하기"
+							style="color: #F7921E; cursor:pointer;  margin-left: 3%" onclick="boardSingo()"></i>
 					</div>
 					<!-- /글 신고하기 버튼-->
 

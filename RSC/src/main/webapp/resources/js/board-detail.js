@@ -105,9 +105,14 @@ function append(resData) {
 	var span2 = document.createElement("span");
 	span2.innerHTML = resData.memberNick;
 	
+	var text1 = document.createTextNode('\u00a0');
+	var text2 = document.createTextNode('\u00a0');
+	
 	span1.appendChild(img1);
 	
 	div4.appendChild(span1);
+	div4.appendChild(text1);
+	div4.appendChild(text2);
 	
 	div4.appendChild(span2);
 
@@ -233,7 +238,7 @@ function searchBoard(boardNum) {
 			document.getElementById("boardNum").value = resData.board.boardNum;
 			document.getElementById("boardFileImg").src = address+"/"+resData.board.boardFile;
 			
-			if(resData.board.boardFile != 'resources/img/board') {
+			if(resData.board.boardFile !=" ") {
 			document.getElementById("br").innerHTML = '<br><br>';
 			} 
 			
@@ -299,8 +304,9 @@ function replyList(resData) {
 		for(i=0; i < resData.length; i++ ) {
 			if(resData[i].replySingoFlag == 0) {
 				replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
-										'<i class="fa fa-exclamation-triangle" style="float: right; color:orange;" href="" '+
-										'onclick="replyNumber(\''+resData[i].replyNum+'\')"> </i>'+
+										'<i class="fa fa-exclamation-triangle fa-lg" title="신고하기" '+
+											'style="float:right; color: #F7921E; cursor:pointer;" '+
+										'href="" onclick="replyNumber(\''+resData[i].replyNum+'\')"> </i>'+
 									 '</div>'+
 									 '<div class="content1" style="float: right; width: 35%;">' +
 										 '<span>'+ resData[i].replyContent +'</span>'+
@@ -399,10 +405,12 @@ function like() {
 			console.log(resData);
 			
 			if(resData == true) {
-				likeHTML = '<i class="fa fa-heart fa-2x" style="float: right; color:orange;"'+
+				likeHTML = '<i class="fa fa-heart fa-2x" title="좋아요 취소" '+
+								'style="float: right; color: #F00; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			} else {
-				likeHTML = '<i class="fa fa-heart-o fa-2x" style="float: right; color:orange;"'+
+				likeHTML = '<i class="fa fa-heart-o fa-2x" title="좋아요" '+
+								'style="float: right; color: #CCC; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
@@ -431,11 +439,13 @@ function addLike() {
 			
 			if(resData != true) {
 				plusLike();
-				likeHTML = '<i class="fa fa-heart fa-2x" style="float: right; color:orange;"'+
+				likeHTML = '<i class="fa fa-heart fa-2x" title="좋아요 취소" '+
+								'style="float: right; color: #F00; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			} else {
 				minusLike();
-				likeHTML = '<i class="fa fa-heart-o fa-2x" style="float: right; color:orange;"'+
+				likeHTML = '<i class="fa fa-heart-o fa-2x" title="좋아요" '+
+								' style="float: right; color: #CCC; cursor:pointer;"'+
 									'onclick="addLike()"> </i>';
 			}
 		}
