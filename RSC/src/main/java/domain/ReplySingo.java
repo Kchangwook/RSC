@@ -6,7 +6,9 @@ public class ReplySingo {
 	/* 변수 */
 	private int replySingoNum; // col : reply_singo_num
 	private int replyNum; // col : reply_num
+	private int boardNum;
 	private String memberId;
+	private String memberNick;
 	private String replyContent;
 	private String replySingoReason; // col : reply_singo_reason
 	
@@ -20,15 +22,17 @@ public class ReplySingo {
 		this.replySingoReason = replySingoReason;
 	}
 	
-	public ReplySingo(int replySingoNum, int replyNum, String memberId, String replyContent, String replySingoReason) {
+	public ReplySingo(int replySingoNum, int replyNum, int boardNum, String memberId, String memberNick, String replyContent, String replySingoReason) {
 		super();
 		this.replySingoNum = replySingoNum;
 		this.replyNum = replyNum;
+		this.boardNum = boardNum;
 		this.memberId = memberId;
+		this.memberNick = memberNick;
 		this.replyContent = replyContent;
 		this.replySingoReason = replySingoReason;
 	}
-	
+
 	/* Getter, Setter */
 	public int getReplySingoNum() {
 		return replySingoNum;
@@ -64,6 +68,21 @@ public class ReplySingo {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
+	
+	public int getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
+	
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	
 	/* toString */
 	@Override
 	public String toString() {

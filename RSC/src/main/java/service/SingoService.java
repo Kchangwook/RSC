@@ -66,4 +66,9 @@ public class SingoService {
 		return singoDAO.addGroupSingo(groupSingo);
 	}
 	
+	/** 그룹 신고 카운트 증가 */
+	public boolean updateGroupsSingoCntPlus(int groupNum) {
+		return singoDAO.updateGroupsSingoCntPlus(groupNum);
+	}
+	
 } // end of SingoService
