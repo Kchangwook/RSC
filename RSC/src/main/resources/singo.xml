@@ -9,6 +9,7 @@
 		<result property="boardSingoNum" column="BOARD_SINGO_NUM" />
 		<result property="boardNum" column="BOARD_NUM" />
 		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="boardContent" column="BOARD_CONTENT" />
 		<result property="boardSingoReason" column="BOARD_SINGO_REASON" />
 	</resultMap>
@@ -18,6 +19,7 @@
 		<result property="replyNum" column="REPLY_NUM" />
 		<result property="boardNum" column="board_num" />
 		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberNick" column="MEMBER_NICK" />
 		<result property="replyContent" column="REPLY_CONTENT" />
 		<result property="replySingoReason" column="REPLY_SINGO_REASON" />
 	</resultMap>
@@ -33,22 +35,24 @@
 	<select id="selectAllBoardSingo" resultMap="boardSingoResult">
 		select bs.board_singo_num as board_singo_num, 
 			   b.board_num as board_num, 
-			   b.member_id as member_id, 
+			   b.member_id as member_id,
+			   m.member_nick as member_nick,
 			   b.board_content as board_content, 
 			   bs.board_singo_reason as board_singo_reason
-		from board b, board_singo bs
-		where b.board_num = bs.board_num
+		from board b, board_singo bs, member m
+		where b.board_num = bs.board_num and b.member_id=m.member_id
 	</select>
 	
 	<select id="selectAllReplySingo" resultMap="replySingoResult">
 		select rs.reply_singo_num as reply_singo_num, 
 			   r.reply_num as reply_num,
 			   r.board_num as board_num,
-			   r.member_id as member_id, 
+			   r.member_id as member_id,
+			   m.member_nick as member_nick,
 			   r.reply_content as reply_content, 
 			   rs.reply_singo_reason as reply_singo_reason
-		from reply r, reply_singo rs
-		where r.reply_num = rs.reply_num
+		from reply r, reply_singo rs, member m
+		where r.reply_num = rs.reply_num and r.member_id=m.member_id
 	</select>
 	
 	<select id="selectAllGroupSingo" resultMap="groupSingoResult">

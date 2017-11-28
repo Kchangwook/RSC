@@ -193,7 +193,8 @@
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
 						'<th class="tdNum">신고 번호</th>'+
-						'<th class="tdMemberId">작성자</th>'+
+						'<th class="tdMemberId">작성자 ID</th>'+
+						'<th class="tdMemberNick">닉네임</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
 						'<th class="tdRestore"></th>'+
@@ -210,6 +211,7 @@
 						'<tr>'+
 							'<td>'+resData[i].boardSingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
+							'<td>'+resData[i].memberNick+'</td>'+
 							'<td >'+
 								'<a href="#detailView" data-toggle="modal" data-target="#detailView" onclick="searchBoard('+resData[i].boardNum+')">'+
 									resData[i].boardContent+
@@ -228,7 +230,8 @@
 				'<table class="w3-table w3-bordered w3-hoverable">'+
 					'<thead><tr>'+
 						'<th class="tdNum">신고 번호</th>'+
-						'<th class="tdMemberId">작성자</th>'+
+						'<th class="tdMemberId">작성자 ID</th>'+
+						'<th class="tdMemberNick">닉네임</th>'+
 						'<th class="tdContent">내용</th>'+
 						'<th class="tdReason">신고사유</th>'+
 						'<th class="tdRestore"></th>'+
@@ -245,6 +248,7 @@
 						'<tr>'+
 							'<td>'+resData[i].replySingoNum+'</td>'+
 							'<td>'+resData[i].memberId+'</td>'+
+							'<td>'+resData[i].memberNick+'</td>'+
 							'<td >'+
 								'<a href="#detailView" data-toggle="modal" data-target="#detailView" onclick="searchBoard('+resData[i].boardNum+','+resData[i].replyNum+')">'+
 									resData[i].replyContent+
