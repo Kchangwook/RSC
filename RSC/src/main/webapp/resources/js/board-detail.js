@@ -221,6 +221,7 @@ function deleteBoard(boardNum) {
 }
 
 function searchBoard(boardNum) {
+	window.cnt1 = 3;
 	var address = document.getElementById("address").value;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -309,15 +310,14 @@ function replyList(resData) {
 		for(i=0; i < resData.length; i++ ) {
 			if(resData[i].replySingoFlag == 0) {
 				replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
-										'<i class="fa fa-exclamation-triangle fa-lg" title="신고하기" '+
-											'style="float:right; color: #F7921E; cursor:pointer;" '+
-										'href="" onclick="replyNumber(\''+resData[i].replyNum+'\')"> </i>'+
+									 	'<img src="'+address+'/resources/img/siren.svg" style="width:17px;height:17px;float:right;margin-top:10px;cursor:pointer;"'+
+										'title="댓글 신고하기" onclick="replyNumber(\''+resData[i].replyNum+'\')">'+
 									 '</div>'+
-									 '<div class="content1" style="float: right; width: 35%;">' +
-										 '<span>'+ resData[i].replyContent +'</span>'+
+									 '<div class="content1" style="float: left; width: 35%; margin-top:5px;">' +
+										 '<span style="font-size:small;">'+ resData[i].replyContent +'</span>'+
 									'</div>';
 			} else {
-				replySingoFlagHTML = '<div class="content1" style="float: right; width: 55%;">'+
+				replySingoFlagHTML = '<div class="content1" style="float: left; width: 55%; margin-top:5px;">'+
 										'<span >'+ '본 댓글은 신고가 되었습니다' +'</span>'+
 									 '</div>';
 				
@@ -333,9 +333,9 @@ function replyList(resData) {
 						'<div class="w3-round-large padding col-md-12">' +
 //								<!-- 글 머리 : 사진, 닉네임 -->
 							'<div class="header1" ' +
-								'style="float: left; width: 25%;"> ' +
+								'style="float: left; width: 20%;"> ' +
 								'<span><img src="'+address+'/'+ resData[i].memberImg +'"></span> ' +
-										'<span>&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
+										'<span style="font-weight:600;">&nbsp;&nbsp;'+resData[i].memberNick +'</span>'+
 							'</div>'+
 							
 //								<!-- 댓글 내용 -->
@@ -548,7 +548,12 @@ function moreReplyView(cnt1){
 	
 	
 	var replyView = document.getElementsByClassName("replyView");
-	cnt1 = cnt1 >= replyView.length ? replyView.length : cnt1;	
+	
+	if( (replyView.length <= cnt1-3) && cnt1>=6) {
+		alert("마지막 댓글입니다");
+	}
+	
+	cnt1 = cnt1 >= replyView.length ? replyView.length : cnt1;
 	
 	for (var i = 0; i < replyView.length; i++) {
 		replyView[i].style.display = 'none';
@@ -558,8 +563,6 @@ function moreReplyView(cnt1){
 		replyView[i].style.display = '';
 	}
 	
-	if(replyView.length <= cnt1) {
-		alert("마지막 댓글입니다");
-	}
+
 	
 }

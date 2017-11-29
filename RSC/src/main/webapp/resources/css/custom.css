@@ -806,7 +806,8 @@ div.friend-edge .friend-out .firend-back .list-img{
 }
 
 .modal .modal-dialog .modal-content .col-md-12 .content {
-    padding: 2% 5%;
+    padding: 7% 5%;
+    font-size: large;
 }
 
 .modal .modal-dialog .modal-content .col-md-12 hr {
