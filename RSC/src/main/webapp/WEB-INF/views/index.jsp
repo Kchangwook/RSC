@@ -261,7 +261,6 @@
 
 		</div>
 	</div>
-	</div>
 	<!-- /글 상세보기 모달 -->
 
 	<!-- Javascript files-->

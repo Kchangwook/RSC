@@ -28,9 +28,41 @@ window.onload = function(){
 //이미지 src보여주기
 function changeMypageSrc() {
 	
-	document.getElementById("mypageSrc").value = document
-			.getElementById("mypageImg").value;
+	document.getElementById("mypageSrc").value = document.getElementById("mypageImg").value;
 
+}
+
+//비밀번호 검증
+function checkMypagePw(pw) {
+	
+	var pw = pw.charCodeAt(0);
+	
+	if( (32 <= pw && pw <= 47) ||
+		(58 <= pw && pw <= 64) ||
+		(91 <= pw && pw <= 96) ||
+		(123 <= pw && pw <= 126)) {
+		document.getElementById("mypage_msg").innerText = "비밀번호에 공백을 입력할 수 없습니다";
+		return false;
+	} else {
+		document.getElementById("mypage_msg").innerText = "";
+	}
+}
+
+//닉네임 검증
+function checkMypageNick(nick) {
+	
+	var nick = nick.charCodeAt(0);
+	
+	if( (32 <= nick && nick <= 47) ||
+		(58 <= nick && nick <= 64) ||
+		(91 <= nick && nick <= 96) ||
+		(123 <= nick && nick <= 126)) {
+		document.getElementById("mypage_msg").innerText = "닉네임에 공백을 입력할 수 없습니다";
+		return false;
+	} else {
+		document.getElementById("mypage_msg").innerText = "";
+		checkSameNick(nick);
+	}
 }
 
 // 필수 정보가 모두 입력되었는지 확인
@@ -39,14 +71,18 @@ function checkMypageInfo() {
 	var pwd = document.getElementById("myPw").value;
 	var nick = document.getElementById("myNick").value;
 	var interest = document.getElementsByName("myInterest");
+	var msg = document.getElementById("mypage_msg").innerText;
 
 	var count = 0;
 
 	for (var i = 0; i < interest.length; i++)
 		if (interest[i].checked)
 			count++;
-
-	if (count == 0) {
+	
+	if(msg != "") {
+		alert(msg);
+		return false;
+	} else if (count == 0) {
 		alert("관심사를 선택하세요");
 		return false;
 	} else {
