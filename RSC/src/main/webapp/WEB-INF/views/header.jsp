@@ -165,8 +165,8 @@
 						<div class="container">
 							<table>
 								<tr>
-									<td><input type="text" name="memberId" id="id" value="<? $id ?>" 
-											onblur="checkSameId()" onkeyup="checkId()" placeholder="아이디"></td>
+									<td><input type="text" name="memberId" id="id" value="<? $id ?>"
+											onblur="checkId()" onkeyup="checkId()" placeholder="아이디"></td>
 								</tr>
 								<tr>
 									<td><input type="password" id = "pwd" name="memberPw" value="<? $pwd ?>" 
@@ -174,7 +174,7 @@
 								</tr>
 								<tr>
 									<td><input type="text" name="memberNick" id="nick"  value="<? $nick ?>" 
-											onblur="checkSameNick()" onkeyup="checkNick()" placeholder="닉네임"></td>
+											onblur="checkId()" onkeyup="checkNick()" placeholder="닉네임"></td>
 								</tr>
 								<tr>
 									<td>
