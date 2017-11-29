@@ -227,7 +227,7 @@
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
 						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
-						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick" style="font-weight:700;font-size:small;"> </span>
 					</div>
 
 					<!-- 글 조회수 -->
@@ -249,8 +249,8 @@
 					<!-- 글 작성 시간 -->
 					<div class="footer">
 						<div class="time-tag" style="float: left;">
-							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
-								id="boardTime"></span>
+							<i class="fa fa-clock-o">&nbsp;&nbsp;<span id="boardTime"></span></i>
+							
 						</div>
 					</div>
 
@@ -258,16 +258,15 @@
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<i class="fa fa-exclamation-triangle fa-2x" title="신고하기"
-							style="color: orange; margin-left: 3%; cursor: pointer;" onclick="boardSingo()"></i>
+						<img src="${pageContext.request.contextPath}/resources/img/siren.svg" onclick="boardSingo()"
+						style="width:30px;height:30px;cursor:pointer;margin:0 5px;" title="신고하기">
 					</div>
 					<!-- /글 신고하기 버튼-->
-
 
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
 						<!-- 좋아요 카운트 -->
-						<div id=boardLike class="likeCnt" align="right"></div>
+						<div id=boardLike class="likeCnt" align="right" style="margin-top:3px;"></div>
 						<!-- /좋아요 카운트 -->
 						<div id="like">
 							<!-- <span id=boardLike></span> -->
@@ -277,17 +276,20 @@
 							value="${sessionScope.id}">
 					</div>
 					<!-- /좋아요 버튼 -->
-
 					<div class="clear"></div>
-
+					<div class="clear"></div>
+					<hr>
+					<div class="clear"></div>
+					<div class="clear"></div>
 					<!-- 댓글 작성 틀 -->
 					<div style="float: left; width: 75%;" align="left">
 						<textarea id="replyContent" rows="1"
-							style="width: 100%; resize: none; wrap: hard;"
+							style="width: 109%; resize: none; wrap: hard; padding:3px;border-radius:4px;"
 							placeholder="댓글을 입력하세요" name="replyContent"></textarea>
 					</div>
 					<div style="float: right;" align="right">
-						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
+						<button style="padding:4px 10px;background-color:#F7921E;color:white;border-radius:4px;border:none;"
+						onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
 						<input type="hidden" name="memberId" id="memberId"
 							value="${sessionScope.id}">
@@ -301,12 +303,10 @@
 				<div id="replyHTML" style="margin-bottom: -2%;"></div>
 				<!-- /댓글 내용 -->
 				<button class="btn btn-default btnOrange btn-margin"
-					style="margin-bottom: 2%;"
-					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
+					style="margin-bottom: 2%;border:none;"
+					onclick="moreReplyView(window.cnt1 = window.cnt1 + 3);">댓글
 					더보기</button>
-
 			</div>
-
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
