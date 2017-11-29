@@ -34,7 +34,7 @@ function check() {
 		alert("아이디에 특수문자 및 공백을 입력할 수 없습니다");
 		frm.id.focus();
 		return false;
-	} else if(tmp == '' ){
+	} else if(!pattern.test(frm.pwd.value) || tmp == '' ){
 		alert("비밀번호에 공백을 입력할 수 없습니다");
 		frm.pwd.focus();
 		return false;

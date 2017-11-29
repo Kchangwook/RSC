@@ -44,5 +44,26 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	  <filter>
+    <display-name>AdminFilter</display-name>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>filter.AdminFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>MemberFilter</display-name>
+    <filter-name>MemberFilter</filter-name>
+    <filter-class>filter.MemberFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>MemberFilter</filter-name>
+    <url-pattern>/group/*</url-pattern>
+    <url-pattern>/chat/*</url-pattern>
+    <url-pattern>/friend/*</url-pattern>
+    <url-pattern>/singo/*</url-pattern>
+  </filter-mapping>
 
 </web-app>
