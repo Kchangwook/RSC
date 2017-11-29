@@ -310,7 +310,7 @@ function replyList(resData) {
 		for(i=0; i < resData.length; i++ ) {
 			if(resData[i].replySingoFlag == 0) {
 				replySingoFlagHTML = '<div class="singoBtn" style="float: right; width: 20%;">'+
-									 	'<img src="'+address+'/resources/img/siren.svg" style="width:17px;height:17px;float:right;margin-top:10px;cursor:pointer;"'+
+									 	'<img src="'+address+'/resources/img/siren.svg" style="width:17px;height:17px;float:right;margin-top:8px;cursor:pointer;"'+
 										'title="댓글 신고하기" onclick="replyNumber(\''+resData[i].replyNum+'\')">'+
 									 '</div>'+
 									 '<div class="content1" style="float: left; width: 35%; margin-top:5px;">' +
@@ -353,7 +353,7 @@ function replyList(resData) {
 					'</div>'+
 				'<br>'+
 //					<!--/글 작성 틀-->
-			'</div>'
+			'</div>';
 		}
 		
 	}
@@ -545,8 +545,6 @@ window.onload = function(){
 
 //<!-- 댓글 더 보기 -->
 function moreReplyView(cnt1){
-	
-	
 	var replyView = document.getElementsByClassName("replyView");
 	
 	if( (replyView.length <= cnt1-3) && cnt1>=6) {
@@ -562,7 +560,4 @@ function moreReplyView(cnt1){
 	for (var i = 0; i < cnt1; i++) {
 		replyView[i].style.display = '';
 	}
-	
-
-	
 }

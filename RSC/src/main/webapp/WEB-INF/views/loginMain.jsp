@@ -297,17 +297,20 @@
 							value="${sessionScope.id}">
 					</div>
 					<!-- /좋아요 버튼 -->
-
 					<div class="clear"></div>
-
+					<div class="clear"></div>
+					<hr>
+					<div class="clear"></div>
+					<div class="clear"></div>
 					<!-- 댓글 작성 틀 -->
 					<div style="float: left; width: 75%;" align="left">
 						<textarea id="replyContent" rows="1"
-							style="width: 100%; resize: none; wrap: hard; padding:5px;"
+							style="width: 109%; resize: none; wrap: hard; padding:3px;border-radius:4px;"
 							placeholder="댓글을 입력하세요" name="replyContent"></textarea>
 					</div>
 					<div style="float: right;" align="right">
-						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
+						<button style="padding:4px 10px;background-color:#F7921E;color:white;border-radius:4px;border:none;"
+						onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
 						<input type="hidden" name="memberId" id="memberId"
 							value="${sessionScope.id}">
@@ -324,9 +327,7 @@
 					style="margin-bottom: 2%;border:none;"
 					onclick="moreReplyView(window.cnt1 = window.cnt1 + 3);">댓글
 					더보기</button>
-
 			</div>
-
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
