@@ -64,13 +64,13 @@
 										<c:when test="${requestScope.groupLevel eq 'admin' or sessionScope.level eq 'master' or sessionScope.level eq 'admin'}">
 											<tr>
 												<td class="group-info-btn">
-													<a href="${pageContext.request.contextPath}/group/groupUpdate.do?groupNum=${requestScope.groupInfo.groupNum}">
+													<a href="${pageContext.request.contextPath}/group/groupUpdate.do?groupNum=${requestScope.groupInfo.groupNum}&groupLevel=${requestScope.groupLevel}">
 														<button class="groupAdminBtn">정보 수정</button>
 													</a>
-													<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}">
+													<a href="${pageContext.request.contextPath}/group/groupMember.do?groupNum=${requestScope.groupInfo.groupNum}&groupLevel=${requestScope.groupLevel}">
 														<button class="groupAdminBtn">회원 보기</button>
 													</a>
-													<a href="${pageContext.request.contextPath}/group/groupJoin.do?groupNum=${requestScope.groupInfo.groupNum}">
+													<a href="${pageContext.request.contextPath}/group/groupJoin.do?groupNum=${requestScope.groupInfo.groupNum}&groupLevel=${requestScope.groupLevel}">
 														<button class="groupAdminBtn">가입 승인</button>
 													</a>
 													<button class="groupAdminBtn" onclick="groupDelete('${requestScope.groupInfo.groupNum}','${requestScope.groupInfo.groupName}')">
