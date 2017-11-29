@@ -184,4 +184,10 @@ public class MemberDAO extends SqlSessionDaoSupport {
 		return list;
 	}
 	
+	/** 오랫동안 로그인하지 않은 회원 삭제 */
+	public void deleteOldMember() {
+		session = getSqlSession();
+		session.delete("member.deleteOldMember");
+	}
+	
 }//end of MemberDAO

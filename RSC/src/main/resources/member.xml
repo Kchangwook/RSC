@@ -103,6 +103,9 @@
 		where f.member_id = #{memberId} and m.member_id = f.friend_id
 		order by m.member_present_login desc
 	</select>
-		
-
+	
+	<!-- 오랫동안 로그인하지 않은 회원 삭제 -->
+	<delete id="deleteOldMember" parameterType="member"> 
+		delete from member where ADD_MONTHS(SYSTIMESTAMP, -1) > member_logout_time 
+	</delete>
 </mapper>
