@@ -122,11 +122,12 @@
 						<!-- 채팅 입력 버튼 -->
 						<div id="chatInput">
 							<input id="chatMsg" type="text" placeholder="메시지를 입력하세요." onkeypress="if(event.keyCode==13) {sendMsg();}">
+							<i class="fa fa-refresh" onclick="refresh()" style="color:green; cursor:pointer;float:right;margin:5px;"></i>
 							<button id= "chatBtn" onclick="sendMsg()" title="전송">
 								<i class="fa fa-paper-plane"></i>
 							</button>
+							
 						</div>
-						<i class="fa fa-refresh" onclick="refresh()" style="color:green; cursor:pointer;"></i>
 					</div>
 				</div>
 			</div>
@@ -189,16 +190,22 @@
 			var memberId = document.getElementById("sessionId").value;
 			var chatNum = document.getElementById("chatNum").value;
 			var chatMsg = document.getElementById("chatMsg").value;
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					var resData = this.responseText;
-					document.getElementById("chatMsg").value='';
+			
+			if(chatMsg==''){
+				alert("메시지를 입력해주세요.");
+				return false;
+			} else {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						var resData = this.responseText;
+						document.getElementById("chatMsg").value='';
+					}
 				}
+				xhttp.open("POST", "${pageContext.request.contextPath}/chat/sendingMsg.do", true);
+				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhttp.send("chatNum="+chatNum+"&memberId="+memberId+"&messageContent="+chatMsg); 
 			}
-			xhttp.open("POST", "${pageContext.request.contextPath}/chat/sendingMsg.do", true);
-			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("chatNum="+chatNum+"&memberId="+memberId+"&messageContent="+chatMsg); 
 		}
 		
 		/* 전송한 메시지  */

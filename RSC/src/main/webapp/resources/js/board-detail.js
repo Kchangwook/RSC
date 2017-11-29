@@ -237,7 +237,6 @@ function searchBoard(boardNum) {
 				
 			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
 			document.getElementById("memberNick").innerText = resData.board.memberNick;
-			document.getElementById("boardContent").innerText = resData.board.boardContent;
 			document.getElementById("boardTime").innerText = time;
 			document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
 			document.getElementById("boardLike").innerText = resData.board.boardLike;
@@ -245,8 +244,10 @@ function searchBoard(boardNum) {
 			document.getElementById("boardFileImg").src = address+"/"+resData.board.boardFile;
 			
 			if(resData.board.boardFile !=" ") {
-			document.getElementById("br").innerHTML = '<br><br>';
-			} 
+				document.getElementById("boardContent").innerHTML = '<br>'+resData.board.boardContent;
+			} else {
+				document.getElementById("boardContent").innerHTML = resData.board.boardContent;
+			}
 			
 			replyList(resData.reply);
 			like();
@@ -313,12 +314,12 @@ function replyList(resData) {
 									 	'<img src="'+address+'/resources/img/siren.svg" style="width:17px;height:17px;float:right;margin-top:8px;cursor:pointer;"'+
 										'title="댓글 신고하기" onclick="replyNumber(\''+resData[i].replyNum+'\')">'+
 									 '</div>'+
-									 '<div class="content1" style="float: left; width: 35%; margin-top:5px;">' +
+									 '<div class="content1" style="float: left; width: 35%; margin-top:4px;">' +
 										 '<span style="font-size:small;">'+ resData[i].replyContent +'</span>'+
 									'</div>';
 			} else {
-				replySingoFlagHTML = '<div class="content1" style="float: left; width: 55%; margin-top:5px;">'+
-										'<span >'+ '본 댓글은 신고가 되었습니다' +'</span>'+
+				replySingoFlagHTML = '<div class="content1" style="float: left; width: 55%; margin-top:4px;">'+
+										'<span style="font-size:small;">'+ '본 댓글은 신고가 되었습니다' +'</span>'+
 									 '</div>';
 				
 			}

@@ -858,6 +858,14 @@ div.friend-edge .friend-out .firend-back .list-img{
 	height:35px;
 	border-radius: 25px;
 }
+img#boardFileImg{
+	max-height:300px;
+}
+div#replyHTML{
+	overflow-x:hidden;
+	overflow-y:auto;
+	max-height:350px;
+}
 
 /* 댓글 더보기 버튼 */
 .btn-margin {

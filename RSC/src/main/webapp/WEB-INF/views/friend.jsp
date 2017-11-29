@@ -169,8 +169,8 @@
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
 						<img style="max-width: 100%" id="boardFileImg"
-							src="${pageContext.request.contextPath}/${boardSrc}"> <span
-							id="br"></span><span id="boardContent"> </span>
+							src="${pageContext.request.contextPath}/${boardSrc}">
+							<span id="boardContent"></span>
 					</div>
 					<hr>
 

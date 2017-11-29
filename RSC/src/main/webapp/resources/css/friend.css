@@ -1,6 +1,6 @@
 .friend-info{
-	margin-left:320px;
-	width:500px;
+	margin-left:25%;
+	width:50%;
 	height:550px;
 }
 .friend-align{
@@ -12,12 +12,10 @@
 	border-radius: 140px;
 	overflow:hidden;
 	margin-top:40px;
-	margin-left:83px;
 }
 .friend-name{
 	position:relative;
 	color: #a5a5a5;
-	margin-left: 70px;
 	top:20px;
 	font-size: 30pt;
 }
@@ -25,7 +23,6 @@
 	position:relative;
 	color: #a5a5a5;
 	font-size: 13pt;
-	margin-left: -130px;
 	top:40px;
 }
 .friend-intercontent{
@@ -33,12 +30,10 @@
 	color: #b9b9b9;
 	font-size: 12pt;
 	top:45px;
-	left:-75px;
 }
 .friend-add {
 	position:relative;
-	top:80px;
-	left:235px;
+	top:65px;
 	width:90px;
 	height:35px;
     background-color: #f7921e; 
@@ -55,6 +50,7 @@
 .friend-content{
 	align-content: center;
 }
-table,td{
+table,tr,td{
 	text-align: center;
+	width:100%;
 }

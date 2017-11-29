@@ -232,7 +232,6 @@ function searchBoard(boardNum) {
 				
 			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
 			document.getElementById("memberNick").innerText = resData.board.memberNick;
-			document.getElementById("boardContent").innerText = resData.board.boardContent;
 			document.getElementById("boardTime").innerText = time;
 			document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
 			document.getElementById("boardLike").innerText = resData.board.boardLike;
@@ -240,8 +239,10 @@ function searchBoard(boardNum) {
 			document.getElementById("boardFileImg").src = address+"/"+resData.board.boardFile;
 			
 			if(resData.board.boardFile !=" ") {
-			document.getElementById("br").innerHTML = '<br><br>';
-			} 
+				document.getElementById("boardContent").innerHTML = '<br>'+resData.board.boardContent;
+			} else {
+				document.getElementById("boardContent").innerHTML = resData.board.boardContent;
+			}
 			
 			replyList(resData.reply);
 			like();
