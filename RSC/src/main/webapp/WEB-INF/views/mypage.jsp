@@ -64,11 +64,12 @@
 									<td colspan='2'><input type="text" name = "myId" id="myId" readonly value="${ sessionScope.id }"></td>
 								</tr>
 								<tr>
-									<td colspan='2'><input type="password" name = "myPw" id="myPw" placeholder="비밀번호"></td>
+									<td colspan='2'><input type="password" name = "myPw" id="myPw" 
+									onblur="checkMypagePw(this.value)" placeholder="비밀번호"></td>
 								</tr>
 								<tr>
 									<td colspan='2'><input type="text" name="myNick" id="myNick"
-										onblur="checkSameNick(this.value)" placeholder="${ member.memberNick }"></td>
+										onblur="checkMypageNick(this.value)" placeholder="${ member.memberNick }"></td>
 								</tr>
 								<tr>
 									<td colspan='2'>

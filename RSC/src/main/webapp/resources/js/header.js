@@ -24,26 +24,53 @@ function clearContent() {
 
 }
 
-//공백 및 특수문자 검증
-function check() {
+//아이디 검증
+function checkId() {
 	
-	var pattern =  /(^[a-zA-Z0-9]+$)/;
-	var tmp = document.frm.memberId.value.replace(/\s|　/gi, '');
+	var id = document.getElementById("id");
 	
-	if(!pattern.test(frm.id.value) || tmp == '' ) {
-		alert("아이디에 특수문자 및 공백을 입력할 수 없습니다");
-		frm.id.focus();
-		return false;
-	} else if(!pattern.test(frm.pwd.value) || tmp == '' ){
-		alert("비밀번호에 공백을 입력할 수 없습니다");
-		frm.pwd.focus();
-		return false;
-	} else if(!pattern.test(frm.nick.value) || tmp == '' ){
-		alert("닉네임에 특수문자 및 공백을 입력할 수 없습니다");
-		frm.nick.focus();
+	if( (32 <= event.keyCode && event.keyCode <= 47) ||
+		(58 <= event.keyCode && event.keyCode <= 64) ||
+		(91 <= event.keyCode && event.keyCode <= 96) ||
+		(123 <= event.keyCode && event.keyCode <= 126)) {
+		document.getElementById('join_msg').innerText = "아이디에 영문과 숫자만 입력해 주세요";
 		return false;
 	} else {
-		checkInfo();
+		document.getElementById('join_msg').innerText = "";
+		checkSameId();
+	}
+}
+
+// 비밀번호 검증
+function checkPw() {
+	
+	var pw = document.getElementById("pwd");
+	
+	if( (32 <= event.keyCode && event.keyCode <= 47) ||
+		(58 <= event.keyCode && event.keyCode <= 64) ||
+		(91 <= event.keyCode && event.keyCode <= 96) ||
+		(123 <= event.keyCode && event.keyCode <= 126)) {
+		document.getElementById('join_msg').innerText = "비밀번호에 공백을 입력할 수 없습니다";
+		return false;
+	} else {
+		document.getElementById('join_msg').innerText = "";
+	}
+}
+
+// 닉네임 검증
+function checkNick() {
+	
+	var nick = document.getElementById("id");
+	
+	if( (32 <= event.keyCode && event.keyCode <= 47) ||
+		(58 <= event.keyCode && event.keyCode <= 64) ||
+		(91 <= event.keyCode && event.keyCode <= 96) ||
+		(123 <= event.keyCode && event.keyCode <= 126)) {
+		document.getElementById('join_msg').innerText = "닉네임에 공백을 입력할 수 없습니다";
+		return false;
+	}else {
+		document.getElementById('join_msg').innerText = "";
+		checkSameNick();
 	}
 }
 
@@ -59,13 +86,13 @@ function getMessage() {
 
 window.onload = getMessage();
 
-// 필수 정보가 모두 입력되었는지 확인
+//필수 정보가 모두 입력되었는지 확인
 function checkInfo() {
-
 	var id = document.getElementById("id").value;
 	var nick = document.getElementById("nick").value;
 	var pwd = document.getElementById("pwd").value;
 	var interest = document.getElementsByName("memberInterest");
+	var msg = document.getElementById("join_msg").innerText;
 	
 	var count = 0;
 	
@@ -73,7 +100,10 @@ function checkInfo() {
 		if(interest[i].checked)
 			count++;
 	
-	if (id == "") {
+	if(msg != "") {
+		alert(msg);
+		return false;
+	} else if (id == "") {
 		alert("아이디를 입력하세요");
 		return false;
 	} else if (pwd == "") {
@@ -85,10 +115,9 @@ function checkInfo() {
 	} else if(count == 0){
 		alert("관심사를 선택하세요");
 		return false;
-	} else{
+	} else {
 		document.getElementById("frm").submit();
 	}
-
 }
 
 // 동일한 닉네임이 있는지 확인
