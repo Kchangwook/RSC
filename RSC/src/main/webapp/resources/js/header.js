@@ -24,15 +24,6 @@ function clearContent() {
 
 }
 
-/*document.getElementById("signUpModal").addEventListener("blur", function() {
-	
-	checkId();
-});
-
-document.getElementById("signUpModal").addEventListener("click", function() {
-	
-	checkNick();
-});*/
 
 //아이디 검증
 function checkId() {
@@ -324,15 +315,12 @@ function moveToGroup(groupNum) {
 	location.href= address+'/basic/group.do?groupNum='+groupNum+"&cnt=1";
 }
 
-/*// 알림에서 사용할 아이디
+// 알림에서 사용할 아이디
 function getMemberId() {
-
 	memberId = document.getElementById("noticeMemberId").value;
+}
+window.onload = getMemberId();
 
-}*/
-
-/*window.onload = getMemberId();
-*/
 // 종모양 클릭하면 알림 모달 팝업
 function viewAlertList() {
 	var alertHtml = '';
