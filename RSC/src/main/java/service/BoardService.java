@@ -30,7 +30,6 @@ public class BoardService {
 	public void setFTPService(FTPService ftp) {
 		this.ftp = ftp;
 	}
-
 	public void setBoardDAO(BoardDAO boardDAO) {
 		this.boardDAO = boardDAO;
 	}
@@ -87,7 +86,7 @@ public class BoardService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/0.IT/4.framework/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
+			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
 			System.out.println(file.getOriginalFilename());
@@ -325,9 +324,9 @@ public class BoardService {
 	} // end of minusLike
 	
 	/** 내가 쓴 게시글들 가져오기 */
-	public List<Board> getMine(String memberId){
+	public List<Board> getMine(Board b){
 		
-		return boardDAO.getMine(memberId);
+		return boardDAO.getMine(b);
 		
 	}//end of getMine
 	

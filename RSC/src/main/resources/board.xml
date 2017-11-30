@@ -24,7 +24,7 @@
 		select * from board
 	</select>
 	
-	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬(Nick으로 반환) -->
+	<!-- 아이디를 통한 게시글 검색 & 시간순 정렬 -->
 	<select id="selectBoardByIdDesc" parameterType="String" resultMap="boardResult">
 		select m.member_nick, m.member_img, b.member_id, b.board_num, b.board_content, b.board_file, b.board_time, b.board_like, b.board_cnt, b.board_singo_flag
 		from board b, member m
@@ -135,11 +135,14 @@
 	</update>
 	
 	<!-- 내가 쓴 게시글 들만 가져오기 -->
-	<select id="getMine" parameterType = "String" resultMap = "boardResult">
-		select b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
-		from board b, member m 
-		where b.member_id = #{memberId}and b.member_id = m.member_id
-		order by board_time desc
+	<select id="getMine" parameterType = "board" resultMap = "boardResult">
+		select rownum as rnum, b2.board_num, b2.member_id, b2.member_img, b2.member_nick, b2.board_content, b2.board_file, b2.board_time, b2.board_singo_flag, b2.board_like, b2.board_cnt from
+		(select rownum as rnum, b1.board_num, b1.member_id, b1.member_img, b1.member_nick, b1.board_content, b1.board_file, b1.board_time, b1.board_singo_flag, b1.board_like, b1.board_cnt from
+		(select b.board_num, m.member_id, m.member_img, m.member_nick, b.board_content, b.board_file, b.board_time, b.board_singo_flag, b.board_like, b.board_cnt
+		from board b, member m
+		where b.member_id = #{memberId} and b.member_id=m.member_id order by b.board_num desc) b1
+		where #{cnt}+2 >= rownum) b2
+		where rnum >= #{cnt}
 	</select>
 	
 	<!-- 게시글 번호로 게시글 삭제하기 -->

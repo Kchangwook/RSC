@@ -72,7 +72,6 @@ function moreBoard(cnt) {
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("memberId="+memberId +"&cnt="+cnt);
 
-	
 }
 
 // 친구 게시글 더 불러오기
@@ -103,10 +102,161 @@ function moreBoardFriend(cnt) {
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("friendId="+friendId+"&cnt="+cnt);
 
-	
 }
 
-// 게시글 더 보기 append
+//내가 쓴 게시글 더 불러오기
+function moreMyBoard(cnt) {
+	
+	var address = document.getElementById("address").value;
+	var myId = document.getElementById("memberId").value;
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			resData = JSON.parse(resData);
+			console.log(resData);
+			
+			for(i=0; i < resData.length; i++) {
+				appendMyBoard(resData[i]);
+			}
+			
+			if(resData.length < 3) {
+				alert("더이상 글이 존재하지 않습니다");
+			}
+			
+		}
+	}
+
+	xhttp.open("POST", address + "/board/readMoreMyBoard.do", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("memberId="+myId+"&cnt="+cnt);
+
+}
+
+//게시글 더 보기 append
+function append(resData) {
+	console.log(resData);
+	var moreView = document.getElementById("moreView");
+	var address = document.getElementById("address").value;
+	
+	var time = new Date(resData.boardTime).getFullYear() + '년 '
+					+ (new Date(resData.boardTime).getMonth() + 1) + '월 '
+					+ new Date(resData.boardTime).getDate() + '일 '
+					+ new Date(resData.boardTime).getHours() + '시 '
+					+ new Date(resData.boardTime).getMinutes() + '분';
+	
+	var div1 = document.createElement("div");
+	div1.className = "row boardView";
+	
+	var div2 = document.createElement("div");
+	div2.className = "col-md-12";
+	
+	var div3 = document.createElement("div");
+	div3.className = "card w3-round-large";
+	
+	var div4 = document.createElement("div");
+	div4.className = "header";
+	
+	var span1 = document.createElement("span");
+	span1.className = "imgSpan"
+		
+	var img1 = document.createElement("img");
+	img1.className = "imgTag";
+	img1.setAttribute("src", address+"/"+resData.memberImg);
+	img1.setAttribute("style","width:50px; height:50px;");
+	
+	var span2 = document.createElement("span");
+	span2.innerHTML = resData.memberNick;
+	
+	var text1 = document.createTextNode('\u00a0');
+	var text2 = document.createTextNode('\u00a0');
+	
+	span1.appendChild(img1);
+	
+	div4.appendChild(span1);
+	div4.appendChild(text1);
+	div4.appendChild(text2);
+	
+	div4.appendChild(span2);
+
+	console.log(resData.boardFile==" ");
+	
+	var div5 = document.createElement("div");
+	div5.className = "content";
+	
+	var span3 = document.createElement("span");
+	
+	var a1 = document.createElement("a");
+	a1.setAttribute("href","");
+	a1.setAttribute("style","display: block; font-size:14px;");
+	a1.setAttribute("data-toggle","modal");
+	a1.setAttribute("data-target","#detailView");
+	a1.setAttribute("onclick","searchBoard("+resData.boardNum+")");
+	
+	var img2 = document.createElement("img");
+	img2.setAttribute("style","max-width:100%;height:300px;");
+	img2.setAttribute("src", address+"/"+resData.boardFile);
+	
+	var br1 = document.createElement("br");
+	var br2 = document.createElement("br");
+	
+	var text = document.createTextNode(resData.boardContent);
+	
+	if(resData.boardSingoFlag == 0) {
+		div5.appendChild(span3);
+		span3.appendChild(a1);
+		a1.appendChild(text);
+		
+		if(resData.boardFile !=" ") {
+			a1.appendChild(img2);
+			a1.appendChild(br1);
+			a1.appendChild(br2);
+			a1.appendChild(text);
+			} 
+			
+			
+		} else if(resData.boardSingoFlag == 1) {
+		var span4 = document.createElement("span");
+		span4.textContent = "본 게시물은 신고가 되었습니다"
+			
+		div5.appendChild(span4);
+	}
+	
+		
+	var hr1 = document.createElement("hr");
+		
+	
+	var div7 = document.createElement("div");
+	div7.className = "footer";
+	
+	var i1 = document.createElement("i");
+	i1.className = "fa fa-clock-o"
+		
+	var div8 = document.createElement("div");
+	div8.className = "time-tag";
+	div8.appendChild(i1);
+	i1.textContent = "  "+time;
+	
+
+	div7.appendChild(div8);
+	
+	div8.appendChild(i1);
+	
+	div3.appendChild(div4);
+	div3.appendChild(div5);
+	div3.appendChild(hr1);
+	div3.appendChild(div7);
+	
+	div2.appendChild(div3);
+	
+	div1.appendChild(div2);
+	
+	moreView.appendChild(div1);
+
+}
+
+//친구 게시글 더 보기 append
 function appendFriend(resData) {
 	console.log(resData);
 	var moreFriendView = document.getElementById("moreFriendView");
@@ -228,6 +378,151 @@ function appendFriend(resData) {
 
 }
 
+//내 게시글 더 보기 append
+function appendMyBoard(resData) {
+	console.log(resData);
+	var moreMyBoardView = document.getElementById("moreMyBoardView");
+	var address = document.getElementById("address").value;
+	
+	var time = new Date(resData.boardTime).getFullYear() + '년 '
+					+ (new Date(resData.boardTime).getMonth() + 1) + '월 '
+					+ new Date(resData.boardTime).getDate() + '일 '
+					+ new Date(resData.boardTime).getHours() + '시 '
+					+ new Date(resData.boardTime).getMinutes() + '분';
+	
+	var div1 = document.createElement("div");
+	div1.className = "row boardView";
+	
+	var div2 = document.createElement("div");
+	div2.className = "col-md-12";
+	
+	var div3 = document.createElement("div");
+	div3.className = "card w3-round-large";
+	
+	var div4 = document.createElement("div");
+	div4.className = "header";
+	
+	var span1 = document.createElement("span");
+	span1.className = "imgSpan";
+		
+	var img1 = document.createElement("img");
+	img1.className = "imgTag";
+	img1.setAttribute("src", address+"/"+resData.memberImg);
+	img1.setAttribute("style","width:50px; height:50px;");
+	
+	var span2 = document.createElement("span");
+	span2.innerHTML = resData.memberNick;
+	
+	var span3 = document.createElement("span");
+	span3.className = "board-modify";
+	span3.setAttribute("data-toggle", "modal");	
+	span3.setAttribute("data-target", "#modifyView");	
+	span3.setAttribute("onclick","modifyBoard("+resData.boardNum+")");	
+	span3.textContent = "수정";
+	
+	var text1 = document.createTextNode('\u00a0');
+	var text2 = document.createTextNode('\u00a0');
+	
+	var span4 = document.createElement("span");
+	span4.innerHTML = "&nbsp;&nbsp;/&nbsp;&nbsp;";
+	
+	var span5 = document.createElement("span");
+	span5.className = "board-delete";
+	span5.setAttribute("onclick","deleteBoard("+resData.boardNum+")");
+	span5.textContent = "삭제";
+	
+	
+	
+	span1.appendChild(img1);
+	
+	div4.appendChild(span1);
+	div4.appendChild(text1);
+	div4.appendChild(text2);
+	
+	div4.appendChild(span2);
+	div4.appendChild(span3);
+	div4.appendChild(span4);
+	div4.appendChild(span5);
+	
+	
+	
+
+	console.log(resData.boardFile==" ");
+	
+	var div5 = document.createElement("div");
+	div5.className = "content";
+	
+	var span6 = document.createElement("span");
+	
+	var a1 = document.createElement("a");
+	a1.setAttribute("href","");
+	a1.setAttribute("style","display: block; font-size:14px;");
+	a1.setAttribute("data-toggle","modal");
+	a1.setAttribute("data-target","#detailView");
+	a1.setAttribute("onclick","searchBoard("+resData.boardNum+")");
+	
+	var img2 = document.createElement("img");
+	img2.setAttribute("style","max-width:100%;height:300px;");
+	img2.setAttribute("src", address+"/"+resData.boardFile);
+	
+	var br1 = document.createElement("br");
+	var br2 = document.createElement("br");
+	
+	var text = document.createTextNode(resData.boardContent);
+	
+	if(resData.boardSingoFlag == 0) {
+		div5.appendChild(span6);
+		span6.appendChild(a1);
+		a1.appendChild(text);
+		
+		if(resData.boardFile !=" ") {
+			a1.appendChild(img2);
+			a1.appendChild(br1);
+			a1.appendChild(br2);
+			a1.appendChild(text);
+			} 
+			
+			
+		} else if(resData.boardSingoFlag == 1) {
+		var span7 = document.createElement("span");
+		span7.textContent = "본 게시물은 신고가 되었습니다"
+			
+		div5.appendChild(span7);
+	}
+	
+		
+	var hr1 = document.createElement("hr");
+		
+	
+	var div7 = document.createElement("div");
+	div7.className = "footer";
+	
+	var i1 = document.createElement("i");
+	i1.className = "fa fa-clock-o"
+		
+	var div8 = document.createElement("div");
+	div8.className = "time-tag";
+	div8.appendChild(i1);
+	i1.textContent = "  "+time;
+	
+
+	div7.appendChild(div8);
+	
+	div8.appendChild(i1);
+	
+	div3.appendChild(div4);
+	div3.appendChild(div5);
+	div3.appendChild(hr1);
+	div3.appendChild(div7);
+	
+	div2.appendChild(div3);
+	
+	div1.appendChild(div2);
+	
+	moreMyBoardView.appendChild(div1);
+
+}
+
 //게시글 삭제하기
 function deleteBoard(boardNum) {
 	var address = document.getElementById("address").value;
@@ -298,6 +593,54 @@ function searchBoard(boardNum) {
 	
 	xhttp.open("POST", address+"/board/searchBoard.do", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("boardNum="+boardNum); 
+	
+}
+
+//메인페이지 글 상세보기
+function searchMainBoard(boardNum) {
+	window.cnt1 = 3;
+	var address = document.getElementById("address").value;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			resData=JSON.parse(resData);
+			
+			var time = new Date(resData.board.boardTime).getFullYear() + '년 '
+			+ (new Date(resData.board.boardTime).getMonth() + 1) + '월 '
+			+ new Date(resData.board.boardTime).getDate() + '일 '
+			+ new Date(resData.board.boardTime).getHours() + '시 '
+			+ new Date(resData.board.boardTime).getMinutes() + '분';
+			
+			document.getElementById("profImg").src = address+"/"+resData.board.memberImg;
+			document.getElementById("memberNick").innerText = resData.board.memberNick;
+			document.getElementById("boardTime").innerText = time;
+			document.getElementById("boardCnt").innerText = "조회수 : " + resData.board.boardCnt;
+			document.getElementById("boardLike").innerText = resData.board.boardLike;
+			document.getElementById("boardNum").value = resData.board.boardNum;
+			
+			if(resData.board.boardFile !=" ") {
+				document.getElementById("boardContent").innerHTML = '<br>'+resData.board.boardContent;
+			} else {
+				document.getElementById("boardContent").innerHTML = resData.board.boardContent;
+			}
+			
+			
+			
+			/* document.getElementById("memberNick").innerText = resData.memberNick;
+			document.getElementById("boardContent").innerText = resData.boardContent;
+			document.getElementById("boardTime").innerText = new Date(resData.boardTime).toUTCString();
+			document.getElementById("boardCnt").innerText = "조회수 : " + resData.boardCnt;
+			document.getElementById("boardNum").value = resData.boardNum;
+			document.getElementById("memberId").value = resData.memberId;
+			addReply(); */
+			
+		}
+	}
+	
+	xhttp.open("POST", address+"/board/searchBoard.do", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhttp.send("boardNum="+boardNum); 
 	
 }
@@ -408,7 +751,7 @@ function boardSingo() {
     	}
 }
 
-//	<!-- 댓글 신고하기 -->
+//<!-- 댓글 신고하기 -->
 function replySingo(){
 	var address = document.getElementById("address").value;
 	var replyNum = document.getElementById("replyNum").value;

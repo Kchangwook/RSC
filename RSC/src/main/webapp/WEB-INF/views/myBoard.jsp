@@ -95,7 +95,7 @@
 				<!-- 게시글 불러오기 -->
 				
 				<!-- 로그인 후 게시글 불러오기 -->
-				<div id="moreView">
+				<div id="moreMyBoardView">
 					<c:forEach items="${requestScope.list}" var="data">
 
 						<div class="row boardView">
@@ -154,9 +154,9 @@
 
 					</c:forEach>
 				</div>
-				<c:if test="${not empty boardList}">
+				<c:if test="${not empty list}">
 					<button class="btn btn-default btnOrange"
-						onclick="moreBoard(window.cnt = window.cnt + 3);">게시글 더보기</button>
+						onclick="moreMyBoard(window.cnt = window.cnt + 3);">게시글 더보기</button>
 				</c:if>
 				<!-- /로그인 후 게시글 불러오기 -->
 
@@ -378,7 +378,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/front.js"></script>
 
 	<!-- 모달 비동기 스크립트 -->
-	<script src="${pageContext.request.contextPath}/resources/js/board-detail.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/myBoard.js"></script>
 	
 
 	<!-- <fmt:formatDate value="${data.boardTime }" pattern="yyyy년 M월 d일 H시 m분 s초"/> -->

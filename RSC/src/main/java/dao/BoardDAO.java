@@ -37,7 +37,7 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return session.selectList("selectMoreBoard", b);
 	}
 	
-	/* 게시글 번호로 검색 후 객체로 반환 & 조회수 증가*/
+	/* 게시글 번호로 검색& 조회수 증가*/
 	public Board searchBoard(int boardNum) {
 		session = getSqlSession();
 		session.update("addReadNum", boardNum);
@@ -97,12 +97,12 @@ public class BoardDAO extends SqlSessionDaoSupport{
 	} // end of minusLike
 	
 	/** 내가 쓴 게시글들만 가져오기 */
-	public List<Board> getMine(String memberId){
+	public List<Board> getMine(Board b){
 		
 		List<Board> list = null;
 		
 		session = getSqlSession();
-		list = session.selectList("board.getMine",memberId);
+		list = session.selectList("board.getMine",b);
 		
 		return list;
 		

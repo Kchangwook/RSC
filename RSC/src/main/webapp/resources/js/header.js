@@ -40,6 +40,7 @@ function clearContent() {
 	document.getElementById("pwd").value = "";
 	document.getElementById("nick").value = "";
 	document.getElementById("imgSrc").value = "";
+	document.getElementById("join_msg").innerText = "";
 
 	var interest = document.getElementsByName("memberInterest");
 
@@ -55,22 +56,6 @@ function clearContent() {
 
 //아이디 검증
 function checkId() {
-	
-	/*var id = document.getElementById("id").value;
-	console.log("id : "+ id);
-	
-	var checkId = id.charCodeAt(0);
-	console.log("checkId : " + checkId)
-	
-	if( (32 <= checkId && checkId <= 47) ||
-		(58 <= checkId && checkId <= 64) ||
-		(91 <= checkId && checkId <= 96) ||
-		(123 <= checkId && checkId <= 126)) {
-		document.getElementById('join_msg').innerText = "아이디에 영문과 숫자만 입력해 주세요";
-		return false;
-	} else {
-		checkSameId();
-	}*/
 	
 	var id = document.getElementById("id").value;
 	
@@ -90,18 +75,6 @@ function checkId() {
 // 비밀번호 검증
 function checkPw() {
 	
-	/*var pw = document.getElementById("pwd").value;
-	
-	var checkPw = pw.charCodeAt(0);
-	
-	if( (32 <= event.keyCode && event.keyCode <= 47) ||
-			(58 <= event.keyCode && event.keyCode <= 64) ||
-			(91 <= event.keyCode && event.keyCode <= 96) ||
-			(123 <= event.keyCode && event.keyCode <= 126)) {
-			document.getElementById('join_msg').innerText = "비밀번호에 공백을 입력할 수 없습니다";
-			return false;
-		} */
-	
 	var pw = document.getElementById("pwd").value;
 	
 	var pattern =  /(^[a-zA-Z0-9]+$)/;
@@ -117,22 +90,6 @@ function checkPw() {
 // 닉네임 검증
 function checkNick() {
 	
-	
-	
-	/*var nick = document.getElementById("id").value;
-	
-	var checkNick = nick.charCodeAt(0);
-	
-	if( (32 <= event.keyCode && event.keyCode <= 47) ||
-		(58 <= event.keyCode && event.keyCode <= 64) ||
-		(91 <= event.keyCode && event.keyCode <= 96) ||
-		(123 <= event.keyCode && event.keyCode <= 126)) {
-		document.getElementById('join_msg').innerText = "닉네임에 공백을 입력할 수 없습니다";
-		return false;
-	} else {
-		checkSameNick();
-	}*/
-	
 	var nick = document.getElementById("nick").value;
 	
 	var pattern =  /(^[a-zA-Z0-9]+$)/;
@@ -145,7 +102,6 @@ function checkNick() {
 	} else {
 		checkSameNick();
 	}
-	
 	
 }
 

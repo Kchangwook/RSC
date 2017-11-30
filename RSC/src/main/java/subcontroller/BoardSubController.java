@@ -85,6 +85,19 @@ public class BoardSubController {
 		List<Board> list = boardService.searchByGroupNum(board);
 		
 		return list;
-	}
+	} // end of readMoreGroupBoard
+	
+	/** 내가 쓴 게시물 더 불러오기 */
+	@RequestMapping("readMoreMyBoard.do")
+	public @ResponseBody List<Board> readMoreMyBoard (@RequestParam("memberId") String memberId, 
+													  @RequestParam("cnt") int cnt) {
+		
+		Board b = new Board(memberId, cnt);
+		
+		List<Board> list = boardService.getMine(b);
+		
+		return list;
+		
+	} // end of readMoreMyBoard
 	
 } // end of BoardSubController

@@ -25,9 +25,9 @@ import service.NoticeService;
 public class FriendSubController {
 
 	/* 변수 */
-	ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-	FriendRequestService frService = context.getBean("friendRequestService",FriendRequestService.class);
-	NoticeService noticeService = context.getBean("noticeService",NoticeService.class);
+	private ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+	private FriendRequestService frService = context.getBean("friendRequestService",FriendRequestService.class);
+	private NoticeService noticeService = context.getBean("noticeService",NoticeService.class);
 	private BoardService boardService = context.getBean("boardService",BoardService.class);
 	
 	/** 친구 요청을 추가 */

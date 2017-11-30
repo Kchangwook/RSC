@@ -72,11 +72,14 @@ public class BoardController {
 	public String myBoards(HttpServletRequest request) {
 		
 		String memberId = (String)request.getSession(false).getAttribute("id");
+		int cnt = Integer.parseInt(request.getParameter("cnt").trim());
+		
+		Board b = new Board(memberId, cnt);
 		
 		Member m = memberService.searchById(memberId);
 		request.setAttribute("member", m);
 		
-		List<Board> list = boardService.getMine(memberId);
+		List<Board> list = boardService.getMine(b);
 		request.setAttribute("list", list);
 		
 		return "myBoard";

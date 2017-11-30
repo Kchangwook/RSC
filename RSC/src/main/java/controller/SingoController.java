@@ -86,6 +86,54 @@ public class SingoController {
 		return "redirect:../board/readBoard.do?cnt=1";
 	} // end of addReplySingo
 	
+	/* 마이페이지에서 게시글 신고 등록 & 게시자에게 알림 주기 */
+	@RequestMapping("addMyBoardSingo.do")
+	public String addMyBoardSingo(BoardSingo bs) {
+		
+		Board board = boardService.searchBoard1(bs.getBoardNum());
+		// 날짜 형식 변환
+		Date form = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		
+		String time = sdf.format(board.getBoardTime());
+		
+		Notice notice = new Notice();
+		
+		notice.setMemberId(board.getMemberId());
+		notice.setNoticeContent(time + "에 작성한 글이 신고 되었습니다");
+		
+		noticeService.addNotice1(notice);
+		singoService.addBoardSingo(bs);
+		
+		return "redirect:../board/myBoards.do?cnt=1";
+	} // end of addMyBoardSingo
+
+	/* 마이페이지에서 댓글 신고 등록 & 게시자에게 알림 주기*/
+	@RequestMapping("addMyReplySingo.do")
+	public String addMyReplySingo(ReplySingo rs) {
+		
+		Reply reply = replyService.searchReply1(rs.getReplyNum());
+		// 날짜 형식 변환
+		Date form = new Date();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		
+		String time = sdf.format(reply.getReplyTime());
+		
+		// 알림 객체 생성
+		Notice notice = new Notice();
+		
+		notice.setMemberId(reply.getMemberId());
+		notice.setNoticeContent(time + "에 작성한 댓글이 신고 되었습니다");
+		
+		noticeService.addNotice1(notice);
+		singoService.addReplySingo(rs);
+		
+		
+		return "redirect:../board/myBoards.do?cnt=1";
+	} // end of addMyReplySingo
+	
 	/* 그룹 게시글 신고 등록 & 게시자에게 알림 주기 */
 	@RequestMapping("addGroupBoardSingo.do")
 	public String addGroupBoardSingo(BoardSingo bs,
