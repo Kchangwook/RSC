@@ -104,7 +104,7 @@ public class BoardController {
 		else
 			msg = "수정에 실패했습니다.";
 		
-		return "redirect:myBoards.do";
+		return "redirect:myBoards.do?cnt=1";
 		
 	}//end of modifyBoard
 	

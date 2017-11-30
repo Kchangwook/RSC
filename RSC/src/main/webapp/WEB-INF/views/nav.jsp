@@ -60,7 +60,7 @@
 						<c:when test="${sessionScope.level eq 'member'}">
 							<!-- 회원 로그인 시 -->
 							<li><a
-								href="${pageContext.request.contextPath}/board/myBoards.do"><i
+								href="${pageContext.request.contextPath}/board/myBoards.do?cnt=1"><i
 									class="fa fa-address-card-o"></i><span>마이페이지</span></a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/friend/getList.do"><i

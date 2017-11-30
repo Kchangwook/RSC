@@ -305,7 +305,7 @@ function searchMemberAndGroup(searchValue) {
 					for (i = 0; i < resData.length; i++) {
 						if (resData[i].memberNick != null) {
 							alertHtml += '<li>'
-									+ '<a href="'+address+'/friend/getFriendInfo.do?friendId=' + resData[i].memberId + '" class="dropdown-item d-flex">'
+									+ '<a href="'+address+'/friend/getFriendInfo.do?cnt=1&friendId=' + resData[i].memberId + '" class="dropdown-item d-flex">'
 									+ '<div class="search-body">'
 									+ '<span>[회원] ' + resData[i].memberNick
 									+ '</span>' + '</div>' + '</a>'
@@ -333,7 +333,7 @@ function searchMemberAndGroup(searchValue) {
 function moveToMember(memberId) {
 	
 	alert('알림');
-	location.href = 'friend/getFriendInfo.do?friendId='+memberId;
+	location.href = 'friend/getFriendInfo.do?friendId='+memberId+'&cnt=1';
 }
 
 function moveToGroup(groupNum) {

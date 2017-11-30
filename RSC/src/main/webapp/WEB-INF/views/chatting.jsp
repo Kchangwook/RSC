@@ -482,13 +482,13 @@
 			var myId = document.getElementById("sessionId").value;
 			if(memberId==myId){
 				if(confirm("마이페이지로 이동하시겠습니까?")){
-					location.href = "${pageContext.request.contextPath}/board/myBoards.do";
+					location.href = "${pageContext.request.contextPath}/board/myBoards.do?cnt=1";
 				} else {
 					return false;
 				}
 			} else {
 				if(confirm(memberNick+"님의 페이지로 이동하시겠습니까?")){
-					location.href = "${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId="+memberId;
+					location.href = "${pageContext.request.contextPath}/friend/getFriendInfo.do?cnt=1&friendId="+memberId;
 				} else {
 					return false;
 				}

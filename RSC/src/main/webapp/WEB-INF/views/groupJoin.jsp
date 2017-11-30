@@ -162,9 +162,9 @@
 	function memberPage(friendId){
 		var sessionId = document.getElementById("sessionId").value;
 		if(sessionId==friendId){
-			location.href="${pageContext.request.contextPath}/board/myBoards.do";
+			location.href="${pageContext.request.contextPath}/board/myBoards.do?cnt=1";
 		} else {
-			location.href="${pageContext.request.contextPath}/friend/getFriendInfo.do?friendId="+friendId;
+			location.href="${pageContext.request.contextPath}/friend/getFriendInfo.do?cnt=1&friendId="+friendId;
 		}
 	}
 	</script>
