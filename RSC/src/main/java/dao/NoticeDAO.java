@@ -90,4 +90,16 @@ public class NoticeDAO extends SqlSessionDaoSupport {
 		return session.delete("notice.deleteGroupNoticeByNoticeTarget", noticeTarget) > 0 ? true : false ;
 	}
 	
+	/** notice 데이터 개수를 반환하는 함수 */
+	public int getCount(String memberId) {
+		
+		int result = 0;
+		
+		session = getSqlSession();
+		result = session.selectOne("notice.getCount",memberId);
+		
+		return result;
+		
+	}//end of getCont
+	
 }//end of NoticeDAO

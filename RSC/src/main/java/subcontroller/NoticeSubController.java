@@ -49,4 +49,14 @@ public class NoticeSubController {
 		
 	}//end of friendResult
 	
+	/** 알림의 개수를 가져오는 함수 */
+	@RequestMapping(value = "getCount.do",produces = "application/json; charset=utf8")
+	public int getCount(HttpServletRequest request) {
+		
+		String memberId = (String)request.getSession().getAttribute("id");
+		
+		return noticeService.getCount(memberId);
+		
+	}//end of getCount
+	
 }//end of NoticeSubController

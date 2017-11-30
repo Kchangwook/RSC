@@ -85,5 +85,12 @@ public class NoticeService {
 	public boolean deleteGroupNoticeByNoticeTarget(int noticeTarget) {
 		return noticeDAO.deleteGroupNoticeByNoticeTarget(noticeTarget);
 	}
+	
+	/** notice 개수를 반환하는 함수 */
+	public int getCount(String memberId) {
+		
+		return noticeDAO.getCount(memberId);
+		
+	}//end of getCount
 
 }//end of NoticeService

@@ -61,7 +61,12 @@
 	.searchIcon{
 		width:3%;	
 	}
-
+	.isAlarm{
+		position:relative;
+		left:-20px;
+		top:10px;
+		font-size: initial;
+	}
 </style>
 </head>
 <body>
@@ -114,6 +119,7 @@
 							
 								<!-- 알림 아이콘 및 링크 -->
 								<li class="nav-item dropdown">
+								
 								<a id="notifications" rel="nofollow" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
 									<i class="fa fa-bell fa-2x" onclick="viewAlertList()">
 										<input type = "hidden" id = "noticeMemberId" value = "${ sessionScope.id }">
@@ -122,8 +128,11 @@
 								</a> <!-- 알림 목록 -->
 									<ul aria-labelledby="notifications" class="dropdown-menu" id="viewAlert">
 									</ul>
+									
 								</li>
-
+								<li>
+									<i class="fa fa-circle isAlarm" id = "isAlarm" style = "color:green;display:none;" ></i>
+								</li>
 								<!-- 로그아웃 -->
 								<li id="viewSignOut" class="nav-item">
 								<a href="${pageContext.request.contextPath}/basic/logout.do" class="nav-link">로그아웃</a></li>

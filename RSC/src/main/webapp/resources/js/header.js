@@ -1,3 +1,31 @@
+
+
+//알림이 있는지 없는지 확인
+function checkAlarm(){
+
+	var address = document.getElementById("address").value;
+	var icon = document.getElementById("isAlarm");
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			
+			if(resData > 0){
+				icon.style.display = '';
+			}
+			else{
+				icon.style.display = 'none';
+			}
+			
+		}
+	}
+
+	xhttp.open("GET", address+"/notice/getCount.do", true);
+	xhttp.send();
+	
+}
+
 //이미지 src보여주기
 function changeSrc() {
 
@@ -155,8 +183,6 @@ function getMessage() {
 		alert("로그인에 실패했습니다.");
 
 }
-
-window.onload = getMessage();
 	
 
 // 필수 정보가 모두 입력되었는지 확인
@@ -319,7 +345,6 @@ function moveToGroup(groupNum) {
 function getMemberId() {
 	memberId = document.getElementById("noticeMemberId").value;
 }
-window.onload = getMemberId();
 
 // 종모양 클릭하면 알림 모달 팝업
 function viewAlertList() {
@@ -384,6 +409,7 @@ function deleteGroupNotice(groupNum, noticeContent, noticeNum) {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
 			alert(resData);
+			checkAlarm();
 		}
 	}
 	xhttp.open("POST", address+"/group/voteGroupDelete.do", true);
@@ -395,6 +421,7 @@ function deleteGroupNotice(groupNum, noticeContent, noticeNum) {
 function addFriendNotice(requestNum, noticeNum, notice) {
 	
 	var accept = confirm("친구 요청을 수락하시겠습니까?");
+	var accepts = accept == true?"true":"false";
 	var address = document.getElementById("address").value; 
 	var xhttp = new XMLHttpRequest();
 
@@ -403,10 +430,12 @@ function addFriendNotice(requestNum, noticeNum, notice) {
 			var resData = this.responseText;
 			if(resData == 'success')
 				notice.parentNode.removeChild(notice);
+			
+			checkAlarm();
 		}
 	}
 
-	xhttp.open("GET", address+"/notice/friendResult.do?result="+accept+"&requestNum="+requestNum+"&noticeNum="+noticeNum, true);
+	xhttp.open("GET", address+"/notice/friendResult.do?result="+accepts+"&requestNum="+requestNum+"&noticeNum="+noticeNum, true);
 	xhttp.send();
 
 }
@@ -414,13 +443,30 @@ function addFriendNotice(requestNum, noticeNum, notice) {
 // notice_type 3, 팝업된 알림 클릭하면 notice 테이블에서 삭제
 function deleteNotice(noticeNum) {
 
+	var address = document.getElementById("address").value;
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-
+			checkAlarm();
 		}
 	}
 
-	xhttp.open("POST", "../notice/deleteByNoticeNum.do?noticeNum=" + noticeNum, true);
+	xhttp.open("GET", address+"/notice/deleteByNoticeNum.do?noticeNum=" + noticeNum, true);
 	xhttp.send();
+}
+
+window.onload = function(){
+	
+	getMemberId();
+	getMessage();
+	
+	window.cnt = 1;
+	window.cnt1 = 3;
+	
+	checkAlarm();
+	
+	setInterval(function(){
+		checkAlarm();
+	},5000)
+	
 }
