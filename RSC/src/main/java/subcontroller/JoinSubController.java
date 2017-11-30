@@ -20,24 +20,28 @@ public class JoinSubController {
 	/* 서블릿 */
 	/** 존재하는 아이디가 있는지 확인 */
 	@RequestMapping(value = "checkId.do",produces = "application/json; charset=utf8")
-	public String checkId(@RequestParam("id") String id) {
+	public boolean checkId(@RequestParam("id") String id) {
 		
 		if(memberService.isNotHavingId(id)) 
-			return "아이디가 존재합니다.";
+//			"아이디가 존재합니다."
+			return true;
 		else
-			return "";
+//			""
+			return false;
 		
 	}//end of checkId
 
 
 	/** 존재하는 닉네임이 있는지 확인 */
 	@RequestMapping(value = "checkNick.do",produces = "application/json;charset=utf8")
-	public String checkNick(@RequestParam("nick") String nick) {
+	public boolean checkNick(@RequestParam("nick") String nick) {
 		
 		if(memberService.checkSameNick(nick))
-			return "닉네임이 존재합니다.";
+//			"닉네임이 존재합니다."
+			return true;
 		else
-			return "";
+//			""
+			return false;
 	}//end of checkNick
 	
 }//end of LoginSubController

@@ -165,16 +165,16 @@
 						<div class="container">
 							<table>
 								<tr>
-									<td><input type="text" name="memberId" id="id" value="<? $id ?>"
-											onblur="checkId()" onkeyup="checkId()" placeholder="아이디"></td>
+									<td><input type="text" name = "memberId" id = "id" value="<? $id ?>" onkeyup="checkId()" onblur="checkId()" placeholder="아이디">
+										<input type="hidden" name="hiddenId" id="hiddenId" value=""></td>
 								</tr>
 								<tr>
-									<td><input type="password" id = "pwd" name="memberPw" value="<? $pwd ?>" 
-											onkeyup="checkPw()" placeholder="비밀번호"></td>
+									<td><input type="password" id = "pwd" name = "memberPw" value="<? $pwd ?>" 
+											  onkeyup="checkPw()" placeholder="비밀번호"></td>
 								</tr>
 								<tr>
-									<td><input type="text" name="memberNick" id="nick"  value="<? $nick ?>" 
-											onblur="checkId()" onkeyup="checkNick()" placeholder="닉네임"></td>
+									<td><input type="text" name="memberNick" id="nick"  value="<? $nick ?>" onkeyup="checkNick()" onblur="checkNick()" placeholder="닉네임">
+										<input type="hidden" name="hiddenNick" id="hiddenNick" value="" ></td>
 								</tr>
 								<tr>
 									<td>
@@ -217,7 +217,7 @@
 					</div>
 					<div class="modal-footer">
 						<span id="join_msg" style="width: 100%; color: red; text-align: left;"></span>
-						<input type="button" class="btn btn-default btnOrange" onclick="check()" value="회원가입">
+						<input type="button" class="btn btn-default btnOrange" onclick="checkInfo()" value="회원가입">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
 				</form>
