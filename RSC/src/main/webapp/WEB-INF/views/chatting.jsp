@@ -406,6 +406,7 @@
 				for(j=0 ; j<alreadyMemberNick.length ; j++){
 					if(friendList[i].memberNick == alreadyMemberNick[j].textContent.trim()){
 						friendListCheckBox.setAttribute("disabled","disabled");
+						friendListTr.setAttribute("title","이미 채팅방에 포함된 회원입니다.");
 					}
 				}
 				
@@ -424,7 +425,7 @@
 				var friendListTdLogin = document.createElement("td");
 				var friendListLoginIcon = document.createElement("i");
 				friendListLoginIcon.className = "fa fa-circle";
-				if(friendListTdLogin==1){
+				if(friendList[i].memberPresentLogin==1){
 					friendListLoginIcon.style.color = "#BCE55C";
 				} else {
 					friendListLoginIcon.style.color = "#FF5A5A";

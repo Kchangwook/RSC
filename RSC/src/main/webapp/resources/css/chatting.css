@@ -49,14 +49,14 @@ div.chatting-main #chatDiv table tr td.tdContent p.pSendContent{
 	float : right;
 	text-align : left;
 	background-color : rgba(247,146,30,0.2);
-	border-radius: 5px;
+	border-radius: 10px 0px 10px 10px;
 	padding : 10px;
 }
 div.chatting-main #chatDiv table tr td.tdContent p.pReceiveContent{
 	float:left;
 	text-align : left;
 	border : 1px solid rgba(247,146,30,0.5);
-	border-radius: 5px;
+	border-radius: 0px 10px 10px 10px;
 	padding : 10px;	
 }
 
