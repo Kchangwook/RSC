@@ -75,10 +75,41 @@ function moreBoard(cnt) {
 	
 }
 
+// 친구 게시글 더 불러오기
+function moreBoardFriend(cnt) {
+	
+	var address = document.getElementById("address").value;
+	var friendId = document.getElementById("friendId").value;
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			resData = JSON.parse(resData);
+			console.log(resData);
+			
+			for(i=0; i < resData.length; i++) {
+				appendFriend(resData[i]);
+			}
+			
+			if(resData.length < 3) {
+				alert("더이상 글이 존재하지 않습니다");
+			}
+			
+		}
+	}
+
+	xhttp.open("POST", address + "/friend/readFriendBoard.do", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("friendId="+friendId+"&cnt="+cnt);
+
+	
+}
+
 // 게시글 더 보기 append
-function append(resData) {
+function appendFriend(resData) {
 	console.log(resData);
-	var moreView = document.getElementById("moreView");
+	var moreFriendView = document.getElementById("moreFriendView");
 	var address = document.getElementById("address").value;
 	
 	var time = new Date(resData.boardTime).getFullYear() + '년 '
@@ -193,7 +224,7 @@ function append(resData) {
 	
 	div1.appendChild(div2);
 	
-	moreView.appendChild(div1);
+	moreFriendView.appendChild(div1);
 
 }
 

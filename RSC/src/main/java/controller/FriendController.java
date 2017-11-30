@@ -58,6 +58,9 @@ public class FriendController {
 		String url = "";
 		String id = request.getParameter("friendId");
 		String memberId = (String)request.getSession().getAttribute("id");
+		int cnt = Integer.parseInt(request.getParameter("cnt").trim());
+		
+		Board b = new Board(id, cnt);
 		
 		// 회원정보 가져오기
 		Member friend = memberService.searchById(id);
@@ -69,7 +72,7 @@ public class FriendController {
 		}
 		
 		//회원이 작성한 전체 게시글들 가져오기
-		List<Board> list = boardService.getForAll(id);
+		List<Board> list = boardService.getForAll(b);
 		if(list == null)
 			url = "error";
 		else {

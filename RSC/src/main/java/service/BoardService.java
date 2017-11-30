@@ -87,7 +87,7 @@ public class BoardService {
 				System.out.println("## 용량이 너무 큽니다. \n 5메가 이하로 해주세요.");
 			}
 
-			file.transferTo(new File("C:/Users/kosta/git/RSC/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
+			file.transferTo(new File("C:/0.IT/4.framework/RSC/src/main/webapp/info/board/" + b.getMemberId() + "_"
 					+ file.getOriginalFilename()));
 
 			System.out.println(file.getOriginalFilename());
@@ -275,9 +275,10 @@ public class BoardService {
 	}// end of getMonths
 	
 	/** 회원이 작성한 전체 게시글 불러오기 */
-	public List<Board> getForAll(String id){
+	public List<Board> getForAll(Board b){
+		System.out.println(b);
 		
-		return boardDAO.searchForAll(id);
+		return boardDAO.searchForAll(b);
 		
 	}//end of getForAll
 	

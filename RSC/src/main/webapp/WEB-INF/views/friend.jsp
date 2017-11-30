@@ -65,8 +65,9 @@
 							</div>
 						</div>
 			</div>
-		
+		<input type="hidden" id="friendId" name="friendId" value="${friend.memberId}">
 		<!-- 로그인 후 게시글 불러오기 -->
+			<div id="moreFriendView">	
 				<c:forEach items="${list}" var="data"
 					varStatus="status">
 
@@ -80,6 +81,7 @@
 										src="${pageContext.request.contextPath}/${data.memberImg}"></span>
 									<span>&nbsp;&nbsp;${data.memberNick}</span>
 								</div>
+								
 
 								<c:choose>
 									<c:when test="${data.boardSingoFlag eq 0}">
@@ -118,8 +120,9 @@
 					</div>
 
 				</c:forEach>
+				</div>
 				<button class="btn btn-default btnOrange"
-					onclick="moreBoardView(window.cnt = window.cnt + 3);">게시글
+					onclick="moreBoardFriend(window.cnt = window.cnt + 3);">게시글
 					더보기</button>
 				<!-- /로그인 후 게시글 불러오기 -->
 

@@ -101,7 +101,7 @@
 		
 		function showFriend(friend){
 			
-			location.href = "getFriendInfo.do?friendId="+friend;
+			location.href = "getFriendInfo.do?friendId="+friend+"&cnt=1";
 			
 		}
 	</script>
