@@ -150,19 +150,18 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- 글 작성 틀 -->
-				<input type = "hidden" name = "boardNum" id = "boardNum">
-				<input type = "hidden" name = "memberId" id = "memberId">
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span><img id ="profImg"></span>
-						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick" style="font-weight:700;font-size:small;"> </span>
 					</div>
 
 					<!-- 글 조회수 -->
-					<div class="cnt padding" style="line-height: 44px; float: right; width: 45%;" align="right">
+					<div class="cnt padding"
+						style="line-height: 44px; float: right; width: 45%;" align="right">
 						<span id="boardCnt"></span>
-						<span>/</span>
+						<span> / </span>
 						<span class = "board-delete" onclick = "deleteBoard()">삭제</span>
 					</div>
 
@@ -170,43 +169,53 @@
 
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
-						<span id="boardContent"> </span>
+						<img style="max-width: 100%" id="boardFileImg"
+							src="${pageContext.request.contextPath}/${boardSrc}"> <span
+							id="br"></span><span id="boardContent"> </span>
 					</div>
 					<hr>
-
-					
-					<!-- 좋아요 카운트 수 -->
-					<div class="likeCnt" align="right">
-						<span id=boardLike></span>
-					</div>
-					<!-- /좋아요 카운트 수 -->
-
-					<div class="clear"></div>
 
 					<!-- 글 작성 시간 -->
 					<div class="footer">
 						<div class="time-tag" style="float: left;">
-							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
-								id="boardTime"></span>
+							<i class="fa fa-clock-o">&nbsp;&nbsp;<span id="boardTime"></span></i>
+							
 						</div>
 					</div>
-					<!-- 좋아요 버튼 -->
-					<div class="likeBtn" align="right">
-						<i class="fa fa-thumbs-up btn btn-default btnOrange" style="float: right;"></i>
-					</div>
-					<!-- /좋아요 버튼 -->
 
 					<div class="clear"></div>
 
-				<!-- 댓글 내용 -->
-				<div id="replyHTML">
-				</div>
-				<!-- /댓글 내용 -->
-				<button class="btn btn-default btnOrange" onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글 더보기</button>
-			</div>
+					<!-- 좋아요 버튼 -->
+					<div class="likeBtn" align="right">
+						<!-- 좋아요 카운트 -->
+						<div id=boardLike class="likeCnt" align="right" style="margin-top:3px;"></div>
+						<!-- /좋아요 카운트 -->
+						<div id="like">
+							<!-- <span id=boardLike></span> -->
+						</div>
+						<input type="hidden" name="boardNum" id="boardNum" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
+					</div>
+					<!-- /좋아요 버튼 -->
+					<div class="clear"></div>
+					<div class="clear"></div>
+					<hr>
+					<div class="clear"></div>
+					<div class="clear"></div>
 
+				</div>
+				<!--/글 작성 틀-->
+
+				<!-- 댓글 내용 -->
+				<div id="replyHTML" style="margin-bottom: -2%;"></div>
+				<!-- /댓글 내용 -->
+				<button class="btn btn-default btnOrange btn-margin"
+					style="margin-bottom: 2%;border:none;"
+					onclick="moreReplyView(window.cnt1 = window.cnt1 + 3);">댓글
+					더보기</button>
+			</div>
 		</div>
-	</div>
 	</div>
 	<!-- /글 상세보기 모달 -->
 

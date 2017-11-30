@@ -56,6 +56,12 @@ public class Board {
 		this.cnt = cnt;
 	}
 	
+	public Board(int groupNum, int cnt) {
+		super();
+		this.groupNum = groupNum;
+		this.cnt = cnt;
+	}
+	
 	/* Getter, Setter */
 	public int getGroupNum() {
 		return groupNum;

@@ -46,26 +46,26 @@ function modifyBoard(boardNum) {
 }
 
 //게시글 더 불러오기
-function moreBoard(cnt) {
+function moreGroupBoard(cnt) {
 	
 	var address = document.getElementById("address").value;
-	var memberId = document.getElementById("memberId").value;
-	
+	var groupNum = document.getElementById("groupNum").value;
+	console.log(groupNum+"/"+cnt);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var resData = this.responseText;
 			resData = JSON.parse(resData);
-			
+			console.log(resData);
 			for(i=0; i < resData.length; i++) {
 				append(resData[i]);
 			}
 		}
 	}
 
-	xhttp.open("POST", address + "/board/readMoreBoard.do", true);
+	xhttp.open("POST", address + "/board/readMoreGroupBoard.do", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send("memberId="+memberId +"&cnt="+cnt);
+	xhttp.send("groupNum="+groupNum+"&cnt="+cnt);
 
 	
 }
@@ -100,23 +100,50 @@ function append(resData) {
 	var img1 = document.createElement("img");
 	img1.className = "imgTag";
 	img1.setAttribute("src", address+"/"+resData.memberImg);
-	img1.setAttribute("style","width:50px; height:50px;");
+	img1.setAttribute("style","width:50px; height:50px;border-radius:25px;");
 	
 	var span2 = document.createElement("span");
 	span2.innerHTML = resData.memberNick;
+	span2.setAttribute("onclick","memberPage('"+resData.memberId+"')");
+	span2.setAttribute("style","cursor:pointer");
 	
 	var text1 = document.createTextNode('\u00a0');
 	var text2 = document.createTextNode('\u00a0');
 	
 	span1.appendChild(img1);
+	span1.setAttribute("onclick","memberPage('"+resData.memberId+"')");
+	span1.setAttribute("style","cursor:pointer");
 	
 	div4.appendChild(span1);
 	div4.appendChild(text1);
 	div4.appendChild(text2);
 	
 	div4.appendChild(span2);
-
-	console.log(resData.boardFile==" ");
+	
+	var groupLevel = document.getElementById("groupLevel").value;
+	var sessionLevel = document.getElementById("sessionLevel").value;
+	
+	if(groupLevel=="admin" || sessionLevel=="admin" || sessionLevel=="master"){
+		var spanModify = document.createElement("span");
+		var spanSlash = document.createElement("span");
+		var spanDelete = document.createElement("span");
+		
+		spanModify.className="board-modify";
+		spanModify.setAttribute("data-toggle","modal");
+		spanModify.setAttribute("data-target","#modifyView");
+		spanModify.setAttribute("onclick","modifyBoard("+resData.boardNum+")");
+		spanModify.innerText = "수정";
+		
+		spanSlash.innerHTML = "&nbsp;/&nbsp;";
+		
+		spanDelete.className = "board-delete";
+		spanDelete.setAttribute("onclick","deleteBoard("+resData.boardNum+")");
+		spanDelete.innerText = "삭제";
+		
+		div4.appendChild(spanModify);
+		div4.appendChild(spanSlash);
+		div4.appendChild(spanDelete);
+	}
 	
 	var div5 = document.createElement("div");
 	div5.className = "content";
@@ -127,7 +154,7 @@ function append(resData) {
 	a1.setAttribute("href","");
 	a1.setAttribute("style","display: block; font-size:14px;");
 	a1.setAttribute("data-toggle","modal");
-	a1.setAttribute("data-target","#detailView");
+	a1.setAttribute("data-target","#groupBoardDetail");
 	a1.setAttribute("onclick","searchBoard("+resData.boardNum+")");
 	
 	var img2 = document.createElement("img");
@@ -172,7 +199,7 @@ function append(resData) {
 	var div8 = document.createElement("div");
 	div8.className = "time-tag";
 	div8.appendChild(i1);
-	i1.textContent = time;
+	i1.textContent = "  "+time;
 	
 
 	div7.appendChild(div8);
@@ -209,8 +236,7 @@ function deleteBoard(boardNum) {
 		}
 
 		xhttp.open("POST", address + "/board/deleteBoard.do", true);
-		xhttp.setRequestHeader("Content-type",
-				"application/x-www-form-urlencoded");
+		xhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		xhttp.send("boardNum=" + boardNum);
 	}
 }

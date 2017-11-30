@@ -277,7 +277,7 @@ function moveToMember(memberId) {
 
 function moveToGroup(groupNum) {
 	var address = document.getElementById("address").value;
-	location.href= address+'/basic/group.do?groupNum='+groupNum;
+	location.href= address+'/basic/group.do?groupNum='+groupNum+"&cnt=1";
 }
 
 // 알림에서 사용할 아이디

@@ -130,7 +130,7 @@ public class BoardController {
 		else
 			msg = "수정에 실패했습니다.";
 		
-		return "redirect:../basic/group.do?groupNum="+groupNum;
+		return "redirect:../basic/group.do?groupNum="+groupNum+"&cnt=1";
 	}
 	
 } // end of BoardController

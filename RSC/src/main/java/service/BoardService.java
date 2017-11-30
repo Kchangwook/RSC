@@ -288,8 +288,29 @@ public class BoardService {
 	}
 	
 	/** 그룹 번호로 게시글 검색 */
-	public List<Board> searchByGroupNum(String groupNum){
-		return boardDAO.searchByGroupNum(groupNum);
+	public List<Board> searchByGroupNum(Board board){
+		List<Board> list = boardDAO.searchByGroupNum(board);
+		
+		try {
+			for (Board b : list) {
+				// ftp에 존재하는 프로필 파일 다운로드
+				if (!b.getMemberImg().equals("resources/img/profile.jpg")) {
+					String fileName[] = b.getMemberImg().split("/");
+					ftp.download("member", fileName[fileName.length - 1], "member");
+					
+				}
+				
+				// ftp에 존재하는 게시판 파일 다운로드 
+				if(!b.getBoardFile().equals(" ")) {
+					String fileName[] = b.getBoardFile().split("/");
+					ftp.download("board", fileName[fileName.length - 1], "board");
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	/** 게시글 좋아요 */
@@ -312,7 +333,8 @@ public class BoardService {
 	/** 게시글 번호에 해당하는 게시글 삭제하기 */
 	public boolean deleteByNum(int boardNum) {
 		
-		return boardDAO.deleteByNum(boardNum) && replyDAO.deleteByBoard(boardNum);
+		return boardDAO.deleteByNum(boardNum);
+		//&& replyDAO.deleteByBoard(boardNum);
 		
 	}//end of deleteByNum
 	

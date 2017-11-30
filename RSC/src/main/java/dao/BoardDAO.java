@@ -79,9 +79,9 @@ public class BoardDAO extends SqlSessionDaoSupport{
 		return list;
 	}
 	/** 그룹번호로 게시글 가져오기 */
-	public List<Board> searchByGroupNum(String groupNum){
+	public List<Board> searchByGroupNum(Board board){
 		session = getSqlSession();
-		return session.selectList("board.selectByGroupNum",groupNum);
+		return session.selectList("board.selectByGroupNum",board);
 	}
 	
 	/** 게시글 좋아요 */

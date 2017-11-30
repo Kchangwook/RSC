@@ -215,7 +215,9 @@ public class BasicController {
 	
 	/** 그룹 메인 페이지 ( 관리자,회원 판단 / 그룹 정보 및 게시글 전달 ) */
 	@RequestMapping("group.do")
-	public String goGroup(Model model, HttpServletRequest request,@RequestParam("groupNum") String groupNum) {
+	public String goGroup(Model model, HttpServletRequest request,
+						@RequestParam("groupNum") String groupNum,
+						@RequestParam("cnt") int cnt) {
 		// 세션으로 부터 그룹의 관리자/회원/방문자 판단
 		System.out.println("controller");
 		
@@ -229,7 +231,10 @@ public class BasicController {
 		
 		model.addAttribute("groupLevel",level);
 		model.addAttribute("groupInfo", groupsService.searchGroupByNum(groupNum));
-		model.addAttribute("groupBoardList",boardService.searchByGroupNum(groupNum));
+		
+		Board board = new Board(Integer.parseInt(groupNum),cnt);
+		
+		model.addAttribute("groupBoardList",boardService.searchByGroupNum(board));
 		return "groupMain";
 	}
 

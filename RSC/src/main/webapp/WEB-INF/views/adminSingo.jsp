@@ -286,7 +286,7 @@
 						'<tr>'+
 							'<td>'+resData[i].groupSingoNum+'</td>'+
 							'<td>'+
-								'<a href="${pageContext.request.contextPath}/basic/group.do?groupNum='+resData[i].groupNum+'">'+
+								'<a href="${pageContext.request.contextPath}/basic/group.do?groupNum='+resData[i].groupNum+'&cnt=1">'+
 									resData[i].groupName+
 								'</a>'+
 							'</td>'+

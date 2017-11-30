@@ -93,65 +93,71 @@
 						</div>
 					</c:if>
 				<!-- 게시글 불러오기 -->
+				
 				<!-- 로그인 후 게시글 불러오기 -->
-				<c:forEach items="${requestScope.list}" var="data"
-					varStatus="status">
+				<div id="moreView">
+					<c:forEach items="${requestScope.list}" var="data">
 
-					<div class="row boardView">
-						<!-- 글 작성 틀 -->
-						<div class="col-md-12">
-							<div class="card w3-round-large">
-								<!-- 글 머리 : 사진, 닉네임 -->
-								<div class="header">
-									<span class="imgSpan">
-										<img class="imgTag" src="${pageContext.request.contextPath}/${data.memberImg}">
-									</span>
-									<span>&nbsp;&nbsp;${data.memberNick}</span>
-									<span class = "board-modify"data-toggle="modal" data-target="#modifyView" onclick="modifyBoard(${data.boardNum})">수정</span>
-									<span>/</span>
-									<span class = "board-delete" onclick = "deleteBoard(${data.boardNum})">삭제</span>
-								</div>
+						<div class="row boardView">
+							<!-- 글 작성 틀 -->
+							<div class="col-md-12">
+								<div class="card w3-round-large">
+									<!-- 글 머리 : 사진, 닉네임 -->
+									<div class="header">
+										<span class="imgSpan"> <img class="imgTag"
+											src="${pageContext.request.contextPath}/${data.memberImg}">
+										</span> <span>&nbsp;&nbsp;${data.memberNick}</span>
+										<span class = "board-modify"data-toggle="modal" data-target="#modifyView" onclick="modifyBoard(${data.boardNum})">수정</span>
+										<span>&nbsp;/&nbsp;</span>
+										<span class = "board-delete" onclick = "deleteBoard(${data.boardNum})">삭제</span>
+									</div>
 
-								<c:choose>
-									<c:when test="${data.boardSingoFlag eq 0}">
-										<!-- 글 내용 -->
-										<div class="content">
-											<span> <a href="" style="display: block;"
-												data-toggle="modal" data-target="#detailView"
-												onclick="searchBoard(${data.boardNum})">
-													${data.boardContent} </a>
-											</span>
+									<c:choose>
+										<c:when test="${data.boardSingoFlag eq 0}">
+											<!-- 글 내용 -->
+											<div class="content">
+												<span> <a href="" style="display: block;"
+													data-toggle="modal" data-target="#detailView"
+													onclick="searchBoard(${data.boardNum})"><img
+														style="max-width: 100%; height:300px;"
+														src="${pageContext.request.contextPath}/${data.boardFile}">
+														<c:if test="${data.boardFile ne ' '}">
+															<br>
+															<br>
+														</c:if> ${data.boardContent} </a>
+												</span>
+											</div>
+										</c:when>
+
+										<c:when test="${data.boardSingoFlag eq 1}">
+											<!-- 글 내용 -->
+											<div class="content">
+												<span> 본 게시글은 신고가 되었습니다 </span>
+											</div>
+										</c:when>
+									</c:choose>
+									<hr>
+
+									<!-- 글 작성 시간 -->
+									<div class="footer">
+										<div class="time-tag">
+											<i class="fa fa-clock-o"></i>
+											<fmt:formatDate value="${data.boardTime }"
+												pattern="yyyy년 M월 d일 H시 m분" />
 										</div>
-									</c:when>
-
-									<c:when test="${data.boardSingoFlag eq 1}">
-										<!-- 글 내용 -->
-										<div class="content">
-											<span> 본 게시글은 신고가 되었습니다 </span>
-										</div>
-									</c:when>
-								</c:choose>
-								<hr>
-
-								<!-- 글 작성 시간 -->
-								<div class="footer">
-									<div class="time-tag">
-										<i class="fa fa-clock-o"></i>
-										<fmt:formatDate value="${data.boardTime }"
-											pattern="yyyy년 M월 d일 H시 m분 s초" />
-
 									</div>
 								</div>
 							</div>
+							<br>
+							<!-- /글 작성 틀 -->
 						</div>
-						<br>
-						<!-- /글 작성 틀 -->
-					</div>
 
-				</c:forEach>
-				<button class="btn btn-default btnOrange"
-					onclick="moreBoardView(window.cnt = window.cnt + 3);">게시글
-					더보기</button>
+					</c:forEach>
+				</div>
+				<c:if test="${not empty boardList}">
+					<button class="btn btn-default btnOrange"
+						onclick="moreBoard(window.cnt = window.cnt + 3);">게시글 더보기</button>
+				</c:if>
 				<!-- /로그인 후 게시글 불러오기 -->
 
 
@@ -240,8 +246,8 @@
 				<div class="col-md-12 padding">
 					<!-- 글 머리 : 사진, 닉네임 -->
 					<div class="header padding" style="float: left; width: 45%;">
-						<span class="imgSpan"><img id = "profImg"></span>
-						&nbsp;&nbsp;&nbsp;<span id="memberNick"> </span>
+						<span class="imgSpan"><img class="imgTag" id="profImg"></span>
+						&nbsp;&nbsp;&nbsp;<span id="memberNick" style="font-weight:700;font-size:small;"> </span>
 					</div>
 
 					<!-- 글 조회수 -->
@@ -254,79 +260,59 @@
 
 					<!-- 글 내용 -->
 					<div class="content col-md-12 padding">
-						<span id="boardContent"> </span>
+						<img style="max-width: 100%" id="boardFileImg"
+							src="${pageContext.request.contextPath}/${boardSrc}"> <span
+							id="br"></span><span id="boardContent"> </span>
 					</div>
 					<hr>
 
 					<!-- 글 작성 시간 -->
 					<div class="footer">
 						<div class="time-tag" style="float: left;">
-							<i class="fa fa-clock-o"></i> &nbsp;&nbsp;&nbsp;<span
-								id="boardTime"></span>
+							<i class="fa fa-clock-o">&nbsp;&nbsp;<span id="boardTime"></span></i>
+							
 						</div>
 					</div>
-					<!-- 좋아요 카운트 수 -->
-					<div class="likeCnt" align="right">
-						<span id=boardLike></span>
-					</div>
-					<!-- /좋아요 카운트 수 -->
 
 					<div class="clear"></div>
 
 					<!-- 글 신고하기 버튼 -->
 					<div id="viewSingo" class="singoBtn" align="left">
-						<a class="btn btn-default btnOrange" href="" data-toggle="modal"
-							data-target="#singo"> 신고하기 </a>
+						<img src="${pageContext.request.contextPath}/resources/img/siren.svg" onclick="boardSingo()"
+						style="width:30px;height:30px;cursor:pointer;margin:0 5px;" title="신고하기">
 					</div>
 					<!-- /글 신고하기 버튼-->
 
-					<!-- 글 신고하기 상세내용 -->
-					<div class="modal fade" id="singo" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="col-md-12 padding">
-									<div>신고 사유 :</div>
-									<div class="clear"></div>
-									<div>
-										<form name="singo"
-											action="${pageContext.request.contextPath}/singo/addBoardSingo.do">
-											<textarea id="boardSingoReason" method="post" rows="1"
-												style="width: 100%; resize: none; wrap: hard;"
-												placeholder="이유가 뭐니" name="boardSingoReason"></textarea>
-											<br> <input type="hidden" name="boardNum" id="boardNum"
-												value="">
-											<div align="right">
-												<input type=submit class="btn btn-default btnOrange close"
-													value=신고하기>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /글 신고하기 상세내용 -->
-
 					<!-- 좋아요 버튼 -->
 					<div class="likeBtn" align="right">
-						<div id="like"></div>
+						<!-- 좋아요 카운트 -->
+						<div id=boardLike class="likeCnt" align="right" style="margin-top:3px;"></div>
+						<!-- /좋아요 카운트 -->
+						<div id="like">
+							<!-- <span id=boardLike></span> -->
+						</div>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /좋아요 버튼 -->
-
 					<div class="clear"></div>
-
+					<div class="clear"></div>
+					<hr>
+					<div class="clear"></div>
+					<div class="clear"></div>
 					<!-- 댓글 작성 틀 -->
 					<div style="float: left; width: 75%;" align="left">
 						<textarea id="replyContent" rows="1"
-							style="width: 100%; resize: none; wrap: hard;"
+							style="width: 109%; resize: none; wrap: hard; padding:3px;border-radius:4px;"
 							placeholder="댓글을 입력하세요" name="replyContent"></textarea>
 					</div>
 					<div style="float: right;" align="right">
-						<button class="btn btn-default btnOrange" onclick="addReply()">작성완료</button>
+						<button style="padding:4px 10px;background-color:#F7921E;color:white;border-radius:4px;border:none;"
+						onclick="addReply()">작성완료</button>
 						<input type="hidden" name="boardNum" id="boardNum" value="">
-						<input type="hidden" name="memberId" id="memberId" value="">
+						<input type="hidden" name="memberId" id="memberId"
+							value="${sessionScope.id}">
 					</div>
 					<!-- /댓글 작성 틀 -->
 
@@ -334,14 +320,13 @@
 				<!--/글 작성 틀-->
 
 				<!-- 댓글 내용 -->
-				<div id="replyHTML"></div>
+				<div id="replyHTML" style="margin-bottom: -2%;"></div>
 				<!-- /댓글 내용 -->
-				<button class="btn btn-default btnOrange"
-					onclick="moreReplyView(window.cnt = window.cnt + 3);">댓글
+				<button class="btn btn-default btnOrange btn-margin"
+					style="margin-bottom: 2%;border:none;"
+					onclick="moreReplyView(window.cnt1 = window.cnt1 + 3);">댓글
 					더보기</button>
-
 			</div>
-
 		</div>
 	</div>
 	<!-- /글 상세보기 모달 -->

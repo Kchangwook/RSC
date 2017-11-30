@@ -199,7 +199,7 @@
 		// 그룹 상세보기
 		function showGroup(groupNum) {
 
-			location.href = "${pageContext.request.contextPath}/basic/group.do?groupNum=" + groupNum;
+			location.href = "${pageContext.request.contextPath}/basic/group.do?groupNum="+groupNum+"&cnt=1";
 
 		}
 		

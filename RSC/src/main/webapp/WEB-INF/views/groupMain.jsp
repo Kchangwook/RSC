@@ -137,6 +137,9 @@
 				
 				<!-- 그룹 글 리스트 출력 부분 -->
 				<div class="group-boardList">
+				<input type="hidden" id="groupLevel" value="${requestScope.groupLevel}">
+				<input type="hidden" id="sessionLevel" value="${sessionScope.level}">
+				<div id="moreView">
 					<c:forEach items="${requestScope.groupBoardList}" var="data">
 						<div class="row boardView">
 							<!-- 글 작성 틀 -->
@@ -194,10 +197,12 @@
 							<!--/글 작성 틀-->
 						</div>
 					</c:forEach>
-					
-					<button class="btn btn-default btnOrange" onclick="moreBoardView(window.cnt = window.cnt + 3);">
-						게시글 더보기
-					</button>
+					</div>
+				<c:if test="${not empty requestScope.groupBoardList}">
+					<input type="hidden" id="groupNum" value="${requestScope.groupInfo.groupNum}">
+					<button class="btn btn-default btnOrange"
+						onclick="moreGroupBoard(window.cnt = window.cnt + 3);">게시글 더보기</button>
+				</c:if>
 				</div>
 			</div>
 		<!-- 본문 끝 부분 -->

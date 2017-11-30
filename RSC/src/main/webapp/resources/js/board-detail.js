@@ -177,7 +177,7 @@ function append(resData) {
 	var div8 = document.createElement("div");
 	div8.className = "time-tag";
 	div8.appendChild(i1);
-	i1.textContent = time;
+	i1.textContent = "  "+time;
 	
 
 	div7.appendChild(div8);

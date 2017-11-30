@@ -206,7 +206,7 @@ public class GroupController {
 		Board b = new Board(groupNum, memberId, boardContent);
 		
 		boardService.addBoard(b, request);
-		return "redirect:../basic/group.do?groupNum="+groupNum;
+		return "redirect:../basic/group.do?groupNum="+groupNum+"&cnt=1";
 	}
 	
 	/** 가입한 그룹 목록 불러오기 */

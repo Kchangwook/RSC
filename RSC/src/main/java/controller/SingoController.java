@@ -107,7 +107,7 @@ public class SingoController {
 		noticeService.addNotice1(notice);
 		singoService.addBoardSingo(bs);
 		
-		return "redirect:../basic/group.do?groupNum="+groupNum;
+		return "redirect:../basic/group.do?groupNum="+groupNum+"&cnt=1";
 	} // end of addBoardSingo
 
 	/* 그룹 댓글 신고 등록 & 게시자에게 알림 주기*/
@@ -133,7 +133,7 @@ public class SingoController {
 		singoService.addReplySingo(rs);
 		
 		
-		return "redirect:../basic/group.do?groupNum="+groupNum;
+		return "redirect:../basic/group.do?groupNum="+groupNum+"&cnt=1";
 	} // end of addReplySingo
 	
 	/** 그룹 신고 */

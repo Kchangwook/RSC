@@ -77,4 +77,16 @@ public class BoardSubController {
 		
 	}//end of deleteBoard
 	
+	/** 그룹 게시글 더 불러오기 */
+	@RequestMapping("readMoreGroupBoard.do")
+	public @ResponseBody List<Board> readMoreGroupBoard(@RequestParam("groupNum") int groupNum,
+														@RequestParam("cnt") int cnt){
+		System.out.println(groupNum+"//"+cnt);
+		Board board = new Board(groupNum,cnt);
+		List<Board> list = boardService.searchByGroupNum(board);
+		System.out.println(list);
+		
+		return list;
+	}
+	
 } // end of BoardSubController
