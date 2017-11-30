@@ -219,7 +219,6 @@ public class BasicController {
 						@RequestParam("groupNum") String groupNum,
 						@RequestParam("cnt") int cnt) {
 		// 세션으로 부터 그룹의 관리자/회원/방문자 판단
-		System.out.println("controller");
 		
 		HttpSession session = request.getSession();
 		String id = String.valueOf(session.getAttribute("id")).trim();

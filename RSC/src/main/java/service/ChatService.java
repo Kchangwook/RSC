@@ -39,6 +39,7 @@ public class ChatService {
 		//채팅방 번호에 일치하는 회원 정보들 가져오기
 		for(Chat c:list) {
 			c.setMembers(chatDAO.getMembers(c.getChatNum()));
+			c.setRecentMessage(chatDAO.selectRecentMessageByChatNum(c.getChatNum()));
 			
 			//내 정보 제거하기
 			for(Member m:c.getMembers())
@@ -57,7 +58,6 @@ public class ChatService {
 	public boolean makeChatRoom(List<String> memberIds) {
 		
 		boolean flag = true;
-		System.out.println(memberIds);
 		
 		for(int i = 0;i<memberIds.size();i++) {
 			

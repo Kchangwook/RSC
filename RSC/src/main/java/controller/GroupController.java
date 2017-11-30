@@ -106,7 +106,6 @@ public class GroupController {
 		List<Member> groupAdminList = groupsService.searchGroupAdminByGroupNum(groupNum);
 		for (int i = 0; i < groupAdminList.size() ; i++) {
 			notice.setMemberId(groupAdminList.get(i).getMemberId().trim());
-			System.out.println(groupAdminList.get(i).getMemberId().trim());
 			if(!noticeService.addNotice(notice)) {
 				resultNotice = false;
 			}
@@ -225,7 +224,6 @@ public class GroupController {
 	public String deleteGroupMemberSelf(int groupNum, String memberId) {
 		GroupMember groupMember = new GroupMember(groupNum, memberId);
 		boolean result = groupsService.deleteGroupMember(groupMember);
-		System.out.println(groupMember);
 		
 		return "redirect:groupList.do";
 	}
@@ -290,7 +288,6 @@ public class GroupController {
 	@RequestMapping(value="groupInfoUpdate.do", method = RequestMethod.POST)
 	public String groupInfoUpdate(MultipartHttpServletRequest request) {
 		
-		System.out.println("여기");
 		
 		// 파라미터 값 설정
 		String groupNum = request.getParameter("groupNum").trim();
@@ -320,8 +317,6 @@ public class GroupController {
 		updatedGroupInfo.setGroupInterest(groupInterest);
 		updatedGroupInfo.setGroupImg(request.getParameter("groupImgSrc"));
 		
-		System.out.println(originGroupInfo);
-		System.out.println(updatedGroupInfo);
 		
 		groupsService.updateGroup(originGroupInfo, updatedGroupInfo, request);
 		

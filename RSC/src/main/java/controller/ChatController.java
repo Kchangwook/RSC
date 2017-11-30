@@ -76,7 +76,6 @@ public class ChatController {
 	/** 채팅 메시지 서버에 전송 */
 	@RequestMapping(value="sendingMsg.do", produces = "application/json; charset=utf8")
 	public @ResponseBody String sendingMessage(Message message) {
-		System.out.println(message);
 		boolean result = messageService.addMessage(message);
 		if(result) {
 			return "전송 성공";

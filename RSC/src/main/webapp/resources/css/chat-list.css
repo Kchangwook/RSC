@@ -49,6 +49,10 @@ div .chatImg{
 .chatRoom{
 	height:140px;
 }
+.chatRoom .footer{
+	padding : 10px 10px;
+	color : #ccc;
+}
 .chatNicks{
 	display:inline-block;
 	font-size: 25pt;

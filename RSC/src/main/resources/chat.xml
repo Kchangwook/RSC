@@ -16,6 +16,17 @@
 		<result property="memberImg" column="MEMBER_IMG" />
 	</resultMap>
 	
+	<resultMap id="messageResult" type="message">
+		<result property="chatNum" column="chat_num" />
+		<result property="messageNum" column="message_num" />
+		<result property="memberId" column="member_id" />
+		<result property="memberNick" column="member_nick" />
+		<result property="memberImg" column="member_img" />
+		<result property="messageSendingTime" column="message_sending_time" />
+		<result property="messageContent" column="message_content" />
+		<result property="messageFile" column="message_file" />
+	</resultMap>
+	
 	<select id = "getMemberByNum" parameterType = "int" resultMap = "memberResult">
 		select m.member_id,m.member_img,m.member_nick 
 		from chat c,member m
@@ -23,7 +34,11 @@
 	</select>
 	
 	<select id = "getChatNum" parameterType = "String" resultMap = "chatResult">
-		select chat_num from chat where member_id = #{memberId}
+		select c.chat_num
+		from chat c, message m
+		where c.member_id=#{memberId} and c.chat_num=m.chat_num
+		group by c.chat_num
+		order by max(m.message_sending_time) desc
 	</select>
 	
 	<insert id = "makeChatRoom" parameterType = "String">
@@ -42,5 +57,14 @@
 	<delete id="deleteChat" parameterType="chat">
 		delete chat where chat_num=#{chatNum} and member_id=#{memberId}
 	</delete>
+	
+	<!-- chat_num으로 최근 메시지 가져오기 -->
+	<select id="selectRecentMessageByChatNum" parameterType="int" resultMap="messageResult">
+		select * from
+		    (select *
+		    from message 
+		    where chat_num=#{chatNum} order by message_sending_time desc)
+		where rownum=1
+	</select>
 
 </mapper>

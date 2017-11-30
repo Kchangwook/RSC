@@ -7,6 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import domain.Chat;
 import domain.Member;
+import domain.Message;
 
 /** DB내의 Chat 테이블과 데이터를 주고 받는 클래스 */
 public class ChatDAO extends SqlSessionDaoSupport{
@@ -79,6 +80,12 @@ public class ChatDAO extends SqlSessionDaoSupport{
 		session = getSqlSession();
 		flag = session.insert("chat.addChatMemberInvited",chat) > 0 ? true : false ;
 		return flag;
+	}
+	
+	/** 채팅방 번호로 최근 메시지 가져오기 */
+	public Message selectRecentMessageByChatNum(int chatNum) {
+		session = getSqlSession();
+		return session.selectOne("chat.selectRecentMessageByChatNum", chatNum);
 	}
 	
 }//end of ChatDAO

@@ -1,5 +1,6 @@
 package domain;
 
+import java.sql.Date;
 import java.util.List;
 
 /** chat 테이블에 담을 정보 class */
@@ -9,15 +10,17 @@ public class Chat {
 	private int chatNum; // col : chat_num
 	private List<Member> members; // col : member_id
 	private String memberId;
+	private Message recentMessage;
 	
 	/* 생성자 */
 	public Chat() {}
-	public Chat(int chatNum, List<Member> members, String memberId) {
+	public Chat(int chatNum, List<Member> members, String memberId, Message recentMessage) {
 		super();
 		this.chatNum = chatNum;
 		this.members = members;
 		this.memberId = memberId;
-	}	
+		this.recentMessage = recentMessage;
+	}
 	
 	/* 프로퍼티 */
 	public int getChatNum() {
@@ -37,6 +40,13 @@ public class Chat {
 	}
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+	
+	public Message getRecentMessage() {
+		return recentMessage;
+	}
+	public void setRecentMessage(Message recentMessage) {
+		this.recentMessage = recentMessage;
 	}
 	
 	/* 함수 */

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib  prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,6 @@
 		<!-- 본문 부분 -->
 		<div class="content-page">
 
-			<!-- 그룹관리 메인페이지 -->
 			<div class="groupAdmin-page">
 				<div class="row" style = "margin-bottom: 0px;">
 					<div class="col-md-12">
@@ -65,7 +65,7 @@
 				<div id="chatDiv">
 						<div class="col-md-12">
 							<div class="card w3-round-large chatRoom" onclick = "goChat(${rooms.chatNum})">
-								<div class="content">
+								<div class="content" style="height:75%;">
 									<div class = "chatMemberProf">
 									<c:forEach var = "member" items = "${rooms.members}" varStatus = "state" begin = "0" end = "3">
 										<img class = "chatImg" src = "${pageContext.request.contextPath}/${member.memberImg}">
@@ -76,6 +76,11 @@
 											<span>${member.memberNick}<c:if test = "${not state.last}">,</c:if><c:if test = "${state.last and fn:length(rooms.members)>4}">, ...</c:if></span>
 										</c:forEach>
 									</div>
+								</div>
+								<div class="footer">
+									<span style="float:right">
+										<fmt:formatDate value="${rooms.recentMessage.messageSendingTime}" pattern="yyyy년 M월 d일 H시 m분" />									
+									</span>
 								</div>
 							</div>
 						</div>
