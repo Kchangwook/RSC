@@ -568,12 +568,11 @@ function replyNumber(replyNum){
 	replySingo();
 }
 
-//	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->
-window.onload = function(){
-	window.cnt = 1;
-	window.cnt1 = 3;
-	/* 더보기 버튼 클릭 이벤트 누를때마다 window.cnt +=3 */
-}
+////	<!-- 게시글 & 댓글 더보기 버튼 사용시 onload -->
+//window.onload = function(){
+//
+//	/* 더보기 버튼 클릭 이벤트 누를때마다 window.cnt +=3 */
+//}
 
 //<!-- 댓글 더 보기 -->
 function moreReplyView(cnt1){
