@@ -57,7 +57,7 @@ function checkMypageNick(nick) {
 		(58 <= nick && nick <= 64) ||
 		(91 <= nick && nick <= 96) ||
 		(123 <= nick && nick <= 126)) {
-		document.getElementById("mypage_msg").innerText = "닉네임에 공백을 입력할 수 없습니다";
+		document.getElementById("mypage_msg").innerText = "닉네임에 특수문자 및 공백을 입력할 수 없습니다";
 		return false;
 	} else {
 		document.getElementById("mypage_msg").innerText = "";

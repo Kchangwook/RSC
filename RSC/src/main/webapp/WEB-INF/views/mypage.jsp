@@ -69,7 +69,8 @@
 								</tr>
 								<tr>
 									<td colspan='2'><input type="text" name="myNick" id="myNick"
-										onblur="checkMypageNick(this.value)" placeholder="${ member.memberNick }"></td>
+										onblur="checkMypageNick(this.value)" placeholder="${ member.memberNick }">
+										<input type="hidden" name="hiddenUpdateNick" id="hiddenUpdateNick" value=""></td>
 								</tr>
 								<tr>
 									<td colspan='2'>

@@ -494,15 +494,11 @@
 				}
 			}
 		}
-
-
 		
-
-		
-/*  		setInterval(	
+  		setInterval(	
  				function(){ 
 					updateChatTable();
-				}, 5000); */
+				}, 3000); 
 
 	</script>
 	
