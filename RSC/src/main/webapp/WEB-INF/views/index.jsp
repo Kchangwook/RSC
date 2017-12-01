@@ -82,7 +82,7 @@
 								<div class="content">
 									<span> <a href="#" style="display: block;"
 										data-toggle="modal" data-target="#detailView"
-										onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+										onclick="searchMainBoard(${item.boardNum})">${item.boardContent}</a>
 									</span>
 								</div>
 								<hr>
@@ -122,7 +122,7 @@
 								<div class="content">
 									<span> <a href="#" style="display: block;"
 										data-toggle="modal" data-target="#detailView"
-										onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+										onclick="searchMainBoard(${item.boardNum})">${item.boardContent}</a>
 									</span>
 								</div>
 								<hr>
@@ -162,7 +162,7 @@
 								<div class="content">
 									<span> <a href="#" style="display: block;"
 										data-toggle="modal" data-target="#detailView"
-										onclick="searchBoard(${item.boardNum})">${item.boardContent}</a>
+										onclick="searchMainBoard(${item.boardNum})">${item.boardContent}</a>
 									</span>
 								</div>
 								<hr>

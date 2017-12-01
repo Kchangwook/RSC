@@ -65,6 +65,29 @@ function checkMypageNick(nick) {
 	}
 }
 
+//동일한 닉네임이 있는지 확인
+function checkSameNick(nick) {
+	
+	var nick = document.getElementById("nick").value;
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText;
+			if(resData == 'true') {
+				document.getElementById("mypage_msg").innerText = "닉네임이 존재합니다.";
+				document.getElementById("hiddenUpdateNick").value = 0;
+			} else {
+				document.getElementById("mypage_msg").innerText = "";
+				document.getElementById("hiddenUpdateNick").value = 1;
+			}
+		}
+	}
+
+	xhttp.open("GET", "../join/checkNick.do?nick=" + nick, true);
+	xhttp.send();
+}
+
 // 필수 정보가 모두 입력되었는지 확인
 function checkMypageInfo() {
 
@@ -72,6 +95,7 @@ function checkMypageInfo() {
 	var nick = document.getElementById("myNick").value;
 	var interest = document.getElementsByName("myInterest");
 	var msg = document.getElementById("mypage_msg").innerText;
+	var hiddenUpdateNick = document.getElementById("hiddenUpdateNick").value;
 
 	var count = 0;
 
@@ -85,8 +109,9 @@ function checkMypageInfo() {
 	} else if (count == 0) {
 		alert("관심사를 선택하세요");
 		return false;
+	} else if(hiddenUpdateNick==0) {
+		alert("닉네임 중복을 확인해 주세요");
 	} else {
-		
 		document.getElementById("frmMypage").submit();
 	}
 }

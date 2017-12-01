@@ -34,11 +34,7 @@
 	</select>
 	
 	<select id = "getChatNum" parameterType = "String" resultMap = "chatResult">
-		select c.chat_num
-		from chat c, message m
-		where c.member_id=#{memberId} and c.chat_num=m.chat_num
-		group by c.chat_num
-		order by max(m.message_sending_time) desc
+		select chat_num from chat where member_id=#{memberId}
 	</select>
 	
 	<insert id = "makeChatRoom" parameterType = "String">
